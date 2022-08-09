@@ -12,7 +12,7 @@
     </div>
     <div class="bar">
       <div class="buton">
-        <router-link to="/stiri" class="link-router">Stiri</router-link>
+        <router-link to="/stiri" class="link-router">Știri</router-link>
       </div>
       <div class="buton">
         <router-link to="/program" class="link-router">Program</router-link>
@@ -24,14 +24,14 @@
         <p style="color: red; margin: 0" data-dropdown-button>Clasament</p>
         <div class="dropdown-menu">
           <router-link to="/clasament-echipe" class="text-dropdown">Echipe</router-link>
-          <router-link to="/clasament-piloti" class="text-dropdown">Piloti</router-link>
+          <router-link to="/clasament-piloti" class="text-dropdown">Piloți</router-link>
         </div>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
         <p style="color: red; margin: 0" data-dropdown-button>Rezultate</p>
         <div class="dropdown-menu">
           <router-link to="/rezultate-curse" class="text-dropdown">Curse</router-link>
-          <router-link to="/rezultate-calificari" class="text-dropdown">Calificari</router-link>
+          <router-link to="/rezultate-calificari" class="text-dropdown">Calificări</router-link>
         </div>
       </div>
       <div class="buton">

@@ -1,24 +1,24 @@
 <template>
-<div class="content-container">
-    <div v-for="team in teams" v-bind:key="team.id" class="constructor-container">
-        <div class="card-const">
-            <div class="partesus">
-                <p class="pozitie" id="pozitie">{{team.position}}</p>
-                <p class="nume-echipa" id="numeEchipa">{{team.Constructor.name}}</p>
-            </div>
-            <div class="partejos">
-                <div class="curse-castigate-cont">
-                    <p class="text-curse">Curse câștigate</p>
-                    <p class="curse-castigate" id="curseCastigate">{{team.wins}}</p>
+    <div class="content-container">
+        <div v-for="team in teams" v-bind:key="team.id" class="constructor-container">
+            <div class="card-const">
+                <div class="partesus">
+                    <p class="pozitie" id="pozitie">{{team.position}}</p>
+                    <p class="nume-echipa" id="numeEchipa">{{team.Constructor.name}}</p>
                 </div>
-                <div class="nrpuncte-cont">
-                    <p class="text-puncte"> Număr puncte</p>
-                    <p class="nrpuncte" id="nrpuncte">{{team.points}}</p>
+                <div class="partejos">
+                    <div class="curse-castigate-cont">
+                        <p class="text-curse">Curse câștigate</p>
+                        <p class="curse-castigate" id="curseCastigate">{{team.wins}}</p>
+                    </div>
+                    <div class="nrpuncte-cont">
+                        <p class="text-puncte"> Număr puncte</p>
+                        <p class="nrpuncte" id="nrpuncte">{{team.points}}</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </template>
 <script>
 export default {

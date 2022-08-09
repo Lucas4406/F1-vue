@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-    name: "HomeView",
+    name: "Stiri",
     mounted () {
         document.title= "Stiri"
     }
