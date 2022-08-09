@@ -1,0 +1,14 @@
+h1{
+    color:black;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:2vh;
+}
+.link-router{
+    text-decoration: none;
+    color: red;
+}
