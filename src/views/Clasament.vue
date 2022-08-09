@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-  name: "Home",
+  name: "Clasament",
   data () {
     return {
       teams: []
@@ -35,7 +35,7 @@ export default {
             this.teams = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
         })
         .catch(err => console.log(err.message)),
-    document.title="Clasament"
+    document.title="Clasament echipe"
   }
 }
 </script>

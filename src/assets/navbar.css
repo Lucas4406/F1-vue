@@ -18,11 +18,12 @@ body{
     align-items: center;
     padding-left:.3rem;
     padding-right: .3rem;
+    position: relative;
 }
-.buton.active{
-    opacity:.8;
+.buton:hover > a{
+    opacity: .7;
 }
-.buton:hover{
+.buton:hover > p:first-child{
     opacity:0.7;
 }
 .logo-f1{
@@ -37,6 +38,11 @@ body{
     border:none;
     cursor:pointer;
     width:100%;
+}
+.logo{
+    width:250px;
+    height:80px;
+    padding-top:.7rem;
 }
 .fia{
     width:100px;
@@ -74,15 +80,48 @@ body{
     height:3.125rem;
     align-items: center;
 }
-
+.dropdown-menu{
+    display: none;
+}
+.buton.active > .dropdown-menu{
+    position: absolute;
+    top:3rem;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:.5rem;
+    left:-.5rem;
+    border: 2px solid red;
+    width: 100%;
+}
+.buton.active:hover > .dropdown-menu > p{
+    opacity: 1;
+}
+.text-dropdown{
+    margin: 0;
+    text-decoration: none;
+    color: red;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:.25rem;
+}
+.text-dropdown:first-child{
+    border-bottom: 1px solid red;
+    padding-bottom:1rem;
+}
+.text-dropdown:nth-child(2){
+    padding-top:1rem;
+}
+.buton-text{
+    margin:0;
+}
 .router-link-exact-active > img{
     opacity: 1;
 }
 .router-link-exact-active{
     opacity: .7;
-}
-.logo{
-    width:250px;
-    height:80px;
-    padding-top:.7rem;
 }

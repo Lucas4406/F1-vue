@@ -15,45 +15,27 @@
         <router-link to="/stiri" class="link-router">Stiri</router-link>
       </div>
       <div class="buton">
-        <a
-          href="#"
-          style="color: red; text-decoration: none"
-        >
-          Program
-        </a>
+        <router-link to="/program" class="link-router">Program</router-link>
       </div>
       <div class="buton">
-        <a href="#" style="color: red; text-decoration: none">
-          Echipe
-        </a>
+        <router-link to="/echipe" class="link-router">Echipe</router-link>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
         <p style="color: red; margin: 0" data-dropdown-button>Clasament</p>
         <div class="dropdown-menu">
-          <a class="text-dropdown" href="#"
-            >Echipe</a
-          >
-          <a class="text-dropdown" href="#"
-            >Piloți</a
-          >
+          <router-link to="/clasament-echipe" class="text-dropdown">Echipe</router-link>
+          <router-link to="/clasament-piloti" class="text-dropdown">Piloti</router-link>
         </div>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
         <p style="color: red; margin: 0" data-dropdown-button>Rezultate</p>
         <div class="dropdown-menu">
-          <a class="text-dropdown" href="#">Curse</a>
-          <a class="text-dropdown" href="#"
-            >Calificări</a
-          >
+          <router-link to="/rezultate-curse" class="text-dropdown">Curse</router-link>
+          <router-link to="/rezultate-calificari" class="text-dropdown">Calificari</router-link>
         </div>
       </div>
       <div class="buton">
-        <a
-          href="#"
-          style="color: red; text-decoration: none"
-        >
-          Istorie
-        </a>
+        <router-link to="/echipe" class="link-router">Istorie</router-link>
       </div>
     </div>
   </div>
@@ -83,3 +65,7 @@ export default {
   },
 };
 </script>
+
+<style>
+ @import "../assets/navbar.css";
+</style>
