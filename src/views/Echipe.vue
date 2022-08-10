@@ -1,5 +1,5 @@
 <template>
-    <div class="content" id="echipeCont">
+    <div class="content-echipe" id="echipeCont">
             <a :href="echipa.link" target="_blank" v-for="echipa in echipe" :key="echipa.id">
                 <div class="box">
                     <div class="linie1">

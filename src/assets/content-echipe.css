@@ -118,7 +118,7 @@
 .box-am:hover .linie{
     color:#358C75;
 }
-.content{
+.content-echipe{
     display:grid;
     grid-template-columns: 30% 30%;
     column-gap:6.25rem;
@@ -209,8 +209,12 @@
 .content > a:nth-child(10){
     margin-bottom: 2rem;
 }
+a{
+    text-decoration: none;
+    color: black;
+}
 @media(max-width:1200px){
-    .content{
+    .content-echipe{
         grid-template-columns: 70%;
     }
     .box{
