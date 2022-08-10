@@ -3,6 +3,7 @@ import Stiri from '../views/Stiri.vue'
 import Clasament from "../views/Clasament.vue"
 import Home from "../views/Home.vue"
 import Echipe from '../views/Echipe.vue'
+import Clasamentpiloti from '../views/Clasamentpiloti.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
       path: "/clasament-echipe",
       name: "Clasament",
       component: Clasament
+    },
+    {
+      path: "/clasament-piloti",
+      name: "Clasamentpiloti",
+      component: Clasamentpiloti
     },
     {
       path: '/stiri',
