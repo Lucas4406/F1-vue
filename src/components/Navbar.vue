@@ -15,9 +15,6 @@
         <router-link to="/stiri" class="link-router">Știri</router-link>
       </div>
       <div class="buton">
-        <router-link to="/program" class="link-router">Program</router-link>
-      </div>
-      <div class="buton">
         <router-link to="/echipe" class="link-router">Echipe</router-link>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
@@ -33,6 +30,9 @@
           <router-link to="/rezultate-curse" class="text-dropdown">Curse</router-link>
           <router-link to="/rezultate-calificari" class="text-dropdown">Calificări</router-link>
         </div>
+      </div>
+      <div class="buton">
+        <router-link to="/joc" class="link-router">Joc</router-link>
       </div>
       <div class="buton">
         <router-link to="/istorie" class="link-router">Istorie</router-link>

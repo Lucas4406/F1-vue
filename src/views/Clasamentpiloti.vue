@@ -49,6 +49,7 @@ export default {
             this.piloti = data
         })
         .catch(err => console.log(err))
+        document.title="Clasament piloți"
     },
 }
 </script>
