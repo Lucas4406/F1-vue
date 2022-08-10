@@ -1,0 +1,225 @@
+.box{
+    border:3px solid black;
+    height:35vh;
+    display:grid;
+    grid-template-rows: 1fr 1fr 2fr;
+    border-left:0;
+    border-bottom:0;
+    border-radius:12px;
+    transition:0.20s;
+    transition: transform 250ms ease-in-out;
+}
+.box:hover{
+    transform: scale(1.02);
+}
+.box.dark-mode{
+    border-color: white;
+    background-color: #333;
+    color:white;
+}
+
+.box-fe:hover{
+    box-shadow:15px 15px 15px #F91536;
+    cursor:pointer;
+    border:3px solid #F91536;
+    border-left:0;
+    border-bottom:0;
+}
+.box-fe:hover .linie{
+    color:#F91536;
+}
+.box-me:hover{
+    box-shadow:15px 15px 15px #6CD3BF;
+    cursor:pointer;
+    border:3px solid #6CD3BF;
+    border-left:0;
+    border-bottom:0;
+}
+.box-me:hover .linie{
+    color:#6CD3BF;
+}
+.box-re:hover{
+    box-shadow:15px 15px 15px #3671C6;
+    cursor:pointer;
+    border:3px solid #3671C6;
+    border-left:0;
+    border-bottom:0;
+}
+.box-re:hover .linie{
+    color:#3671C6;
+}
+.box-mc:hover{
+    box-shadow:15px 15px 15px #F58020;
+    cursor:pointer;
+    border:3px solid #F58020;
+    border-left:0;
+    border-bottom:0;
+}
+.box-mc:hover .linie{
+    color:#F58020;
+}
+.box-al:hover{
+    box-shadow:15px 15px 15px #2293D1;
+    cursor:pointer;
+    border:3px solid #2293D1;
+    border-left:0;
+    border-bottom:0;
+}
+.box-al:hover .linie{
+    color:#2293D1;
+}
+.box-af:hover{
+    box-shadow:15px 15px 15px #C92D4B;
+    cursor:pointer;
+    border:3px solid #C92D4B;
+    border-left:0;
+    border-bottom:0;
+}
+.box-af:hover .linie{
+    color:#C92D4B;
+}
+.box-ha:hover{
+    box-shadow:15px 15px 15px #B6BABD;
+    cursor:pointer;
+    border:3px solid #B6BABD;
+    border-left:0;
+    border-bottom:0;
+}
+.box-ha:hover .linie{
+    color:#B6BABD;
+}
+.box-at:hover{
+    box-shadow:15px 15px 15px #5E8FAA;
+    cursor:pointer;
+    border:3px solid #5E8FAA;
+    border-left:0;
+    border-bottom:0;
+}
+.box-at:hover .linie{
+    color:#5E8FAA;
+}
+.box-wi:hover{
+    box-shadow:15px 15px 15px #37BEDD;
+    cursor:pointer;
+    border:3px solid #37BEDD;
+    border-left:0;
+    border-bottom:0;
+}
+.box-wi:hover .linie{
+    color:#37BEDD;
+}
+.box-am:hover{
+    box-shadow:15px 15px 15px #358C75;
+    cursor:pointer;
+    border:3px solid #358C75;
+    border-left:0;
+    border-bottom:0;
+}
+.box-am:hover .linie{
+    color:#358C75;
+}
+.content{
+    display:grid;
+    grid-template-columns: 30% 30%;
+    column-gap:6.25rem;
+    row-gap: 1.875rem;
+    justify-content: center;
+    margin-top:1%;
+    height: 100vh;
+}
+.linie1{
+    display:grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+.poza1{
+    width: 100%;
+    margin-top:0.313rem;
+}
+.numee{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:2.5rem;
+    font-weight: 600;
+}
+.linie{
+    font-size:3.75rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left:.5rem;
+}
+.linie2{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+.linie3{
+    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x1.png);
+    background-repeat: repeat;
+    background-size: 8px;
+    border-radius: 0  0 12px 0;
+}
+.nume1, .nume2{
+    font-size:1.5rem;
+    display:flex;
+    justify-content: center;
+}
+.poza{
+    width:100%;
+    transition: transform 250ms ease-in-out;
+}
+.box:hover > .linie3 > .poza{
+    transform: scale(1.02);
+}
+.am{
+    margin:auto;
+    margin-left:1.875rem;
+    font-size:2.5rem;
+    font-weight: 600;
+}
+.haas{
+    margin:auto;
+    margin-left:5.938rem;
+    font-size:2.5rem;
+    font-weight: 600;
+}
+.at{
+    margin:auto;
+    margin-left:1.875rem;
+    font-size:2.5rem;
+    font-weight: 600;
+}
+.ar{
+    margin:auto;
+    margin-left:2.5rem;
+    font-size:2.5rem;
+    font-weight: 600;
+}
+.alpine{
+    margin:auto;
+    margin-left:4.688rem;
+    font-size:2.5rem;
+    font-weight: 600;
+}
+.content > a{
+    text-decoration: none;
+    color:black;
+}
+.content > a:nth-child(10){
+    margin-bottom: 2rem;
+}
+@media(max-width:1200px){
+    .content{
+        grid-template-columns: 70%;
+    }
+    .box{
+        height:auto;
+    }
+    .nume1, .nume2{
+        font-size:1.7rem;
+    }
+    .numee{
+        font-size:3rem;
+    }
+}

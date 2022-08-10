@@ -119,9 +119,6 @@ body{
 .buton-text{
     margin:0;
 }
-.router-link-exact-active > img{
-    opacity: 1;
-}
 .router-link-exact-active{
-    opacity: .7;
+    opacity: .8;
 }
