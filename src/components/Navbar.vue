@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="buton">
-        <router-link to="/echipe" class="link-router">Istorie</router-link>
+        <router-link to="/istorie" class="link-router">Istorie</router-link>
       </div>
     </div>
   </div>
