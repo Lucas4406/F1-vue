@@ -1,0 +1,19 @@
+p{
+    margin: 0;
+}
+.reaction-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+}
+.reaction-titlu{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.start-button{
+    font-size: 1.5rem;
+    padding: .3 .5rem;
+    width:10%;
+}

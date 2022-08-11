@@ -1,0 +1,10 @@
+.reaction-block{
+    width:40%;
+    border-radius: 20px;
+    background-color: aqua;
+    color: white;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

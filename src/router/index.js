@@ -5,6 +5,7 @@ import Home from "../views/Home.vue"
 import Echipe from '../views/Echipe.vue'
 import Clasamentpiloti from '../views/Clasamentpiloti.vue'
 import Istorie from '../views/Istorie.vue'
+import Joc from "../views/Joculet.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/stiri',
       name: 'Stiri',
       component: Stiri
+    },
+    {
+      path: '/joc',
+      name: 'Joc',
+      component: Joc
     },
     {
       path: '/istorie',
