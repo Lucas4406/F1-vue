@@ -1,0 +1,16 @@
+.reaction-block{
+    width:30%;
+    border-radius: 20px;
+    background-color: red;
+    color: white;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media(max-width: 900px){
+    .reaction-block{
+        height:30%;
+        width:50%;
+    }
+}

@@ -1,0 +1,49 @@
+p{
+    margin: 0;
+}
+.reaction-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 80vh;
+    position: relative;
+    font-size: 1.5rem;
+}
+.reaction-titlu{
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+.btn{
+    font-size: 2rem;
+}
+.timpi-tabel{
+    position: absolute;
+    font-size:2rem;
+    right:1rem;
+    top:20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding:.5rem;
+}
+.timpi-tabel > p{
+    border-top: 1px solid black;
+    width: 100%;
+    text-align: center;
+}
+.result-box{
+    position: absolute;
+    bottom:1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media(max-width: 900px){
+    .timpi-tabel{
+        top:50%;
+    }
+}
