@@ -36,7 +36,21 @@ p{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    border: 2px solid black;
+    border-radius: 3%;
+    padding:.5rem;
+}
+.best-tabel{
+    position: absolute;
+    font-size:2rem;
+    left:1rem;
+    top:20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 3%;
     padding:.5rem;
 }
 .timpi-tabel > p{
@@ -52,8 +66,22 @@ p{
     justify-content: center;
     align-items: center;
 }
+.instructiuni{
+    display: flex;
+    flex-direction: column;
+    gap:.3rem;
+}
 @media(max-width: 900px){
+    .reaction-titlu{
+        font-size: 2rem;
+    }
     .timpi-tabel{
         top:50%;
+    }
+    .result-box{
+        bottom:10%;
+    }
+    .reaction-wrapper{
+        font-size: 2rem;
     }
 }

@@ -16,11 +16,14 @@ export default {
         if(this.score < 100){
             this.rank = "De ce nu te-ai făcut pilot?"
         }else if(this.score > 100 && this.score < 200){
-            this.rank = "Ești destul de rapid!"
+            this.rank = "Ești șofer în București"
         }else if(this.score > 200 && this.score < 300){
-            this.rank = "Ești șofer dă București"
-        }else{
-            this.rank = "Nu ar strica mai mult antrenament"
+            this.rank = "Ești destul de rapid!"
+        }else if(this.score > 300 && this.score < 400){
+            this.rank = "Nu ar strica puțin antrenament"
+        }
+        else{
+            this.rank = "Ai adormit?"
         }
     }
 }
