@@ -14,8 +14,18 @@
         </div>
         <div class="timpi-tabel">
             <span v-if="textshow">Ultimul timp:</span>
-            <span v-else>Ultimii timpi:</span>
+            <span v-else>Rezultate:</span>
             <p v-for="timpi in timp.slice().reverse()" :key="timpi.id">{{timpi}} ms</p>
+        </div>
+        <div class="instructiuni" v-if="!isPlaying">
+            <p class="instructiune">1. Apasă pe butonul <span style="color: red">"Start"</span></p>
+            <p class="instructiune">2. Așteaptă câteva secunde</p>
+            <p class="instructiune">3. Apasă pe cutiuța apărută</p>
+            <p class="instructiune">4. Verifică scorul</p>
+        </div>
+        <div class="best-tabel" v-if="!textshow">
+            <span>Cel mai bun timp:</span>
+            <span style="font-weight: bold">{{maxim}} ms</span>
         </div>
     </div>
 </template>
@@ -35,7 +45,8 @@ export default{
             score: null,
             showResult: false,
             timp: [],
-            textshow: true
+            textshow: true,
+            maxim: 999999,
         };
     },
     mounted() {
@@ -66,6 +77,11 @@ export default{
                     this.textshow = false
                 } catch(e) {
                     localStorage.removeItem('score');
+                }
+            }
+            for(var i = 0;i<this.timp.length;i++){
+                if(this.maxim > this.timp[i]){
+                    this.maxim = this.timp[i]
                 }
             }
         }
