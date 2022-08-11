@@ -16,6 +16,16 @@ p{
 }
 .btn{
     font-size: 2rem;
+    padding: .3rem .5rem;
+    color: white;
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 10%;
+    transition: transform 250ms ease-in-out;
+    cursor: pointer;
+}
+.btn:hover{
+    transform: scale(1.05);
 }
 .timpi-tabel{
     position: absolute;
