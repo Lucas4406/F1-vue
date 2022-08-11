@@ -1,6 +1,6 @@
 <template>
     <div class="reaction-block" v-if="show" @click="stopTimer">
-        click me
+        Boom
     </div>
 </template>
 <script>

@@ -1,5 +1,6 @@
 <template>
-    <p>Timpul tau de reactie este de: {{score}} ms</p>
+    <span>Timpul tău de reacție este de:</span>
+    <span style="font-weight: bold">{{score}} ms</span>
     <br>
     <p>{{rank}}</p>
 </template>
@@ -17,7 +18,7 @@ export default {
         }else if(this.score > 100 && this.score < 200){
             this.rank = "Ești destul de rapid!"
         }else if(this.score > 200 && this.score < 300){
-            this.rank = "Ești șofer prin București"
+            this.rank = "Ești șofer dă București"
         }else{
             this.rank = "Nu ar strica mai mult antrenament"
         }

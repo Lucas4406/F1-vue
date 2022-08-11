@@ -5,11 +5,18 @@
             Jocul de reacție folosit de piloții de Formula 1
         </p>
         <br>
-        <button class="start-button" @click="start" :disabled="isPlaying">Start</button>
+        <button type="button" class="btn btn-danger" @click="start" :disabled="isPlaying">Start</button>
         <br>
         <br>
         <Boxreactie v-if="isPlaying" :delay="delay" @sfarsit="endGame" />
-        <Results v-if="showResult" :score="score"/>
+        <div class="result-box" v-if="showResult">
+            <Results :score="score"/>
+        </div>
+        <div class="timpi-tabel">
+            <span v-if="textshow">Ultimul timp:</span>
+            <span v-else>Ultimii timpi:</span>
+            <p v-for="timpi in timp.slice().reverse()" :key="timpi.id">{{timpi}} ms</p>
+        </div>
     </div>
 </template>
 <script>
@@ -21,16 +28,25 @@ export default{
     Boxreactie,
     Results,
 },
-    mounted() {
-        document.title = "Joc Reacție";
-    },
     data() {
         return {
             isPlaying: false,
             delay: null,
             score: null,
-            showResult: false
+            showResult: false,
+            timp: [],
+            textshow: true
         };
+    },
+    mounted() {
+        document.title = "Joc Reacție";
+        if (localStorage.getItem('score')) {
+            try {
+                this.timp.push(localStorage.getItem('score'))
+            } catch(e) {
+                localStorage.removeItem('score');
+            }
+        }
     },
     methods: {
         start() {
@@ -42,6 +58,16 @@ export default{
             this.score = timpReactie
             this.isPlaying = false
             this.showResult = true
+            const parsed = JSON.stringify(this.score);
+            localStorage.setItem('score', parsed);
+            if (localStorage.getItem('score')) {
+                try {
+                    this.timp.push(localStorage.getItem('score'))
+                    this.textshow = false
+                } catch(e) {
+                    localStorage.removeItem('score');
+                }
+            }
         }
     },
 }
