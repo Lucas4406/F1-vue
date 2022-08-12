@@ -1,4 +1,4 @@
-.content-container{
+.content-container-echipe{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 1rem;
@@ -127,7 +127,7 @@
     margin:0;
 }
 @media(max-width: 1500px){
-    .content-container{
+    .content-container-echipe{
         display: flex;
         flex-direction: column;
     }

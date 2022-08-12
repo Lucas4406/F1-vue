@@ -1,5 +1,5 @@
 <template>
-    <div class="content-container">
+    <div class="content-container-echipe">
         <div v-for="team in teams" v-bind:key="team.id" class="constructor-container">
             <div class="card-const">
                 <div class="partesus">
