@@ -1,0 +1,24 @@
+.search-icon{
+    width: 100%;
+}
+
+.search-wrapper {
+    width: 20%;
+    position: relative;
+    display: flex;
+}
+  
+.search-bar {
+    font-size: 1rem;
+    width: 100%;
+    border: 2px solid #333;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #333;
+}
+  
+.search-bar:focus{
+    color: #333;
+}
