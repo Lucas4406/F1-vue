@@ -75,6 +75,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    transition: transform 250ms ease-in-out;
+}
+.pilot:hover{
+    transform: scale(1.02);
+}
+.pilot:hover > .parte-dreapta{
+    font-size: 1.6rem;
 }
 .parte-stanga{
     width:50%;
