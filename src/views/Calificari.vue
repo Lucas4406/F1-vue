@@ -3,7 +3,10 @@
         <div class="text-wrap">
             <p class="text-titlu" ref="titlul">Rezultate calificări 2022</p>
         </div>
-        <div class="tabel-container" v-for="calificare in calificari.slice().reverse()" :key="calificare.id" ref="calificari">
+        <div class="search-wrapper">
+            <input type="text" v-model="search" placeholder="Cautare" class="search-bar"/>
+        </div>
+        <div class="tabel-container" v-for="calificare in filterCurse.slice().reverse()" :key="calificare.id" ref="calificari">
             <div>
                 <div class="nume-cursa">{{calificare.raceName}}</div>
                 <div class="data-cursa">{{new Date(calificare.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</div>
@@ -37,6 +40,7 @@ export default {
     data() {
         return {
             calificari: [],
+            search: "",
         }
     },
     methods: {
@@ -52,9 +56,17 @@ export default {
             this.calificari = data.MRData.RaceTable.Races
         })
     },
+    computed: {
+        filterCurse: function () {
+            return this.calificari.filter((calificare) => {
+                return calificare.raceName.toLowerCase().match(this.search.toLowerCase())
+            })
+        }
+    }
 }
 </script>
 
 <style>
     @import "../assets/calificari.css";
+    @import "../assets/searchbar.css";
 </style>
