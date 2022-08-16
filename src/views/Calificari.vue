@@ -4,9 +4,9 @@
             <p class="text-titlu" ref="titlul">Rezultate calificări 2022</p>
         </div>
         <div class="search-wrapper">
-            <input type="text" v-model="search" placeholder="Cautare" class="search-bar"/>
+            <input type="text" v-model="search" placeholder="Căutare" class="search-bar"/>
         </div>
-        <div class="tabel-container" v-for="calificare in filterCurse.slice().reverse()" :key="calificare.id" ref="calificari">
+        <div class="tabel-container" v-for="calificare in filterCurse.slice().reverse()" :key="calificare.id">
             <div>
                 <div class="nume-cursa">{{calificare.raceName}}</div>
                 <div class="data-cursa">{{new Date(calificare.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</div>
