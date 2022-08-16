@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: "Calificari",
     data() {
@@ -48,13 +49,21 @@ export default {
     },
     mounted() {
         document.title = "Rezultate Calificări";
-        fetch("https://ergast.com/api/f1/2022/qualifying.json?limit=1000")
-        .then(response => 
-            response.json()
-        )
-        .then(data => {
-            this.calificari = data.MRData.RaceTable.Races
-        })
+        this.getData()
+    },
+    methods: {
+        async getData () {
+            var j
+            for(j=2022;j>2021;j--){
+                fetch(`https://ergast.com/api/f1/${j}/qualifying.json?limit=1000`)
+                .then(response => 
+                    response.json()
+                )
+                .then(data => {
+                    this.calificari = data.MRData.RaceTable.Races
+                })
+            }
+        }
     },
     computed: {
         filterCurse: function () {
