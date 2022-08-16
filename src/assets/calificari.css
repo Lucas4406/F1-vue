@@ -136,6 +136,12 @@
 .first-timp{
     font-weight: 600;
 }
+.piloti-container:nth-child(5) > .pilot > .parte-stanga{
+    font-weight: bold;
+}
+.piloti-container:nth-child(5) > .pilot > .parte-dreapta > #q3{
+    font-weight: bold;
+}
 @media(max-width:1250px){
     .tabel-container{
         width: 70%;
