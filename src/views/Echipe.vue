@@ -38,7 +38,7 @@ export default {
     },
     mounted () {
         document.title = "Echipe"
-        fetch("https://aqueous-escarpment-24578.herokuapp.com/https://f1-site-api.vercel.app/echipe")
+        fetch("https://aqueous-escarpment-24578.herokuapp.com/https://f1scraper44.herokuapp.com/echipe")
         .then(res => res.json())
         .then(data => {
             this.echipe = data
