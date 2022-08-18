@@ -15,6 +15,6 @@ export default {
 
 
 <style>
-  @import "./assets/navbar.css";
+  @import "./components/css/navbar.css";
   @import "./assets/main.css";
 </style>

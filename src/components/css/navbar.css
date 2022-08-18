@@ -81,9 +81,6 @@ body{
     align-items: center;
 }
 .dropdown-menu{
-    display: none;
-}
-.buton.active > .dropdown-menu{
     position: absolute;
     top:3rem;
     background-color: black;
@@ -95,6 +92,15 @@ body{
     left:-.5rem;
     border: 2px solid red;
     width: 100%;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+    pointer-events: none;
+}
+.buton.active > .dropdown-menu{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
 }
 .buton.active:hover > .dropdown-menu > p{
     opacity: 1;

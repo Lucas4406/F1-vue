@@ -67,5 +67,5 @@ export default {
 </script>
 
 <style>
- @import "../assets/navbar.css";
+ @import "./css/navbar.css";
 </style>
