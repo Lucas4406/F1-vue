@@ -115,6 +115,9 @@
     justify-content: center;
     align-items: center;
 }
+.fastet-lap .fastestlap{
+    font-weight: bold;
+}
 .fastest-text{
     display: block;
 }
