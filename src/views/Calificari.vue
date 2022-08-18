@@ -68,7 +68,7 @@ export default {
     computed: {
         filterCurse: function () {
             return this.calificari.filter((calificare) => {
-                return calificare.raceName.toLowerCase().match(this.search.toLowerCase())
+                return calificare.raceName.toLowerCase().match(this.search.toLowerCase()) || calificare.Circuit.Location.country.toLowerCase().match(this.search.toLowerCase())
             })
         }
     }

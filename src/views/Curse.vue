@@ -1,0 +1,86 @@
+<template>
+    <br>
+    <div class="container-curse">
+        <p class="titlu-pagina-curse">Rezultate curse 2022</p>
+        <div class="search-wrapper">
+            <input type="text" v-model="search" placeholder="Căutare" class="search-bar"/>
+        </div>
+        <div class="tabel-container-curse" v-for="cursa in filterCurse.slice().reverse()" :key="cursa.id">
+            <div class="tabel-cursa">
+                <div class="tabel-header">
+                    <p class="nume-cursa">{{cursa.raceName}}</p>
+                    <p class="data-cursa">{{new Date(cursa.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
+                    <p class="loc-cursa">{{cursa.Circuit.Location.country}}</p>
+                </div>
+                <div class="tabel-body-curse">
+                    <div class="pilot-container-curse" v-for="pilot in cursa.Results" :key="pilot.id">
+                        <div class="parte-sus-pilot">
+                            <div class="pozitie-curse">{{pilot.position}}</div>
+                            <div class="numesiechipa">
+                                <p class="nume-pilot">{{pilot.Driver.givenName}} {{pilot.Driver.familyName}}</p>
+                                <p class="echipa-pilot">{{pilot.Constructor.name}}</p>
+                            </div>
+                        </div>
+                        <div class="parte-jos-pilot">
+                            <div class="status">
+                                <p class="status-text">Status</p>
+                                <p class="status-status">{{pilot.status}}</p>
+                            </div>
+                            <div class="fastest-lap">
+                                <p class="fastest-text">Cel mai rapid tur</p>
+                                <p class="fastet-lap"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+export default {
+    name: "Curse",
+    data() {
+        return {
+            curse: [],
+            search: "",
+        }
+    },
+    mounted() {
+        document.title = "Rezultate Curse";
+        this.getCurse()
+    },
+    methods: {
+        async getCurse () {
+            var link = "https://ergast.com/api/f1/2022/results.json?limit=1000"
+            const response = await axios.get(link)
+            const resData = response.data.MRData.RaceTable.Races
+            this.curse = resData
+            //am incercat cu timpul
+           /*  for(var i = resData.length-1; i>=0;i--){
+                for(var j = resData[i].Results.length-1; j>=0;j--){
+                    if(resData[i].Results[j].FastestLap === undefined){
+                        this.curse.push(resData[i].Results[j].FastestLap.Time.time = "-")
+                    }else{
+                        console.log("nope");
+                    }
+                }
+            } */
+        }
+    },
+    computed: {
+        filterCurse: function () {
+            return this.curse.filter((cursa) => {
+                return cursa.raceName.toLowerCase().match(this.search.toLowerCase()) || cursa.Circuit.Location.country.toLowerCase().match(this.search.toLowerCase())
+            })
+        }
+    }
+}
+</script>
+
+<style>
+    @import "../assets/curse.css";
+    @import "../assets/searchbar.css";
+</style>
