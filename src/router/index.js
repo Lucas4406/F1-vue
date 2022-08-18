@@ -7,6 +7,8 @@ import Clasamentpiloti from '../views/Clasamentpiloti.vue'
 import Istorie from '../views/Istorie.vue'
 import Joc from "../views/Joculet.vue"
 import Calificari from "../views/Calificari.vue"
+import Curse from "../views/Curse.vue"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +32,11 @@ const router = createRouter({
       path: "/rezultate-calificari",
       name: "Calificari",
       component: Calificari
+    },
+    {
+      path: "/rezultate-curse",
+      name: "Curse",
+      component: Curse
     },
     {
       path: "/clasament-piloti",

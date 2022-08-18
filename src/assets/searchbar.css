@@ -22,3 +22,8 @@
 .search-bar:focus{
     color: #333;
 }
+@media(max-width: 1000px){
+    .search-wrapper {
+        width: 40%;
+    }
+}
