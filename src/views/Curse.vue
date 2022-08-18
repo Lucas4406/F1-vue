@@ -58,6 +58,7 @@ export default {
             const response = await axios.get(link)
             const resData = response.data.MRData.RaceTable.Races
             this.curse = resData
+            //am incercat cu timpul
            /*  for(var i = resData.length-1; i>=0;i--){
                 for(var j = resData[i].Results.length-1; j>=0;j--){
                     if(resData[i].Results[j].FastestLap === undefined){
