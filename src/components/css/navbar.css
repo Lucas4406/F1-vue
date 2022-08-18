@@ -19,6 +19,7 @@ body{
     padding-left:.3rem;
     padding-right: .3rem;
     position: relative;
+    user-select: none;
 }
 .buton:hover > a{
     opacity: .7;
@@ -90,11 +91,12 @@ body{
     align-items: center;
     padding:.5rem;
     left:-.5rem;
-    border: 2px solid red;
+    border-top: 2px solid red;
+    box-shadow: 0 3px 10px #333;
     width: 100%;
     opacity: 0;
     transform: translateY(-10px);
-    transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
     pointer-events: none;
 }
 .buton.active > .dropdown-menu{
