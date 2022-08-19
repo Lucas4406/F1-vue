@@ -33,6 +33,10 @@
 .poza1.darkmode{
     display:none;
 }
+.darkmodeBtn > p{
+    font-size: 1rem;
+    font-weight: bold;
+}
 @media(max-width:1380px){
     .darkmodeBtn{
         width:60px;

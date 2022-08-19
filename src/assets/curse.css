@@ -1,3 +1,6 @@
+html{
+    scroll-behavior: smooth;
+}
 .container-curse{
     display: flex;
     justify-content: center;
