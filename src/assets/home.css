@@ -97,7 +97,6 @@ body.darkmode{
 .titlu{
     display:flex;
     justify-content:space-between;
-    flex-direction:row;
     margin-right:0.625rem;
     margin-left:0.625rem;
     align-items: center;

@@ -35,9 +35,9 @@ import Results from "../components/results.vue"
 export default{
     name: "joc",
     components: {
-    Boxreactie,
-    Results,
-},
+        Boxreactie,
+        Results,
+    },
     data() {
         return {
             isPlaying: false,
