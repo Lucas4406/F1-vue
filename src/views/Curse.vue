@@ -2,19 +2,16 @@
     <br>
     <div class="container-curse">
         <div class="scroll-btns" v-show="show">
-            <button class="darkmodeBtn" @click="scrollMeTo('sezon-2022')">
-                2022
-            </button>
-            <br>
-            <button class="darkmodeBtn" @click="scrollMeTo('sezon-2021')">
-                2021
+            <button class="darkmodeBtn" @click="ancursa()">
+                <p v-show="textButon">2022</p>
+                <p v-show="!textButon">2021</p>
             </button>
         </div>
-        <p class="titlu-pagina-curse" ref="sezon-2022">Rezultate curse 2022</p>
-        <div class="search-wrapper">
+        <p class="titlu-pagina-curse" ref="sezon-2022" v-show="!an2021">Rezultate curse 2022</p>
+        <div class="search-wrapper" v-show="!an2021">
             <input type="text" v-model="search" placeholder="Căutare" class="search-bar"/>
         </div>
-        <div class="tabel-container-curse">
+        <div class="tabel-container-curse" v-show="!an2021">
             <div class="tabel-cursa"  v-for="cursa in filterCurse.slice().reverse()" :key="cursa.id">
                 <div class="tabel-header">
                     <p class="nume-cursa">{{cursa.raceName}}</p>
@@ -44,13 +41,13 @@
                 </div>
             </div>
         </div>
-        <div class="spatiu-intre" v-show="show">-</div>
+        <div class="spatiu-intre" v-show="showSeparator">-</div>
         <!-- 2021 -->
-        <p class="titlu-pagina-curse" ref="sezon-2021" v-show="show">Rezultate curse 2021</p>
-        <div class="search-wrapper" v-show="show">
+        <p class="titlu-pagina-curse" ref="sezon-2021" v-show="show && an2021">Rezultate curse 2021</p>
+        <div class="search-wrapper" v-show="show && an2021">
             <input type="text" v-model="search2021" placeholder="Căutare" class="search-bar"/>
         </div>
-        <div class="tabel-container-curse">
+        <div class="tabel-container-curse" v-show="show && an2021">
             <div class="tabel-cursa"  v-for="cursa2021 in filterCurse2021" :key="cursa2021.id">
                 <div class="tabel-header">
                     <p class="nume-cursa">{{cursa2021.raceName}}</p>
@@ -95,6 +92,9 @@ export default {
             curse2021: [],
             search2021: "",
             show: false,
+            an2021: false,
+            showSeparator: false,
+            textButon: false,
         }
     },
     mounted() {
@@ -146,12 +146,15 @@ export default {
                 }
             }
         },
-        scrollMeTo(refName) {
-            var element = this.$refs[refName];
-            element.scrollIntoView();
-            window.scrollTo({
-                top: element.offsetTop - 170, 
-            });
+        ancursa () {
+            this.an2021 = !this.an2021
+            if(this.an2021 === true){
+                this.showSeparator = false
+                this.textButon= true
+            }else{
+                this.showSeparator = true
+                this.textButon= false
+            }
         }
     },
     computed: {
@@ -172,5 +175,5 @@ export default {
 <style>
     @import "../assets/curse.css";
     @import "../assets/searchbar.css";
-    @import "../assets/dkmodebtn.css"
+    @import "../assets/dkmodebtn.css";
 </style>
