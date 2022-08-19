@@ -1,6 +1,6 @@
 .darkmodeBtn{
-    width:50px;
-    height:50px;
+    width:60px;
+    height:60px;
     background-color: red;
     border:2px solid black;
     border-radius: 50%;
@@ -27,10 +27,10 @@
     top:0;
     display:none;
 }
-.poza2.dark-mode{
+.poza2.darkmode{
     display:block;
 }
-.poza1.dark-mode{
+.poza1.darkmode{
     display:none;
 }
 @media(max-width:1380px){
