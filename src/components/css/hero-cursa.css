@@ -1,0 +1,85 @@
+.hero-wrapper{
+    height: 30vh;
+    border: 4px solid red;
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    background-color: #15151e;
+    color: white;
+}
+.hero-image{
+    width: 100%;
+    object-fit: cover;
+}
+.image-wrapper{
+    overflow: hidden;
+}
+.hero-stanga{
+    display: grid;
+    grid-template-rows: 30% 1fr;
+    width:40%;
+    margin-right: .25rem;
+    padding:.5rem;
+    row-gap: .2rem;
+
+}
+.hero-info{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+.hero-runda{
+    text-align: center;
+    color:red;
+    font-size: 1.3rem;
+}
+.steag-wrapper{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: .2rem;
+}
+.hero-locatie{
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 2rem;
+}
+.steag-locatie{
+    display: flex;  
+    align-items: center;
+    gap:.5rem;
+}
+.hero-steag{
+    width: 70px;
+    object-fit: cover;
+}
+.hero-circuit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
+    background-size: 8px;
+    background-repeat: repeat;
+}
+.circuit-image{
+    height: 90%;
+    object-fit: cover;
+}
+.hero-dreapta{
+    display: flex;
+    position: relative;
+    padding:.5rem;
+}
+.hero-data{
+    position: absolute;
+    background-color: #15151e;
+    color: white;
+    right: .7rem;
+    top: .7rem;
+    padding:.3rem;
+    border-radius: 15px;
+    font-weight: bold;
+}
