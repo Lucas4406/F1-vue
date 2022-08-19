@@ -1,7 +1,7 @@
 <template>
     <br>
     <div class="container-curse">
-        <div class="scroll-btns">
+        <div class="scroll-btns" v-show="show">
             <button class="darkmodeBtn" @click="scrollMeTo('sezon-2022')">
                 2022
             </button>
@@ -44,10 +44,10 @@
                 </div>
             </div>
         </div>
-        <div class="spatiu-intre">-</div>
+        <div class="spatiu-intre" v-show="show">-</div>
         <!-- 2021 -->
-        <p class="titlu-pagina-curse" ref="sezon-2021">Rezultate curse 2021</p>
-        <div class="search-wrapper">
+        <p class="titlu-pagina-curse" ref="sezon-2021" v-show="show">Rezultate curse 2021</p>
+        <div class="search-wrapper" v-show="show">
             <input type="text" v-model="search2021" placeholder="Căutare" class="search-bar"/>
         </div>
         <div class="tabel-container-curse">
@@ -94,12 +94,16 @@ export default {
             fastest: false,
             curse2021: [],
             search2021: "",
+            show: false,
         }
     },
     mounted() {
         document.title = "Rezultate Curse";
         this.getCurse2022()
         this.getCurse2021()
+    },
+    updated() {
+        this.show = true
     },
     methods: {
         async getCurse2022 () {
@@ -119,7 +123,6 @@ export default {
                         this.fastest = true
                     }
                 }
-                console.log(this.fastest);
             }
         },
 
