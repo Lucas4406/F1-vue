@@ -1,22 +1,28 @@
 <template>
-    <div class="stiri">
+    <div class="stiri" :class="{darkmode: darkMode}">
         <div class="titlu">
             <div>
                 <img src="/checker.webp" class="titlu-poza">
             </div>
             <div class="titlu-text">
-                Știri de ultimă oră
+                Știri actuale
             </div>
             <div>
                 <img src="/checker.webp" class="titlu-poza">
             </div>
         </div>
     </div>
-    <div class="content-grid" >
-        <a :href="stire.linkuri" class="ltag" v-for="stire in stirif1" :key="stire.id">
+    <div class="scroll-btns">
+        <button class="darkmodeBtn" @click="darkModeToggle()">
+            <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">
+            <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
+        </button>
+    </div>
+    <div class="content-grid" :class="{darkmode: darkMode}">
+        <a :href="stire.linkuri" class="ltag" v-for="stire in stirif1" :key="stire.id" :class="{darkmode: darkMode}"> 
             <div class="stire">
                 <div class="content-row">
-                    <div class="content-text">
+                    <div class="content-text" :class="{darkmode: darkMode}">
                         <p class="text" id="stiretext">
                             {{stire.titlu}}
                         </p>
@@ -34,13 +40,20 @@ import axios from 'axios'
 export default {
     name: "Stiri",
     data() {
+        let darkMode = localStorage.getItem('darkMode') == 'true';
         return {
-            stirif1: []
+            stirif1: [],
+            darkMode,
         }
     },
-    mounted () {
+    mounted() {
         document.title= "Stiri-F1"
         this.fetchData()
+        if(this.darkMode){
+            document.body.classList.add("darkmode")
+        }else{
+            document.body.classList.remove("darkmode")
+        } 
     },
     methods: {
         async fetchData () {
@@ -51,11 +64,20 @@ export default {
                 const resData = response.data
                 this.stirif1[j] = resData
             }
-            console.log(this.stirif1);
-        }  
+        },
+        darkModeToggle() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem('darkMode', this.darkMode);
+            if(this.darkMode){
+                document.body.classList.add("darkmode")
+            }else{
+                document.body.classList.remove("darkmode")
+            } 
+        } 
     },
 }
 </script>
 <style>
 @import "../assets/home.css";
+@import "../assets/dkmodebtn.css";
 </style>

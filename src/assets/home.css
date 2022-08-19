@@ -1,7 +1,8 @@
 body{
     overflow-x: hidden;
+    transition: background-color 200ms ease-in-out;
 }
-body.dark-mode{
+body.darkmode{
     background-color: #121212;
 }
 .stire{
@@ -31,8 +32,9 @@ body.dark-mode{
     row-gap:1.25rem;
     margin-left:0.625rem;
     margin-right:0.625rem;
+    transition: color 200ms ease-in-out;
 }
-.content-grid.dark-mode{
+.content-grid.darkmode{
     color:white;
 }
 @media(max-width:1380px){
@@ -76,8 +78,9 @@ body.dark-mode{
     border-bottom-right-radius: 0;
     border-bottom: 0;
     z-index:20;
+    transition: color 200ms ease-in-out;
 }
-.content-text.dark-mode{
+.content-text.darkmode{
     border-color: white;
     color: white;
     background-color: rgb(41, 40, 40);
@@ -105,8 +108,9 @@ body.dark-mode{
 .ltag{
     text-decoration: none;
     color:black;
+    transition: color 200ms ease-in-out;
 }
-.ltag.dark-mode{
+.ltag.darkmode{
     color:white;
 }
 @media(max-width:1380px){
@@ -118,7 +122,8 @@ body.dark-mode{
 .stiri{
     margin-bottom:1rem;
     margin-top: 1.2%;
+    transition: color 200ms ease-in-out;
 }
-.stiri.dark-mode{
+.stiri.darkmode{
     color: white;
 }
