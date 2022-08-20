@@ -2,7 +2,7 @@
   <div class="hero-wrapper">
         <div class="hero-stanga">
             <div class="hero-info">
-                <p class="hero-runda">{{runda}}</p>
+                <p class="hero-runda">Next - {{runda}}</p>
                 <div class="steag-locatie">
                     <div class="steag-wrapper">
                         <img class="hero-steag" :src="steag">
