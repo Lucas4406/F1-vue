@@ -76,9 +76,6 @@ export default {
         }
         this.getCursa() 
     },
-    updated () {
-        this.Hero = true
-    },
     methods: {
         darkModeToggle() {
             this.darkMode = !this.darkMode;
@@ -102,7 +99,8 @@ export default {
             this.runda = resData.runda
             this.steag = resData.steag
             this.tara = resData.tara
-        },
+            this.Hero = true
+        }
     },
 }
 </script>

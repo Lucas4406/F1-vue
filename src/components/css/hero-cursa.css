@@ -84,6 +84,19 @@
     border-radius: 15px;
     font-weight: bold;
 }
+@keyframes append-animate {
+	from {
+		transform: scale(0);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;	
+	}
+}
+.hero-wrapper {
+	animation: append-animate .4s ease-in-out;
+}
 
 
 @media(max-width: 1900px){
