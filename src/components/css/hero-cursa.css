@@ -8,6 +8,7 @@
     border-radius: 15px;
     background-color: #15151e;
     color: white;
+    max-width: 1750px;
 }
 .hero-image{
     width: 100%;
@@ -82,4 +83,64 @@
     padding:.3rem;
     border-radius: 15px;
     font-weight: bold;
+}
+
+
+@media(max-width: 1900px){
+    .hero-stanga{
+        width:30%;
+    }
+    .hero-dreapta{
+        width:70%;
+    }
+    .hero-image{
+        width: 100%;
+        object-fit: cover;
+    }
+    .circuit-image{
+        height: 80%;
+    }
+    .hero-circuit{
+        padding:1rem;
+    }
+}
+@media(max-width: 900px){
+    .hero-wrapper{
+        display: grid;
+        grid-template-rows: 40% 1fr;
+        height: 20vh;
+        width: 70%;
+        overflow: hidden;
+    }
+    .hero-stanga{
+        display: grid;
+        grid-template-columns: 40% 1fr;
+        width: 100%;
+    }
+    .hero-info{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        gap:1.5rem;
+    }
+    .image-wrapper{
+        overflow: hidden;
+        width: 100%;
+    }
+    .hero-image{
+        width: 100%;
+        object-fit: cover;
+    }
+    .hero-dreapta{
+        display: flex;
+        width: 97%;
+    }
+    .hero-circuit{
+        display: flex;
+        padding: 0;
+        height: 8vh;
+    }
+    .circuit-image{
+        height: 100%;
+    }
 }
