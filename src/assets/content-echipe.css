@@ -12,111 +12,114 @@
 .box:hover{
     transform: scale(1.02);
 }
-.box.dark-mode{
+.box.darkmode{
     border-color: white;
     background-color: #333;
     color:white;
 }
 
-.box-fe:hover{
+.box.Ferrari:hover{
     box-shadow:15px 15px 15px #F91536;
     cursor:pointer;
     border:3px solid #F91536;
     border-left:0;
     border-bottom:0;
 }
-.box-fe:hover .linie{
+.box.Ferrari:hover .linie{
     color:#F91536;
 }
-.box-me:hover{
+.box.Mercedes:hover{
     box-shadow:15px 15px 15px #6CD3BF;
     cursor:pointer;
     border:3px solid #6CD3BF;
     border-left:0;
     border-bottom:0;
 }
-.box-me:hover .linie{
+.box.Mercedes:hover .linie{
     color:#6CD3BF;
 }
-.box-re:hover{
+.box.RedBullRacing:hover{
     box-shadow:15px 15px 15px #3671C6;
     cursor:pointer;
     border:3px solid #3671C6;
     border-left:0;
     border-bottom:0;
 }
-.box-re:hover .linie{
+.box.RedBullRacing:hover .linie{
     color:#3671C6;
 }
-.box-mc:hover{
+.box.McLaren:hover{
     box-shadow:15px 15px 15px #F58020;
     cursor:pointer;
     border:3px solid #F58020;
     border-left:0;
     border-bottom:0;
 }
-.box-mc:hover .linie{
+.box.McLaren:hover .linie{
     color:#F58020;
 }
-.box-al:hover{
+.box.Alpine:hover{
     box-shadow:15px 15px 15px #2293D1;
     cursor:pointer;
     border:3px solid #2293D1;
     border-left:0;
     border-bottom:0;
 }
-.box-al:hover .linie{
+.box.Alpine:hover .linie{
     color:#2293D1;
 }
-.box-af:hover{
+.box.AlfaRomeo:hover{
     box-shadow:15px 15px 15px #C92D4B;
     cursor:pointer;
     border:3px solid #C92D4B;
     border-left:0;
     border-bottom:0;
 }
-.box-af:hover .linie{
+.box.AlfaRomeo:hover .linie{
     color:#C92D4B;
 }
-.box-ha:hover{
+.box.HaasF1Team:hover{
     box-shadow:15px 15px 15px #B6BABD;
     cursor:pointer;
     border:3px solid #B6BABD;
     border-left:0;
     border-bottom:0;
 }
-.box-ha:hover .linie{
+.box.HaasF1Team:hover .linie{
     color:#B6BABD;
 }
-.box-at:hover{
+.box.AlphaTauri:hover{
     box-shadow:15px 15px 15px #5E8FAA;
     cursor:pointer;
     border:3px solid #5E8FAA;
     border-left:0;
     border-bottom:0;
 }
-.box-at:hover .linie{
+.box.AlphaTauri:hover .linie{
     color:#5E8FAA;
 }
-.box-wi:hover{
+.box.Williams:hover{
     box-shadow:15px 15px 15px #37BEDD;
     cursor:pointer;
     border:3px solid #37BEDD;
     border-left:0;
     border-bottom:0;
 }
-.box-wi:hover .linie{
+.box.Williams:hover .linie{
     color:#37BEDD;
 }
-.box-am:hover{
+.box.AstonMartin:hover{
     box-shadow:15px 15px 15px #358C75;
     cursor:pointer;
     border:3px solid #358C75;
     border-left:0;
     border-bottom:0;
 }
-.box-am:hover .linie{
+.box.AstonMartin:hover .linie{
     color:#358C75;
+}
+.box.AstonMartin{
+    margin-bottom: 1rem;
 }
 .content-echipe{
     display:grid;
@@ -160,6 +163,12 @@
     background-size: 8px;
     border-radius: 0  0 12px 0;
 }
+.box.darkmode > .linie3 {
+    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
+    background-repeat: repeat;
+    background-size: 8px;
+    border-radius: 0  0 12px 0;
+}
 .nume1, .nume2{
     font-size:1.5rem;
     display:flex;
@@ -171,36 +180,6 @@
 }
 .box:hover > .linie3 > .poza{
     transform: scale(1.02);
-}
-.am{
-    margin:auto;
-    margin-left:1.875rem;
-    font-size:2.5rem;
-    font-weight: 600;
-}
-.haas{
-    margin:auto;
-    margin-left:5.938rem;
-    font-size:2.5rem;
-    font-weight: 600;
-}
-.at{
-    margin:auto;
-    margin-left:1.875rem;
-    font-size:2.5rem;
-    font-weight: 600;
-}
-.ar{
-    margin:auto;
-    margin-left:2.5rem;
-    font-size:2.5rem;
-    font-weight: 600;
-}
-.alpine{
-    margin:auto;
-    margin-left:4.688rem;
-    font-size:2.5rem;
-    font-weight: 600;
 }
 .content > a{
     text-decoration: none;
