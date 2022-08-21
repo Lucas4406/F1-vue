@@ -11,6 +11,9 @@ p{
     font-weight:bold;
     font-size: 2.5rem;
 }
+.piloti-text.darkmode{
+    color:white;
+}
 .piloti-grid{
     width: 80vw;
     display: grid;
@@ -31,6 +34,11 @@ p{
     max-width: 500px;
     position: relative;
     transition: transform 250ms ease-in-out;
+}
+.pilot-container.darkmode{
+    color: white;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
 }
 .poza-pilot{
     transition: transform 250ms ease-in-out;
@@ -69,6 +77,11 @@ p{
     font-weight: bold;
     padding-left:.25rem;
     padding-right:.25rem;
+    border-radius: 5px;
+}
+.puncte-text-pilot.darkmode{
+    background-color: #fff;
+    color:black;
 }
 .numesteag{
     display: flex;
@@ -117,12 +130,20 @@ p{
     display: flex;
     justify-content: center;
 }
+.pozanumar.darkmode{
+    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
+    background-repeat: repeat;
+    background-size: 8px;
+}
 .nr-pilot{
     background-color: #fff;
     width:20%;
     position: absolute;
     left:.5rem;
     bottom:0;
+}
+.nr-pilot.darkmode{
+    background-color: none;
 }
 @media(max-width:1000px){
     .piloti-grid{

@@ -1,16 +1,22 @@
 <template>
         <div class="content-wrapper">
+            <div class="scroll-btns">
+                <button class="darkmodeBtn" @click="darkModeToggle()">
+                    <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">
+                    <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
+                </button>
+            </div>
             <br>
-            <p class="piloti-text">Clasament piloți 2022</p>
+            <p class="piloti-text" :class="{darkmode: darkMode}">Clasament piloți 2022</p>
             <br>
             <br>
             <div class="piloti-grid">
-                <div class="pilot-container" v-for="pilot in piloti" :key="pilot.id">
+                <div class="pilot-container" v-for="pilot in piloti" :key="pilot.id" :class="{darkmode: darkMode}">
                     <div class="pozitiepuncte-pilot">
                         <p class="pozitie-pilot">{{pilot.position}}</p>
                         <div class="nrpuncte-container">
                             <p class="nrpuncte-pilot">{{pilot.points}}</p>
-                            <p class="puncte-text-pilot">PCT</p>
+                            <p class="puncte-text-pilot" :class="{darkmode: darkMode}">PCT</p>
                         </div>
                     </div>
                     <div class="numesteag">
@@ -26,9 +32,9 @@
                     <p class="echipa">
                         {{pilot.team}}
                     </p>    
-                    <div class="pozanumar">
+                    <div class="pozanumar" :class="{darkmode: darkMode}">
                         <img :src="pilot.driverPhoto" class="poza-pilot">
-                        <img :src="pilot.driverNumber" class="nr-pilot">
+                        <img :src="pilot.driverNumber" class="nr-pilot" :class="{darkmode: darkMode}">
                     </div>
                 </div>
             </div>
@@ -38,8 +44,10 @@
 export default {
     name: "CLasamentpiloti",
     data() {
+        let darkMode = localStorage.getItem('darkMode') == 'true';
         return {
-            piloti: []
+            piloti: [],
+            darkMode
         }
     },
     mounted() {
@@ -50,6 +58,17 @@ export default {
         })
         .catch(err => console.log(err))
         document.title="Clasament piloți"
+    },
+    methods: {
+        darkModeToggle() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem('darkMode', this.darkMode);
+            if(this.darkMode){
+                document.body.classList.add("darkmode")
+            }else{
+                document.body.classList.remove("darkmode")
+            } 
+        },
     },
 }
 </script>

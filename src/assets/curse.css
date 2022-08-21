@@ -14,7 +14,7 @@ html{
     font-size: 2.5rem;
     font-weight: bold;
 }
-.titlu-pagina-curse.dark-mode{
+.titlu-pagina-curse.darkmode{
     color:white;
 }
 .tabel-container-curse{
@@ -32,7 +32,7 @@ html{
     width: 50%;
     font-size: 1.4rem;
 }
-.tabel-cursa.dark-mode{
+.tabel-cursa.darkmode{
     background-color: #333;
     color: white;
     border-color: white;
@@ -50,9 +50,11 @@ html{
     font-size: 2rem;
     font-weight: 500;
 }
-.data-cursa,  
 .loc-cursa{
-    font-size:1.4rem;
+    font-size:1.2rem;
+}
+.data-cursa{
+    font-size: 1.4rem;
 }
 .pilot-container-curse{
     display: flex;
@@ -109,7 +111,7 @@ html{
     padding:1rem;
     padding-top: 0;
 }
-.parte-jos-pilot.dark-mode{
+.parte-jos-pilot.darkmode{
     border-color: white;
 }
 .fastest-lap{
@@ -137,6 +139,10 @@ html{
     width: 100vw;
     background-color: black;
     font-size: .2rem;
+}
+.spatiu-intre.darkmode{
+    background-color: white;
+    color: white;
 }
 
 @media(max-width: 1700px){

@@ -38,7 +38,7 @@
     border-radius: 10%;
     transition: transform 250ms ease-in-out;
 }
-.card-const.dark-mode{
+.card-const.darkmode{
     background-color: #333;
     border-color: white;
     color: white;
@@ -59,7 +59,7 @@
     font-size: 4.5rem;
     font-weight: bold;
 }
-.pozitie.dark-mode{
+.pozitie.darkmode{
     border-color: white;
 }
 .nume-echipa{
@@ -85,7 +85,7 @@
     display: grid;
     grid-template-rows: 30% 1fr;
 }
-.curse-castigate-cont.dark-mode{
+.curse-castigate-cont.darkmode{
     border-color: white;
 }
 .nrpuncte-cont{
@@ -95,7 +95,7 @@
     display: grid;
     grid-template-rows: 30% 1fr;
 }
-.nrpuncte-cont.dark-mode{
+.nrpuncte-cont.darkmode{
     border-color: white;
 }
 .text-curse{
