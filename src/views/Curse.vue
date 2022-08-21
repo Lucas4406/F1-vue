@@ -2,21 +2,26 @@
     <br>
     <div class="container-curse">
         <div class="scroll-btns" v-show="show">
-            <button class="darkmodeBtn" @click="ancursa()">
+            <button class="darkmodeBtn" @click="darkModeToggle()">
+                <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">
+                <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
+            </button>
+            <br>
+            <button class="btn2021" @click="ancursa()">
                 <p v-show="textButon">2022</p>
                 <p v-show="!textButon">2021</p>
             </button>
         </div>
-        <p class="titlu-pagina-curse" ref="sezon-2022" v-show="!an2021">Rezultate curse 2022</p>
+        <p class="titlu-pagina-curse" ref="sezon-2022" v-show="!an2021" :class="{darkmode: darkMode}">Rezultate curse 2022</p>
         <div class="search-wrapper" v-show="!an2021">
-            <input type="text" v-model="search" placeholder="Căutare" class="search-bar"/>
+            <input type="text" v-model="search" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
         </div>
         <div class="tabel-container-curse" v-show="!an2021">
-            <div class="tabel-cursa"  v-for="cursa in filterCurse.slice().reverse()" :key="cursa.id">
+            <div class="tabel-cursa"  v-for="cursa in filterCurse.slice().reverse()" :key="cursa.id" :class="{darkmode: darkMode}">
                 <div class="tabel-header">
                     <p class="nume-cursa">{{cursa.raceName}}</p>
+                    <p class="loc-cursa">{{cursa.Circuit.circuitName.toUpperCase()}}</p>
                     <p class="data-cursa">{{new Date(cursa.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
-                    <p class="loc-cursa">{{cursa.Circuit.Location.country}}</p>
                 </div>
                 <div class="tabel-body-curse">
                     <div class="pilot-container-curse" v-for="pilot in cursa.Results" :key="pilot.id">
@@ -27,7 +32,7 @@
                                 <p class="echipa-pilot">{{pilot.Constructor.name}}</p>
                             </div>
                         </div>
-                        <div class="parte-jos-pilot">
+                        <div class="parte-jos-pilot" :class="{darkmode: darkMode}">
                             <div class="status">
                                 <p class="status-text">Status</p>
                                 <p class="status-status">{{pilot.status}}</p>
@@ -41,18 +46,17 @@
                 </div>
             </div>
         </div>
-        <div class="spatiu-intre" v-show="showSeparator">-</div>
         <!-- 2021 -->
-        <p class="titlu-pagina-curse" ref="sezon-2021" v-show="show && an2021">Rezultate curse 2021</p>
+        <p class="titlu-pagina-curse" ref="sezon-2021" v-show="show && an2021" :class="{darkmode: darkMode}">Rezultate curse 2021</p>
         <div class="search-wrapper" v-show="show && an2021">
-            <input type="text" v-model="search2021" placeholder="Căutare" class="search-bar"/>
+            <input type="text" v-model="search2021" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
         </div>
         <div class="tabel-container-curse" v-show="show && an2021">
-            <div class="tabel-cursa"  v-for="cursa2021 in filterCurse2021" :key="cursa2021.id">
+            <div class="tabel-cursa"  v-for="cursa2021 in filterCurse2021" :key="cursa2021.id" :class="{darkmode: darkMode}">
                 <div class="tabel-header">
                     <p class="nume-cursa">{{cursa2021.raceName}}</p>
+                    <p class="loc-cursa">{{cursa2021.Circuit.circuitName.toUpperCase()}}</p>
                     <p class="data-cursa">{{new Date(cursa2021.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
-                    <p class="loc-cursa">{{cursa2021.Circuit.Location.country}}</p>
                 </div>
                 <div class="tabel-body-curse">
                     <div class="pilot-container-curse" v-for="pilot2021 in cursa2021.Results" :key="pilot2021.id">
@@ -63,7 +67,7 @@
                                 <p class="echipa-pilot">{{pilot2021.Constructor.name}}</p>
                             </div>
                         </div>
-                        <div class="parte-jos-pilot">
+                        <div class="parte-jos-pilot" :class="{darkmode: darkMode}">
                             <div class="status">
                                 <p class="status-text">Status</p>
                                 <p class="status-status">{{pilot2021.status}}</p>
@@ -85,6 +89,7 @@ import axios from 'axios'
 export default {
     name: "Curse",
     data() {
+        let darkMode = localStorage.getItem('darkMode') == 'true';
         return {
             curse: [],
             search: "",
@@ -95,6 +100,7 @@ export default {
             an2021: false,
             showSeparator: false,
             textButon: false,
+            darkMode
         }
     },
     mounted() {
@@ -155,17 +161,26 @@ export default {
                 this.showSeparator = true
                 this.textButon= false
             }
-        }
+        },
+        darkModeToggle() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem('darkMode', this.darkMode);
+            if(this.darkMode){
+                document.body.classList.add("darkmode")
+            }else{
+                document.body.classList.remove("darkmode")
+            } 
+        },
     },
     computed: {
         filterCurse: function () {
             return this.curse.filter((cursa) => {
-                return cursa.raceName.toLowerCase().match(this.search.toLowerCase()) || cursa.Circuit.Location.country.toLowerCase().match(this.search.toLowerCase())
+                return cursa.raceName.toLowerCase().match(this.search.toLowerCase()) || cursa.Circuit.circuitName.toLowerCase().match(this.search.toLowerCase())
             })
         },
         filterCurse2021: function () {
             return this.curse2021.filter((cursa2021) => {
-                return cursa2021.raceName.toLowerCase().match(this.search2021.toLowerCase()) || cursa2021.Circuit.Location.country.toLowerCase().match(this.search2021.toLowerCase())
+                return cursa2021.raceName.toLowerCase().match(this.search2021.toLowerCase()) || cursa2021.Circuit.circuitName.toLowerCase().match(this.search2021.toLowerCase())
             })
         }
     }
