@@ -51,7 +51,7 @@ export default {
         }
     },
     mounted() {
-        fetch("https://aqueous-escarpment-24578.herokuapp.com/https://f1scraper44.herokuapp.com/clasament-piloti")
+        fetch("https://f1scraper44.herokuapp.com/clasament-piloti")
         .then(res => res.json())
         .then(data => {
             this.piloti = data
