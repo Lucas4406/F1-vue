@@ -62,7 +62,7 @@ export default {
         }
     },
     mounted () {
-        fetch("https://f1scraper44.herokuapp.com/stiri")
+        fetch("https://f1-site-api.vercel.app/stiri")
         .then(res => res.json())
         .then(data => {
             this.news = data.Stiri
@@ -88,7 +88,7 @@ export default {
         },
         async getCursa () {
             var j=15
-            var link = "https://f1scraper44.herokuapp.com/up-next/" + j
+            var link = "https://f1-site-api.vercel.app/up-next/" + j
             const response = await axios.get(link)
             const resData = response.data
             this.dataInceput = resData.dataCursa1
