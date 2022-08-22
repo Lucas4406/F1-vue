@@ -59,7 +59,7 @@ export default {
         async fetchData () {
             var j=0
             for(j=0;j<22;j++){
-                var link = "https://aqueous-escarpment-24578.herokuapp.com/https://f1scraper44.herokuapp.com/stiri-translate/" + j
+                var link = "https://f1scraper44.herokuapp.com/stiri-translate/" + j
                 const response = await axios.get(link)
                 const resData = response.data
                 this.stirif1[j] = resData
