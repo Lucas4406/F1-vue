@@ -16,7 +16,7 @@
     font-size: 2.5rem;
     font-weight: bold;
 }
-.text-titlu.darkmode{
+.text-wrap.darkmode > .text-titlu{
     color:white;
 }
 .quri{
@@ -90,9 +90,6 @@
     align-items: center;
     padding: 1%;
 }
-.parte-stanga.darkmode{
-    border-color: white;
-}
 .parte-dreapta{
     display:flex;
     flex-direction: row;
@@ -114,7 +111,18 @@
 #q2{
     border-right: 2px solid black;
 }
-.parte-dreapta.darkmode{
+.tabel-container.darkmode > 
+.tabel >
+.piloti-container > 
+.pilot > 
+.parte-stanga{
+    border-color:white ;
+}
+.tabel-container.darkmode > 
+.tabel >
+.piloti-container > 
+.pilot > 
+.parte-dreapta{
     border-color:white ;
 }
 .timp-container{

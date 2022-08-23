@@ -48,9 +48,19 @@ export default {
     mounted() {
         document.title = "Rezultate Curse";
         this.show = true
+        if(this.an2021 === false){
+            document.title = "Rezultate Curse 2022";
+        }else{
+            document.title = "Rezultate Curse 2021"
+        }
     },
     updated() {
         this.show = true
+        if(this.an2021 === false){
+            document.title = "Rezultate Curse 2022";
+        }else{
+            document.title = "Rezultate Curse 2021"
+        }
     },
     methods: {
         ancursa () {

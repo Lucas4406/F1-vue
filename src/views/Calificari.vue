@@ -1,74 +1,72 @@
 <template>
     <div class="content-container">
-        <div class="scroll-btns">
+        <div class="scroll-btns" v-show="show">
             <button class="darkmodeBtn" @click="darkModeToggle()">
                 <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">
                 <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
             </button>
+            <br>
+            <button class="btn2021" @click="ancursa()">
+                <p v-show="textButon">2022</p>
+                <p v-show="!textButon">2021</p>
+            </button>
         </div>
-        <div class="text-wrap">
-            <p class="text-titlu" ref="titlul" :class="{darkmode: darkMode}">Rezultate calificări 2022</p>
-        </div>
-        <div class="search-wrapper">
-            <input type="text" v-model="search" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
-        </div>
-        <div class="tabel-container" v-for="calificare in filterCurse.slice().reverse()" :key="calificare.id" :class="{darkmode: darkMode}">
-            <div>
-                <div class="nume-cursa">{{calificare.raceName}}</div>
-                <div class="data-cursa">{{new Date(calificare.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</div>
-                <div class="loc-cursa">{{calificare.Circuit.Location.country}}</div>
-                <div class="laptime">
-                    <div class="gol"></div>
-                    <div class="q-container">
-                        <p class="quri q1" id="q1" :class="{darkmode: darkMode}">Q1</p>
-                        <p class="quri" id="q2">Q2</p>
-                        <p class="quri" id="q3">Q3</p>
-                    </div>
-                </div>
-                <div class="piloti-container" v-for="pilot in calificare.QualifyingResults" :key="pilot.id" ref="pilot">
-                    <div class="pilot">
-                        <div class="parte-stanga" :class="{darkmode: darkMode}">{{pilot.position}}. {{pilot.Driver.givenName}} {{pilot.Driver.familyName}}</div>
-                        <div class="parte-dreapta" :class="{darkmode: darkMode}">
-                            <div class="timp-container" id="q1">{{pilot.Q1}}</div>
-                            <div class="timp-container" id="q2">{{pilot.Q2}}</div>
-                            <div class="timp-container" id="q3">{{pilot.Q3}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- 2022 -->
+        <tabelcali :linkdata="cali2022.linkdata" :titlupag="cali2022.titlupag" :darkMode="darkMode" :an2021="!an2021" v-show="!an2021"/>
+        <!-- 2021 -->
+        <tabelcali :linkdata="cali2021.linkdata" :titlupag="cali2021.titlupag" :darkMode="darkMode" :an2021="an2021" v-show="an2021"/>
     </div>
 </template>
 
 <script>
+import tabelcali from "../components/tabelcali.vue"
 export default {
     name: "Calificari",
+    components: {
+        tabelcali
+    },
     data() {
         let darkMode = localStorage.getItem('darkMode') == 'true';
         return {
-            calificari: [],
-            search: "",
-            darkMode
+            darkMode,
+            cali2022: {
+                linkdata: "https://ergast.com/api/f1/2022/qualifying.json?limit=1000",
+                titlupag: "Rezultate calificări 2022"
+            },
+            cali2021: {
+                linkdata: "https://ergast.com/api/f1/2021/qualifying.json?limit=1000",
+                titlupag: "Rezultate calificări 2021"
+            },
+            an2021: false,
+            show: false,
+            textButon: false
+        }
+    },
+    mounted() {
+        if(this.an2021 === false){
+            document.title = "Rezultate Calificări 2022";
+        }else{
+            document.title = "Rezultate Calificări 2021"
+        }
+        this.show = true
+    },
+    updated() {
+        this.show = true
+        if(this.an2021 === false){
+            document.title = "Rezultate Calificări 2022";
+        }else{
+            document.title = "Rezultate Calificări 2021"
         }
     },
     methods: {
-
-    },
-    mounted() {
-        document.title = "Rezultate Calificări";
-        this.getData()
-    },
-    methods: {
-        async getData () {
-            var j
-            for(j=2022;j>2021;j--){
-                fetch(`https://ergast.com/api/f1/${j}/qualifying.json?limit=1000`)
-                .then(response => 
-                    response.json()
-                )
-                .then(data => {
-                    this.calificari = data.MRData.RaceTable.Races
-                })
+        ancursa () {
+            this.an2021 = !this.an2021
+            if(this.an2021 === true){
+                this.showSeparator = false
+                this.textButon= true
+            }else{
+                this.showSeparator = true
+                this.textButon= false
             }
         },
         darkModeToggle() {
@@ -81,13 +79,6 @@ export default {
             } 
         },
     },
-    computed: {
-        filterCurse: function () {
-            return this.calificari.filter((calificare) => {
-                return calificare.raceName.toLowerCase().match(this.search.toLowerCase()) || calificare.Circuit.Location.country.toLowerCase().match(this.search.toLowerCase())
-            })
-        }
-    }
 }
 </script>
 
