@@ -12,146 +12,47 @@
                 <p v-show="!textButon">2021</p>
             </button>
         </div>
-        <p class="titlu-pagina-curse" ref="sezon-2022" v-show="!an2021" :class="{darkmode: darkMode}">Rezultate curse 2022</p>
-        <div class="search-wrapper" v-show="!an2021">
-            <input type="text" v-model="search" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
-        </div>
-        <div class="tabel-container-curse" v-show="!an2021">
-            <div class="tabel-cursa"  v-for="cursa in filterCurse.slice().reverse()" :key="cursa.id" :class="{darkmode: darkMode}">
-                <div class="tabel-header">
-                    <p class="nume-cursa">{{cursa.raceName}}</p>
-                    <p class="loc-cursa">{{cursa.Circuit.circuitName.toUpperCase()}}</p>
-                    <p class="data-cursa">{{new Date(cursa.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
-                </div>
-                <div class="tabel-body-curse">
-                    <div class="pilot-container-curse" v-for="pilot in cursa.Results" :key="pilot.id">
-                        <div class="parte-sus-pilot">
-                            <div class="pozitie-curse">{{pilot.position}}.</div>
-                            <div class="numesiechipa">
-                                <p class="nume-pilot">{{pilot.Driver.givenName}} {{pilot.Driver.familyName}}</p>
-                                <p class="echipa-pilot">{{pilot.Constructor.name}}</p>
-                            </div>
-                        </div>
-                        <div class="parte-jos-pilot" :class="{darkmode: darkMode}">
-                            <div class="status">
-                                <p class="status-text">Status</p>
-                                <p class="status-status">{{pilot.status}}</p>
-                            </div>
-                            <div class="fastest-lap">
-                                <p class="fastest-text">Cel mai rapid tur</p>
-                                <p class="fastet-lap" :class="{fastestlap: fastest}">{{pilot.FastestLap.timp}} ({{pilot.FastestLap.rank}})</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <tabelcursa :darkMode="darkMode" :an2021="!an2021" :linkdata="curse2022.linkdata" :titlupagina="curse2022.titlu" v-show="!an2021" />
         <!-- 2021 -->
-        <p class="titlu-pagina-curse" ref="sezon-2021" v-show="show && an2021" :class="{darkmode: darkMode}">Rezultate curse 2021</p>
-        <div class="search-wrapper" v-show="show && an2021">
-            <input type="text" v-model="search2021" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
-        </div>
-        <div class="tabel-container-curse" v-show="show && an2021">
-            <div class="tabel-cursa"  v-for="cursa2021 in filterCurse2021" :key="cursa2021.id" :class="{darkmode: darkMode}">
-                <div class="tabel-header">
-                    <p class="nume-cursa">{{cursa2021.raceName}}</p>
-                    <p class="loc-cursa">{{cursa2021.Circuit.circuitName.toUpperCase()}}</p>
-                    <p class="data-cursa">{{new Date(cursa2021.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
-                </div>
-                <div class="tabel-body-curse">
-                    <div class="pilot-container-curse" v-for="pilot2021 in cursa2021.Results" :key="pilot2021.id">
-                        <div class="parte-sus-pilot">
-                            <div class="pozitie-curse">{{pilot2021.position}}.</div>
-                            <div class="numesiechipa">
-                                <p class="nume-pilot">{{pilot2021.Driver.givenName}} {{pilot2021.Driver.familyName}}</p>
-                                <p class="echipa-pilot">{{pilot2021.Constructor.name}}</p>
-                            </div>
-                        </div>
-                        <div class="parte-jos-pilot" :class="{darkmode: darkMode}">
-                            <div class="status">
-                                <p class="status-text">Status</p>
-                                <p class="status-status">{{pilot2021.status}}</p>
-                            </div>
-                            <div class="fastest-lap">
-                                <p class="fastest-text">Cel mai rapid tur</p>
-                                <p class="fastet-lap" :class="{fastestlap: fastest}">{{pilot2021.FastestLap.timp}} ({{pilot2021.FastestLap.rank}})</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <tabelcursa :darkMode="darkMode" :an2021="an2021" :linkdata="curse2021.linkdata" :titlupagina="curse2021.titlu" v-show="show && an2021"/>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import tabelcursa from "../components/tabelcursa.vue"
 export default {
     name: "Curse",
+    components: {
+        tabelcursa
+    },
     data() {
         let darkMode = localStorage.getItem('darkMode') == 'true';
         return {
-            curse: [],
-            search: "",
-            fastest: false,
-            curse2021: [],
-            search2021: "",
             show: false,
             an2021: false,
             showSeparator: false,
             textButon: false,
-            darkMode
+            darkMode,
+            curse2022: {
+                linkdata: "https://ergast.com/api/f1/2022/results.json?limit=1000",
+                titlu: "Rezultate Curse 2022"
+
+            },
+            curse2021: {
+                linkdata: "https://ergast.com/api/f1/2021/results.json?limit=1000",
+                titlu: "Rezultate Curse 2021"
+
+            },
         }
     },
     mounted() {
         document.title = "Rezultate Curse";
-        this.getCurse2022()
-        this.getCurse2021()
+        this.show = true
     },
     updated() {
         this.show = true
     },
     methods: {
-        async getCurse2022 () {
-            var link = "https://ergast.com/api/f1/2022/results.json?limit=1000"
-            const response = await axios.get(link)
-            const resData = response.data.MRData.RaceTable.Races
-            this.curse = resData
-            for(var i = 0; i<resData.length;i++){
-                for(var j = 0; j<resData[i].Results.length;j++){
-                    if(resData[i].Results[j].FastestLap === undefined){
-                        this.curse[i].Results[j].FastestLap = "-"
-                    }else{
-                        this.curse[i].Results[j].FastestLap.timp = resData[i].Results[j].FastestLap.Time.time
-                        this.curse[i].Results[j].rank = resData[i].Results[j].FastestLap.rank
-                    }
-                    if(this.curse[i].Results[j].FastestLap.rank === "1"){
-                        this.fastest = true
-                    }
-                }
-            }
-        },
-
-        //2021
-        async getCurse2021 () {
-            var link2021 = "https://ergast.com/api/f1/2021/results.json?limit=1000"
-            const response2021 = await axios.get(link2021)
-            const resData2021 = response2021.data.MRData.RaceTable.Races
-            this.curse2021 = resData2021
-            for(var i = 0; i<resData2021.length;i++){
-                for(var j = 0; j<resData2021[i].Results.length;j++){
-                    if(resData2021[i].Results[j].FastestLap === undefined){
-                        this.curse2021[i].Results[j].FastestLap = "-"
-                    }else{
-                        this.curse2021[i].Results[j].FastestLap.timp = resData2021[i].Results[j].FastestLap.Time.time
-                        this.curse2021[i].Results[j].rank = resData2021[i].Results[j].FastestLap.rank
-                    }
-                    if(this.curse2021[i].Results[j].FastestLap.rank === "1"){
-                        this.fastest = true
-                    }
-                }
-            }
-        },
         ancursa () {
             this.an2021 = !this.an2021
             if(this.an2021 === true){
@@ -173,16 +74,6 @@ export default {
         },
     },
     computed: {
-        filterCurse: function () {
-            return this.curse.filter((cursa) => {
-                return cursa.raceName.toLowerCase().match(this.search.toLowerCase()) || cursa.Circuit.circuitName.toLowerCase().match(this.search.toLowerCase())
-            })
-        },
-        filterCurse2021: function () {
-            return this.curse2021.filter((cursa2021) => {
-                return cursa2021.raceName.toLowerCase().match(this.search2021.toLowerCase()) || cursa2021.Circuit.circuitName.toLowerCase().match(this.search2021.toLowerCase())
-            })
-        }
     }
 }
 </script>
