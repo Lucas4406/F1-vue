@@ -10,6 +10,9 @@ p{
     position: relative;
     font-size: 1.5rem;
 }
+.reaction-wrapper.darkmode > .reaction-titlu{
+    color: white;
+}
 .reaction-titlu{
     font-size: 1.8rem;
     font-weight: bold;
@@ -40,6 +43,14 @@ p{
     border-radius: 3%;
     padding:.5rem;
 }
+.reaction-wrapper.darkmode > .timpi-tabel{
+    color: white;
+    border: 2px solid white;
+}
+.reaction-wrapper.darkmode > .timpi-tabel > p{
+    border-top: 1px solid white;
+
+}
 .best-tabel{
     position: absolute;
     font-size:2rem;
@@ -52,6 +63,10 @@ p{
     border: 2px solid black;
     border-radius: 3%;
     padding:.5rem;
+}
+.reaction-wrapper.darkmode > .best-tabel{
+    color: white;
+    border: 2px solid white;
 }
 .timpi-tabel > p{
     border-top: 1px solid black;
@@ -66,10 +81,16 @@ p{
     justify-content: center;
     align-items: center;
 }
+.reaction-wrapper.darkmode > .result-box{
+    color: white;
+}
 .instructiuni{
     display: flex;
     flex-direction: column;
     gap:.3rem;
+}
+.reaction-wrapper.darkmode > .instructiuni{
+    color: white;
 }
 @media(max-width: 900px){
     .reaction-titlu{
