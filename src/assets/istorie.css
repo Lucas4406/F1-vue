@@ -22,7 +22,7 @@
     align-items: center;
     color: black;
 }
-.subtitlu.dark-mode{
+.subtitlu.darkmode{
     color:white;
 }
 .multscris{
@@ -37,7 +37,7 @@
     padding-right:0.313rem;
     margin-top:0;
 }
-.multscris.dark-mode{
+.multscris.darkmode{
     border-color: white;
     color:white;
 }
@@ -49,7 +49,7 @@
     flex-direction: column;
     justify-content: space-between;
 }
-.imagini.dark-mode{
+.imagini.darkmode{
     color: white;
 }
 @media(max-width:1000px){
