@@ -1,11 +1,11 @@
 <template>
-    <div class="text-wrap" v-show="an2021" :class="{darkmode: darkMode}">
+    <div class="text-wrap" :class="{darkmode: darkMode}">
         <p class="text-titlu" ref="titlul">{{titlupag}}</p>
     </div>
-    <div class="search-wrapper" v-show="an2021">
+    <div class="search-wrapper">
         <input type="text" v-model="search" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
     </div>
-    <div class="tabel-container" v-for="calificare in filterCurse.slice().reverse()" :key="calificare.id" :class="{darkmode: darkMode}" v-show="an2021">
+    <div class="tabel-container" v-for="calificare in filterCurse.slice().reverse()" :key="calificare.id" :class="{darkmode: darkMode}">
         <div class="tabel">
             <div class="nume-cursa">{{calificare.raceName}}</div>
             <div class="data-cursa">{{new Date(calificare.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</div>

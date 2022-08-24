@@ -1,9 +1,9 @@
 <template>
-    <p class="titlu-pagina-curse" ref="sezon-2022" :class="{darkmode: darkMode}" v-show="an2021">{{titlupagina}}</p>
-    <div class="search-wrapper" v-show="an2021">
+    <p class="titlu-pagina-curse" ref="sezon-2022" :class="{darkmode: darkMode}">{{titlupagina}}</p>
+    <div class="search-wrapper">
         <input type="text" v-model="search" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
     </div>
-    <div class="tabel-container-curse" v-show="an2021">
+    <div class="tabel-container-curse">
         <div class="tabel-cursa"  v-for="cursa in filterCurse.slice().reverse()" :key="cursa.id" :class="{darkmode: darkMode}">
             <div class="tabel-header">
                 <p class="nume-cursa">{{cursa.raceName}}</p>
@@ -38,13 +38,15 @@
 <script>
 import axios from 'axios'
 export default {
-    props: ["darkMode" , "an2021" , "linkdata" , "titlupagina" , "an2021"],
+    props: ["darkMode" , "an2021" , "linkdata" , "titlupagina" , "an2021" , "asc"],
     data() {
         return {
             curse: [],
             search: "",
             fastest: false,
-            link: this.linkdata
+            link: this.linkdata,
+            ordonare: this.asc,
+            /* curseOrd: [] */
         }
     },
     methods: {
@@ -66,9 +68,20 @@ export default {
                 }
             }
         },
+        /* ascDesc () {
+            if(this.ordonare === true){
+                this.curseOrd = this.filterCurse
+            }else{
+                this.curseOrd = this.filterCurse.slice().reverse()
+            }
+        } */
     },
     mounted() {
         this.getCurse()
+        /* this.ascDesc() */
+    },
+    updated() {
+        /* this.ascDesc() */
     },
     computed: {
         filterCurse: function () {
