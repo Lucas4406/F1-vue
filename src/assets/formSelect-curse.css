@@ -1,0 +1,12 @@
+.form-select{
+    position: absolute;
+    right: .5rem;
+    top: 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    font-size: 1.2rem;
+}
+.form-select.darkmode{
+    color:white;
+}

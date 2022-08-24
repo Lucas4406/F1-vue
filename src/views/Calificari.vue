@@ -12,9 +12,9 @@
             </button>
         </div>
         <!-- 2022 -->
-        <tabelcali :linkdata="cali2022.linkdata" :titlupag="cali2022.titlupag" :darkMode="darkMode" :an2021="!an2021" v-show="!an2021"/>
+        <tabelcali :linkdata="cali2022.linkdata" :titlupag="cali2022.titlupag" :darkMode="darkMode" :an2021="!an2021" v-if="!an2021"/>
         <!-- 2021 -->
-        <tabelcali :linkdata="cali2021.linkdata" :titlupag="cali2021.titlupag" :darkMode="darkMode" :an2021="an2021" v-show="an2021"/>
+        <tabelcali :linkdata="cali2021.linkdata" :titlupag="cali2021.titlupag" :darkMode="darkMode" :an2021="an2021" v-if="an2021"/>
     </div>
 </template>
 
@@ -49,6 +49,11 @@ export default {
             document.title = "Rezultate Calificări 2021"
         }
         this.show = true
+        if(this.darkMode){
+            document.body.classList.add("darkmode")
+        }else{
+            document.body.classList.remove("darkmode")
+        } 
     },
     updated() {
         this.show = true
