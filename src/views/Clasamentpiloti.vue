@@ -51,7 +51,7 @@ export default {
         }
     },
     mounted() {
-        fetch("https://f1scraper44.herokuapp.com/clasament-piloti")
+        fetch("https://f1-site-api.vercel.app/clasament-piloti")
         .then(res => res.json())
         .then(data => {
             this.piloti = data
