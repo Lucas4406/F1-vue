@@ -38,7 +38,7 @@
 <script>
 import axios from 'axios'
 export default {
-    props: ["darkMode" , "an2021" , "linkdata" , "titlupagina" , "an2021" , "asc"],
+    props: ["darkMode" , "linkdata" , "titlupagina" , "asc"],
     data() {
         return {
             curse: [],
