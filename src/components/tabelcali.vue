@@ -34,7 +34,7 @@
 
 <script>
 export default {
-    props: ["darkMode" , "linkdata" , "titlupag" , "an2021"],
+    props: ["darkMode" , "linkdata" , "titlupag"],
     data() {
         return {
             calificari: [],

@@ -3,11 +3,11 @@
     <div class="container-curse">
         <div class="form-select" :class="{darkmode: darkMode}">
             <label for="ancurse">Alege anul:</label>
-            <select id="ancurse" name="ancurse" v-model="ancursaSelect">
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
+            <select id="ancurse" name="ancurse" class="selectie" v-model="ancursaSelect">
+                <option value="2022" class="optiune">2022</option>
+                <option value="2021" class="optiune">2021</option>
+                <option value="2020" class="optiune">2020</option>
+                <option value="2019" class="optiune">2019</option>
             </select>
             <!-- <br>
             <br>
@@ -45,7 +45,7 @@ export default {
             textButon: false,
             darkMode,
             show: false,
-            ancursaSelect: "",
+            ancursaSelect: "2022",
             asc: false,
             curse2022: {
                 linkdata: "https://ergast.com/api/f1/2022/results.json?limit=1000",
