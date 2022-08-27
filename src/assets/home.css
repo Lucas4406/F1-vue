@@ -112,6 +112,13 @@ body.darkmode{
 .ltag.darkmode{
     color:white;
 }
+.loading{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
 @media(max-width:1380px){
     .content-text{
         display: flex;

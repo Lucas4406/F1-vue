@@ -36,14 +36,22 @@
             </a>
         </div>
     </div>
+    <div class="loading" v-if="!show">
+        <spinner />
+    </div>
+    <NThemeEditor v-if="theme"/>
 </template>
 <script>
 import axios from 'axios'
 import herocursa from "../components/herocursa.vue"
+import spinner from "../components/spinner.vue"
+import  NThemeEditor  from '../components/themeEditor.vue'
 export default {
     name: "Home",
     components : {
-        herocursa
+        herocursa,
+        spinner,
+        NThemeEditor
     },
     data () {
         let darkMode = localStorage.getItem('darkMode') == 'true';
@@ -59,7 +67,8 @@ export default {
             steag: "",
             tara: "",
             Hero: false,
-            show:false
+            show:false,
+            theme: false
         }
     },
     mounted () {
