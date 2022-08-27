@@ -1,5 +1,5 @@
 <template>
-    <div class="site-wrapper">
+    <div class="site-wrapper" v-if="show">
         <br>
         <herocursa v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara"/>
         <div class="stiri" :class="{darkmode: darkMode}">
@@ -58,16 +58,11 @@ export default {
             runda: "",
             steag: "",
             tara: "",
-            Hero: false
+            Hero: false,
+            show:false
         }
     },
     mounted () {
-        fetch("https://f1-site-api.vercel.app/stiri")
-        .then(res => res.json())
-        .then(data => {
-            this.news = data.Stiri
-        })
-        .catch(err => console.log(err.message)),
         document.title= "Acasă"
         if(this.darkMode){
             document.body.classList.add("darkmode")
@@ -75,6 +70,7 @@ export default {
             document.body.classList.remove("darkmode")
         }
         this.getCursa() 
+        this.fetchData()
     },
     methods: {
         darkModeToggle() {
@@ -100,7 +96,17 @@ export default {
             this.steag = resData.steag
             this.tara = resData.tara
             this.Hero = true
-        }
+        },
+        async fetchData () {
+            var j=0
+            for(j=0;j<4;j++){
+                var link = "https://f1-site-api.vercel.app/stiri-translate/" + j
+                const response = await axios.get(link)
+                const resData = response.data
+                this.news[j] = resData
+            }
+            this.show=true
+        },
     },
 }
 </script>
