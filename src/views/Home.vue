@@ -37,21 +37,16 @@
         </div>
     </div>
     <div class="loading" v-if="!show">
-        <spinner />
+        <ProgressSpinner />
     </div>
-    <NThemeEditor v-if="theme"/>
 </template>
 <script>
 import axios from 'axios'
 import herocursa from "../components/herocursa.vue"
-import spinner from "../components/spinner.vue"
-import  NThemeEditor  from '../components/themeEditor.vue'
 export default {
     name: "Home",
     components : {
         herocursa,
-        spinner,
-        NThemeEditor
     },
     data () {
         let darkMode = localStorage.getItem('darkMode') == 'true';
@@ -68,7 +63,6 @@ export default {
             tara: "",
             Hero: false,
             show:false,
-            theme: false
         }
     },
     mounted () {
@@ -113,8 +107,10 @@ export default {
                 const response = await axios.get(link)
                 const resData = response.data
                 this.news[j] = resData
+                if(this.news[2] !== null){
+                    this.show=true
+                }
             }
-            this.show=true
         },
     },
 }
@@ -123,4 +119,21 @@ export default {
 <style>
     @import "../assets/home.css";
     @import "../assets/dkmodebtn.css";
+
+    @keyframes p-progress-spinner-color {
+        100%,
+        0% {
+            stroke: #FF0000;
+        }
+        40% {
+            stroke: #FF0000;
+        }
+        66% {
+            stroke: #FF0000;
+        }
+        80%,
+        90% {
+            stroke: #FF0000;
+        }
+    }
 </style>
