@@ -79,6 +79,7 @@ export default {
             document.body.classList.remove("darkmode")
         } 
         this.curse2022.an2022 = true
+        this.ancursaSelect = this.$route.params.an
         this.anCursaSelect()
     },
     updated() {
@@ -139,14 +140,6 @@ export default {
                 name: "Curse",
                 params: {an: this.ancursaSelect}
             })
-        },
-        ordonareasc () {
-            this.asc = true
-            console.log(this.asc);
-        },
-        ordonaredesc () {
-            this.asc = false
-            console.log(this.asc);
         }
     },
     computed: {
