@@ -28,6 +28,7 @@
 
 <script>
 import tabelcali from "../components/tabelcali.vue"
+import router from "../router"
 export default {
     name: "Calificari",
     components: {
@@ -117,6 +118,11 @@ export default {
                 this.cali2019.an2019 = true
                 document.title = this.cali2019.titlupag
             }
+
+            router.push({
+                name: "Calificari",
+                params: {an: this.ancaliSelect}
+            })
         }
     },
 }
