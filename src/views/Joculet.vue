@@ -59,9 +59,9 @@ export default{
     },
     mounted() {
         document.title = "Joc Reacție";
-        if (localStorage.getItem('score')) {
+        if (JSON.parse(localStorage.getItem('score'))) {
             try {
-                this.timp.push(localStorage.getItem('score'))
+                this.timp.push(JSON.parse(localStorage.getItem('score')))
             } catch(e) {
                 localStorage.removeItem('score');
             }
@@ -77,11 +77,10 @@ export default{
             this.score = timpReactie
             this.isPlaying = false
             this.showResult = true
-            const parsed = JSON.stringify(this.score);
-            localStorage.setItem('score', parsed);
+            localStorage.setItem('score', JSON.stringify(this.score));
             if (localStorage.getItem('score')) {
                 try {
-                    this.timp.push(localStorage.getItem('score'))
+                    this.timp.push(JSON.parse(localStorage.getItem('score')))
                     this.textshow = false
                 } catch(e) {
                     localStorage.removeItem('score');
