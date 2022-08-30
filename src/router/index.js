@@ -8,6 +8,8 @@ import Istorie from '../views/Istorie.vue'
 import Joc from "../views/Joculet.vue"
 import Calificari from "../views/Calificari.vue"
 import Curse from "../views/Curse.vue"
+import Live from "../views/Live.vue"
+
 
 
 const router = createRouter({
@@ -57,6 +59,11 @@ const router = createRouter({
       path: '/istorie',
       name: 'Istorie',
       component: Istorie
+    },
+    {
+      path: "/live",
+      name: "Live",
+      component: Live
     }
   ]
 })
