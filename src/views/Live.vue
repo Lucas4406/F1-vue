@@ -34,6 +34,11 @@ export default {
     },
     mounted() {
         document.title = "Livestream-F1"
+        if(this.darkMode){
+            document.body.classList.add("darkmode")
+        }else{
+            document.body.classList.remove("darkmode")
+        } 
     },
 }
 </script>
