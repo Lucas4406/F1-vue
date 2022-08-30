@@ -29,12 +29,12 @@ const router = createRouter({
       component: Clasament
     },
     {
-      path: "/rezultate-calificari",
+      path: "/rezultate-calificari/:an?",
       name: "Calificari",
       component: Calificari
     },
     {
-      path: "/rezultate-curse",
+      path: "/rezultate-curse/:an?",
       name: "Curse",
       component: Curse
     },

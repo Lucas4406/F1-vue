@@ -33,6 +33,7 @@
 
 <script>
 import tabelcursa from "../components/tabelcursa.vue"
+import router from "../router"
 export default {
     name: "Curse",
     components: {
@@ -133,6 +134,11 @@ export default {
                 this.curse2019.an2019 = true
                 document.title = this.curse2019.titlu
             }
+
+            router.push({
+                name: "Curse",
+                params: {an: this.ancursaSelect}
+            })
         },
         ordonareasc () {
             this.asc = true
