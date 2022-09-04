@@ -26,7 +26,7 @@
                         </div>
                         <div class="fastest-lap">
                             <p class="fastest-text">Cel mai rapid tur</p>
-                            <p class="fastet-lap" :class="{fastestlap: fastest}">{{pilot.FastestLap.timp}} ({{pilot.FastestLap.rank}})</p>
+                            <p class="fastet-lap" :class="{fastestlap: fastest}">{{pilot.FastestLap}} {{pilot.FastestLap.rank}}</p>
                         </div>
                     </div>
                 </div>
@@ -45,43 +45,33 @@ export default {
             search: "",
             fastest: false,
             link: this.linkdata,
-            ordonare: this.asc,
-            /* curseOrd: [] */
         }
     },
     methods: {
         async getCurse () {
             const response = await axios.get(this.link)
             const resData = response.data.MRData.RaceTable.Races
-            this.curse = resData
+            console.log(resData);
             for(var i = 0; i<resData.length;i++){
                 for(var j = 0; j<resData[i].Results.length;j++){
                     if(resData[i].Results[j].FastestLap === undefined){
-                        this.curse[i].Results[j].FastestLap = "-"
+                        resData[i].Results[j].FastestLap = "-"
                     }else{
-                        this.curse[i].Results[j].FastestLap.timp = resData[i].Results[j].FastestLap.Time.time
-                        this.curse[i].Results[j].rank = resData[i].Results[j].FastestLap.rank
+                        resData[i].Results[j].FastestLap = resData[i].Results[j].FastestLap.Time.time
                     }
-                    if(this.curse[i].Results[j].FastestLap.rank === "1"){
+                    /* resData[i].Results[j].FastestLap.rank = `(${resData[i].Results[j].FastestLap.rank})` */
+                    /* if(resData[i].Results[j].FastestLap.rank === "1"){
                         this.fastest = true
-                    }
+                    } */
                 }
             }
+            this.curse = resData
         },
-        /* ascDesc () {
-            if(this.ordonare === true){
-                this.curseOrd = this.filterCurse
-            }else{
-                this.curseOrd = this.filterCurse.slice().reverse()
-            }
-        } */
     },
     mounted() {
         this.getCurse()
-        /* this.ascDesc() */
     },
     updated() {
-        /* this.ascDesc() */
     },
     computed: {
         filterCurse: function () {
