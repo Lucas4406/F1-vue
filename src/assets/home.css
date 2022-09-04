@@ -79,6 +79,7 @@ body.darkmode{
     border-bottom: 0;
     z-index:20;
     transition: color 200ms ease-in-out;
+    /* max-height: 116px; */
 }
 .content-text.darkmode{
     border-color: white;

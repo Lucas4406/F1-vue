@@ -86,7 +86,7 @@ export default {
             } 
         },
         async getCursa () {
-            var j=16
+            var j=17
             var link = "https://f1-site-api.vercel.app/up-next/" + j
             const response = await axios.get(link)
             const resData = response.data

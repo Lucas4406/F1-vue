@@ -1,0 +1,105 @@
+html{
+    scroll-behavior: smooth;
+}
+.content{
+    display:grid;
+    grid-template-rows:repeat(10, 1fr);
+    row-gap:1.25rem;
+    margin-left:0.625rem;
+    margin-right:0.625rem;
+}
+.box-echipa{
+    display:grid;
+    grid-template-rows: 1fr 6fr;
+    border:3px solid black;
+    border-radius:6px;
+    transition:0.15s;
+}
+.box-echipa.dark-mode{
+    border-color: black;
+    color:white;
+    background-color: #333;
+}
+.box-echipa:hover{
+    box-shadow:15px 15px 15px rgb(71, 71, 71);
+}
+.piloti{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap: 3.125rem;
+    margin-left:0.625rem;
+}
+.nume-echipa{
+    font-size: 3rem;
+    font-weight:600;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.pilot1{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.625rem;
+}
+.pilot2{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.625rem;
+}
+.poza-echipa{
+    width:100%;
+    border:4px solid black;
+    border-radius:20px;
+    height: 100%;
+    object-fit: cover;
+}
+.info{
+    font-size:1.2rem;
+    margin-left:0.625rem;
+}
+.pozapilot{
+    margin-top:0.313rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+.numepilot{
+    font-weight:600;
+    font-size:2rem;
+    margin-bottom:1.25rem;
+    margin-top:10px;
+}
+.numar{
+    background-color: rgb(92, 92, 92);
+    width:30%;
+    position:absolute;
+    border-radius:20px 0 20px 0;
+    top:0;
+    left:0;
+}
+.nume-echipa span{
+    margin: 0;
+    padding: 0;
+}
+.info > span{
+    margin:0;
+    padding:0;
+}
+@media(max-width:1000px){
+    .piloti{
+        grid-template-columns:1fr;
+        row-gap: .7rem;
+    }
+    .box-echipa{
+        grid-template-rows: 1fr 12fr;
+    }
+    .numar{
+        width:35%;
+    }
+    .numepilot{
+        font-size:2.5rem;
+    }
+    .nume-echipa{
+        font-size: 3.5rem;
+    }
+}
