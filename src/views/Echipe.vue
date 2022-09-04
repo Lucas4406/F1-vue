@@ -52,6 +52,12 @@ export default {
             this.echipe = data
         })
         .catch(err => console.log(err.message))
+
+        if(this.darkMode){
+            document.body.classList.add("darkmode")
+        }else{
+            document.body.classList.remove("darkmode")
+        } 
     },
     methods: {
         darkModeToggle() {

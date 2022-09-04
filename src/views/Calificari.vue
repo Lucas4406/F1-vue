@@ -74,6 +74,7 @@ export default {
         } 
         this.cali2022.an2022 = true
         this.anCaliSelect()
+        this.ancaliSelect = this.$route.params.an
     },
     updated() {
         this.show = true
