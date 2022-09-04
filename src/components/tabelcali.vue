@@ -20,7 +20,7 @@
             </div>
             <div class="piloti-container" v-for="pilot in calificare.QualifyingResults" :key="pilot.id" ref="pilot">
                 <div class="pilot">
-                    <div class="parte-stanga">{{pilot.position}}. {{pilot.Driver.givenName}} {{pilot.Driver.familyName}}</div>
+                    <div class="parte-stanga">{{pilot.position}}. {{pilot.Driver.givenName}} {{pilot.Driver.familyName}} <span><img src="/First-Place-PNG-Picture.png" class="poza-cali"></span></div>
                     <div class="parte-dreapta">
                         <div class="timp-container" id="q1">{{pilot.Q1}}</div>
                         <div class="timp-container" id="q2">{{pilot.Q2}}</div>

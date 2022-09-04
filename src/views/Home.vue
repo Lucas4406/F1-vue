@@ -63,6 +63,7 @@ export default {
             tara: "",
             Hero: false,
             show:false,
+            nrCursa: "",
         }
     },
     mounted () {
@@ -85,8 +86,15 @@ export default {
                 document.body.classList.remove("darkmode")
             } 
         },
+        async getNext () {
+            var link = "https://ergast.com/api/f1/2022/results.json?limit=1000"
+            const response = await axios.get(link)
+            const resData = response.data.MRData.RaceTable.Races.length + 2
+            this.nrCursa = resData
+        },
         async getCursa () {
-            var j=17
+            await this.getNext()
+            var j= this.nrCursa
             var link = "https://f1-site-api.vercel.app/up-next/" + j
             const response = await axios.get(link)
             const resData = response.data

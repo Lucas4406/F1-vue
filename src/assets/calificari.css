@@ -150,6 +150,13 @@
 .piloti-container:nth-child(5) > .pilot > .parte-dreapta > #q3{
     font-weight: bold;
 }
+.poza-cali{
+    height: 30px;
+    display: none;
+}
+.piloti-container:nth-child(5) > .pilot > .parte-stanga > span > .poza-cali{
+    display: block;
+}
 @media(max-width:1250px){
     .tabel-container{
         width: 70%;
