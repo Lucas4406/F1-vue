@@ -44,7 +44,7 @@
 <script>
 import axios from 'axios';
 export default {
-    name: "Piloti",
+    name: "Program",
     data() {
         return {
             show: false,
@@ -52,6 +52,7 @@ export default {
         }
     },
     mounted() {
+        document.title = "Program 2022"
         this.getCurse()
     },
     methods: {
