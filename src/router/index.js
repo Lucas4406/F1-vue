@@ -9,7 +9,7 @@ import Joc from "../views/Joculet.vue"
 import Calificari from "../views/Calificari.vue"
 import Curse from "../views/Curse.vue"
 import Live from "../views/Live.vue"
-import Piloti from "../views/Piloti.vue"
+import Program from "../views/Program.vue"
 
 
 
@@ -28,9 +28,9 @@ const router = createRouter({
       component: Echipe
     },
     {
-      path: "/piloti",
-      name: "Piloti",
-      component: Piloti
+      path: "/program",
+      name: "Program",
+      component: Program
     },
     {
       path: "/clasament-echipe",
