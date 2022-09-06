@@ -1,50 +1,43 @@
 <template>
-    <div class="content" id="pilotiCont">
-            <div class="box-echipa" id="ferrari" v-for="echipa in Ferrari" :key="echipa.id">
-                <span class="nume-echipa">
-                    Ferrari
-                </span>
-                <div class="piloti">
-                    <div class="pilot1">
-                        <div class="pozapilot">
-                            <img src="" class="poza-echipa">
-                            <img src="" class="numar">
-                        </div>
-                        <div class="info" id="charles">
-                            <p class="numepilot">Charles Leclerc</p>
-                            <p><strong>Echipă:</strong><span class="text-echipa"> </span></p>
-                            <p><strong>Țară:</strong><span class="text-tara"> </span></p>
-                            <p><strong>Podiumuri:</strong><span class="text-podium"> </span></p>
-                            <p><strong>Puncte:</strong><span class="text-puncte"> </span></p>
-                            <p><strong>Grands Prix-uri începute:</strong><span class="text-gp"> </span></p>
-                            <p><strong>Campionate câștigate:</strong><span class="text-campionate"> </span></p>
-                            <p><strong>Cea mai bună clasare în cursă:</strong><span class="text-cl-cursa"> </span></p>
-                            <p><strong>Cea mai bună clasare în calificări:</strong><span class="text-cl-quali"> </span></p>
-                            <p><strong>Data nașterii:</strong><span class="text-data"> </span></p>
-                            <p><strong>Locul nașterii:</strong><span class="text-loc"> </span></p>
-                        </div>
-                    </div>
-                    <div class="pilot2">
-                        <div class="pozapilot">
-                            <img src="" class="poza">
-                            <img src="" class="numar">
-                        </div>
-                        <div class="info" id="carlos">
-                            <p class="numepilot">Carlos Sainz</p>
-                            <p><strong>Echipă:</strong><span class="text-echipa"> </span></p>
-                            <p><strong>Țară:</strong><span class="text-tara"> </span></p>
-                            <p><strong>Podiumuri:</strong><span class="text-podium"> </span></p>
-                            <p><strong>Puncte:</strong><span class="text-puncte"> </span></p>
-                            <p><strong>Grands Prix-uri începute:</strong><span class="text-gp"> </span></p>
-                            <p><strong>Campionate câștigate:</strong><span class="text-campionate"> </span></p>
-                            <p><strong>Cea mai bună clasare în cursă:</strong><span class="text-cl-cursa"> </span></p>
-                            <p><strong>Cea mai bună clasare în calificări:</strong><span class="text-cl-quali"> </span></p>
-                            <p><strong>Data nașterii:</strong><span class="text-data"> </span></p>
-                            <p><strong>Locul nașterii:</strong><span class="text-loc"> </span></p>
-                        </div>
-                    </div>
+    <div alt="card-grid" class="grid md:grid-cols-2 p-6 gap-4">
+        <div class="bg-red-200 border-black border-2 border-solid max-w-4xl p-4" v-for="cursa in curse" :key="cursa.id">
+            <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
+                <p alt="titlu">{{cursa.round}}. {{cursa.raceName}}</p>
+                <p alt="circuit">{{cursa.Circuit.circuitId.charAt(0).toUpperCase() + cursa.Circuit.circuitId.slice(1).replace(/_/g, ' ')}}</p>
+            </div>
+            <div alt="data-wrapper" class="text-xl">
+                <div alt="FP1" class="flex justify-between">
+                    <p>FP1</p>
+                    <p alt="data">{{new Date(cursa.FirstPractice.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
+                    <p alt="timp">{{cursa.FirstPractice.time}}</p>
+                </div>
+                <div alt="FP2" class="flex justify-between">
+                    <p>FP2</p>
+                    <p alt="data">{{new Date(cursa.SecondPractice.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
+                    <p alt="timp">{{cursa.SecondPractice.time}}</p>
+                </div>
+                <div alt="FP3" v-if="cursa.ThirdPractice" class="flex justify-between">
+                    <p>FP3</p>
+                    <p alt="data">{{new Date(cursa.ThirdPractice.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
+                    <p alt="timp">{{cursa.ThirdPractice.time}}</p>
+                </div>
+                <div alt="Sprint" v-if="cursa.Sprint" class="flex justify-between">
+                    <p>Sprint</p>
+                    <p alt="data">{{new Date(cursa.Sprint.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
+                    <p alt="timp">{{cursa.Sprint.time}}</p>
+                </div>
+                <div alt="Quali" class="flex justify-between">
+                    <p>Quali</p>
+                    <p alt="data">{{new Date(cursa.Qualifying.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
+                    <p alt="timp">{{cursa.Qualifying.time}}</p>
+                </div>
+                <div alt="Cursa" class="flex justify-between">
+                    <p>Cursă</p>
+                    <p alt="data">{{new Date(cursa.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
+                    <p alt="timp">{{cursa.time}}</p>
                 </div>
             </div>
+        </div>
     </div>
 </template>
 
@@ -54,19 +47,23 @@ export default {
     name: "Piloti",
     data() {
         return {
-            Ferrari: []
+            show: false,
+            curse: []
         }
     },
     mounted() {
-        this.getData()
+        this.getCurse()
     },
     methods: {
-        async getData () {
-            const link = "https://f1-site-api.vercel.app/piloti"
+        yeah () {
+            this.show = !this.show
+        },
+        async getCurse () {
+            var link = "https://ergast.com/api/f1/2022.json"
             const response = await axios.get(link)
-            const resData = response.data
-            this.Ferrari = resData[1]
-            console.log(this.Ferrari);
+            const resData = response.data.MRData.RaceTable.Races
+            console.log(resData);
+            this.curse = resData
         }
     },
 }
