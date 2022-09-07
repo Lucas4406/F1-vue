@@ -47,7 +47,6 @@ export default {
     name: "Program",
     data() {
         return {
-            show: false,
             curse: []
         }
     },
@@ -56,9 +55,6 @@ export default {
         this.getCurse()
     },
     methods: {
-        yeah () {
-            this.show = !this.show
-        },
         async getCurse () {
             var link = "https://ergast.com/api/f1/2022.json"
             const response = await axios.get(link)
@@ -71,5 +67,5 @@ export default {
 </script>
 
 <style>
-    @import "../assets/piloti.css";
+    
 </style>
