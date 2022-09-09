@@ -3,61 +3,63 @@
     <div class="mt-4 justify-center flex items-center gap-6" alt="hero">
         <span class="text-4xl font-bold text-red-600">UP</span>
         <div class="border-red-500 border-2 border-solid sm:max-w-xl sm:w-xl lg:max-w-4xl lg:w-4xl p-4 rounded-md w-[50%]">
-            <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
-                <p alt="titlu">{{round}}. {{Name}}</p>
-                <p alt="circuit">{{circuitName}}</p>
-            </div>
-            <div alt="data-wrapper" class="text-xl gap-2 flex flex-col">
-                <div alt="FP1" class="flex justify-between">
-                    <div alt="parte-st" class="flex justify-between w-[50%]">
-                        <p class="">FP1</p>
-                        <p alt="data" class="">{{FP1.date}}</p>
-                    </div>
-                    <p alt="timp" class="w-[50%] flex justify-end items-center">{{FP1.time}}</p>
+            <router-link to="/live" style="text-decoration:none; color:black">
+                <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
+                    <p alt="titlu">{{round}}. {{Name}}</p>
+                    <p alt="circuit">{{circuitName}}</p>
                 </div>
-                <div alt="Quali" v-if="Sprint.date" class="flex justify-between">
-                    <div alt="parte-st" class="flex justify-between w-[50%]">
-                        <p class="">Quali</p>
-                        <p alt="data" class="">{{Quali.date}}</p>
+                <div alt="data-wrapper" class="text-xl gap-2 flex flex-col">
+                    <div alt="FP1" class="flex justify-between">
+                        <div alt="parte-st" class="flex justify-between w-[50%]">
+                            <p class="">FP1</p>
+                            <p alt="data" class="">{{FP1.date}}</p>
+                        </div>
+                        <p alt="timp" class="w-[50%] flex justify-end items-center">{{FP1.time}}</p>
                     </div>
-                    <p alt="timp" class="w-[50%] flex justify-end items-center">{{Quali.time}}</p>
-                </div>
-                <div alt="FP2" class="flex justify-between">
-                    <div alt="parte-st" class="flex justify-between w-[50%]">
-                        <p>FP2</p>
-                        <p alt="data">{{FP2.date}}</p>
+                    <div alt="Quali" v-if="Sprint.date" class="flex justify-between">
+                        <div alt="parte-st" class="flex justify-between w-[50%]">
+                            <p class="">Quali</p>
+                            <p alt="data" class="">{{Quali.date}}</p>
+                        </div>
+                        <p alt="timp" class="w-[50%] flex justify-end items-center">{{Quali.time}}</p>
                     </div>
-                    <p alt="timp" class="w-[50%] flex justify-end items-center">{{FP2.time}}</p>
-                </div>
-                <div alt="Sprint" v-if="Sprint.date" class="flex justify-between">
-                    <div alt="parte-st" class="flex justify-between w-[50%]">
-                        <p>Sprint</p>
-                        <p alt="data">{{Sprint.date}}</p>
+                    <div alt="FP2" class="flex justify-between">
+                        <div alt="parte-st" class="flex justify-between w-[50%]">
+                            <p>FP2</p>
+                            <p alt="data">{{FP2.date}}</p>
+                        </div>
+                        <p alt="timp" class="w-[50%] flex justify-end items-center">{{FP2.time}}</p>
                     </div>
-                    <p alt="timp" class="w-[50%] flex justify-end items-center">{{Sprint.time}}</p>
-                </div>
-                <div alt="FP3" v-if="FP3.date" class="flex justify-between">
-                    <div alt="parte-st" class="flex justify-between w-[50%]">
-                        <p>FP3</p>
-                        <p alt="data">{{FP3.date}}</p>
+                    <div alt="Sprint" v-if="Sprint.date" class="flex justify-between">
+                        <div alt="parte-st" class="flex justify-between w-[50%]">
+                            <p>Sprint</p>
+                            <p alt="data">{{Sprint.date}}</p>
+                        </div>
+                        <p alt="timp" class="w-[50%] flex justify-end items-center">{{Sprint.time}}</p>
                     </div>
-                    <p alt="timp" class="w-[50%] flex justify-end items-center">{{FP3.time}}</p>
-                </div>
-                <div alt="Quali" v-if="!Sprint.date" class="flex justify-between">
-                    <div alt="parte-st" class="flex justify-between w-[50%]">
-                        <p>Quali</p>
-                        <p alt="data">{{Quali.date}}</p>
+                    <div alt="FP3" v-if="FP3.date" class="flex justify-between">
+                        <div alt="parte-st" class="flex justify-between w-[50%]">
+                            <p>FP3</p>
+                            <p alt="data">{{FP3.date}}</p>
+                        </div>
+                        <p alt="timp" class="w-[50%] flex justify-end items-center">{{FP3.time}}</p>
                     </div>
-                    <p alt="timp" class="w-[50%] flex justify-end items-center">{{Quali.time}}</p>
-                </div>
-                <div alt="Cursa" class="flex justify-between">
-                    <div alt="parte-st" class="flex justify-between w-[50%]">
-                        <p>Cursă</p>
-                        <p alt="data">{{Race.date}}</p>
+                    <div alt="Quali" v-if="!Sprint.date" class="flex justify-between">
+                        <div alt="parte-st" class="flex justify-between w-[50%]">
+                            <p>Quali</p>
+                            <p alt="data">{{Quali.date}}</p>
+                        </div>
+                        <p alt="timp" class="w-[50%] flex justify-end items-center">{{Quali.time}}</p>
                     </div>
-                    <p alt="timp" class="w-[50%] flex justify-end items-center">{{Race.time}}</p>
+                    <div alt="Cursa" class="flex justify-between">
+                        <div alt="parte-st" class="flex justify-between w-[50%]">
+                            <p>Cursă</p>
+                            <p alt="data">{{Race.date}}</p>
+                        </div>
+                        <p alt="timp" class="w-[50%] flex justify-end items-center">{{Race.time}}</p>
+                    </div>
                 </div>
-            </div>
+            </router-link>
         </div>
         <span class="text-4xl font-bold text-red-600">NEXT</span>
     </div>
