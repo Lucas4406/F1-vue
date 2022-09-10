@@ -10,6 +10,8 @@ import Calificari from "../views/Calificari.vue"
 import Curse from "../views/Curse.vue"
 import Live from "../views/Live.vue"
 import Program from "../views/Program.vue"
+import Formtest from "../views/Formtest.vue"
+
 
 
 
@@ -71,7 +73,12 @@ const router = createRouter({
       path: "/live",
       name: "Live",
       component: Live
-    }
+    },
+    {
+      path: "/test",
+      name: "Formtest",
+      component: Formtest
+    },
   ]
 })
 
