@@ -47,7 +47,7 @@ export default {
     methods: {
         createEchipa() {
             axios.post("https://f1-site-api.vercel.app/mongo", this.echipa)
-            .then(response => window.location.reload())
+            .then(response => this.getEchipe())
             .catch(error => console.log(error))
         },
         async getEchipe() {
@@ -58,7 +58,7 @@ export default {
         },
         deleteEchipa(id) {
             axios.delete(`https://f1-site-api.vercel.app/mongo/delete/${id}`)
-            .then(response => window.location.reload())
+            .then(response => this.getEchipe())
             .catch(error => console.log(error))
         }
     },
