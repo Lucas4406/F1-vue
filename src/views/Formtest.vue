@@ -21,6 +21,8 @@
             <p>{{una.name}}</p>
             <p>{{una.driver1}}</p>
             <p>{{una.driver2}}</p>
+            <p>{{una._id}}</p>
+            <button @click="deleteEchipa(una._id)">Delete</button>
         </div>
     </div>
 </template>
@@ -34,7 +36,7 @@ export default {
             echipa: {
                 name: "",
                 driver1: "",
-                driver2: ""
+                driver2: "",
             },
             echipe: []
         }
@@ -45,7 +47,7 @@ export default {
     methods: {
         createEchipa() {
             axios.post("https://f1-site-api.vercel.app/mongo", this.echipa)
-            .then(response => console.log(response))
+            .then(response => window.location.reload())
             .catch(error => console.log(error))
         },
         async getEchipe() {
@@ -53,7 +55,11 @@ export default {
             const res = await axios(link)
             const data = res.data
             this.echipe = data
-            console.log(data);
+        },
+        deleteEchipa(id) {
+            axios.delete(`https://f1-site-api.vercel.app/mongo/delete/${id}`)
+            .then(response => window.location.reload())
+            .catch(error => console.log(error))
         }
     },
 }
