@@ -1,5 +1,5 @@
 <template>
-  <div class="hero-wrapper">
+  <router-link to="/program" class="hero-wrapper">
         <div class="hero-stanga">
             <div class="hero-info">
                 <p class="hero-runda">Next - {{runda}}</p>
@@ -22,7 +22,7 @@
                 <p class="data-paragraf">{{dataInceput}}-{{dataSfarsit}} {{lunaCursa}}</p>
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
