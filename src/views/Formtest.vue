@@ -47,7 +47,12 @@ export default {
     methods: {
         createEchipa() {
             axios.post("https://f1-site-api.vercel.app/mongo", this.echipa)
-            .then(response => this.getEchipe())
+            .then(response => {
+                this.getEchipe()
+                this.echipa.name = ""
+                this.echipa.driver1 = ""
+                this.echipa.driver2 = ""
+            })
             .catch(error => console.log(error))
         },
         async getEchipe() {
