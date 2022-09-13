@@ -1,8 +1,8 @@
 <template>
     <!-- Cursa Urmatoare -->
     <div class="mt-4 justify-center flex items-center gap-6" alt="hero">
-        <div class="border-red-500 border-2 border-solid sm:max-w-xl sm:w-xl lg:max-w-4xl lg:w-4xl p-4 rounded-md w-[50%]">
-            <router-link to="/live" style="text-decoration:none; color:black">
+        <div class="border-red-500 border-2 border-solid sm:max-w-xl sm:w-xl lg:max-w-4xl lg:w-4xl p-4 rounded-md w-[50%] animatie">
+            <router-link to="/live" style="text-decoration:none; color:black" class="">
                 <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
                     <p alt="titlu">{{round}}. {{Name}}</p>
                     <p alt="circuit">{{circuitName}}</p>
@@ -63,7 +63,7 @@
     </div>
     <!-- Card Grid -->
     <div alt="card-grid" class="grid lg:grid-cols-2 md:grid-cols-1 lg:px-14 sm:p-6 gap-6 sm:justify-center">
-        <div class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-20 lg:ml-0 rounded-md" v-for="cursa in curse" :key="cursa.id" :id="cursa.Circuit.circuitId">
+        <div class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-20 lg:ml-0 rounded-md animatie" v-for="cursa in curse" :key="cursa.id" :id="cursa.Circuit.circuitId">
             <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
                 <p alt="titlu">{{cursa.round}}. {{cursa.raceName}}</p>
                 <p alt="circuit">{{cursa.Circuit.circuitId.charAt(0).toUpperCase() + cursa.Circuit.circuitId.slice(1).replace(/_/g, ' ')}}</p>
@@ -216,6 +216,11 @@ export default {
 }
 </script>
 
-<style>
-    
+<style scoped>
+    .animatie{
+        transition: transform 300ms ease-in-out;
+    }
+    .animatie:hover{
+        transform: scale(1.02);
+    }
 </style>

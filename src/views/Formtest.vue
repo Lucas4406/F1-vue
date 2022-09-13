@@ -16,14 +16,38 @@
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center cursor-pointer">Submit</button>
         </form>
     </div>
-    <div class="flex flex-col gap-4">
-        <div class="border-solid border-black border-2" v-for="una in echipe" :key="una.id">
-            <p>{{una.name}}</p>
-            <p>{{una.driver1}}</p>
-            <p>{{una.driver2}}</p>
-            <p>{{una._id}}</p>
-            <button @click="deleteEchipa(una._id)">Delete</button>
+
+
+    <div class="overflow-hidden bg-white shadow sm:rounded-lg" v-for="una in echipe" :key="una.id">
+        <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">{{una.name}}</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">Team Info</p>
         </div>
+        <div class="border-t border-gray-200">
+            <dl>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">First Driver</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{una.driver1}}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">Second Driver</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{una.driver2}}</dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">Email address</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{una._id}}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">Salary expectation</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">$120,000</dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm font-medium text-gray-500">About</dt>
+                <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.</dd>
+                </div>
+            </dl>
+        </div>
+        <button @click="deleteEchipa(una._id)">Delete</button>
     </div>
 </template>
 
@@ -73,7 +97,7 @@ export default {
 <style>
     .form-wrapper{
         width: 100vw;
-        height: 80vh;
+        height: 90vh;
         display: flex;
         justify-content: center;
         align-items: center;

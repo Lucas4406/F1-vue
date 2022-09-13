@@ -12,7 +12,7 @@
     </div>
     <div class="bar">
       <div class="buton">
-        <router-link to="/stiri" class="link-router">Știri</router-link>
+        <router-link to="/program" class="link-router">Program</router-link>
       </div>
       <div class="buton">
         <router-link to="/echipe" class="link-router">Echipe</router-link>
