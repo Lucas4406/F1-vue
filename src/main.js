@@ -4,6 +4,7 @@ import router from './router'
 import './assets/main.css'
 import PrimeVue from 'primevue/config'
 import './index.css'
+import "./firebase/index.js"
 const app = createApp(App)
 
 app.use(router)
@@ -16,4 +17,6 @@ import ProgressSpinner from 'primevue/progressspinner'
 
 
 app.component('ProgressSpinner', ProgressSpinner)
+
+
 

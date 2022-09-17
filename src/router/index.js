@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import Stiri from '../views/Stiri.vue'
 import Clasament from "../views/Clasament.vue"
 import Home from "../views/Home.vue"
@@ -11,6 +12,10 @@ import Curse from "../views/Curse.vue"
 import Live from "../views/Live.vue"
 import Program from "../views/Program.vue"
 import Formtest from "../views/Formtest.vue"
+import Login from "../views/login.vue"
+import Signup from "../views/signup.vue"
+
+
 
 
 
@@ -77,9 +82,49 @@ const router = createRouter({
     {
       path: "/test",
       name: "Formtest",
-      component: Formtest
+      component: Formtest,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/login",
+      name: "Login",
+      component: Login
+    },
+    {
+      path: "/signup",
+      name: "Signup",
+      component: Signup
     },
   ]
+})
+
+
+function getCurrentUser() {
+    return new Promise((resolve, reject) => {
+      const removeListener = onAuthStateChanged(
+        getAuth(), (user) => {
+          removeListener()
+          resolve(user)
+        },
+        reject
+      )
+    })
+}
+
+
+router.beforeEach(async (to, from, next) => {
+  if(to.matched.some((record) => record.meta.requiresAuth)){
+    if(await getCurrentUser()){
+      next()
+    }else{
+      alert("Nu ai drepturile necesare")
+      next("/")
+    }
+  }else{
+    next()
+  }
 })
 
 export default router
