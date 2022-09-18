@@ -21,8 +21,10 @@
         auth = getAuth()
         onAuthStateChanged(auth, (user) => {
         if(user){
+            localStorage.setItem("User" , JSON.stringify(user.email))
           isLoggedIn.value = true
         }else{
+            localStorage.setItem("User" , null)
           isLoggedIn.value = false
         }
      })
