@@ -1,7 +1,11 @@
 
 <template>
-  <Navbar />
-  <Footer v-if="loaded" />
+  <keep-alive>
+    <Navbar />
+  </keep-alive>
+  <keep-alive>
+    <Footer />
+  </keep-alive>
 </template>
 
 <script>

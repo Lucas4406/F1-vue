@@ -2,14 +2,14 @@
   <div class="w-screen flex justify-center items-center min-h-screen flex-col">
     <div class="login-box">
     <h2>Sign up</h2>
-    <form>
+    <form @submit.prevent="register">
         <div class="user-box">
         <input type="email" name="" required="" v-model="email">
         <label>Email</label>
         </div>
         <div class="user-box">
         <input type="password" name="" required="" v-model="pass">
-        <label>Password</label>
+        <label>Parolă</label>
         </div>
         <a href="#" @click="register">
         <span></span>
@@ -18,6 +18,7 @@
         <span></span>
         Submit
         </a>
+        <input type="submit" hidden />
     </form>
     </div>
   </div>
@@ -34,7 +35,7 @@
         const auth = getAuth()
         createUserWithEmailAndPassword(auth, email.value, pass.value)
             .then((data) => {
-                router.push("/test")
+                router.push("/")
             })
             .catch((error) => {
                 alert(error.message)

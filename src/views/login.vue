@@ -2,15 +2,16 @@
 <div class="w-screen flex justify-center items-center min-h-screen flex-col">
     <div class="login-box">
         <h2>Log in</h2>
-        <form>
+        <form @submit.prevent="login">
             <div class="user-box">
             <input type="email" name="" required="" v-model="email">
             <label>Email</label>
             </div>
             <div class="user-box">
             <input type="password" name="" required="" v-model="pass">
-            <label>Password</label>
+            <label>Parolă</label>
             </div>
+            <p class="m-0 p-0 w-full text-center text-white">{{errMsg}}</p>
             <a href="#" @click="login">
             <span></span>
             <span></span>
@@ -18,6 +19,7 @@
             <span></span>
             Submit
             </a>
+            <input type="submit" hidden />
         </form>
     </div>
 </div>
@@ -29,15 +31,29 @@
     import { useRouter } from "vue-router"
     const pass = ref("")
     const email = ref("")
+    const errMsg = ref("")
     const router = useRouter()
     function login () {
         const auth = getAuth()
         signInWithEmailAndPassword(auth, email.value, pass.value)
             .then((data) => {
-                router.push({path: "/test" ,  query: { user: `${email.value.split('.')[0]}` }})
+                router.push({path: "/" ,  query: { user: `${email.value.split('.')[0]}` }})
             })
             .catch((error) => {
-                alert(error.message)
+                switch(error.code){
+                  case "auth/invalid-email":
+                    errMsg.value = "Email invalid"
+                    break
+                  case "auth/user-not-found":
+                    errMsg.value = "Nu există cont cu acel email"
+                    break
+                  case "auth/wrong-password":
+                    errMsg.value = "Parolă incorectă"
+                    break
+                  default: 
+                    errMsg.value = "Email sau parolă incorecte"
+                    break
+                }
             })
     }
 </script>
