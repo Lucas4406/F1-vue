@@ -89,7 +89,6 @@ export default {
         async getNext () {
             var link = "https://ergast.com/api/f1/2022/results.json?limit=1000"
             const response = await axios.get(link)
-            console.log(response);
             const resData = response.data.MRData.RaceTable.Races.length
             this.nrCursa = resData
         },
