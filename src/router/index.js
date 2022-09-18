@@ -14,6 +14,8 @@ import Program from "../views/Program.vue"
 import Formtest from "../views/Formtest.vue"
 import Login from "../views/login.vue"
 import Signup from "../views/signup.vue"
+import Profile from "../views/profile/profile.vue"
+
 
 
 
@@ -96,6 +98,14 @@ const router = createRouter({
       path: "/signup",
       name: "Signup",
       component: Signup
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
     },
   ]
 })

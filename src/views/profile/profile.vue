@@ -1,23 +1,23 @@
 <template>
 <div class="w-screen flex justify-center items-center min-h-screen flex-col">
     <div class="login-box">
-        <h2>Log in</h2>
-        <form @submit.prevent="login">
+        <h2>Adaugă un nume și o poză!</h2>
+        <form @submit.prevent="schimba">
             <div class="user-box">
-            <input type="email" name="" required="" v-model="email">
-            <label>Email</label>
+            <input type="email" name="" required="" v-model="nume">
+            <label>Nume</label>
             </div>
             <div class="user-box">
-            <input type="password" name="" required="" v-model="pass">
-            <label>Parolă</label>
+            <input type="text" name="" required="" v-model="poza">
+            <label>Poză (link)</label>
             </div>
             <p class="m-0 p-0 w-full text-center text-white">{{errMsg}}</p>
-            <a href="#" @click="login">
+            <a href="#" @click="schimba">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-            Submit
+            Gata
             </a>
             <input type="submit" hidden />
         </form>
@@ -26,45 +26,33 @@
 </template>
 
 <script setup>
-    import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+    import { getAuth, updateProfile } from "firebase/auth"
     import {ref} from "vue"
     import { useRouter } from "vue-router"
-    const pass = ref("")
-    const email = ref("")
-    const errMsg = ref("")
+    const nume = ref("")
+    const poza = ref("")
     const router = useRouter()
-    function login () {
+    function schimba () {
         const auth = getAuth()
-        signInWithEmailAndPassword(auth, email.value, pass.value)
-            .then((data) => {
-              router.push({path: "/" ,  query: { user: `${email.value.split('.')[0]}` }})
-            })
-            .catch((error) => {
-                switch(error.code){
-                  case "auth/invalid-email":
-                    errMsg.value = "Email invalid"
-                    break
-                  case "auth/user-not-found":
-                    errMsg.value = "Nu există cont cu acel email"
-                    break
-                  case "auth/wrong-password":
-                    errMsg.value = "Parolă incorectă"
-                    break
-                  default: 
-                    errMsg.value = "Email sau parolă incorecte"
-                    break
-                }
-            })
+        updateProfile(auth.currentUser, {
+            displayName: nume.value, photoURL: poza.value
+        }).then((data) => {
+            router.push("/")
+        })
+        .catch((err) => {
+            alert(err.message)
+        })
     }
 </script>
 
 <style scoped>
- html {
+    html {
   height: 100%;
 }
 body {
   margin:0;
   padding:0;
+  background: linear-gradient(#141e30, #243b55);
 }
 
 .login-box {
