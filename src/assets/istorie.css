@@ -3,7 +3,6 @@
     grid-template-columns: 4fr 1fr;
     column-gap: 2rem;
     margin-right:0.625rem;
-    height: 100vh;
 }
 .box-istorie{
     display:flex;

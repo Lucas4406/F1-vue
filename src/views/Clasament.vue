@@ -5,7 +5,7 @@
             <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
         </button>
     </div>
-    <div class="content-container-echipe">
+    <div class="content-container-echipe mb-4">
         <div v-for="team in teams" v-bind:key="team.id" class="constructor-container">
             <div class="card-const" :class="{darkmode: darkMode}">
                 <div class="partesus">

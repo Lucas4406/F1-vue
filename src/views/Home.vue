@@ -1,5 +1,5 @@
 <template>
-    <div class="site-wrapper" v-if="show">
+    <div class="site-wrapper mb-2" v-if="show">
         <br>
         <herocursa v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara"/>
         <div class="stiri" :class="{darkmode: darkMode}">

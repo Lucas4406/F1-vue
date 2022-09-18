@@ -37,14 +37,6 @@
       <div class="buton">
         <router-link to="/istorie" class="link-router">Istorie</router-link>
       </div>
-      <div class="buton" id="buton-dpd" data-dropdown>
-        <p style="color: red; margin: 0" data-dropdown-button>Cont</p>
-        <div class="dropdown-menu">
-          <router-link to="/login" class="text-dropdown">Log In</router-link>
-          <router-link to="/signup" class="text-dropdown">Sign Up</router-link>
-          <button @click="logout" v-if="isLoggedIn">Log out</button>
-        </div>
-      </div>
     </div>
   </div>
   <router-view/>
@@ -52,12 +44,7 @@
 
 
 <script setup>
-   import { onMounted, ref } from 'vue'
-   import { getAuth, onAuthStateChanged, signOut } from "firebase/auth" 
-   import { useRouter } from 'vue-router'
-   const isLoggedIn = ref(false)
-   const router = useRouter()
-   let auth;
+   import { onMounted } from 'vue'
    onMounted(() => {
      document.addEventListener("click", (e) => {
          const isDropdownButton = e.target.matches("[data-dropdown-button]");
@@ -75,23 +62,7 @@
            dropdown.classList.remove("active")
          })
      })
-
-
-     auth = getAuth()
-     onAuthStateChanged(auth, (user) => {
-        if(user){
-          isLoggedIn.value = true
-        }else{
-          isLoggedIn.value = false
-        }
-     })
    })
-
-   function logout() {
-    signOut(auth).then(() => {
-        router.push("/")
-    })
-   }
 </script>
 
 <style>
