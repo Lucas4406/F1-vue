@@ -25,42 +25,54 @@
     </div>
 
     <!-- Profile-box -->
-    <div class="w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700" v-if="!updateProf">
-      <div class="flex justify-end px-4 pt-4">
-          <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-              <span class="sr-only">Open dropdown</span>
-              <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-          </button>
-          <!-- Dropdown menu -->
-          <div id="dropdown" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
-              <ul class="py-1" aria-labelledby="dropdownButton">
-              <li>
-                  <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
-              </li>
-              <li>
-                  <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
-              </li>
-              <li>
-                  <a href="#" class="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-              </li>
-              </ul>
-          </div>
-      </div>
-      <div class="flex flex-col items-center pb-10">
-          <img class="mb-3 w-24 h-24 rounded-full shadow-lg" :src="Photo" alt="image"/>
-          <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{Name}}</h5>
-          <span class="text-sm text-gray-500 dark:text-gray-400">{{Email}}</span>
-          <div class="flex mt-4 space-x-3 md:mt-6">
-              <button @click="logout" class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer">Log out</button>
-          </div>
-      </div>
-  </div>
+  <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16" v-if="!updateProf">
+    <div class="px-6">
+        <div class="flex flex-wrap justify-center">
+            <div class="w-full flex justify-center">
+                <div class="relative">
+                    <img :src="Photo" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"/>
+                </div>
+            </div>
+            <div class="w-full text-center mt-20">
+                <div class="flex justify-center lg:pt-4 pt-8 pb-0">
+                    <div class="p-3 text-center">
+                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">3,360</span>
+                        <span class="text-sm text-slate-400">Photos</span>
+                    </div>
+                    <div class="p-3 text-center">
+                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">2,454</span>
+                        <span class="text-sm text-slate-400">Followers</span>
+                    </div>
+
+                    <div class="p-3 text-center">
+                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">564</span>
+                        <span class="text-sm text-slate-400">Following</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-2">
+            <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">{{Name}}</h3>
+            <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+                <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>{{Email}}
+            </div>
+        </div>
+        <div class="mt-6 py-6 border-t border-slate-200 text-center">
+            <div class="flex flex-wrap justify-center">
+                <div class="w-full px-4 gap-4 flex justify-center">
+                    <a @click="logout" class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer">Log Out</a>
+                    <a @click="update" class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer">Update Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 </template>
 
 <script setup>
     import { getAuth, updateProfile, signOut } from "firebase/auth"
-    import {ref} from "vue"
+    import {ref, onMounted} from "vue"
     import { useRouter } from "vue-router"
     const nume = ref("")
     const poza = ref("")
@@ -83,20 +95,27 @@
     }
     function schimba () {
         const auth = getAuth()
-        updateProfile(auth.currentUser, {
-            displayName: nume.value, photoURL: poza.value
-        }).then((data) => {
-            router.push("/")
-        })
-        .catch((err) => {
-            alert(err.message)
-        })
-    }
+          updateProfile(auth.currentUser, {
+              displayName: nume.value , photoURL: poza.value
+          }).then((data) => {
+              window.location.reload()
+          })
+          .catch((err) => {
+              alert(err.message)
+          })
+        }
     function logout() {
         signOut(auth).then(() => {
-            router.push("/")
+          window.location.reload()
         })
     }
+    function update() {
+      updateProf.value = !updateProf.value
+    }
+
+    onMounted(() => {
+      document.title = "Profil" + "-" + user.displayName
+    })
 </script>
 
 <style scoped>

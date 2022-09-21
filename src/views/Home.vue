@@ -43,6 +43,7 @@
 <script>
 import axios from 'axios'
 import herocursa from "../components/herocursa.vue"
+import getNext from '../functions/getNext'
 export default {
     name: "Home",
     components : {
@@ -73,8 +74,8 @@ export default {
         }else{
             document.body.classList.remove("darkmode")
         }
-        this.getCursa() 
         this.fetchData()
+        this.getCursa()
     },
     methods: {
         darkModeToggle() {
@@ -86,14 +87,8 @@ export default {
                 document.body.classList.remove("darkmode")
             } 
         },
-        async getNext () {
-            var link = "https://ergast.com/api/f1/2022/results.json?limit=1000"
-            const response = await axios.get(link)
-            const resData = response.data.MRData.RaceTable.Races.length
-            this.nrCursa = resData
-        },
         async getCursa () {
-            await this.getNext()
+            this.nrCursa = await getNext
             var j= this.nrCursa
             var link = "https://f1-site-api.vercel.app/up-next/" + j
             const response = await axios.get(link)
