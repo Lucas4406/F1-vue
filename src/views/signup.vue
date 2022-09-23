@@ -28,6 +28,7 @@
     import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
     import {ref} from "vue"
     import { useRouter } from "vue-router"
+    import axios from "axios"
     const pass = ref("")
     const email = ref("")
     const router = useRouter()
@@ -35,11 +36,25 @@
         const auth = getAuth()
         createUserWithEmailAndPassword(auth, email.value, pass.value)
             .then((data) => {
+                createDbUser()
                 router.push("/")
             })
             .catch((error) => {
                 alert(error.message)
             })
+    }
+    function createDbUser () {
+        const auth = getAuth()
+        const current =  auth.currentUser
+        axios({
+          method: "POST",
+          url: "https://f1-site-api.vercel.app/profile",
+          data: {
+            displayName: current.displayName,
+            profileId: current.uid,
+            email: current.email
+          }
+        })
     }
 </script>
 

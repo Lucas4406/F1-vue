@@ -36,21 +36,25 @@
     import { onMounted, ref } from 'vue'
     import { getAuth, onAuthStateChanged, signOut } from "firebase/auth" 
     import { useRouter } from 'vue-router'
+    import axios from 'axios'
     const isLoggedIn = ref(false)
     const profilePic = ref(false)
     const Name = ref("")
     const Email = ref("")
     const Poza = ref("")
+    const userID = ref("")
     const router = useRouter()
     let auth;
     onMounted(() => {
         auth = getAuth()
         onAuthStateChanged(auth, (user) => {
-        if(user){
+            if(user){
             localStorage.setItem("User" , JSON.stringify(user.email))
             localStorage.setItem("Username" , JSON.stringify(user.displayName))
             Name.value = user.displayName
             Email.value = user.email
+            userID.value = user.uid
+            getCurrentDbUser(userID.value)
             if(user.photoURL != null){
                 Poza.value = user.photoURL
                 profilePic.value = true
@@ -67,12 +71,20 @@
     })
     function logout() {
         signOut(auth).then(() => {
+            userID.value = ""
             router.push("/")
         })
     }
     function bla () {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
+    }
+
+
+    async function getCurrentDbUser (idul) {
+        const response = await axios.get(`https://f1-site-api.vercel.app/profile/${idul}`)
+        const data = response.data
+        console.log(data[0])
     }
 </script>
 
