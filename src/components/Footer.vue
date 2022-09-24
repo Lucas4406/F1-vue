@@ -49,6 +49,7 @@
         auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if(user){
+                console.log(user);
             localStorage.setItem("User" , JSON.stringify(user.email))
             localStorage.setItem("Username" , JSON.stringify(user.displayName))
             Name.value = user.displayName
@@ -84,7 +85,6 @@
     async function getCurrentDbUser (idul) {
         const response = await axios.get(`https://f1-site-api.vercel.app/profile/${idul}`)
         const data = response.data
-        console.log(data[0])
     }
 </script>
 

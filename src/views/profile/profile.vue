@@ -1,31 +1,7 @@
 <template>
 <div class="w-screen flex justify-center items-center min-h-screen flex-col">
-    <!-- Update-box -->
-    <div class="login-box" v-if="updateProf">
-        <h2>Adaugă un nume și o poză!</h2>
-        <form @submit.prevent="schimba">
-            <div class="user-box">
-            <input type="email" name="" required="" v-model="nume">
-            <label>Nume</label>
-            </div>
-            <div class="user-box">
-            <input type="text" name="" required="" v-model="poza">
-            <label>Poză (link)</label>
-            </div>
-            <p class="m-0 p-0 w-full text-center text-white">{{errMsg}}</p>
-            <a href="#" @click="schimba">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Gata
-            </a>
-            <input type="submit" hidden />
-        </form>
-    </div>
-
     <!-- Profile-box -->
-  <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16" v-if="!updateProf">
+  <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
     <div class="px-6">
         <div class="flex flex-wrap justify-center">
             <div class="w-full flex justify-center">
@@ -36,17 +12,17 @@
             <div class="w-full text-center mt-20">
                 <div class="flex justify-center lg:pt-4 pt-8 pb-0">
                     <div class="p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">3,360</span>
-                        <span class="text-sm text-slate-400">Photos</span>
+                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">{{Last}}</span>
+                        <span class="text-sm text-slate-400">Last Name</span>
                     </div>
                     <div class="p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">2,454</span>
-                        <span class="text-sm text-slate-400">Followers</span>
+                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">{{First}}</span>
+                        <span class="text-sm text-slate-400">First Name</span>
                     </div>
 
                     <div class="p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">564</span>
-                        <span class="text-sm text-slate-400">Following</span>
+                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">{{Country}}</span>
+                        <span class="text-sm text-slate-400">Country</span>
                     </div>
                 </div>
             </div>
@@ -61,7 +37,7 @@
             <div class="flex flex-wrap justify-center">
                 <div class="w-full px-4 gap-4 flex justify-center">
                     <a @click="logout" class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer">Log Out</a>
-                    <a @click="update" class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer">Update Profile</a>
+                    <router-link to="/updateprofile" class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer">Update Profile</router-link>
                 </div>
             </div>
         </div>
@@ -71,50 +47,37 @@
 </template>
 
 <script setup>
-    import { getAuth, updateProfile, signOut } from "firebase/auth"
+    import axios from "axios"
+    import { getAuth, signOut } from "firebase/auth"
     import {ref, onMounted} from "vue"
-    import { useRouter } from "vue-router"
-    const nume = ref("")
-    const poza = ref("")
-    const updateProf = ref(false)
     const Name = ref("")
     const Photo = ref("")
     const Email = ref("")
-    const router = useRouter()
+    const First = ref("")
+    const Last = ref("")
+    const Country = ref("")
     const auth = getAuth()
     const user = auth.currentUser
-    if(user.displayName === null || user.photoURL === null){
-        updateProf.value = true
-    }else{
-        updateProf.value = false
-    }
     if(user != null){
         Name.value = user.displayName
         Photo.value = user.photoURL
         Email.value = user.email
     }
-    function schimba () {
-        const auth = getAuth()
-          updateProfile(auth.currentUser, {
-              displayName: nume.value , photoURL: poza.value
-          }).then((data) => {
-              window.location.reload()
-          })
-          .catch((err) => {
-              alert(err.message)
-          })
-        }
     function logout() {
         signOut(auth).then(() => {
           window.location.reload()
         })
     }
-    function update() {
-      updateProf.value = !updateProf.value
+    async function getData () {
+      const response = await axios(`https://f1-site-api.vercel.app/profile/${user.uid}`)
+      const profile = response.data[0]
+      First.value = profile.firstName
+      Last.value = profile.lastName
+      Country.value = profile.country
     }
-
     onMounted(() => {
       document.title = "Profil" + "-" + user.displayName
+      getData()
     })
 </script>
 

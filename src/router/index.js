@@ -15,6 +15,8 @@ import Formtest from "../views/Formtest.vue"
 import Login from "../views/login.vue"
 import Signup from "../views/signup.vue"
 import Profile from "../views/profile/profile.vue"
+import updateForm from "../views/updateForm.vue"
+
 
 
 
@@ -103,6 +105,14 @@ const router = createRouter({
       path: "/profile",
       name: "Profile",
       component: Profile,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/updateprofile",
+      name: "updateForm",
+      component: updateForm,
       meta: {
         requiresAuth: true
       }
