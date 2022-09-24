@@ -156,7 +156,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import { getAuth, updateProfile } from "firebase/auth"
 import axios from "axios"
     const primul = ref("")
@@ -198,6 +198,9 @@ import axios from "axios"
            }
        })
    }
+   onMounted(() => {
+      document.title = "Schimba profilul"
+   })
 </script>
 
 <style>
