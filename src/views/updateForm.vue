@@ -186,6 +186,22 @@ import axios from "axios"
       })
     }
     async function updateDb (idul) {
+        const response = await getDbData(idul)
+        if(primul.value == ""){
+          primul.value = response.firstName
+        }
+        if(doilea.value == ""){
+          doilea.value = response.lastName
+        }
+        if(nick.value == ""){
+          nick.value = response.displayName
+        }
+        if(photo.value == ""){
+          photo.value = response.profilePhoto
+        }
+        if(tara.value == ""){
+          tara.value = response.country
+        }
         await axios({
            method: "POST",
            url: `https://f1-site-api.vercel.app/profile/change/${idul}`,
