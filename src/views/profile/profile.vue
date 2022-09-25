@@ -22,7 +22,7 @@
 
                     <div class="p-3 text-center">
                         <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">{{Country}}</span>
-                        <span class="text-sm text-slate-400">Country</span>
+                        <span class="text-sm text-slate-400">Țară</span>
                     </div>
                 </div>
             </div>
@@ -50,6 +50,7 @@
     import axios from "axios"
     import { getAuth, signOut } from "firebase/auth"
     import {ref, onMounted} from "vue"
+    import { useRouter } from "vue-router"
     const Name = ref("")
     const Photo = ref("")
     const Email = ref("")
@@ -58,6 +59,7 @@
     const Country = ref("")
     const auth = getAuth()
     const user = auth.currentUser
+    const router = useRouter()
     if(user != null){
         Name.value = user.displayName
         Photo.value = user.photoURL
@@ -74,6 +76,7 @@
       First.value = profile.firstName
       Last.value = profile.lastName
       Country.value = profile.country
+      router.push({query: { user: profile.displayName }})
     }
     onMounted(() => {
       document.title = "Profil" + "-" + user.displayName
