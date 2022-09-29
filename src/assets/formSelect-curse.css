@@ -23,5 +23,6 @@
 @media (max-width: 1000px){
     .form-select{
         position: absolute;
+        top: 9rem;
     }
 }

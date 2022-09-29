@@ -5,7 +5,7 @@
     <div class="search-wrapper">
         <input type="text" v-model="search" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
     </div>
-    <div class="tabel-container" v-for="calificare in filterCurse.slice().reverse()" :key="calificare.id" :class="{darkmode: darkMode}">
+    <div class="tabel-container" v-for="calificare in filterCurse" :key="calificare.id" :class="{darkmode: darkMode}">
         <div class="tabel">
             <div class="nume-cursa">{{calificare.raceName}}</div>
             <div class="data-cursa">{{new Date(calificare.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</div>
@@ -30,16 +30,32 @@
             </div>
         </div>
     </div>
+
+    <teleport to=".form-select">
+        <button @click="order" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2 cursor-pointer border-solid border-red-500 hover:border-red-700">
+            <p v-if="!asc">Ascending</p>
+            <p v-else>Descending</p>
+        </button>
+    </teleport>
 </template>
 
 <script>
 export default {
     props: ["darkMode" , "linkdata" , "titlupag"],
     data() {
+        let asc = localStorage.getItem("order")
+        if(asc == "asc"){
+            console.log("asc")
+            asc = true
+        }else{
+            console.log("dsc")
+            asc = false
+        }
         return {
             calificari: [],
             search: "",
             link: this.linkdata,
+            asc
         }
     },
     mounted() {
@@ -53,8 +69,22 @@ export default {
             )
             .then(data => {
                 this.calificari = data.MRData.RaceTable.Races
+                this.calificari.reverse()
+                localStorage.setItem("order" , "desc")
+                this.asc = false
             })
         },
+        order () {
+            if(this.asc == false){
+                this.calificari.reverse()
+                this.asc = true
+                localStorage.setItem("order" , "asc")
+            }else{
+                this.calificari.reverse()
+                this.asc = false
+                localStorage.setItem("order" , "desc")
+            }
+        }
     },
     computed: {
         filterCurse: function () {
