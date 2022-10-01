@@ -6,7 +6,7 @@
                 <router-link to="/signup" class="bg-red-500 text-black px-4 py-2" @click="bla" v-if="!isLoggedIn">Sign Up</router-link>
             </div>
         </div>
-        <div v-if="isLoggedIn">
+        <div v-if="isLoggedIn" class="flex flex-col justify-center items-center gap-2">
             <div class="each flex rounded shadow w-max text-gray-600 bg-white">
             <div class="sec self-center p-2 pr-1"><img data="picture" class="w-10  border p-0.5 rounded-full aspect-square" :src="Poza" alt="profile-pic" v-if="profilePic"/></div>
             <div class="sec self-center p-2 w-64">
@@ -28,6 +28,8 @@
                 </div>
             </div>
             </div>
+            <p v-if="!isLivePage" class="text-xl text-white">Surse: <span><a class="text-white underline" href="https://www.formula1.com" target="_blank">Formula 1 website</a></span> si <span><a class="text-white underline" href="https://ergast.com/mrd" target="_blank">Data Api</a></span></p>
+            <p v-if="isLivePage" class="text-xl text-white">Surse: <span><a class="text-white underline" href="https://f1livegp.me/f1/live3.html" target="_blank">Live website</a></span></p>
         </div>
     </div>
 </template>
@@ -39,12 +41,18 @@
     import axios from 'axios'
     const isLoggedIn = ref(false)
     const profilePic = ref(false)
+    const isLivePage = ref(false)
     const Name = ref("")
     const Email = ref("")
     const Poza = ref("")
     const userID = ref("")
     const router = useRouter()
     let auth;
+    if(window.location.pathname == "/live"){
+        isLivePage.value = true
+    }else{
+        isLivePage.value = false
+    }
     onMounted(() => {
         auth = getAuth()
         onAuthStateChanged(auth, (user) => {
