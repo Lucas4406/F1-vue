@@ -67,7 +67,7 @@
     }
     function logout() {
         signOut(auth).then(() => {
-          window.location.reload()
+          router.push("/")
         })
     }
     async function getData () {

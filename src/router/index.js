@@ -16,6 +16,7 @@ import Login from "../views/login.vue"
 import Signup from "../views/signup.vue"
 import Profile from "../views/profile/profile.vue"
 import updateForm from "../views/updateForm.vue"
+import Surse from "../views/Surse-pagina.vue"
 
 
 
@@ -100,6 +101,11 @@ const router = createRouter({
       path: "/signup",
       name: "Signup",
       component: Signup
+    },
+    {
+      path: "/surse",
+      name: "Surse",
+      component: Surse
     },
     {
       path: "/profile",

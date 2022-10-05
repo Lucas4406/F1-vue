@@ -28,8 +28,7 @@
                 </div>
             </div>
             </div>
-            <p v-if="!isLivePage" class="text-xl text-white">Surse: <span><a class="text-white underline" href="https://www.formula1.com" target="_blank">Formula 1 website</a></span> si <span><a class="text-white underline" href="https://ergast.com/mrd" target="_blank">Data Api</a></span></p>
-            <p v-if="isLivePage" class="text-xl text-white">Surse: <span><a class="text-white underline" href="https://f1livegp.me/f1/live3.html" target="_blank">Live website</a></span></p>
+            <router-link to="/surse" class="text-white text-xl underline">Surse</router-link>
         </div>
     </div>
 </template>
@@ -41,18 +40,12 @@
     import axios from 'axios'
     const isLoggedIn = ref(false)
     const profilePic = ref(false)
-    const isLivePage = ref(false)
     const Name = ref("")
     const Email = ref("")
     const Poza = ref("")
     const userID = ref("")
     const router = useRouter()
     let auth;
-    if(window.location.pathname == "/live"){
-        isLivePage.value = true
-    }else{
-        isLivePage.value = false
-    }
     onMounted(() => {
         auth = getAuth()
         onAuthStateChanged(auth, (user) => {

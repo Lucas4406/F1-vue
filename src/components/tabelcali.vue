@@ -43,19 +43,11 @@
 export default {
     props: ["darkMode" , "linkdata" , "titlupag"],
     data() {
-        let asc = localStorage.getItem("order")
-        if(asc == "asc"){
-            console.log("asc")
-            asc = true
-        }else{
-            console.log("dsc")
-            asc = false
-        }
         return {
             calificari: [],
             search: "",
             link: this.linkdata,
-            asc
+            asc:false
         }
     },
     mounted() {
@@ -70,7 +62,6 @@ export default {
             .then(data => {
                 this.calificari = data.MRData.RaceTable.Races
                 this.calificari.reverse()
-                localStorage.setItem("order" , "desc")
                 this.asc = false
             })
         },
@@ -78,11 +69,9 @@ export default {
             if(this.asc == false){
                 this.calificari.reverse()
                 this.asc = true
-                localStorage.setItem("order" , "asc")
             }else{
                 this.calificari.reverse()
                 this.asc = false
-                localStorage.setItem("order" , "desc")
             }
         }
     },

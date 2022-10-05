@@ -39,6 +39,7 @@ export default {
         }else{
             document.body.classList.remove("darkmode")
         } 
+        this.$emit("live-page")
     },
 }
 </script>
