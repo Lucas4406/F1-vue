@@ -43,6 +43,22 @@
         </div>
     </div>
 </div>
+  <div class="text-xl flex flex-col gap-2 items-center justify-center">
+      <div alt="echipa" class=" flex flex-row gap-2 items-center justify-center">
+        <label for="echipaPref">Echipa favorita:</label>
+        <select id="echipaPref" name="echipa" class="selectie" v-model="echipaPref">
+            <option :value="echipa.Constructor.name" class="optiune" v-for="echipa in echipeArray" :key="echipa.id">{{echipa.Constructor.name}}</option>
+        </select>
+        <button type="submit" @click="updateDb" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer">Submit</button>
+      </div>
+      <div alt="sofer" class=" flex flex-row gap-2 items-center justify-center">
+        <label for="soferPref">Pilotul favorit:</label>
+        <select id="soferPref" name="pilot" class="selectie" v-model="soferPref">
+            <option :value="sofer.driverId" class="optiune" v-for="sofer in soferiArray" :key="sofer.id">{{sofer.givenName + " " + sofer.familyName}}</option>
+        </select>
+        <button type="submit" @click="updateDb" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer">Submit</button>
+      </div>
+  </div>
 </div>
 </template>
 
@@ -57,6 +73,12 @@
     const First = ref("")
     const Last = ref("")
     const Country = ref("")
+    const echipaPref = ref("")
+    const soferPref = ref("")
+    const echipaPrefdata = ref("")
+    const soferPrefdata = ref("")
+    const echipeArray = ref([])
+    const soferiArray = ref([])
     const auth = getAuth()
     const user = auth.currentUser
     const router = useRouter()
@@ -70,17 +92,47 @@
           router.push("/")
         })
     }
+    async function getEchipe () {
+      const resp = await axios("https://ergast.com/api/f1/current/constructorStandings.json")
+      echipeArray.value = resp.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+    }
+    async function getSoferi () {
+      const soferi = await axios("https://ergast.com/api/f1/current/drivers.json")
+      soferiArray.value = soferi.data.MRData.DriverTable.Drivers
+    }
     async function getData () {
+      getEchipe()
+      getSoferi()
       const response = await axios(`https://f1-site-api.vercel.app/profile/${user.uid}`)
       const profile = response.data[0]
       First.value = profile.firstName
       Last.value = profile.lastName
       Country.value = profile.country
+      echipaPrefdata.value = profile.favTeam
+      soferPrefdata.value = profile.favDriver
       router.push({query: { user: profile.displayName }})
     }
-    onMounted(() => {
+    async function updateDb () {
+        await axios({
+           method: "POST",
+           url: `https://f1-site-api.vercel.app/profile/change/team/${user.uid}`,
+           data: {
+               favTeam: echipaPref.value,
+               favDriver: soferPref.value
+           }
+       })
+       window.location.reload()
+   }
+
+    onMounted(async() => {
       document.title = "Profil" + "-" + user.displayName
-      getData()
+      await getData()
+      if(soferPref.value == ""){
+        soferPref.value = soferPrefdata.value
+      }
+      if(echipaPref.value == ""){
+        echipaPref.value = echipaPrefdata.value
+      }
     })
 </script>
 
