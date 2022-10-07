@@ -37,7 +37,7 @@
         const auth = getAuth()
         signInWithEmailAndPassword(auth, email.value, pass.value)
             .then((data) => {
-              router.push({path: "/" ,  query: { user: `${email.value.split('.')[0]}` }})
+              router.push("/")
             })
             .catch((error) => {
                 switch(error.code){

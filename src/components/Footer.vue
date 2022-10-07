@@ -52,6 +52,7 @@
             if(user){
             localStorage.setItem("User" , JSON.stringify(user.email))
             localStorage.setItem("Username" , JSON.stringify(user.displayName))
+            localStorage.setItem("currentUser" , JSON.stringify(user.uid))
             Name.value = user.displayName
             Email.value = user.email
             userID.value = user.uid
@@ -66,6 +67,7 @@
         }else{
             localStorage.setItem("User" , null)
             localStorage.setItem("Username" , null)
+            localStorage.setItem("currentUser" , null)
             isLoggedIn.value = false
         }
      })

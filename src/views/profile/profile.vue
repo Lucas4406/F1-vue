@@ -43,13 +43,12 @@
         </div>
     </div>
 </div>
-  <div class="text-xl flex flex-col gap-2 items-center justify-center">
+  <div class="text-xl flex flex-row gap-2 items-center justify-center">
       <div alt="echipa" class=" flex flex-row gap-2 items-center justify-center">
         <label for="echipaPref">Echipa favorita:</label>
         <select id="echipaPref" name="echipa" class="selectie" v-model="echipaPref">
             <option :value="echipa.Constructor.name" class="optiune" v-for="echipa in echipeArray" :key="echipa.id">{{echipa.Constructor.name}}</option>
         </select>
-        <button type="submit" @click="updateDb" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer">Submit</button>
       </div>
       <div alt="sofer" class=" flex flex-row gap-2 items-center justify-center">
         <label for="soferPref">Pilotul favorit:</label>
@@ -101,8 +100,8 @@
       soferiArray.value = soferi.data.MRData.DriverTable.Drivers
     }
     async function getData () {
-      getEchipe()
-      getSoferi()
+      await getEchipe()
+      await getSoferi()
       const response = await axios(`https://f1-site-api.vercel.app/profile/${user.uid}`)
       const profile = response.data[0]
       First.value = profile.firstName
@@ -121,7 +120,6 @@
                favDriver: soferPref.value
            }
        })
-       window.location.reload()
    }
 
     onMounted(async() => {

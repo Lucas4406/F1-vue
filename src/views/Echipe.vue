@@ -7,7 +7,7 @@
             </button>
         </div>
         <a :href="echipa.link" target="_blank" v-for="echipa in echipe" :key="echipa.id">
-            <div class="box" :class="[{darkmode: darkMode}, echipa.echipa.replace(/\s+/g, '')]">
+            <div class="box" :class="[{darkmode: darkMode}, echipa.echipa.replace(/\s+/g, '') , {echipaFav: ok}]">
                 <div class="linie1">
                     <div class="linie" id="numar">
                         {{echipa.pozitie}}
@@ -35,13 +35,18 @@
     </div>
 </template>
 <script>
+    import axios from 'axios'
 export default {
-    name: "Echipe",
-    data() {
+        name: "Echipe",
+        data() {
         let darkMode = localStorage.getItem('darkMode') == 'true';
+        let userID = JSON.parse(localStorage.getItem("currentUser"))
         return {
             echipe: [],
             darkMode,
+            userID,
+            echipaFav: "",
+            ok: false
         }
     },
     mounted () {
@@ -50,6 +55,12 @@ export default {
         .then(res => res.json())
         .then(data => {
             this.echipe = data
+            /* for(var i=0;i<data.length;i++){
+                if(data[i].echipa === this.echipaFav){
+                    console.log("yeah");
+                    this.ok = true
+                }
+            } */
         })
         .catch(err => console.log(err.message))
 
@@ -57,7 +68,9 @@ export default {
             document.body.classList.add("darkmode")
         }else{
             document.body.classList.remove("darkmode")
-        } 
+        }
+
+        this.getFavTeam()
     },
     methods: {
         darkModeToggle() {
@@ -69,6 +82,11 @@ export default {
                 document.body.classList.remove("darkmode")
             } 
         },
+        async getFavTeam() {
+            const resp = await axios(`https://f1-site-api.vercel.app/profile/${this.userID}`)
+            const favTeam = resp.data[0].favTeam
+            this.echipaFav = favTeam
+        }
     },
 }
 </script>
