@@ -120,6 +120,7 @@
                favDriver: soferPref.value
            }
        })
+       window.location.reload()
    }
 
     onMounted(async() => {
