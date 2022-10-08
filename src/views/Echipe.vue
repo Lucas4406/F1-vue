@@ -5,8 +5,8 @@
             <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
         </button>
     </div>
-    <div class="content-echipe" id="echipeCont" :class="echipaFav">
-        <a :href="echipa.link" target="_blank" v-for="echipa in echipe" :key="echipa.id">
+    <div class="content-echipe" id="echipeCont">
+        <a :href="echipa.link" target="_blank" v-for="(echipa, index) in echipe" :key="index" :class="{echipaFavorita: ok===index}">
             <div class="box" :class="[{darkmode: darkMode}, echipa.echipa.replace(/\s+/g, '')]">
                 <div class="linie1">
                     <div class="linie" id="numar">
@@ -46,24 +46,29 @@ export default {
             darkMode,
             userID,
             echipaFav: "",
+            ok: "",
         }
     },
-    mounted () {
+    async mounted () {
         document.title = "Echipe"
-        fetch("https://f1-site-api.vercel.app/echipe")
-        .then(res => res.json())
-        .then(data => {
-            this.echipe = data
-        })
-        .catch(err => console.log(err.message))
-
         if(this.darkMode){
             document.body.classList.add("darkmode")
         }else{
             document.body.classList.remove("darkmode")
         }
+        await this.getFavTeam()
+        fetch("https://f1-site-api.vercel.app/echipe")
+        .then(res => res.json())
+        .then(data => {
+            this.echipe = data
+            for(var i = 0 ; i<data.length; i++){
+                if(data[i].echipa === this.echipaFav){
+                    this.ok = i
+                }
+            }
+        })
+        .catch(err => console.log(err.message))
 
-        this.getFavTeam()
     },
     methods: {
         darkModeToggle() {
