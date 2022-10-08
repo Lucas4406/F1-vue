@@ -1,13 +1,13 @@
 <template>
-    <div class="content-echipe" id="echipeCont">
-        <div class="scroll-btns">
-            <button class="darkmodeBtn" @click="darkModeToggle()">
-                <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">
-                <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
-            </button>
-        </div>
+    <div class="scroll-btns">
+        <button class="darkmodeBtn" @click="darkModeToggle()">
+            <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">
+            <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
+        </button>
+    </div>
+    <div class="content-echipe" id="echipeCont" :class="echipaFav">
         <a :href="echipa.link" target="_blank" v-for="echipa in echipe" :key="echipa.id">
-            <div class="box" :class="[{darkmode: darkMode}, echipa.echipa.replace(/\s+/g, '') , {echipaFav: ok}]">
+            <div class="box" :class="[{darkmode: darkMode}, echipa.echipa.replace(/\s+/g, '')]">
                 <div class="linie1">
                     <div class="linie" id="numar">
                         {{echipa.pozitie}}
@@ -46,7 +46,6 @@ export default {
             darkMode,
             userID,
             echipaFav: "",
-            ok: false
         }
     },
     mounted () {
@@ -55,12 +54,6 @@ export default {
         .then(res => res.json())
         .then(data => {
             this.echipe = data
-            /* for(var i=0;i<data.length;i++){
-                if(data[i].echipa === this.echipaFav){
-                    console.log("yeah");
-                    this.ok = true
-                }
-            } */
         })
         .catch(err => console.log(err.message))
 
