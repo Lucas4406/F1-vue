@@ -14,7 +14,7 @@
                             {{echipa.pozitie}}
                         </div>
                         <div class="flex Favcontainer">
-                            <img src="Favico.svg" class="w-6 h-6 pozaFav">
+                            <img src="/Favico.svg" class="w-6 h-6 pozaFav">
                         </div>
                     </div>
                     <div class="numee">
