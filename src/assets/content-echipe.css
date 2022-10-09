@@ -191,6 +191,13 @@ a{
     text-decoration: none;
     color: black;
 }
+
+.pozaFav{
+    display: none;
+}
+.echipaFavorita > .box > .linie1 > .linie > .Favcontainer > .pozaFav {
+    display: block;
+}
 @media(max-width:1200px){
     .content-echipe{
         grid-template-columns: 70%;

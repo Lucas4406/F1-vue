@@ -9,8 +9,13 @@
         <a :href="echipa.link" target="_blank" v-for="(echipa, index) in echipe" :key="index" :class="{echipaFavorita: ok===index}">
             <div class="box" :class="[{darkmode: darkMode}, echipa.echipa.replace(/\s+/g, '')]">
                 <div class="linie1">
-                    <div class="linie" id="numar">
-                        {{echipa.pozitie}}
+                    <div class="linie flex flex-row items-center gap-2" id="numar">
+                        <div class="">
+                            {{echipa.pozitie}}
+                        </div>
+                        <div class="flex Favcontainer">
+                            <img src="Favico.svg" class="w-6 h-6 pozaFav">
+                        </div>
                     </div>
                     <div class="numee">
                         {{echipa.echipa}}
@@ -36,6 +41,7 @@
 </template>
 <script>
     import axios from 'axios'
+    import {getAuth} from "firebase/auth"
 export default {
         name: "Echipe",
         data() {
@@ -56,7 +62,10 @@ export default {
         }else{
             document.body.classList.remove("darkmode")
         }
-        await this.getFavTeam()
+        const current = getAuth()
+        if(current.currentUser != null){
+            await this.getFavTeam()
+        }
         fetch("https://f1-site-api.vercel.app/echipe")
         .then(res => res.json())
         .then(data => {
@@ -82,8 +91,10 @@ export default {
         },
         async getFavTeam() {
             const resp = await axios(`https://f1-site-api.vercel.app/profile/${this.userID}`)
-            const favTeam = resp.data[0].favTeam
-            this.echipaFav = favTeam
+            if(resp.data[0].favTeam != null){
+                const favTeam = resp.data[0].favTeam
+                this.echipaFav = favTeam
+            }
         }
     },
 }
