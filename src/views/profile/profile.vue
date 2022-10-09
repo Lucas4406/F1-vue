@@ -106,8 +106,6 @@
       }
     }
     async function getData () {
-      await getEchipe()
-      await getSoferi()
       const response = await axios(`https://f1-site-api.vercel.app/profile/${user.uid}`)
       const profile = response.data[0]
       First.value = profile.firstName
@@ -116,6 +114,8 @@
       echipaPrefdata.value = profile.favTeam
       soferPrefdata.value = profile.favDriver
       router.push({query: { user: profile.displayName }})
+      getEchipe()
+      getSoferi()
     }
     async function updateDb () {
         await axios({

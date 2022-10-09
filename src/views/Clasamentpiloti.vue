@@ -11,7 +11,7 @@
             <br>
             <br>
             <div class="piloti-grid">
-                <div class="pilot-container" v-for="pilot in piloti" :key="pilot.id" :class="{darkmode: darkMode}">
+                <div class="pilot-container" v-for="(pilot , index) in piloti" :key="index" :class="{darkmode: darkMode}">
                     <div class="pozitiepuncte-pilot">
                         <p class="pozitie-pilot">{{pilot.position}}</p>
                         <div class="nrpuncte-container">
@@ -29,9 +29,12 @@
                         </div>
                         <img :src="pilot.driverFlag" class="img-steag">
                     </div>
-                    <p class="echipa">
-                        {{pilot.team}}
-                    </p>    
+                    <div class="flex flex-row justify-between items-center">
+                        <p class="echipa">
+                            {{pilot.team}}
+                        </p>    
+                        <p class="echipa">{{pilot.gapDelta}}</p>
+                    </div>
                     <div class="pozanumar" :class="{darkmode: darkMode}">
                         <img :src="pilot.driverPhoto" class="poza-pilot">
                         <img :src="pilot.driverNumber" class="nr-pilot" :class="{darkmode: darkMode}">
@@ -54,6 +57,17 @@ export default {
         fetch("https://f1-site-api.vercel.app/clasament-piloti")
         .then(res => res.json())
         .then(data => {
+            var first = data[0].points
+            var firstThree = data[0].lastName.substring(0, 3).toUpperCase()
+            data[0].gapDelta = ""
+            for(var i=1;i<data.length;i++){
+                var delta = first - data[i].points
+                if(delta < 200){
+                    data[i].gapDelta = `Gap to ${firstThree} ` + JSON.stringify(-delta)
+                }else{
+                    data[i].gapDelta = ""
+                }
+            }
             this.piloti = data
         })
         .catch(err => console.log(err))
