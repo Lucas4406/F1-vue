@@ -47,13 +47,13 @@
       <div alt="echipa" class=" flex flex-row gap-2 items-center justify-center">
         <label for="echipaPref">Echipa favorita:</label>
         <select id="echipaPref" name="echipa" class="selectie" v-model="echipaPref">
-            <option :value="echipa.Constructor.name" class="optiune" v-for="echipa in echipeArray" :key="echipa.id">{{echipa.Constructor.name}}</option>
+            <option :value="echipa" class="optiune" v-for="echipa in echipeArray" :key="echipa.id">{{echipa}}</option>
         </select>
       </div>
       <div alt="sofer" class=" flex flex-row gap-2 items-center justify-center">
         <label for="soferPref">Pilotul favorit:</label>
         <select id="soferPref" name="pilot" class="selectie" v-model="soferPref">
-            <option :value="sofer.driverId" class="optiune" v-for="sofer in soferiArray" :key="sofer.id">{{sofer.givenName + " " + sofer.familyName}}</option>
+            <option :value="sofer" class="optiune" v-for="sofer in soferiArray" :key="sofer.id">{{sofer}}</option>
         </select>
         <button type="submit" @click="updateDb" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer">Submit</button>
       </div>
@@ -92,12 +92,18 @@
         })
     }
     async function getEchipe () {
-      const resp = await axios("https://ergast.com/api/f1/current/constructorStandings.json")
-      echipeArray.value = resp.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+      const resp = await axios("https://f1-site-api.vercel.app/mongo")
+      for(var i=0;i<resp.data.length;i++){
+        echipeArray.value[i] = resp.data[i].name
+      }
     }
     async function getSoferi () {
-      const soferi = await axios("https://ergast.com/api/f1/current/drivers.json")
-      soferiArray.value = soferi.data.MRData.DriverTable.Drivers
+      const soferi = await axios("https://f1-site-api.vercel.app/mongo")
+      var drivers = []
+      for(var i=0;i<soferi.data.length;i++){
+        drivers.push(soferi.data[i].driver1 , soferi.data[i].driver2)
+        soferiArray.value = drivers
+      }
     }
     async function getData () {
       await getEchipe()
