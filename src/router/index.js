@@ -32,7 +32,7 @@ const router = createRouter({
     {
       path: "/",
       name: "Acasă",
-      component: Home
+      component: Home,
     },
     {
       path: "/echipe",

@@ -51,7 +51,6 @@ export default {
         async getCurse () {
             const response = await axios.get(this.link)
             const resData = response.data.MRData.RaceTable.Races
-            console.log(resData);
             for(var i = 0; i<resData.length;i++){
                 for(var j = 0; j<resData[i].Results.length;j++){
                     if(resData[i].Results[j].FastestLap === undefined){

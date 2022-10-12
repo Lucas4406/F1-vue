@@ -1,32 +1,20 @@
 
 <template>
-  <keep-alive>
     <Navbar />
-  </keep-alive>
-  <keep-alive>
-    <Footer />
-  </keep-alive>
+    <Footertag />
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
-import Footer from './components/Footer.vue'
+import Footertag from './components/Footer.vue'
 
 
 export default {
   name: "App",
   components: {
     Navbar,
-    Footer,
-  },
-  data() {
-    return {
-      loaded: false
-    }
-  },
-  mounted() {
-    this.loaded = true
-  },
+    Footertag,
+  }
 }
 </script>
 

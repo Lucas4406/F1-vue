@@ -37,7 +37,6 @@
     import { onMounted, ref } from 'vue'
     import { getAuth, onAuthStateChanged, signOut } from "firebase/auth" 
     import { useRouter } from 'vue-router'
-    import axios from 'axios'
     const isLoggedIn = ref(false)
     const profilePic = ref(false)
     const Name = ref("")
@@ -56,7 +55,6 @@
             Name.value = user.displayName
             Email.value = user.email
             userID.value = user.uid
-            getCurrentDbUser(userID.value)
             if(user.photoURL != null){
                 Poza.value = user.photoURL
                 profilePic.value = true
@@ -81,12 +79,6 @@
     function bla () {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
-    }
-
-
-    async function getCurrentDbUser (idul) {
-        const response = await axios.get(`https://f1-site-api.vercel.app/profile/${idul}`)
-        const data = response.data
     }
 </script>
 
