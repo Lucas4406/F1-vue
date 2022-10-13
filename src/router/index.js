@@ -1,6 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
+import Stiri from '../views/Stiri.vue'
+import Clasament from "../views/Clasament.vue"
 import Home from "../views/Home.vue"
+import Echipe from '../views/Echipe.vue'
+import Clasamentpiloti from '../views/Clasamentpiloti.vue'
+import Istorie from '../views/Istorie.vue'
+import Joc from "../views/Joculet.vue"
+import Calificari from "../views/Calificari.vue"
+import Curse from "../views/Curse.vue"
+import Live from "../views/Live.vue"
+import Program from "../views/Program.vue"
+import Formtest from "../views/Formtest.vue"
+import Login from "../views/login.vue"
+import Signup from "../views/signup.vue"
+import Profile from "../views/profile/profile.vue"
+import updateForm from "../views/updateForm.vue"
+import Surse from "../views/Surse-pagina.vue"
+
+
+
+
+
+
 
 
 
@@ -30,42 +52,42 @@ const router = createRouter({
     {
       path: "/rezultate-calificari/:an?",
       name: "Calificari",
-      component: () => import('@/views/Calificari.vue')
+      component: Calificari
     },
     {
       path: "/rezultate-curse/:an?",
       name: "Curse",
-      component: () => import('@/views/Curse.vue')
+      component: Curse
     },
     {
       path: "/clasament-piloti",
       name: "Clasamentpiloti",
-      component: () => import('@/views/Clasamentpiloti.vue')
+      component: Clasamentpiloti
     },
     {
       path: '/stiri',
       name: 'Stiri',
-      component: () => import('@/views/Stiri.vue')
+      component: Stiri
     },
     {
       path: '/joc',
       name: 'Joc',
-      component: () => import('@/views/Joculet.vue')
+      component: Joc
     },
     {
       path: '/istorie',
       name: 'Istorie',
-      component: () => import('@/views/Istorie.vue')
+      component: Istorie
     },
     {
       path: "/live",
       name: "Live",
-      component: () => import('@/views/Live.vue')
+      component: Live
     },
     {
       path: "/test",
       name: "Formtest",
-      component: () => import('@/views/Formtest.vue'),
+      component: Formtest,
       meta: {
         requiresAuth: true
       }
@@ -73,22 +95,22 @@ const router = createRouter({
     {
       path: "/login",
       name: "Login",
-      component: () => import('@/views/Login.vue')
+      component: Login
     },
     {
       path: "/signup",
       name: "Signup",
-      component: () => import('@/views/signup.vue')
+      component: Signup
     },
     {
       path: "/surse",
       name: "Surse",
-      component: () => import('@/views/Surse-pagina.vue')
+      component: Surse
     },
     {
       path: "/profile",
       name: "Profile",
-      component: () => import('@/views/profile/profile.vue'),
+      component: Profile,
       meta: {
         requiresAuth: true
       }
@@ -96,7 +118,7 @@ const router = createRouter({
     {
       path: "/updateprofile",
       name: "updateForm",
-      component: () => import('@/views/updateForm.vue'),
+      component: updateForm,
       meta: {
         requiresAuth: true
       }
