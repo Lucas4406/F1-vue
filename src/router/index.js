@@ -37,17 +37,17 @@ const router = createRouter({
     {
       path: "/echipe",
       name: "Echipe",
-      component: Echipe
+      component: () => import('@/views/Echipe.vue')
     },
     {
       path: "/program",
       name: "Program",
-      component: Program
+      component: () => import('@/views/Program.vue')
     },
     {
       path: "/clasament-echipe",
       name: "Clasament",
-      component: Clasament
+      component: () => import('@/views/Clasament.vue')
     },
     {
       path: "/rezultate-calificari/:an?",
