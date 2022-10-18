@@ -73,7 +73,7 @@
     function logout() {
         signOut(auth).then(() => {
             userID.value = ""
-            router.push("/")
+            window.location.reload()
         })
     }
     function bla () {

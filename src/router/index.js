@@ -89,7 +89,7 @@ const router = createRouter({
       name: "Formtest",
       component: Formtest,
       meta: {
-        requiresAuth: true
+        Admin: true
       }
     },
     {
@@ -105,7 +105,7 @@ const router = createRouter({
     {
       path: "/surse",
       name: "Surse",
-      component: Surse
+      component: Surse,
     },
     {
       path: "/profile",
@@ -143,6 +143,20 @@ function getCurrentUser() {
 router.beforeEach(async (to, from, next) => {
   if(to.matched.some((record) => record.meta.requiresAuth)){
     if(await getCurrentUser()){
+      next()
+    }else{
+      alert("Nu poti accesa aceasta pagina")
+      next("/")
+    }
+  }else{
+    next()
+  }
+})
+
+router.beforeEach(async (to, from, next) => {
+  if(to.matched.some((record) => record.meta.Admin)){
+    const user = getAuth()
+    if(await getCurrentUser() && user.currentUser.uid == import.meta.env.VITE_ADMIN_UID){
       next()
     }else{
       alert("Nu ai drepturile necesare")
