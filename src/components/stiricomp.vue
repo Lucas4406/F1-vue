@@ -22,7 +22,7 @@
             </div>
         </Teleport>
         <div class="content-grid" :class="{darkmode: darkMode}">
-            <a :href="stire.linkuri" v-for="stire in news" v-bind:key="stire.id" class="ltag" :class="{darkmode: darkMode}" target="_blank">
+            <a :href="stire.linkuri" v-for="stire in news" v-bind:key="stire.id" class="ltag" :class="{darkmode: darkMode}" target="_blank" v-motion-slide-left>
                 <div class="stire">
                     <div class="content-row">
                         <div class="content-text" :class="{darkmode: darkMode}">
@@ -73,7 +73,7 @@ export default {
         },
         async fetchData () {
             var j=0
-            for(j=0;j<4;j++){
+            for(j=0;j<6;j++){
                 var link = "https://f1-site-api.vercel.app/stiri-translate/" + j
                 const response = await axios.get(link)
                 const resData = response.data

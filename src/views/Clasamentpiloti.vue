@@ -46,6 +46,7 @@
 <script>
 export default {
     name: "CLasamentpiloti",
+    inject: ["store"],
     data() {
         let darkMode = localStorage.getItem('darkMode') == 'true';
         return {
@@ -54,6 +55,7 @@ export default {
         }
     },
     mounted() {
+        console.log(this.store.state.favDriver)
         fetch("https://f1-site-api.vercel.app/clasament-piloti")
         .then(res => res.json())
         .then(data => {

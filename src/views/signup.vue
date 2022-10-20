@@ -37,7 +37,7 @@
         createUserWithEmailAndPassword(auth, email.value, pass.value)
             .then((data) => {
                 createDbUser()
-                router.push("/")
+                router.push("/updateprofile")
             })
             .catch((error) => {
                 alert(error.message)
