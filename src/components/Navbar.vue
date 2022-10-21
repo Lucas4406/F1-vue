@@ -37,6 +37,9 @@
       <div class="buton">
         <router-link to="/istorie" class="link-router">Istorie</router-link>
       </div>
+      <div class="buton" v-if="isLogged">
+        <profileBadge />
+      </div>
     </div>
   </div>
   <router-view/>
@@ -44,7 +47,14 @@
 
 
 <script setup>
-   import { onMounted } from 'vue'
+   import { onMounted , ref } from 'vue'
+   import profileBadge from "./profile-badge.vue"
+  import { inject } from "vue"
+  const store = inject("store")
+  const isLogged = ref(false)
+  if(store.state.email != null){
+    isLogged.value = true
+  }
    onMounted(() => {
      document.addEventListener("click", (e) => {
          const isDropdownButton = e.target.matches("[data-dropdown-button]");

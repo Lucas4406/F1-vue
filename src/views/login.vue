@@ -37,7 +37,7 @@
         const auth = getAuth()
         signInWithEmailAndPassword(auth, email.value, pass.value)
             .then((data) => {
-              router.push("/")
+              window.location.replace("/")
             })
             .catch((error) => {
                 switch(error.code){
