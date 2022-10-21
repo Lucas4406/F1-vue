@@ -88,7 +88,7 @@
     }
     function logout() {
         signOut(auth).then(() => {
-          router.push("/")
+          window.location.replace("/")
         })
     }
     async function getEchipe () {
