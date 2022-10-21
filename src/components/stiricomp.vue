@@ -22,7 +22,7 @@
             </div>
         </Teleport>
         <div class="content-grid" :class="{darkmode: darkMode}">
-            <a :href="stire.linkuri" v-for="stire in news" v-bind:key="stire.id" class="ltag" :class="{darkmode: darkMode}" target="_blank" v-motion-slide-left>
+            <a :href="stire.linkuri" v-for="stire in news" v-bind:key="stire.id" class="ltag" :class="{darkmode: darkMode}" target="_blank" v-motion-slide-right>
                 <div class="stire">
                     <div class="content-row">
                         <div class="content-text" :class="{darkmode: darkMode}">
