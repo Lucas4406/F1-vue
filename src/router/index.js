@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getAuth, onAuthStateChanged } from "firebase/auth"
-import Stiri from '../views/Stiri.vue'
 import Clasament from "../views/Clasament.vue"
 import Home from "../views/Home.vue"
 import Echipe from '../views/Echipe.vue'
@@ -9,12 +8,7 @@ import Istorie from '../views/Istorie.vue'
 import Joc from "../views/Joculet.vue"
 import Calificari from "../views/Calificari.vue"
 import Curse from "../views/Curse.vue"
-import Live from "../views/Live.vue"
 import Program from "../views/Program.vue"
-import Formtest from "../views/Formtest.vue"
-import Login from "../views/login.vue"
-import Signup from "../views/signup.vue"
-import Profile from "../views/profile/profile.vue"
 
 
 
@@ -65,7 +59,7 @@ const router = createRouter({
     {
       path: '/stiri',
       name: 'Stiri',
-      component: Stiri
+      component: () => import ('../views/Stiri.vue')
     },
     {
       path: '/joc',
@@ -80,12 +74,12 @@ const router = createRouter({
     {
       path: "/live",
       name: "Live",
-      component: Live
+      component: () => import("../views/Live.vue")
     },
     {
       path: "/test",
       name: "Formtest",
-      component: Formtest,
+      component: () => import("../views/Formtest.vue"),
       meta: {
         Admin: true
       }
@@ -93,12 +87,12 @@ const router = createRouter({
     {
       path: "/login",
       name: "Login",
-      component: Login
+      component: () => import("../views/login.vue")
     },
     {
       path: "/signup",
       name: "Signup",
-      component: Signup
+      component: () => import("../views/signup.vue")
     },
     {
       path: "/surse",
@@ -108,7 +102,7 @@ const router = createRouter({
     {
       path: "/profile",
       name: "Profile",
-      component: Profile,
+      component: () => import("../views/profile/profile.vue"),
       meta: {
         requiresAuth: true
       }
