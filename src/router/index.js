@@ -115,6 +115,10 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+    {
+      path: "/:catchAll(.*)",
+      component: () => import("../views/NotFound.vue"),
+    },
   ]
 })
 

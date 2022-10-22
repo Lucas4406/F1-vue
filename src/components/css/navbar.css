@@ -99,6 +99,9 @@ body{
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
     pointer-events: none;
 }
+.dropdown-menu.right{
+    left: -1rem;
+}
 .buton.active > .dropdown-menu{
     opacity: 1;
     transform: translateY(0);
@@ -117,11 +120,38 @@ body{
     justify-content: center;
     padding:.25rem;
 }
+.text-dropdown-right{
+    margin: 0;
+    text-decoration: none;
+    color: red;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:.25rem;
+}
 .text-dropdown:first-child{
     border-bottom: 1px solid red;
     padding-bottom:1rem;
 }
+.text-dropdown-right:first-child{
+    border-bottom: 1px solid red;
+    padding-bottom:1rem;
+}
 .text-dropdown:nth-child(2){
+    padding-top:1rem;
+}
+.text-dropdown-right.logat:nth-child(2){
+    border: none;
+    padding-bottom:.25rem;
+
+}
+.text-dropdown-right:nth-child(2){
+    padding-top:1rem;
+    border-bottom: 1px solid red;
+    padding-bottom:1rem;
+}
+.text-dropdown-right:nth-child(3){
     padding-top:1rem;
 }
 .buton-text{

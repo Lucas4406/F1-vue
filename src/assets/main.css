@@ -6,6 +6,10 @@ body{
 h1{
     color:black;
 }
+#nav{
+    position: relative;
+    bottom: 0;
+}
 .container{
     display: flex;
     flex-direction: column;

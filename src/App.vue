@@ -1,7 +1,11 @@
 
 <template>
+  <div id="nav">
     <Navbar />
+  </div>
+  <div id="footer">
     <Footertag />
+  </div>
 </template>
 
 <script>
