@@ -4,10 +4,8 @@
       <div class="logo">
         <router-link to="/" class="link-router"><img src="./icons/f1.png" class="logo-f1" /></router-link>
       </div>
-      <div class="fia">
-        <a href="https://www.fia.com/" target="_blank">
-          <img src="./icons/imageedit_3_3849553840.png" class="logo-fia" />
-        </a>
+      <div class="fia" v-if="isLogged">
+        <profileBadge />
       </div>
     </div>
     <div class="bar">
@@ -33,14 +31,11 @@
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
         <img src="../components/icons/hamburger.svg" class="w-20 h-10" data-dropdown-button>
-        <div class="dropdown-menu" :class="{right: !isLogged}">
+        <div class="dropdown-menu">
           <router-link to="/joc" class="text-dropdown-right">Joc</router-link>
           <router-link to="/istorie" class="text-dropdown-right" :class="{logat: isLogged}">Istorie</router-link>
           <router-link to="/login" class="text-dropdown-right" :class="{logat: isLogged}" v-if="!isLogged">Login</router-link>
         </div>
-      </div>
-      <div class="buton" v-if="isLogged">
-        <profileBadge />
       </div>
     </div>
   </div>

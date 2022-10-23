@@ -2,7 +2,7 @@
     <!-- Cursa Urmatoare -->
     <div class="mt-6 flex justify-center w-screen sm:mb-6 lg:mb-0" alt="hero">
         <div class="border-red-500 border-2 border-solid sm:max-w-xl sm:w-xl lg:max-w-4xl lg:w-4xl p-4 rounded-md w-[100%] animatie">
-            <router-link to="/live" style="text-decoration:none; color:black" class="">
+            <a :href="`#${circuitName.toLowerCase()}`" style="text-decoration:none; color:black" class="">
                 <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
                     <p alt="titlu">{{round}}. {{Name}}</p>
                     <p alt="circuit">{{circuitName}}</p>
@@ -58,12 +58,12 @@
                         <p alt="timp" class="w-[50%] flex justify-end items-center">{{Race.time}}</p>
                     </div>
                 </div>
-            </router-link>
+            </a>
         </div>
     </div>
     <!-- Card Grid -->
     <div alt="card-grid" class="lg:grid lg:grid-cols-2 md:grid-cols-1 lg:px-14 lg:p-6 lg:gap-6 sm:justify-center sm:flex sm:flex-col sm:gap-6">
-        <div class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-20 lg:ml-0 rounded-md animatie" v-for="cursa in curse" :key="cursa.id" :id="cursa.Circuit.circuitId">
+        <div class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-20 lg:ml-0 rounded-md animatie" v-for="(cursa ,index) in curse" :key="index" :id="cursa.Circuit.circuitId" :class="{cursaCurenta: idCurent===index}">
             <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
                 <p alt="titlu">{{cursa.round}}. {{cursa.raceName}}</p>
                 <p alt="circuit">{{cursa.Circuit.circuitId.charAt(0).toUpperCase() + cursa.Circuit.circuitId.slice(1).replace(/_/g, ' ')}}</p>
@@ -158,7 +158,8 @@ export default {
                 date: "",
                 time:""
             },
-            Name: ""
+            Name: "",
+            idCurent: 0
         }
     },
     mounted() {
@@ -175,6 +176,13 @@ export default {
             const response = await axios.get(link)
             const resData = response.data.MRData.RaceTable.Races
             this.curse = resData
+            const idcurent = resData[resData1].Circuit.circuitId
+            var i
+            for(i = 0 ; i < resData.length ; i ++){
+                if(resData[i].Circuit.circuitId.toLowerCase() === idcurent){
+                    this.idCurent = i
+                }
+            }
             this.hero = this.curse[resData1]
 
 
@@ -221,5 +229,8 @@ export default {
     }
     .animatie:hover{
         transform: scale(1.02);
+    }
+    .cursaCurenta{
+        border-color: red;
     }
 </style>

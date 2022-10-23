@@ -4,5 +4,6 @@
     <span><a class="text-black underline" href="https://www.formula1.com" target="_blank">Formula 1 website</a></span>
     <p><span><a class="text-black underline" href="https://ergast.com/mrd" target="_blank">Data Api</a></span></p>
     <span><a class="text-black underline" href="https://f1livegp.me/f1/live3.html" target="_blank">Live website</a></span>
+    <p>Site not affiliated in any way with Formula 1</p>
   </div>
 </template>

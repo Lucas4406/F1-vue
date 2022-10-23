@@ -34,12 +34,6 @@ body{
     width:100%;
     height: auto;
 }
-.logo-fia{
-    background-color:black;
-    border:none;
-    cursor:pointer;
-    width:100%;
-}
 .logo{
     width:250px;
     height:80px;
@@ -90,7 +84,7 @@ body{
     justify-content: center;
     align-items: center;
     padding:.5rem;
-    left:-.5rem;
+    left: -1rem;
     border-top: 2px solid red;
     box-shadow: 0 3px 10px #333;
     width: 100%;
@@ -98,9 +92,6 @@ body{
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
     pointer-events: none;
-}
-.dropdown-menu.right{
-    left: -1rem;
 }
 .buton.active > .dropdown-menu{
     opacity: 1;
