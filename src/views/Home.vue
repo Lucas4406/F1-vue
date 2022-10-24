@@ -1,7 +1,8 @@
 <template>
     <div class="site-wrapper mb-2">
         <br>
-        <herocursa v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara"/>
+        <herocursa v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara" :key="componentKey"/>
+        <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p>
         <div class="stiri-grid">
             <stiricomp />
         </div>
@@ -31,8 +32,10 @@ export default {
             runda: "",
             steag: "",
             tara: "",
-            Hero: false,
+            Hero:false,
+            heroError: false,
             nrCursa: "",
+            componentKey: 0,
         }
     },
     mounted () {
@@ -45,21 +48,29 @@ export default {
         this.getCursa()
     },
     methods: {
+        forceRerender() {
+            this.componentKey += 1;
+        },
         async getCursa () {
-            this.nrCursa = await getNext
-            var j= this.nrCursa
-            var link = "https://f1-site-api.vercel.app/up-next/" + j
-            const response = await axios.get(link)
-            const resData = response.data
-            this.dataInceput = resData.dataCursa1
-            this.dataSfarsit = resData.dataCursa2
-            this.lunaCursa = resData.lunaCursa
-            this.pozaHarta = resData.harta
-            this.imagineMare = resData.imagine
-            this.runda = resData.runda
-            this.steag = resData.steag
-            this.tara = resData.tara
-            this.Hero = true
+            try {
+                this.nrCursa = await getNext
+                var j= this.nrCursa
+                var link = "https://f1-site-api.vercel.app/up-next/" + j
+                const response = await axios.get(link)
+                const resData = response.data
+                this.dataInceput = resData.dataCursa1
+                this.dataSfarsit = resData.dataCursa2
+                this.lunaCursa = resData.lunaCursa
+                this.pozaHarta = resData.harta
+                this.imagineMare = resData.imagine
+                this.runda = resData.runda
+                this.steag = resData.steag
+                this.tara = resData.tara
+                this.Hero = true
+            } catch (error) {
+                this.heroError = true
+                this.forceRerender()
+            }
         },
     },
 }
