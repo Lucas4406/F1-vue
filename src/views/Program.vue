@@ -2,7 +2,7 @@
     <!-- Cursa Urmatoare -->
     <div class="mt-6 flex justify-center w-screen sm:mb-6 lg:mb-0" alt="hero">
         <div class="border-red-500 border-2 border-solid sm:max-w-xl sm:w-xl lg:max-w-4xl lg:w-4xl p-4 rounded-md w-[100%] animatie">
-            <a :href="`#${circuitName.toLowerCase()}`" style="text-decoration:none; color:black" class="">
+            <a @click="getItem(`#${circuitName.toLowerCase()}`)" style="text-decoration:none; color:black" class="">
                 <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
                     <p alt="titlu">{{round}}. {{Name}}</p>
                     <p alt="circuit">{{circuitName}}</p>
@@ -63,7 +63,7 @@
     </div>
     <!-- Card Grid -->
     <div alt="card-grid" class="lg:grid lg:grid-cols-2 md:grid-cols-1 lg:px-14 lg:p-6 lg:gap-6 sm:justify-center sm:flex sm:flex-col sm:gap-6">
-        <div class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-20 lg:ml-0 rounded-md animatie" v-for="(cursa ,index) in curse" :key="index" :id="cursa.Circuit.circuitId" :class="{cursaCurenta: idCurent===index}">
+        <div class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-24 lg:ml-0 rounded-md animatie" v-for="(cursa ,index) in curse" :key="index" :id="cursa.Circuit.circuitId" :class="{cursaCurenta: idCurent===index}">
             <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
                 <p alt="titlu">{{cursa.round}}. {{cursa.raceName}}</p>
                 <p alt="circuit">{{cursa.Circuit.circuitId.charAt(0).toUpperCase() + cursa.Circuit.circuitId.slice(1).replace(/_/g, ' ')}}</p>
@@ -218,6 +218,13 @@ export default {
             var x = test.getTime()
             var timpscos = new Date(x + 60 * 60 * 1000)
             return timpscos
+        },
+        getItem(ele){
+            const idul = document.querySelector(`${ele}`)
+            idul.scrollIntoView({behavior: 'smooth'})
+            window.scrollTo({
+                top: document.querySelector(`${ele}`).offsetTop - 180, 
+            });
         }
     },
 }
@@ -232,5 +239,8 @@ export default {
     }
     .cursaCurenta{
         border-color: red;
+    }
+    html{
+        scroll-behavior: smooth;
     }
 </style>
