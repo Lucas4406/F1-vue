@@ -28,6 +28,16 @@
 <script>
 export default {
     props: ["dataInceput", "dataSfarsit", "lunaCursa", "pozaHarta", "imagineMare", "runda", "steag", "tara"],
+    data() {
+        return {
+            info: this.dataInceput
+        }
+    },
+    mounted() {
+        if(this.info == undefined){
+            this.$emit("eroare", true)
+        }
+    },
 }
 </script>
 

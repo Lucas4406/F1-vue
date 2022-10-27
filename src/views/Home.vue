@@ -1,7 +1,7 @@
 <template>
     <div class="site-wrapper mb-2">
         <br>
-        <herocursa v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara" :key="componentKey"/>
+        <herocursa @eroare="handleErr" v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara" :key="componentKey"/>
         <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p>
         <div class="stiri-grid">
             <stiricomp />
@@ -48,7 +48,13 @@ export default {
         this.getCursa()
     },
     methods: {
-        forceRerender() {
+        handleErr (val) {
+            if(val === true){
+                this.componentKey += 1;
+                console.log("component reloaded");
+            }
+        },
+        forceRerender () {
             this.componentKey += 1;
         },
         async getCursa () {
