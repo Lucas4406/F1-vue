@@ -3,8 +3,8 @@
         <br>
         <herocursa @eroare="handleErr" v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara" :key="componentKey"/>
         <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p>
-        <div class="stiri-grid">
-            <stiricomp />
+        <div class="stiri-grid" v-once>
+            <stiricomp/>
         </div>
     </div>
 </template>
@@ -38,7 +38,7 @@ export default {
             componentKey: 0,
         }
     },
-    mounted () {
+    created () {
         document.title= "Acasă"
         if(this.darkMode){
             document.body.classList.add("darkmode")

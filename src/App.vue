@@ -3,6 +3,12 @@
   <div id="nav">
     <Navbar />
   </div>
+  <main id="main-content">
+    <Suspense>
+      <router-view />
+
+    </Suspense>
+  </main>
   <div id="footer">
     <Footertag />
   </div>

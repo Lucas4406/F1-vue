@@ -21,3 +21,6 @@ h1{
     text-decoration: none;
     color: red;
 }
+#main-content{
+    min-height: 100vh;
+}

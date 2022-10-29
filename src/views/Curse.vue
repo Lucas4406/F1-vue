@@ -21,7 +21,7 @@
             </button>
         </div>
         <!-- 2022 -->
-        <tabelcursa :darkMode="darkMode" :linkdata="curse2022.linkdata" :titlupagina="curse2022.titlu" :asc="asc" v-if="curse2022.an2022" />
+        <tabelcursa :darkMode="darkMode" :linkdata="curse2022.linkdata" :titlupagina="curse2022.titlu" :asc="asc" v-if="curse2022.an2022"/>
         <!-- 2021 -->
         <tabelcursa :darkMode="darkMode"  :linkdata="curse2021.linkdata" :titlupagina="curse2021.titlu" :asc="asc" v-if="curse2021.an2021"/>
         <!-- 2020 -->

@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
   <div class="text-xl flex flex-row gap-2 items-center justify-center">
       <div alt="echipa" class=" flex flex-row gap-2 items-center justify-center">
         <label for="echipaPref">Echipa favorita:</label>
@@ -58,14 +58,21 @@
         <button type="submit" @click="updateDb" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer">Submit</button>
       </div>
   </div>
+  <div class="flex flex-col h-[20rem] items-center justify-center my-6">
+    <ConstructorCard :team="favArr" :darkMode="darkMode" class="sm:w-[20rem]"/>
+  </div>
+  <button class="text-xl flex flex-row gap-2 items-center justify-center mt-6" v-if="isAdmin">
+      <router-link to="/test">Introducere echipe</router-link>
+  </button>
 </div>
 </template>
 
 <script setup>
     import axios from "axios"
     import { getAuth, signOut } from "firebase/auth"
-    import {ref, onMounted} from "vue"
+    import {ref, onMounted, inject} from "vue"
     import { useRouter } from "vue-router"
+    import ConstructorCard from "../../components/ConstructorCard.vue";
     const Name = ref("")
     const Photo = ref("")
     const Email = ref("")
@@ -78,9 +85,16 @@
     const soferPrefdata = ref("")
     const echipeArray = ref([])
     const soferiArray = ref([])
+    const darkMode = ref(false)
+    const isAdmin = ref(false)
     const auth = getAuth()
+    const favArr = ref([])
     const user = auth.currentUser
     const router = useRouter()
+    const store = inject("store")
+    if(store.state.name === import.meta.env.VITE_ADMIN_UID){
+      isAdmin.value = true
+    }
     if(user != null){
         Name.value = user.displayName
         Photo.value = user.photoURL
@@ -105,6 +119,18 @@
         soferiArray.value = drivers
       }
     }
+    async function favoriteTeam () {
+      const fav = store.state.favTeam.substring(0, 4)
+      const resp = await axios("https://ergast.com/api/f1/current/constructorStandings.json")
+      const echipe = resp.data
+      const arr = echipe.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+      for(var i = 0 ; i < arr.length ; i++ ){
+        if(arr[i].Constructor.name.includes(fav)){
+          favArr.value = arr[i]
+        }
+      }
+    }
+    await favoriteTeam()
     async function getData () {
       const response = await axios(`https://f1-site-api.vercel.app/profile/${user.uid}`)
       const profile = response.data[0]

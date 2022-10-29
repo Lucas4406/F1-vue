@@ -1,5 +1,5 @@
 <template>
-    <div class="content">
+    <div class="content" v-once>
         <div class="scroll-btns">
             <button class="darkmodeBtn" @click="darkModeToggle()">
                 <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">

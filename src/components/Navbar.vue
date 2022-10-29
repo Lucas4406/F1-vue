@@ -4,7 +4,7 @@
       <div class="logo">
         <router-link to="/" class="link-router"><img src="./icons/f1.png" class="logo-f1" /></router-link>
       </div>
-      <div class="fia" v-if="isLogged">
+      <div class="fia" v-if="isLogged" v-once>
         <profileBadge />
       </div>
     </div>
@@ -39,7 +39,6 @@
       </div>
     </div>
   </div>
-  <router-view/>
 </template>
 
 

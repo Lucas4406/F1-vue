@@ -1,5 +1,5 @@
 <template>
-    <p class="titlu-pagina-curse" ref="sezon-2022" :class="{darkmode: darkMode}">{{titlupagina}}</p>
+    <p class="titlu-pagina-curse" ref="sezon-2022" :class="{darkmode: darkMode}" v-once>{{titlupagina}}</p>
     <div class="search-wrapper">
         <input type="text" v-model="search" placeholder="Căutare" class="search-bar" :class="{darkmode: darkMode}"/>
     </div>
@@ -10,7 +10,7 @@
                 <p class="loc-cursa">{{cursa.Circuit.circuitName.toUpperCase()}}</p>
                 <p class="data-cursa">{{new Date(cursa.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
             </div>
-            <div class="tabel-body-curse">
+            <div class="tabel-body-curse" v-once>
                 <div class="pilot-container-curse" v-for="pilot in cursa.Results" :key="pilot.id">
                     <div class="parte-sus-pilot">
                         <div class="pozitie-curse">{{pilot.position}}.</div>
@@ -69,8 +69,6 @@ export default {
     },
     mounted() {
         this.getCurse()
-    },
-    updated() {
     },
     computed: {
         filterCurse: function () {
