@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" id="header">
     <div class="sus">
       <div class="logo">
         <router-link to="/" class="link-router"><img src="./icons/f1.png" class="logo-f1" /></router-link>
@@ -71,6 +71,13 @@
   .querySelectorAll("[data-dropdown].active")
   .forEach((dropdown) => {
     dropdown.classList.remove("active")
+  })
+
+  onMounted(() => {
+    window.addEventListener("scroll" , () => {
+      const header = document.getElementById("header")
+      header.classList.toggle("scrolled" , window.scrollY > 30)
+    })
   })
 </script>
 

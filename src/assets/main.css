@@ -1,7 +1,19 @@
+*:root{
+    --nav-font-size: 1.8rem;
+    --point3rem: .3rem;
+    --point5rem: .5rem;
+    --point7rem: .7rem;
+    --percent100: 100%; 
+    --one1rem: 1rem;
+    --w100px: 100px;
+}
+
 body{
     margin-left:0;
     margin-right:0;
     font-family: 'Roboto', sans-serif;
+    padding-top:calc(var(--one1rem) * 8);
+    margin:0;
 }
 h1{
     color:black;
