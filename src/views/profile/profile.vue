@@ -43,7 +43,7 @@
         </div>
     </div>
   </div>
-  <div class="text-xl flex flex-row gap-2 items-center justify-center">
+  <div class="text-xl flex flex-row gap-2 items-center justify-center" v-if="showSelect">
       <div alt="echipa" class=" flex flex-row gap-2 items-center justify-center">
         <label for="echipaPref">Echipa favorita:</label>
         <select id="echipaPref" name="echipa" class="selectie" v-model="echipaPref">
@@ -87,6 +87,7 @@
     const soferiArray = ref([])
     const darkMode = ref(false)
     const isAdmin = ref(false)
+    const showSelect = ref(false)
     const auth = getAuth()
     const favArr = ref([])
     const user = auth.currentUser
@@ -140,8 +141,9 @@
       echipaPrefdata.value = profile.favTeam
       soferPrefdata.value = profile.favDriver
       router.push({query: { user: profile.displayName }})
-      getEchipe()
-      getSoferi()
+      await getEchipe()
+      await getSoferi()
+      showSelect.value = true
     }
     async function updateDb () {
         await axios({
