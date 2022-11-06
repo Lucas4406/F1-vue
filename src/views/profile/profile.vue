@@ -61,9 +61,14 @@
   <div class="flex flex-col h-[20rem] items-center justify-center my-6">
     <ConstructorCard :team="favArr" :darkMode="darkMode" class="sm:w-[20rem]"/>
   </div>
-  <button class="text-xl flex flex-row gap-2 items-center justify-center mt-6" v-if="isAdmin">
-      <router-link to="/test">Introducere echipe</router-link>
-  </button>
+  <div class="flex flex-row gap-4">
+    <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
+        <router-link to="/test">Introducere echipe</router-link>
+    </button>
+    <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
+        <a href="https://f1-site-api.vercel.app/clasament-piloti" target="_blank">Update clasament piloti</a>
+    </button>
+  </div>
 </div>
 </template>
 
@@ -131,6 +136,10 @@
         }
       }
     }
+    async function getFavDriver() {
+      const resp = await axios(`https://f1-site-api.vercel.app/mongo/piloti/${store.state.favDriver}`)
+      const yey = resp.data[0]
+    }
     await favoriteTeam()
     async function getData () {
       const response = await axios(`https://f1-site-api.vercel.app/profile/${user.uid}`)
@@ -160,6 +169,7 @@
     onMounted(async() => {
       document.title = "Profil" + "-" + user.displayName
       await getData()
+      await getFavDriver()
       if(soferPref.value == ""){
         soferPref.value = soferPrefdata.value
       }
