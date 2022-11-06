@@ -13,31 +13,31 @@
             <div class="piloti-grid">
                 <div class="pilot-container" v-for="(pilot , index) in piloti" :key="index" :class="{darkmode: darkMode}">
                     <div class="pozitiepuncte-pilot">
-                        <p class="pozitie-pilot">{{pilot.position}}</p>
+                        <p class="pozitie-pilot">{{pilot.pozitie}}</p>
                         <div class="nrpuncte-container">
-                            <p class="nrpuncte-pilot">{{pilot.points}}</p>
+                            <p class="nrpuncte-pilot">{{pilot.puncte}}</p>
                             <p class="puncte-text-pilot" :class="{darkmode: darkMode}">PCT</p>
                         </div>
                     </div>
                     <div class="numesteag">
                         <div class="numesiculoare">
-                            <p class="culoare-pilot-pilot" :style="{ color: pilot.driverColor}">|</p>
+                            <p class="culoare-pilot-pilot" :style="{ color: pilot.culoare}">|</p>
                             <div class="nume-pilot">
-                                <p class="firstname">{{pilot.firstName}}</p>
-                                <p class="lastname">{{pilot.lastName}}</p>
+                                <p class="firstname">{{pilot.primulNume}}</p>
+                                <p class="lastname">{{pilot.alDoileaNume}}</p>
                             </div>
                         </div>
-                        <img :src="pilot.driverFlag" class="img-steag">
+                        <img :src="pilot.steag" class="img-steag">
                     </div>
                     <div class="flex flex-row justify-between items-center">
                         <p class="echipa">
-                            {{pilot.team}}
+                            {{pilot.echipa}}
                         </p>    
                         <p class="echipa">{{pilot.gapDelta}}</p>
                     </div>
                     <div class="pozanumar" :class="{darkmode: darkMode}">
-                        <img :src="pilot.driverPhoto" class="poza-pilot">
-                        <img :src="pilot.driverNumber" class="nr-pilot" :class="{darkmode: darkMode}">
+                        <img :src="pilot.poza" class="poza-pilot">
+                        <img :src="pilot.numar" class="nr-pilot" :class="{darkmode: darkMode}">
                     </div>
                 </div>
             </div>
@@ -56,15 +56,15 @@ export default {
     },
     mounted() {
         console.log(this.store.state.favDriver)
-        fetch("https://f1-site-api.vercel.app/clasament-piloti")
+        fetch("https://f1-site-api.vercel.app/mongo/piloti")
         .then(res => res.json())
         .then(data => {
-            var first = data[0].points
-            var firstThree = data[0].lastName.substring(0, 3).toUpperCase()
+            var first = data[0].puncte
+            var firstThree = data[0].alDoileaNume.substring(0, 3).toUpperCase()
             data[0].gapDelta = ""
             for(var i=1;i<data.length;i++){
-                var delta = first - data[i].points
-                if(delta < 200){
+                var delta = first - data[i].puncte
+                if(delta < 300){
                     data[i].gapDelta = `Gap to ${firstThree} ` + JSON.stringify(-delta)
                 }else{
                     data[i].gapDelta = ""
