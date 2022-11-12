@@ -10,6 +10,7 @@ body.darkmode{
     transition: transform 200ms ease-in-out;
     overflow: hidden;
     z-index: 20;
+    max-height: 650px;
 }
 .photo{
     width: 100%;
@@ -50,10 +51,11 @@ body.darkmode{
     margin-bottom: 0;
     margin-top:0;
     padding-top: 1.25rem;
-    flex-grow: 2;
 }
 .content-row{
     z-index:22;
+    display: flex;
+    flex-direction: column;
 }
 .photo{
     z-index:-1;
@@ -79,6 +81,7 @@ body.darkmode{
     border-bottom: 0;
     z-index:20;
     transition: color 200ms ease-in-out;
+    overflow: hidden;
     /* max-height: 116px; */
 }
 .content-text.darkmode{

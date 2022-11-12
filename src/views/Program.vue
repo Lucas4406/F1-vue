@@ -1,6 +1,6 @@
 <template>
     <!-- Cursa Urmatoare -->
-    <div class="mt-6 flex justify-center w-screen sm:mb-6 lg:mb-0" alt="hero">
+    <div class="mt-6 flex justify-center w-screen sm:mb-6 lg:mb-0" alt="hero" v-if="show">
         <div class="border-red-500 border-2 border-solid sm:max-w-xl sm:w-xl lg:max-w-4xl lg:w-4xl p-4 rounded-md w-[100%] animatie">
             <a @click="getItem(`#${circuitName.toLowerCase()}`)" style="text-decoration:none; color:black" class="">
                 <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
@@ -134,6 +134,7 @@ export default {
             nr: "",
             circuitName: "",
             round: "",
+            show: false,
             FP1: {
                 date: "",
                 time:""
@@ -212,6 +213,7 @@ export default {
                 var hour1 = new Date(x + 60 * 60 * 1000)
                 return hour1
             }
+            this.show = true
         },
         add1 (timpinceput) {
             var test = new Date(timpinceput)
