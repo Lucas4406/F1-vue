@@ -85,6 +85,14 @@ const router = createRouter({
       }
     },
     {
+      path: "/updateteams",
+      name: "updateTeams",
+      component: () => import("../views/updateTeams.vue"),
+      meta: {
+        Admin: true
+      }
+    },
+    {
       path: "/login",
       name: "Login",
       component: () => import("../views/login.vue")

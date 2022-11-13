@@ -20,7 +20,6 @@
 
 .box.Ferrari:hover{
     box-shadow:15px 15px 15px #F91536;
-    cursor:pointer;
     border:3px solid #F91536;
     border-left:0;
     border-bottom:0;
@@ -30,7 +29,6 @@
 }
 .box.Mercedes:hover{
     box-shadow:15px 15px 15px #6CD3BF;
-    cursor:pointer;
     border:3px solid #6CD3BF;
     border-left:0;
     border-bottom:0;
@@ -40,7 +38,6 @@
 }
 .box.RedBullRacing:hover{
     box-shadow:15px 15px 15px #3671C6;
-    cursor:pointer;
     border:3px solid #3671C6;
     border-left:0;
     border-bottom:0;
@@ -50,7 +47,6 @@
 }
 .box.McLaren:hover{
     box-shadow:15px 15px 15px #F58020;
-    cursor:pointer;
     border:3px solid #F58020;
     border-left:0;
     border-bottom:0;
@@ -60,7 +56,6 @@
 }
 .box.Alpine:hover{
     box-shadow:15px 15px 15px #2293D1;
-    cursor:pointer;
     border:3px solid #2293D1;
     border-left:0;
     border-bottom:0;
@@ -70,7 +65,6 @@
 }
 .box.AlfaRomeo:hover{
     box-shadow:15px 15px 15px #C92D4B;
-    cursor:pointer;
     border:3px solid #C92D4B;
     border-left:0;
     border-bottom:0;
@@ -80,7 +74,6 @@
 }
 .box.HaasF1Team:hover{
     box-shadow:15px 15px 15px #B6BABD;
-    cursor:pointer;
     border:3px solid #B6BABD;
     border-left:0;
     border-bottom:0;
@@ -90,7 +83,6 @@
 }
 .box.AlphaTauri:hover{
     box-shadow:15px 15px 15px #5E8FAA;
-    cursor:pointer;
     border:3px solid #5E8FAA;
     border-left:0;
     border-bottom:0;
@@ -100,7 +92,6 @@
 }
 .box.Williams:hover{
     box-shadow:15px 15px 15px #37BEDD;
-    cursor:pointer;
     border:3px solid #37BEDD;
     border-left:0;
     border-bottom:0;
@@ -110,7 +101,6 @@
 }
 .box.AstonMartin:hover{
     box-shadow:15px 15px 15px #358C75;
-    cursor:pointer;
     border:3px solid #358C75;
     border-left:0;
     border-bottom:0;
@@ -168,7 +158,7 @@
     background-size: 8px;
     border-radius: 0  0 12px 0;
 }
-.nume1, .nume2{
+.numepilot{
     font-size:1.5rem;
     display:flex;
     justify-content: center;
@@ -195,7 +185,7 @@ a{
 .pozaFav{
     display: none;
 }
-.echipaFavorita > .box > .linie1 > .linie > .Favcontainer > .pozaFav {
+.echipaFavorita > .linie1 > .linie > .Favcontainer > .pozaFav {
     display: block;
 }
 @media(max-width:1200px){
@@ -205,7 +195,7 @@ a{
     .box{
         height:auto;
     }
-    .nume1, .nume2{
+    .numepilot{
         font-size:1.7rem;
     }
     .numee{

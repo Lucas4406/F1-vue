@@ -65,9 +65,14 @@
     <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
         <router-link to="/test">Introducere echipe</router-link>
     </button>
-    <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
-        <a href="https://f1-site-api.vercel.app/clasament-piloti" target="_blank">Update clasament piloti</a>
-    </button>
+    <div class="flex flex-row gap-2">
+      <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
+          <a href="https://f1-site-api.vercel.app/clasament-piloti" target="_blank">Update clasament piloti</a>
+      </button>
+      <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
+          <a href="https://f1-site-api.vercel.app/echipe" target="_blank">Update clasament echipe</a>
+      </button>
+    </div>
   </div>
 </div>
 </template>
