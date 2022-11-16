@@ -90,7 +90,6 @@ body.darkmode{
     background-color: rgb(41, 40, 40);
 }
 .content-text:hover{
-    box-shadow:15px 15px 15px black;
     cursor:pointer;
 }
 .titlu-text{

@@ -31,7 +31,6 @@ export default {
         })
             .catch(err => console.log(err.message)),
             document.title = "Clasament echipe";
-        console.log("ok");
     },
     methods: {
         darkModeToggle() {

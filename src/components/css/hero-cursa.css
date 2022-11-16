@@ -10,9 +10,13 @@
     color: white;
     max-width: 1750px;
 }
+.hero-wrapper:hover .hero-dreapta .hero-image {
+    transform: scale(1.05);
+}
 .hero-image{
     width: 100%;
     object-fit: cover;
+    transition: transform 300ms ease-in-out;
 }
 .image-wrapper{
     overflow: hidden;

@@ -1,8 +1,8 @@
 <template>
     <Menu as="div" class="relative ml-3 cursor-pointer">
         <div>
-            <MenuButton class="flex rounded-full bg-black text-md lg:focus:outline-none lg:focus:ring-2 lg:focus:ring-white lg:focus:ring-offset-2 lg:focus:ring-offset-gray-800 cursor-pointer">
-                <img class="h-14 w-14 rounded-full" :src="store.state.profilePic" alt="" />
+            <MenuButton class="flex rounded-full bg-black text-md lg:focus:outline-none lg:focus:ring-2 lg:focus:ring-white lg:focus:ring-offset-2 lg:focus:ring-offset-gray-800 cursor-pointer menub">
+                <img class="h-14 w-14 rounded-full profimage" :src="store.state.profilePic" alt="profile picture" />
             </MenuButton>
         </div>
         <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -36,3 +36,12 @@
     })
 }
   </script>
+
+<style scoped>
+    .menub:hover img {
+        transform: scale(1.1);
+    }
+    .profimage{
+        transition: transform 200ms ease-in-out;
+    }
+</style>

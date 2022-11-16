@@ -58,7 +58,7 @@
         <button type="submit" @click="updateDb" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer">Submit</button>
       </div>
   </div>
-  <div class="flex flex-col h-[20rem] items-center justify-center my-6">
+  <div class="flex flex-col h-[20rem] items-center justify-center my-6" v-if="bla">
     <ConstructorCard :team="favArr" :darkMode="darkMode" class="sm:w-[20rem]"/>
   </div>
   <div class="flex flex-row gap-4">
@@ -98,6 +98,7 @@
     const darkMode = ref(false)
     const isAdmin = ref(false)
     const showSelect = ref(false)
+    const bla = ref(false)
     const loaded = ref(false)
     const auth = getAuth()
     const favArr = ref([])
@@ -146,7 +147,10 @@
       const resp = await axios(`https://f1-site-api.vercel.app/mongo/piloti/${store.state.favDriver}`)
       const yey = resp.data[0]
     }
-    await favoriteTeam()
+    if(user != null && store.state.favTeam != null){
+        await favoriteTeam()
+        bla.value = true
+    }
     async function getData () {
       const response = await axios(`https://f1-site-api.vercel.app/profile/${user.uid}`)
       const profile = response.data[0]
@@ -170,6 +174,9 @@
            }
        })
        window.location.reload()
+   }
+   if(favArr.value === null){
+    bla.value = false
    }
 
     onMounted(async() => {
