@@ -124,8 +124,12 @@
     grid-template-columns: 1fr 3fr 1fr;
 }
 .poza1{
-    width: 100%;
-    margin-top:0.313rem;
+    height: 50px;
+}
+.pozae{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .numee{
     display: flex;
@@ -144,7 +148,7 @@
 }
 .linie2{
     display:grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr;
 }
 .linie3{
     background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x1.png);
@@ -158,10 +162,30 @@
     background-size: 8px;
     border-radius: 0  0 12px 0;
 }
+.points{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.inverted-pts{
+    color: white;
+    background-color: black;
+    padding: .1rem .4rem;
+    border: 1px black solid;
+    border-radius: 10%;
+    font-weight: bold;
+}
+.points-number{
+    font-size: 2rem;
+}
 .numepilot{
     font-size:1.5rem;
-    display:flex;
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
 .poza{
     width:100%;
@@ -173,6 +197,9 @@
 .content > a{
     text-decoration: none;
     color:black;
+}
+.content-echipe{
+    margin-bottom: 1rem;
 }
 .content > a:nth-child(10){
     margin-bottom: 2rem;

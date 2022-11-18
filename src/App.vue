@@ -5,8 +5,7 @@
   </div>
   <main id="main-content">
     <Suspense>
-      <router-view />
-
+        <router-view />
     </Suspense>
   </main>
   <div id="footer">

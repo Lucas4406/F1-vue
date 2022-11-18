@@ -19,8 +19,13 @@
                 <div class="numee">
                     {{echipa.name}}
                 </div>
-                <div class="pozae">
-                    <img :src="echipa.logo" class="poza1">
+                <div class="points">
+                    <div class="points-number">
+                        {{echipa.nrpuncte}}
+                    </div>
+                    <div class="inverted-pts">
+                        PTS
+                    </div>
                 </div>
             </div>
             <div class="linie2">
@@ -29,6 +34,9 @@
                 </div>
                 <div class="numepilot">
                     {{echipa.drivers[0].driver2.primulNume + " " + echipa.drivers[0].driver2.alDoileaNume}}
+                </div>
+                <div class="pozae">
+                    <img :src="echipa.logo" class="poza1">
                 </div>
             </div>
             <div class="linie3">
