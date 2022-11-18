@@ -75,7 +75,10 @@ export default {
         async fetchData () {
             let now = new Date()
             let sessionData = JSON.parse(sessionStorage.getItem("news"))
-            if(sessionData === null || sessionData.exp > now){
+            if(sessionData!=null && sessionData.exp > now){
+                sessionStorage.clear()
+            }
+            if(sessionData === null){
                 var j=0
                 let deta = []
                 for(j=0;j<6;j++){

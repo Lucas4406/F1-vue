@@ -8,7 +8,7 @@
         </div>
         <div v-if="isLoggedIn" class="flex flex-col justify-center items-center gap-2">
             <div class="each flex rounded shadow w-max text-gray-600 bg-white">
-            <div class="sec self-center p-2 pr-1"><img data="picture" class="w-14  border p-0.5 rounded-full aspect-square" :src="Poza" alt="profile-pic" v-if="profilePic"/></div>
+            <div class="sec self-center p-2 pr-1"><router-link to="/profile" style="text-decoration: none"><img data="picture" class="w-14  border p-0.5 rounded-full aspect-square object-cover" :src="Poza" alt="profile-pic" v-if="profilePic"/></router-link></div>
             <div class="sec self-center p-2 w-64">
                 <div class="flex">
                 <div class="name text-md">{{Name}}</div>
@@ -85,5 +85,11 @@
 <style scoped>
     .text-xxs {
     font-size:0.7em;
+  }
+  .router-link-exact-activ{
+    opacity: 1;
+  }
+  .router-link-activ{
+    opacity: 1;
   }
 </style>

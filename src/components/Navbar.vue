@@ -81,6 +81,6 @@
   })
 </script>
 
-<style>
+<style scoped>
  @import "./css/navbar.css";
 </style>
