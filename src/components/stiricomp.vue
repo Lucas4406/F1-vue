@@ -75,9 +75,6 @@ export default {
         async fetchData () {
             let now = new Date()
             let sessionData = JSON.parse(sessionStorage.getItem("news"))
-            if(sessionData!=null && sessionData.exp > now){
-                sessionStorage.clear()
-            }
             if(sessionData === null){
                 var j=0
                 let deta = []
@@ -92,19 +89,41 @@ export default {
                     }
                 }
                 let expiration = new Date()
-                expiration.setMinutes(expiration.getMinutes() + 30);
+                expiration.setMinutes(expiration.getMinutes() + 1);
                 const storeItem = {
                     exp: expiration,
                     data: deta
                 }
                 sessionStorage.setItem("news" , JSON.stringify(storeItem))
             }else{
-                const data = JSON.parse(sessionStorage.getItem("news"))
-                for(var i=0;i<6;i++){
-                    this.news[i] = data.data[i]
-                    if(this.news[1] !== undefined){
-                        this.show=true
+                if(sessionData.exp > now.toISOString()){
+                    const data = JSON.parse(sessionStorage.getItem("news"))
+                    for(var i=0;i<6;i++){
+                        this.news[i] = data.data[i]
+                        if(this.news[1] !== undefined){
+                            this.show=true
+                        }
                     }
+                }else{
+                    var j=0
+                    let deta = []
+                    for(j=0;j<6;j++){
+                        var link = "https://f1-site-api.vercel.app/stiri-translate/" + j
+                        const response = await axios.get(link)
+                        const resData = response.data
+                        deta.push(resData)
+                        this.news[j] = resData
+                        if(this.news[1] !== undefined){
+                            this.show=true
+                        }
+                    }
+                    let expiration = new Date()
+                    expiration.setMinutes(expiration.getMinutes() + 10);
+                    const storeItem = {
+                        exp: expiration,
+                        data: deta
+                    }
+                    sessionStorage.setItem("news" , JSON.stringify(storeItem))
                 }
             }
         },
