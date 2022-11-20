@@ -72,7 +72,7 @@ export default {
                 this.runda = resData.runda
                 this.steag = resData.steag
                 this.tara = resData.tara
-                this.Hero = true
+                this.Hero = false
             } catch (error) {
                 this.heroError = true
                 this.forceRerender()
