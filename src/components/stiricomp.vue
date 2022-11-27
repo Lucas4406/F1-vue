@@ -89,7 +89,7 @@ export default {
                     }
                 }
                 let expiration = new Date()
-                expiration.setMinutes(expiration.getMinutes() + 1);
+                expiration.setMinutes(expiration.getMinutes() + 30);
                 const storeItem = {
                     exp: expiration,
                     data: deta
@@ -118,7 +118,7 @@ export default {
                         }
                     }
                     let expiration = new Date()
-                    expiration.setMinutes(expiration.getMinutes() + 10);
+                    expiration.setMinutes(expiration.getMinutes() + 30);
                     const storeItem = {
                         exp: expiration,
                         data: deta
