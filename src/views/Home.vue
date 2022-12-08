@@ -1,9 +1,9 @@
 <template>
     <div class="site-wrapper mb-2">
         <br>
-        <herocursa @eroare="handleErr" v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara" :key="componentKey"/>
-        <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p>
-        <div class="stiri-grid" v-once>
+        <!-- <herocursa @eroare="handleErr" v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara" :key="componentKey"/> -->
+        <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
+        <div class="stiri-grid">
             <stiricomp/>
         </div>
     </div>
@@ -45,7 +45,7 @@ export default {
         }else{
             document.body.classList.remove("darkmode")
         }
-        this.getCursa()
+        /* this.getCursa() */
     },
     methods: {
         handleErr (val) {
@@ -57,7 +57,7 @@ export default {
         forceRerender () {
             this.componentKey += 1;
         },
-        async getCursa () {
+        /* async getCursa () {
             try {
                 this.nrCursa = await getNext
                 var j= this.nrCursa
@@ -77,7 +77,7 @@ export default {
                 this.heroError = true
                 this.forceRerender()
             }
-        },
+        }, */
     },
 }
 </script>

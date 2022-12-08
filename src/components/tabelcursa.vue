@@ -10,7 +10,7 @@
                 <p class="loc-cursa">{{cursa.Circuit.circuitName.toUpperCase()}}</p>
                 <p class="data-cursa">{{new Date(cursa.date).toISOString().replace(/T.*/,'').split('-').reverse().join('-')}}</p>
             </div>
-            <div class="tabel-body-curse" v-once>
+            <div class="tabel-body-curse">
                 <div class="pilot-container-curse" v-for="pilot in cursa.Results" :key="pilot.id">
                     <div class="parte-sus-pilot">
                         <div class="pozitie-curse">{{pilot.position}}.</div>
@@ -58,10 +58,6 @@ export default {
                     }else{
                         resData[i].Results[j].FastestLap = resData[i].Results[j].FastestLap.Time.time
                     }
-                    /* resData[i].Results[j].FastestLap.rank = `(${resData[i].Results[j].FastestLap.rank})` */
-                    /* if(resData[i].Results[j].FastestLap.rank === "1"){
-                        this.fastest = true
-                    } */
                 }
             }
             this.curse = resData
