@@ -2,7 +2,7 @@
   <div class="header" id="header">
     <div class="sus">
       <div class="logo">
-        <router-link to="/" class="link-router"><img src="./icons/f1.png" class="logo-f1" /></router-link>
+        <router-link to="/" class="link-router"><img src="./icons/7cg10kl1rdc8vogffcuquh9m1.png" class="logo-f1" /></router-link>
       </div>
       <div class="fia" v-if="isLogged" v-once>
         <profileBadge />
