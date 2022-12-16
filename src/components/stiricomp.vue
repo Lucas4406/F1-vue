@@ -43,6 +43,8 @@
 
 <script>
 import axios from 'axios'
+import {isItemInSessionStorage} from "../functions/checkSessionS.js"
+import {checkDarkMode} from "../functions/checkDarkMode.js"
 export default {
     name: "Stiri",
     data () {
@@ -56,26 +58,18 @@ export default {
     },
     mounted () {
         this.fetchData()
-        if(this.darkMode){
-            document.body.classList.add("darkmode")
-        }else{
-            document.body.classList.remove("darkmode")
-        }
+        checkDarkMode(this.darkMode)
     },
     methods: {
         darkModeToggle() {
             this.darkMode = !this.darkMode;
             localStorage.setItem('darkMode', this.darkMode);
-            if(this.darkMode){
-                document.body.classList.add("darkmode")
-            }else{
-                document.body.classList.remove("darkmode")
-            } 
+            checkDarkMode(this.darkMode)
         },
         async fetchData () {
             let now = new Date()
             let sessionData = JSON.parse(sessionStorage.getItem("news"))
-            if(sessionData === null){
+            if(isItemInSessionStorage("news") == 0 || sessionData.exp < now.toISOString()){
                 var j=0
                 let deta = []
                 for(j=0;j<6;j++){
@@ -96,34 +90,12 @@ export default {
                 }
                 sessionStorage.setItem("news" , JSON.stringify(storeItem))
             }else{
-                if(sessionData.exp > now.toISOString()){
-                    const data = JSON.parse(sessionStorage.getItem("news"))
-                    for(var i=0;i<6;i++){
-                        this.news[i] = data.data[i]
-                        if(this.news[1] !== undefined){
-                            this.show=true
-                        }
+                const data = JSON.parse(sessionStorage.getItem("news"))
+                for(var i=0;i<6;i++){
+                    this.news[i] = data.data[i]
+                    if(this.news[1] !== undefined){
+                        this.show=true
                     }
-                }else{
-                    var j=0
-                    let deta = []
-                    for(j=0;j<6;j++){
-                        var link = "https://f1-site-api.vercel.app/stiri-translate/" + j
-                        const response = await axios.get(link)
-                        const resData = response.data
-                        deta.push(resData)
-                        this.news[j] = resData
-                        if(this.news[1] !== undefined){
-                            this.show=true
-                        }
-                    }
-                    let expiration = new Date()
-                    expiration.setMinutes(expiration.getMinutes() + 30);
-                    const storeItem = {
-                        exp: expiration,
-                        data: deta
-                    }
-                    sessionStorage.setItem("news" , JSON.stringify(storeItem))
                 }
             }
         },

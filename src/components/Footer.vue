@@ -49,25 +49,26 @@
         auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if(user){
-            localStorage.setItem("User" , JSON.stringify(user.email))
-            localStorage.setItem("Username" , JSON.stringify(user.displayName))
-            localStorage.setItem("currentUser" , JSON.stringify(user.uid))
-            Name.value = user.displayName
-            Email.value = user.email
-            userID.value = user.uid
-            if(user.photoURL != null){
-                Poza.value = user.photoURL
-                profilePic.value = true
+                const current = {
+                    User : user.email,
+                    Username: user.displayName,
+                    currentUser: user.uid
+                }
+                localStorage.setItem("currentUser" , JSON.stringify(current))
+                Name.value = user.displayName
+                Email.value = user.email
+                userID.value = user.uid
+                if(user.photoURL != null){
+                    Poza.value = user.photoURL
+                    profilePic.value = true
+                }else{
+                    profilePic.value = false
+                }
+                isLoggedIn.value = true
             }else{
-                profilePic.value = false
+                localStorage.setItem("currentUser" , null)
+                isLoggedIn.value = false
             }
-            isLoggedIn.value = true
-        }else{
-            localStorage.setItem("User" , null)
-            localStorage.setItem("Username" , null)
-            localStorage.setItem("currentUser" , null)
-            isLoggedIn.value = false
-        }
      })
     })
     function logout() {

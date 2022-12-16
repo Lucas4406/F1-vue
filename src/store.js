@@ -1,13 +1,13 @@
 import {reactive} from "vue"
 import axios from "axios"
-const currUser = JSON.parse(localStorage.getItem("currentUser"))
+let currUser = JSON.parse(localStorage.getItem("currentUser"))
 let favD 
 let favT
 let profilePic
 let nick
 let email
 if(currUser != null){
-    await getUserData(currUser)
+    await getUserData(currUser.currentUser)
 }
 async function getUserData (user){
     const response = await axios(`https://f1-site-api.vercel.app/profile/${user}`)
