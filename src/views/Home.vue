@@ -9,11 +9,9 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 import herocursa from "../components/herocursa.vue"
 import stiricomp from "../components/stiricomp.vue"
 
-import getNext from '../functions/getNext'
 export default {
     name: "Home",
     components : {

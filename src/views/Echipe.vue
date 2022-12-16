@@ -46,18 +46,15 @@
     </div>
 </template>
 <script>
-    import axios from 'axios'
-    import {getAuth} from "firebase/auth"
     import { makeRequest } from '../functions/makeRequest'
-export default {
+    export default {
+        inject: ["store"],
         name: "Echipe",
         data() {
         let darkMode = localStorage.getItem('darkMode') == 'true';
-        let userID = JSON.parse(localStorage.getItem("currentUser"))
         return {
             echipe: [],
             darkMode,
-            userID,
             echipaFav: "",
             ok: "",
         }
@@ -81,19 +78,8 @@ export default {
                 document.body.classList.remove("darkmode")
             } 
         },
-        async getFavTeam() {
-            const resp = await axios(`https://f1-site-api.vercel.app/profile/${this.userID}`)
-            if(resp.data[0].favTeam != null){
-                const favTeam = resp.data[0].favTeam
-                return favTeam
-            }
-        },
         async getTeams () {
-            let fav = ""
-            const current = getAuth()
-            if(current.currentUser != null){
-                fav = await this.getFavTeam()
-            }
+            let fav = this.store.state.favTeam
             const data = await makeRequest("https://f1-site-api.vercel.app/mongo/teams/all")
             this.echipe = data
             for(var i = 0 ; i<data.length; i++){
