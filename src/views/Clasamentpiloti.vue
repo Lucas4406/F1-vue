@@ -44,7 +44,6 @@
         </div>
 </template>
 <script>
-import axios from "axios"
 export default {
     name: "CLasamentpiloti",
     inject: ["store"],
