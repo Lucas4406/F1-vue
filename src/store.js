@@ -6,8 +6,11 @@ let favT
 let profilePic
 let nick
 let email
+let notLogged
 if(currUser != null){
     await getUserData(currUser.currentUser)
+}else{
+    notLogged = "No user"
 }
 async function getUserData (user){
     const response = await axios(`https://f1-site-api.vercel.app/profile/${user}`)
@@ -18,6 +21,8 @@ async function getUserData (user){
         email = data.email
         nick = data.displayName
         profilePic = data.profilePhoto
+    }else{
+        notLogged = "No user"
     }
 }
 
@@ -27,8 +32,10 @@ const state = reactive({
     favTeam: favT,
     profilePic: profilePic,
     nick: nick,
-    email: email
+    email: email,
+    notL: notLogged
 })
+
 
 export default {
     state: state
