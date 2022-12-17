@@ -99,7 +99,6 @@
     const isAdmin = ref(false)
     const showSelect = ref(false)
     const bla = ref(false)
-    const loaded = ref(false)
     const auth = getAuth()
     const favArr = ref([])
     const user = auth.currentUser

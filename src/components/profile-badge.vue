@@ -24,12 +24,9 @@
   <script setup>
   import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { inject } from "vue"
-  import { useRouter } from "vue-router"
   import { getAuth, signOut } from "firebase/auth" 
-  const router = useRouter()
+  let auth = getAuth()
   const store = inject("store")
-  let auth
-  auth = getAuth()
   function logout() {
     signOut(auth).then(() => {
         window.location.reload()

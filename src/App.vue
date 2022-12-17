@@ -11,37 +11,35 @@
   <div id="footer" v-if="loaded">
     <Footertag />
   </div>
-  <GreetingPageVue v-if="!loaded" />
+  <!-- <GreetingPageVue v-if="!loaded" /> -->
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
 import Footertag from './components/Footer.vue'
-import GreetingPageVue from './components/GreetingPage.vue'
-/* import {checkStore} from "./functions/checkStore.js" */
+/* import GreetingPageVue from './components/GreetingPage.vue' */
 
 
 export default {
   name: "App",
-  inject: ["store"],
+  /* inject: ["store"], */
   components: {
     Navbar,
     Footertag,
-    GreetingPageVue
+    /* GreetingPageVue */
   },
   data() {
     return {
-      loaded: false
+      loaded: true
     }
   },
-  created() {
-    /* checkStore() */
+  /* created() {
     if(this.store.state == null){
       this.loaded = false
     }else{
       this.loaded = true
     }
-  },
+  }, */
 }
 </script>
 
