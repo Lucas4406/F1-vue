@@ -169,11 +169,11 @@ export default {
     },
     methods: {
         async getCurse () {
-            var link1 = "https://ergast.com/api/f1/2022/results.json?limit=1000"
+            var link1 = "https://ergast.com/api/f1/2023/results.json?limit=1000"
             const res = await axios.get(link1)
             const resData1 = res.data.MRData.RaceTable.Races.length
 
-            var link = "https://ergast.com/api/f1/2022.json"
+            var link = "https://ergast.com/api/f1/2023.json"
             const response = await axios.get(link)
             const resData = response.data.MRData.RaceTable.Races
             this.curse = resData

@@ -1,7 +1,7 @@
 <template>
     <div class="site-wrapper mb-2">
         <br>
-        <!-- <herocursa @eroare="handleErr" v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara" :key="componentKey"/> -->
+        <herocursa v-show="Hero" :dataInceput="dataInceput" :dataSfarsit="dataSfarsit" :lunaCursa="lunaCursa" :pozaHarta="pozaHarta" :imagineMare="imagineMare" :runda="runda" :steag="steag" :tara="tara" />
         <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
         <div class="stiri-grid">
             <stiricomp/>
@@ -11,6 +11,8 @@
 <script>
 import herocursa from "../components/herocursa.vue"
 import stiricomp from "../components/stiricomp.vue"
+import getNext from "../functions/getNext.js"
+import axios from "axios"
 
 export default {
     name: "Home",
@@ -32,18 +34,17 @@ export default {
             tara: "",
             Hero:false,
             heroError: false,
-            nrCursa: "",
             componentKey: 0,
         }
     },
-    created () {
+    mounted () {
         document.title= "Acasă"
         if(this.darkMode){
             document.body.classList.add("darkmode")
         }else{
             document.body.classList.remove("darkmode")
         }
-        /* this.getCursa() */
+        this.getCursa()
     },
     methods: {
         handleErr (val) {
@@ -55,11 +56,12 @@ export default {
         forceRerender () {
             this.componentKey += 1;
         },
-        /* async getCursa () {
+        async getCursa () {
             try {
-                this.nrCursa = await getNext
-                var j= this.nrCursa
-                var link = "https://f1-site-api.vercel.app/up-next/" + j
+                let nrCursa = await getNext
+                var j= nrCursa
+                console.log(j);
+                var link = `https://f1-site-api.vercel.app/up-next/${j}`
                 const response = await axios.get(link)
                 const resData = response.data
                 this.dataInceput = resData.dataCursa1
@@ -70,12 +72,12 @@ export default {
                 this.runda = resData.runda
                 this.steag = resData.steag
                 this.tara = resData.tara
-                this.Hero = false
+                this.Hero = true
             } catch (error) {
                 this.heroError = true
                 this.forceRerender()
             }
-        }, */
+        },
     },
 }
 </script>
