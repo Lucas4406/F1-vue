@@ -83,6 +83,7 @@
     import {ref, onMounted, inject} from "vue"
     import { useRouter } from "vue-router"
     import ConstructorCard from "../../components/ConstructorCard.vue";
+    import { makeRequest } from "../../functions/makeRequest"
     const Name = ref("")
     const Photo = ref("")
     const Email = ref("")
@@ -117,19 +118,22 @@
           window.location.replace("/")
         })
     }
-    async function getEchipe () {
-      const resp = await axios("https://f1-site-api.vercel.app/mongo")
-      for(var i=0;i<resp.data.length;i++){
-        echipeArray.value[i] = resp.data[i].name
+    async function getDataFull () {
+      const resp = await makeRequest("https://f1-site-api.vercel.app/mongo/teams/all")
+      let teams = []
+      let drivers = []
+      let a1 = []
+      let a2 = []
+      for(var i = 0 ; i<resp.length ; i++){
+        teams[i] = resp[i].name
+        echipeArray.value[i] = teams[i]
       }
-    }
-    async function getSoferi () {
-      const soferi = await axios("https://f1-site-api.vercel.app/mongo")
-      var drivers = []
-      for(var i=0;i<soferi.data.length;i++){
-        drivers.push(soferi.data[i].driver1 , soferi.data[i].driver2)
-        soferiArray.value = drivers
+      for(var i = 0 ; i<resp.length ; i++){
+        a1[i] = resp[i].drivers[0].driver1.primulNume + " " + resp[i].drivers[0].driver1.alDoileaNume
+        a2[i] = resp[i].drivers[0].driver2.primulNume + " " + resp[i].drivers[0].driver2.alDoileaNume
       }
+      drivers = a1.concat(a2)
+      soferiArray.value = drivers
     }
     async function favoriteTeam () {
       const fav = store.state.favTeam.substring(0, 4)
@@ -159,8 +163,7 @@
       echipaPrefdata.value = profile.favTeam
       soferPrefdata.value = profile.favDriver
       router.push({query: { user: profile.displayName }})
-      await getEchipe()
-      await getSoferi()
+      await getDataFull()
       showSelect.value = true
     }
     async function updateDb () {
