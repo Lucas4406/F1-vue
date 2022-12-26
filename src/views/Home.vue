@@ -60,7 +60,6 @@ export default {
             try {
                 let nrCursa = await getNext
                 var j= nrCursa
-                console.log(j);
                 var link = `https://f1-site-api.vercel.app/up-next/${j}`
                 const response = await axios.get(link)
                 const resData = response.data
@@ -74,8 +73,9 @@ export default {
                 this.tara = resData.tara
                 this.Hero = true
             } catch (error) {
-                this.heroError = true
-                this.forceRerender()
+                console.log(error);
+                /* this.heroError = true
+                this.forceRerender() */
             }
         },
     },

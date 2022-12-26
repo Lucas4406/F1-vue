@@ -23,7 +23,7 @@
                     <div class="points-number">
                         {{echipa.nrpuncte}}
                     </div>
-                    <div class="inverted-pts">
+                    <div class="inverted-pts" v-if="!puncteNull">
                         PTS
                     </div>
                 </div>
@@ -57,6 +57,7 @@
             darkMode,
             echipaFav: "",
             ok: "",
+            puncteNull: false
         }
     },
     mounted () {
@@ -85,6 +86,9 @@
             for(var i = 0 ; i<data.length; i++){
                 if(data[i].name === fav){
                     this.ok = i
+                }
+                if(data[i].nrpuncte === null){
+                    this.puncteNull = true
                 }
             }
         },

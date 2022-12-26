@@ -13,8 +13,8 @@
             <div class="piloti-grid">
                 <div class="pilot-container" v-for="(pilot , index) in piloti" :key="index" :class="{darkmode: darkMode}">
                     <div class="pozitiepuncte-pilot">
-                        <p class="pozitie-pilot">{{pilot.pozitie}}</p>
-                        <div class="nrpuncte-container">
+                        <p class="pozitie-pilot" v-if="!dontShow">{{pilot.pozitie}}</p>
+                        <div class="nrpuncte-container" v-if="!dontShow">
                             <p class="nrpuncte-pilot">{{pilot.puncte}}</p>
                             <p class="puncte-text-pilot" :class="{darkmode: darkMode}">PCT</p>
                         </div>
@@ -33,7 +33,7 @@
                         <p class="echipa">
                             {{pilot.echipa}}
                         </p>    
-                        <p class="echipa">{{pilot.gapDelta}}</p>
+                        <p class="echipa" v-if="!dontShow">{{pilot.gapDelta}}</p>
                     </div>
                     <div class="pozanumar" :class="{darkmode: darkMode}">
                         <img :src="pilot.poza" class="poza-pilot">
@@ -51,7 +51,8 @@ export default {
         let darkMode = localStorage.getItem('darkMode') == 'true';
         return {
             piloti: [],
-            darkMode
+            darkMode,
+            dontShow: false
         }
     },
     mounted() {
@@ -68,6 +69,10 @@ export default {
                     data[i].gapDelta = `Gap to ${firstThree} ` + JSON.stringify(-delta)
                 }else{
                     data[i].gapDelta = ""
+                }
+
+                if(data[i].pozitie === null || data[i].puncte === null){
+                    this.dontShow = true
                 }
             }
             this.piloti = data
