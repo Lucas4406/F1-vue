@@ -1,206 +1,273 @@
 <template>
-<div class="w-screen flex justify-center items-center min-h-screen flex-col">
+  <div class="w-screen flex justify-center items-center min-h-screen flex-col">
     <!-- Profile-box -->
-  <div class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
-    <div class="px-6">
+    <div
+      class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16"
+    >
+      <div class="px-6">
         <div class="flex flex-wrap justify-center">
-            <div class="w-full flex justify-center">
-                <div class="relative">
-                    <img :src="Photo" class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"/>
-                </div>
+          <div class="w-full flex justify-center">
+            <div class="relative">
+              <img
+                :src="Photo"
+                class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+              />
             </div>
-            <div class="w-full text-center mt-20">
-                <div class="flex justify-center lg:pt-4 pt-8 pb-0">
-                    <div class="p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">{{Last}}</span>
-                        <span class="text-sm text-slate-400">Last Name</span>
-                    </div>
-                    <div class="p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">{{First}}</span>
-                        <span class="text-sm text-slate-400">First Name</span>
-                    </div>
+          </div>
+          <div class="w-full text-center mt-20">
+            <div class="flex justify-center lg:pt-4 pt-8 pb-0">
+              <div class="p-3 text-center">
+                <span
+                  class="text-xl font-bold block uppercase tracking-wide text-slate-700"
+                  >{{ Last }}</span
+                >
+                <span class="text-sm text-slate-400">Last Name</span>
+              </div>
+              <div class="p-3 text-center">
+                <span
+                  class="text-xl font-bold block uppercase tracking-wide text-slate-700"
+                  >{{ First }}</span
+                >
+                <span class="text-sm text-slate-400">First Name</span>
+              </div>
 
-                    <div class="p-3 text-center">
-                        <span class="text-xl font-bold block uppercase tracking-wide text-slate-700">{{Country}}</span>
-                        <span class="text-sm text-slate-400">Țară</span>
-                    </div>
-                </div>
+              <div class="p-3 text-center">
+                <span
+                  class="text-xl font-bold block uppercase tracking-wide text-slate-700"
+                  >{{ Country }}</span
+                >
+                <span class="text-sm text-slate-400">Țară</span>
+              </div>
             </div>
+          </div>
         </div>
         <div class="text-center mt-2">
-            <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">{{Name}}</h3>
-            <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
-                <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i>{{Email}}
-            </div>
+          <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">
+            {{ Name }}
+          </h3>
+          <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
+            <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i
+            >{{ Email }}
+          </div>
         </div>
         <div class="mt-6 py-6 border-t border-slate-200 text-center">
-            <div class="flex flex-wrap justify-center">
-                <div class="w-full px-4 gap-4 flex justify-center">
-                    <a @click="logout" class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer">Log Out</a>
-                    <router-link to="/updateprofile" class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer">Update Profile</router-link>
-                </div>
+          <div class="flex flex-wrap justify-center">
+            <div class="w-full px-4 gap-4 flex justify-center">
+              <a
+                @click="logout"
+                class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer"
+                >Log Out</a
+              >
+              <router-link
+                to="/updateprofile"
+                class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer"
+                >Update Profile</router-link
+              >
             </div>
+          </div>
         </div>
+      </div>
     </div>
-  </div>
-  <div class="text-xl flex flex-row gap-2 items-center justify-center" v-if="showSelect">
-      <div alt="echipa" class=" flex flex-row gap-2 items-center justify-center">
+    <div
+      class="text-xl flex flex-row gap-2 items-center justify-center"
+      v-if="showSelect"
+    >
+      <div alt="echipa" class="flex flex-row gap-2 items-center justify-center">
         <label for="echipaPref">Echipa favorita:</label>
-        <select id="echipaPref" name="echipa" class="selectie" v-model="echipaPref">
-            <option :value="echipa" class="optiune" v-for="echipa in echipeArray" :key="echipa.id">{{echipa}}</option>
+        <select
+          id="echipaPref"
+          name="echipa"
+          class="selectie"
+          v-model="echipaPref"
+        >
+          <option
+            :value="echipa"
+            class="optiune"
+            v-for="echipa in echipeArray"
+            :key="echipa.id"
+          >
+            {{ echipa }}
+          </option>
         </select>
       </div>
-      <div alt="sofer" class=" flex flex-row gap-2 items-center justify-center">
+      <div alt="sofer" class="flex flex-row gap-2 items-center justify-center">
         <label for="soferPref">Pilotul favorit:</label>
-        <select id="soferPref" name="pilot" class="selectie" v-model="soferPref">
-            <option :value="sofer" class="optiune" v-for="sofer in soferiArray" :key="sofer.id">{{sofer}}</option>
+        <select
+          id="soferPref"
+          name="pilot"
+          class="selectie"
+          v-model="soferPref"
+        >
+          <option
+            :value="sofer"
+            class="optiune"
+            v-for="sofer in soferiArray"
+            :key="sofer.id"
+          >
+            {{ sofer }}
+          </option>
         </select>
-        <button type="submit" @click="updateDb" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer">Submit</button>
+        <button
+          type="submit"
+          @click="updateDb"
+          class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded cursor-pointer"
+        >
+          Submit
+        </button>
       </div>
-  </div>
-  <div class="flex flex-col h-[20rem] items-center justify-center my-6" v-if="bla">
-    <ConstructorCard :team="favArr" :darkMode="darkMode" class="sm:w-[20rem]"/>
-  </div>
-  <div class="flex flex-row gap-4">
-    <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
-        <router-link to="/test">Introducere echipe</router-link>
-    </button>
-    <div class="flex flex-row gap-2">
-      <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
-          <a href="https://f1-site-api.vercel.app/clasament-piloti" target="_blank">Update clasament piloti</a>
-      </button>
-      <button class="text-xl items-center justify-center mt-6" v-if="isAdmin">
-          <a href="https://f1-site-api.vercel.app/echipe" target="_blank">Update clasament echipe</a>
-      </button>
+    </div>
+    <div
+      class="flex flex-col h-[20rem] items-center justify-center my-6"
+      v-if="bla"
+    >
+      <ConstructorCard
+        :team="favArr"
+        :darkMode="darkMode"
+        class="sm:w-[20rem]"
+      />
     </div>
   </div>
-</div>
 </template>
 
 <script setup>
-    import axios from "axios"
-    import { getAuth, signOut } from "firebase/auth"
-    import {ref, onMounted, inject} from "vue"
-    import { useRouter } from "vue-router"
-    import ConstructorCard from "../../components/ConstructorCard.vue";
-    import { makeRequest } from "../../functions/makeRequest"
-    const Name = ref("")
-    const Photo = ref("")
-    const Email = ref("")
-    const First = ref("")
-    const Last = ref("")
-    const Country = ref("")
-    const echipaPref = ref("")
-    const soferPref = ref("")
-    const echipaPrefdata = ref("")
-    const soferPrefdata = ref("")
-    const echipeArray = ref([])
-    const soferiArray = ref([])
-    const darkMode = ref(false)
-    const isAdmin = ref(false)
-    const showSelect = ref(false)
-    const bla = ref(false)
-    const auth = getAuth()
-    const favArr = ref([])
-    const user = auth.currentUser
-    const router = useRouter()
-    const store = inject("store")
-    if(store.state.name === import.meta.env.VITE_ADMIN_UID){
-      isAdmin.value = true
+import axios from "axios"
+import { getAuth, signOut } from "firebase/auth"
+import { ref, onMounted, inject } from "vue"
+import { useRouter } from "vue-router"
+import ConstructorCard from "../../components/ConstructorCard.vue"
+import { makeRequest } from "../../functions/makeRequest"
+const Name = ref("")
+const Photo = ref("")
+const Email = ref("")
+const First = ref("")
+const Last = ref("")
+const Country = ref("")
+const echipaPref = ref("")
+const soferPref = ref("")
+const echipaPrefdata = ref("")
+const soferPrefdata = ref("")
+const echipeArray = ref([])
+const soferiArray = ref([])
+const darkMode = ref(false)
+const isAdmin = ref(false)
+const showSelect = ref(false)
+const bla = ref(false)
+const auth = getAuth()
+const favArr = ref([])
+const user = auth.currentUser
+const router = useRouter()
+const store = inject("store")
+if (store.state.name === import.meta.env.VITE_ADMIN_UID) {
+  isAdmin.value = true
+}
+if (user != null) {
+  Name.value = user.displayName
+  Photo.value = user.photoURL
+  Email.value = user.email
+}
+function logout() {
+  signOut(auth).then(() => {
+    window.location.replace("/")
+  })
+}
+async function getDataFull() {
+  const resp = await makeRequest(
+    "https://f1-site-api.vercel.app/mongo/teams/all"
+  )
+  let teams = []
+  let drivers = []
+  let a1 = []
+  let a2 = []
+  for (var i = 0; i < resp.length; i++) {
+    teams[i] = resp[i].name
+    echipeArray.value[i] = teams[i]
+  }
+  for (var i = 0; i < resp.length; i++) {
+    a1[i] =
+      resp[i].drivers[0].driver1.primulNume +
+      " " +
+      resp[i].drivers[0].driver1.alDoileaNume
+    a2[i] =
+      resp[i].drivers[0].driver2.primulNume +
+      " " +
+      resp[i].drivers[0].driver2.alDoileaNume
+  }
+  drivers = a1.concat(a2)
+  soferiArray.value = drivers
+}
+async function favoriteTeam() {
+  const fav = store.state.favTeam.substring(0, 4)
+  const resp = await axios(
+    "https://ergast.com/api/f1/current/constructorStandings.json"
+  )
+  const echipe = resp.data
+  const arr =
+    echipe.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i].Constructor.name.includes(fav)) {
+      favArr.value = arr[i]
     }
-    if(user != null){
-        Name.value = user.displayName
-        Photo.value = user.photoURL
-        Email.value = user.email
-    }
-    function logout() {
-        signOut(auth).then(() => {
-          window.location.replace("/")
-        })
-    }
-    async function getDataFull () {
-      const resp = await makeRequest("https://f1-site-api.vercel.app/mongo/teams/all")
-      let teams = []
-      let drivers = []
-      let a1 = []
-      let a2 = []
-      for(var i = 0 ; i<resp.length ; i++){
-        teams[i] = resp[i].name
-        echipeArray.value[i] = teams[i]
-      }
-      for(var i = 0 ; i<resp.length ; i++){
-        a1[i] = resp[i].drivers[0].driver1.primulNume + " " + resp[i].drivers[0].driver1.alDoileaNume
-        a2[i] = resp[i].drivers[0].driver2.primulNume + " " + resp[i].drivers[0].driver2.alDoileaNume
-      }
-      drivers = a1.concat(a2)
-      soferiArray.value = drivers
-    }
-    async function favoriteTeam () {
-      const fav = store.state.favTeam.substring(0, 4)
-      const resp = await axios("https://ergast.com/api/f1/current/constructorStandings.json")
-      const echipe = resp.data
-      const arr = echipe.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
-      for(var i = 0 ; i < arr.length ; i++ ){
-        if(arr[i].Constructor.name.includes(fav)){
-          favArr.value = arr[i]
-        }
-      }
-    }
-    async function getFavDriver() {
-      const resp = await axios(`https://f1-site-api.vercel.app/mongo/piloti/${store.state.favDriver}`)
-      const yey = resp.data[0]
-    }
-    if(user != null && store.state.favTeam != null){
-        await favoriteTeam()
-        bla.value = true
-    }
-    async function getData () {
-      const response = await axios(`https://f1-site-api.vercel.app/profile/${user.uid}`)
-      const profile = response.data[0]
-      First.value = profile.firstName
-      Last.value = profile.lastName
-      Country.value = profile.country
-      echipaPrefdata.value = profile.favTeam
-      soferPrefdata.value = profile.favDriver
-      router.push({query: { user: profile.displayName }})
-      await getDataFull()
-      showSelect.value = true
-    }
-    async function updateDb () {
-        await axios({
-           method: "POST",
-           url: `https://f1-site-api.vercel.app/profile/change/team/${user.uid}`,
-           data: {
-               favTeam: echipaPref.value,
-               favDriver: soferPref.value
-           }
-       })
-       window.location.reload()
-   }
-   if(favArr.value === null){
-    bla.value = false
-   }
+  }
+}
+async function getFavDriver() {
+  const resp = await axios(
+    `https://f1-site-api.vercel.app/mongo/piloti/${store.state.favDriver}`
+  )
+  const yey = resp.data[0]
+}
+if (user != null && store.state.favTeam != null) {
+  await favoriteTeam()
+  bla.value = true
+}
+async function getData() {
+  const response = await axios(
+    `https://f1-site-api.vercel.app/profile/${user.uid}`
+  )
+  const profile = response.data[0]
+  First.value = profile.firstName
+  Last.value = profile.lastName
+  Country.value = profile.country
+  echipaPrefdata.value = profile.favTeam
+  soferPrefdata.value = profile.favDriver
+  router.push({ query: { user: profile.displayName } })
+  await getDataFull()
+  showSelect.value = true
+}
+async function updateDb() {
+  await axios({
+    method: "POST",
+    url: `https://f1-site-api.vercel.app/profile/change/team/${user.uid}`,
+    data: {
+      favTeam: echipaPref.value,
+      favDriver: soferPref.value,
+    },
+  })
+  window.location.reload()
+}
+if (favArr.value === null) {
+  bla.value = false
+}
 
-    onMounted(async() => {
-      document.title = "Profil" + "-" + user.displayName
-      await getData()
-      await getFavDriver()
-      if(soferPref.value == ""){
-        soferPref.value = soferPrefdata.value
-      }
-      if(echipaPref.value == ""){
-        echipaPref.value = echipaPrefdata.value
-      }
-    })
+onMounted(async () => {
+  document.title = "Profil" + "-" + user.displayName
+  await getData()
+  await getFavDriver()
+  if (soferPref.value == "") {
+    soferPref.value = soferPrefdata.value
+  }
+  if (echipaPref.value == "") {
+    echipaPref.value = echipaPrefdata.value
+  }
+})
 </script>
 
 <style scoped>
-    html {
+html {
   height: 100%;
 }
 body {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   background: linear-gradient(#141e30, #243b55);
 }
 
@@ -211,9 +278,9 @@ body {
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
@@ -241,13 +308,13 @@ body {
 }
 .login-box .user-box label {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .login-box .user-box input:focus ~ label,
@@ -267,19 +334,17 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
-  transition: .5s;
+  transition: 0.5s;
   margin-top: 40px;
-  letter-spacing: 4px
+  letter-spacing: 4px;
 }
 
 .login-box a:hover {
   background: #03e9f4;
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4,
-              0 0 25px #03e9f4,
-              0 0 50px #03e9f4,
-              0 0 100px #03e9f4;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    0 0 100px #03e9f4;
 }
 
 .login-box a span {
@@ -300,7 +365,8 @@ body {
   0% {
     left: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     left: 100%;
   }
 }
@@ -312,14 +378,15 @@ body {
   height: 100%;
   background: linear-gradient(180deg, transparent, #03e9f4);
   animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s
+  animation-delay: 0.25s;
 }
 
 @keyframes btn-anim2 {
   0% {
     top: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     top: 100%;
   }
 }
@@ -331,14 +398,15 @@ body {
   height: 2px;
   background: linear-gradient(270deg, transparent, #03e9f4);
   animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s
+  animation-delay: 0.5s;
 }
 
 @keyframes btn-anim3 {
   0% {
     right: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     right: 100%;
   }
 }
@@ -350,16 +418,16 @@ body {
   height: 100%;
   background: linear-gradient(360deg, transparent, #03e9f4);
   animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s
+  animation-delay: 0.75s;
 }
 
 @keyframes btn-anim4 {
   0% {
     bottom: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     bottom: 100%;
   }
 }
-
 </style>
