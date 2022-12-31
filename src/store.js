@@ -1,39 +1,9 @@
 import { reactive } from "vue"
-import axios from "axios"
-let currUser = JSON.parse(localStorage.getItem("currentUser"))
-let favD
-let favT
-let profilePic
-let nick
-let email
-let idk
-if (currUser != null) {
-  await getUserData(currUser.currentUser)
-  idk = currUser.currentUser
-} else {
-  idk = null
-}
-async function getUserData(user) {
-  const response = await axios(`https://f1-site-api.vercel.app/profile/${user}`)
-  if (response != null) {
-    const data = response.data[0]
-    favD = data.favDriver
-    favT = data.favTeam
-    email = data.email
-    nick = data.displayName
-    profilePic = data.profilePhoto
-  }
-}
 
 const state = reactive({
-  name: idk,
-  favDriver: favD,
-  favTeam: favT,
-  profilePic: profilePic,
-  nick: nick,
-  email: email,
+  user: "",
 })
 
 export default {
-  state: state,
+  state,
 }

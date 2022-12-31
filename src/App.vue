@@ -1,50 +1,79 @@
-
 <template>
   <div id="nav" v-if="loaded">
     <Navbar />
   </div>
   <main id="main-content" v-if="loaded">
     <Suspense>
-        <router-view />
+      <router-view />
     </Suspense>
   </main>
   <div id="footer" v-if="loaded">
     <Footertag />
   </div>
-  <!-- <GreetingPageVue v-if="!loaded" /> -->
+  <div class="loading heightt" v-if="!loaded">
+    <div class="spinner"></div>
+  </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue'
-import Footertag from './components/Footer.vue'
-/* import GreetingPageVue from './components/GreetingPage.vue' */
-
+import Navbar from "./components/Navbar.vue"
+import Footertag from "./components/Footer.vue"
+import axios from "axios"
+import GreetingPageVue from "./components/GreetingPage.vue"
 
 export default {
   name: "App",
-  /* inject: ["store"], */
+  inject: ["store"],
   components: {
     Navbar,
     Footertag,
-    /* GreetingPageVue */
+    GreetingPageVue,
   },
   data() {
     return {
-      loaded: true
+      loaded: false,
     }
   },
-  /* created() {
-    if(this.store.state == null){
-      this.loaded = false
-    }else{
-      this.loaded = true
+  async mounted() {
+    let currUser = JSON.parse(localStorage.getItem("currentUser"))
+    if (currUser != null) {
+      await this.getUserData(currUser.currentUser)
     }
-  }, */
+    this.loaded = true
+  },
+  methods: {
+    async getUserData(user) {
+      const response = await axios(
+        `https://f1-site-api.vercel.app/profile/${user}`
+      )
+      if (response != null) {
+        const data = response.data[0]
+        this.store.user = data
+      }
+    },
+  },
 }
 </script>
 
+<style scoped>
+@import "./components/css/navbar.css";
+@import "./assets/main.css";
+.heightt {
+  height: calc(100vh - 142px);
+}
+.spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: red;
+  animation: spinner 0.6s linear infinite;
+}
 
-<style>
-  @import "./components/css/navbar.css";
-  @import "./assets/main.css";
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>

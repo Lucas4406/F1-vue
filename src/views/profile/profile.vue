@@ -157,7 +157,7 @@ const favArr = ref([])
 const user = auth.currentUser
 const router = useRouter()
 const store = inject("store")
-if (store.state.name === import.meta.env.VITE_ADMIN_UID) {
+if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
 }
 if (user != null) {
@@ -196,7 +196,7 @@ async function getDataFull() {
   soferiArray.value = drivers
 }
 async function favoriteTeam() {
-  const fav = store.state.favTeam.substring(0, 4)
+  const fav = store.user.favTeam.substring(0, 4)
   const resp = await axios(
     "https://ergast.com/api/f1/current/constructorStandings.json"
   )
@@ -215,7 +215,7 @@ async function getFavDriver() {
   )
   const yey = resp.data[0]
 }
-if (user != null && store.state.favTeam != null) {
+if (user != null && store.user.favTeam != null) {
   await favoriteTeam()
   bla.value = true
 }

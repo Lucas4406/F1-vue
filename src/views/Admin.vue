@@ -34,7 +34,7 @@
 import { ref, inject } from "vue"
 const store = inject("store")
 const isAdmin = ref(false)
-if (store.state.name === import.meta.env.VITE_ADMIN_UID) {
+if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
 }
 </script>
