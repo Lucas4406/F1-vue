@@ -9,7 +9,7 @@
           <div class="w-full flex justify-center">
             <div class="relative">
               <img
-                :src="Photo"
+                :src="store.user.profilePhoto"
                 class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
               />
             </div>
@@ -19,14 +19,14 @@
               <div class="p-3 text-center">
                 <span
                   class="text-xl font-bold block uppercase tracking-wide text-slate-700"
-                  >{{ Last }}</span
+                  >{{ store.user.lastName }}</span
                 >
                 <span class="text-sm text-slate-400">Last Name</span>
               </div>
               <div class="p-3 text-center">
                 <span
                   class="text-xl font-bold block uppercase tracking-wide text-slate-700"
-                  >{{ First }}</span
+                  >{{ store.user.firstName }}</span
                 >
                 <span class="text-sm text-slate-400">First Name</span>
               </div>
@@ -34,7 +34,7 @@
               <div class="p-3 text-center">
                 <span
                   class="text-xl font-bold block uppercase tracking-wide text-slate-700"
-                  >{{ Country }}</span
+                  >{{ store.user.country }}</span
                 >
                 <span class="text-sm text-slate-400">Țară</span>
               </div>
@@ -43,11 +43,11 @@
         </div>
         <div class="text-center mt-2">
           <h3 class="text-2xl text-slate-700 font-bold leading-normal mb-1">
-            {{ Name }}
+            {{ store.user.displayName }}
           </h3>
           <div class="text-xs mt-0 mb-2 text-slate-400 font-bold uppercase">
             <i class="fas fa-map-marker-alt mr-2 text-slate-400 opacity-75"></i
-            >{{ Email }}
+            >{{ store.user.email }}
           </div>
         </div>
         <div class="mt-6 py-6 border-t border-slate-200 text-center">
@@ -136,14 +136,12 @@ import { ref, onMounted, inject } from "vue"
 import { useRouter } from "vue-router"
 import ConstructorCard from "../../components/ConstructorCard.vue"
 import { makeRequest } from "../../functions/makeRequest"
-const Name = ref("")
-const Photo = ref("")
-const Email = ref("")
-const First = ref("")
-const Last = ref("")
-const Country = ref("")
-const echipaPref = ref("")
-const soferPref = ref("")
+const auth = getAuth()
+const user = auth.currentUser
+const router = useRouter()
+const store = inject("store")
+const echipaPref = ref(store.user.favTeam)
+const soferPref = ref(store.user.favDriver)
 const echipaPrefdata = ref("")
 const soferPrefdata = ref("")
 const echipeArray = ref([])
@@ -152,18 +150,9 @@ const darkMode = ref(false)
 const isAdmin = ref(false)
 const showSelect = ref(false)
 const bla = ref(false)
-const auth = getAuth()
 const favArr = ref([])
-const user = auth.currentUser
-const router = useRouter()
-const store = inject("store")
 if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
-}
-if (user != null) {
-  Name.value = user.displayName
-  Photo.value = user.photoURL
-  Email.value = user.email
 }
 function logout() {
   signOut(auth).then(() => {
@@ -219,20 +208,6 @@ if (user != null && store.user.favTeam != null) {
   await favoriteTeam()
   bla.value = true
 }
-async function getData() {
-  const response = await axios(
-    `https://f1-site-api.vercel.app/profile/${user.uid}`
-  )
-  const profile = response.data[0]
-  First.value = profile.firstName
-  Last.value = profile.lastName
-  Country.value = profile.country
-  echipaPrefdata.value = profile.favTeam
-  soferPrefdata.value = profile.favDriver
-  router.push({ query: { user: profile.displayName } })
-  await getDataFull()
-  showSelect.value = true
-}
 async function updateDb() {
   await axios({
     method: "POST",
@@ -250,7 +225,9 @@ if (favArr.value === null) {
 
 onMounted(async () => {
   document.title = "Profil" + "-" + user.displayName
-  await getData()
+  router.push({ query: { user: store.user.displayName } })
+  await getDataFull()
+  showSelect.value = true
   await getFavDriver()
   if (soferPref.value == "") {
     soferPref.value = soferPrefdata.value
