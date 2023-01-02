@@ -1,70 +1,79 @@
 <template>
   <div class="w-screen flex justify-center items-center min-h-screen flex-col">
     <div class="login-box">
-    <h2>Sign up</h2>
-    <form @submit.prevent="register">
+      <h2>Sign up</h2>
+      <form @submit.prevent="register">
         <div class="user-box">
-        <input type="email" name="" required="" v-model="email">
-        <label>Email</label>
+          <input type="email" name="" required="" v-model="email" />
+          <label>Email</label>
         </div>
         <div class="user-box">
-        <input type="password" name="" required="" v-model="pass">
-        <label>Parolă</label>
+          <input type="password" name="" required="" v-model="pass" />
+          <label>Parolă</label>
+        </div>
+        <div class="user-box">
+          <input type="password" name="" required="" v-model="passConfirm" />
+          <label>Confirmare parolă</label>
         </div>
         <a href="#" @click="register">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Submit
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Submit
         </a>
         <input type="submit" hidden />
-    </form>
+      </form>
     </div>
   </div>
 </template>
 
 <script setup>
-    import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-    import {ref} from "vue"
-    import { useRouter } from "vue-router"
-    import axios from "axios"
-    const pass = ref("")
-    const email = ref("")
-    const router = useRouter()
-    function register () {
-        const auth = getAuth()
-        createUserWithEmailAndPassword(auth, email.value, pass.value)
-            .then((data) => {
-                createDbUser()
-                router.push("/updateprofile")
-            })
-            .catch((error) => {
-                alert(error.message)
-            })
-    }
-    function createDbUser () {
-        const auth = getAuth()
-        const current =  auth.currentUser
-        axios({
-          method: "POST",
-          url: "https://f1-site-api.vercel.app/profile",
-          data: {
-            displayName: current.displayName,
-            profileId: current.uid,
-            email: current.email
-          }
-        })
-    }
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import { ref } from "vue"
+import { useRouter } from "vue-router"
+import axios from "axios"
+const pass = ref("")
+const email = ref("")
+const passConfirm = ref("")
+const router = useRouter()
+function register() {
+  const auth = getAuth()
+  if (pass.value === passConfirm.value) {
+    createUserWithEmailAndPassword(auth, email.value, pass.value)
+      .then((data) => {
+        createDbUser()
+        router.push("/updateprofile")
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
+  } else {
+    alert("Parolele nu se potrivesc")
+  }
+}
+function createDbUser() {
+  const auth = getAuth()
+  const current = auth.currentUser
+  axios({
+    method: "POST",
+    url: "https://f1-site-api.vercel.app/profile",
+    data: {
+      displayName: current.displayName,
+      profileId: current.uid,
+      email: current.email,
+    },
+  })
+}
 </script>
 
 <style scoped>
-    html {
+html {
   height: 100%;
 }
 body {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   background: linear-gradient(#141e30, #243b55);
 }
 
@@ -75,9 +84,9 @@ body {
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
@@ -105,13 +114,13 @@ body {
 }
 .login-box .user-box label {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .login-box .user-box input:focus ~ label,
@@ -131,19 +140,17 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
-  transition: .5s;
+  transition: 0.5s;
   margin-top: 40px;
-  letter-spacing: 4px
+  letter-spacing: 4px;
 }
 
 .login-box a:hover {
   background: #03e9f4;
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4,
-              0 0 25px #03e9f4,
-              0 0 50px #03e9f4,
-              0 0 100px #03e9f4;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    0 0 100px #03e9f4;
 }
 
 .login-box a span {
@@ -164,7 +171,8 @@ body {
   0% {
     left: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     left: 100%;
   }
 }
@@ -176,14 +184,15 @@ body {
   height: 100%;
   background: linear-gradient(180deg, transparent, #03e9f4);
   animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s
+  animation-delay: 0.25s;
 }
 
 @keyframes btn-anim2 {
   0% {
     top: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     top: 100%;
   }
 }
@@ -195,14 +204,15 @@ body {
   height: 2px;
   background: linear-gradient(270deg, transparent, #03e9f4);
   animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s
+  animation-delay: 0.5s;
 }
 
 @keyframes btn-anim3 {
   0% {
     right: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     right: 100%;
   }
 }
@@ -214,16 +224,16 @@ body {
   height: 100%;
   background: linear-gradient(360deg, transparent, #03e9f4);
   animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s
+  animation-delay: 0.75s;
 }
 
 @keyframes btn-anim4 {
   0% {
     bottom: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     bottom: 100%;
   }
 }
-
 </style>

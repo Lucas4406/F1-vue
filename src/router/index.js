@@ -101,6 +101,9 @@ const router = createRouter({
       path: "/signup",
       name: "Signup",
       component: () => import("../views/signup.vue"),
+      meta: {
+        isAuth: true,
+      },
     },
     {
       path: "/surse",
@@ -142,6 +145,19 @@ function getCurrentUser() {
     )
   })
 }
+
+router.beforeEach(async (to, from, next) => {
+  if (to.matched.some((record) => record.meta.isAuth)) {
+    if (await getCurrentUser()) {
+      alert("Nu poti accesa aceasta pagina")
+      next("/")
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
