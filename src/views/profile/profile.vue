@@ -136,6 +136,7 @@ import { ref, onMounted, inject } from "vue"
 import { useRouter } from "vue-router"
 import ConstructorCard from "../../components/ConstructorCard.vue"
 import { makeRequest } from "../../functions/makeRequest"
+import { decrypt } from "../../functions/decrypt"
 const auth = getAuth()
 const user = auth.currentUser
 const router = useRouter()
@@ -151,7 +152,7 @@ const isAdmin = ref(false)
 const showSelect = ref(false)
 const bla = ref(false)
 const favArr = ref([])
-if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
+if (decrypt(store.user.profileId) === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
 }
 function logout() {

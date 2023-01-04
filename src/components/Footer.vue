@@ -117,12 +117,12 @@
 <script setup>
 import { onMounted, ref } from "vue"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
+import { encrypt } from "../functions/encrypt"
 const isLoggedIn = ref(false)
 const profilePic = ref(false)
 const Name = ref("")
 const Email = ref("")
 const Poza = ref("")
-const userID = ref("")
 let auth
 onMounted(() => {
   auth = getAuth()
@@ -131,12 +131,11 @@ onMounted(() => {
       const current = {
         User: user.email,
         Username: user.displayName,
-        currentUser: user.uid,
+        currentUser: encrypt(user.uid),
       }
       localStorage.setItem("currentUser", JSON.stringify(current))
       Name.value = user.displayName
       Email.value = user.email
-      userID.value = user.uid
       if (user.photoURL != null) {
         Poza.value = user.photoURL
         profilePic.value = true
@@ -152,7 +151,6 @@ onMounted(() => {
 })
 function logout() {
   signOut(auth).then(() => {
-    userID.value = ""
     window.location.reload()
   })
 }

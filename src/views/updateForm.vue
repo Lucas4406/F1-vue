@@ -67,6 +67,7 @@
 import { ref, onMounted } from "vue"
 import { getAuth, updateProfile } from "firebase/auth"
 import axios from "axios"
+import { encrypt } from "../functions/encrypt"
 const primul = ref("")
 const doilea = ref("")
 const nick = ref("")
@@ -78,10 +79,10 @@ async function getDbData(idul) {
   return profile
 }
 const auth = getAuth()
-const current = auth.currentUser.uid
+const curentEnc = JSON.parse(localStorage.getItem("currentUser"))
 async function updateProfil() {
-  await updateDb(current)
-  const loggedIn = await getDbData(auth.currentUser.uid)
+  await updateDb(curentEnc.currentUser)
+  const loggedIn = await getDbData(curentEnc.currentUser)
   const currentPhoto = loggedIn.profilePhoto
   const currentNick = loggedIn.displayName
   updateProfile(auth.currentUser, {
@@ -96,7 +97,7 @@ async function updateProfil() {
     })
 }
 if (auth.currentUser.displayName != null) {
-  const response = await getDbData(current)
+  const response = await getDbData(curentEnc.currentUser)
   if (primul.value == "") {
     primul.value = response.firstName
   }
