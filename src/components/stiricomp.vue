@@ -29,7 +29,7 @@
     </Teleport>
     <div class="content-grid" :class="{ darkmode: darkMode }">
       <a
-        :href="stire.linkuri"
+        :href="stire.link"
         v-for="stire in news"
         v-bind:key="stire.id"
         class="ltag"
