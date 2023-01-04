@@ -41,6 +41,12 @@ export default {
     }
     this.loaded = true
   },
+  async created() {
+    let dataa = await axios.get(
+      "https://f1-site-api.vercel.app/stiri-translate/6"
+    )
+    console.log(dataa.data)
+  },
   methods: {
     async getUserData(user) {
       const response = await axios(
