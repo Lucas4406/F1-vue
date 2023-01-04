@@ -43,7 +43,9 @@ export default {
   },
   methods: {
     async getUserData(user) {
-      const response = await axios(`http://localhost:3000/profile/${user}`)
+      const response = await axios(
+        `https://f1-site-api.vercel.app/profile/${user}`
+      )
       if (response != null) {
         const data = response.data[0]
         this.store.user = data
