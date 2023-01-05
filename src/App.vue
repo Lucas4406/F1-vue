@@ -41,11 +41,10 @@ export default {
     }
     this.loaded = true
   },
-  async created() {
-    let dataa = await axios.get(
-      "https://f1-site-api.vercel.app/stiri-translate/6"
-    )
-    console.log(dataa.data)
+  created() {
+    setTimeout(async () => {
+      await axios.get("https://f1-site-api.vercel.app/stiri-translate/6")
+    }, 4000)
   },
   methods: {
     async getUserData(user) {
