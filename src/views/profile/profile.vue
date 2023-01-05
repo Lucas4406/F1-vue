@@ -116,16 +116,15 @@
         </button>
       </div>
     </div>
-    <div
-      class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
-      v-if="bla"
-    >
+    <div class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4">
       <ConstructorCard
+        v-if="bla"
         :team="favArr"
         :darkMode="darkMode"
         class="sm:w-[20rem]"
       />
       <PilotCard
+        v-if="driverOk"
         :pilot="favDriv"
         :fontSize="fontSize"
         :darkMode="darkMode"
@@ -157,6 +156,7 @@ const darkMode = ref(false)
 const isAdmin = ref(false)
 const showSelect = ref(false)
 const bla = ref(false)
+const driverOk = ref(false)
 const favArr = ref([])
 const favDriv = ref([])
 const fontSize = ref("3rem")
@@ -218,6 +218,10 @@ if (user != null && store.user.favTeam != null) {
   await favoriteTeam()
   bla.value = true
 }
+if (user != null && store.user.favDriver != null) {
+  await getFavDriver()
+  driverOk.value = true
+}
 async function updateDb() {
   await axios({
     method: "POST",
@@ -238,7 +242,6 @@ onMounted(async () => {
   router.push({ query: { user: store.user.displayName } })
   await getDataFull()
   showSelect.value = true
-  await getFavDriver()
   if (soferPref.value == "") {
     soferPref.value = soferPrefdata.value
   }
