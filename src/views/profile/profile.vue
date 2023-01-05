@@ -117,13 +117,19 @@
       </div>
     </div>
     <div
-      class="flex flex-col h-[20rem] items-center justify-center my-6"
+      class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
       v-if="bla"
     >
       <ConstructorCard
         :team="favArr"
         :darkMode="darkMode"
         class="sm:w-[20rem]"
+      />
+      <PilotCard
+        :pilot="favDriv"
+        :fontSize="fontSize"
+        :darkMode="darkMode"
+        class="sm:w-[25rem]"
       />
     </div>
   </div>
@@ -135,6 +141,7 @@ import { getAuth, signOut } from "firebase/auth"
 import { ref, onMounted, inject } from "vue"
 import { useRouter } from "vue-router"
 import ConstructorCard from "../../components/ConstructorCard.vue"
+import PilotCard from "../../components/PilotCard.vue"
 import { makeRequest } from "../../functions/makeRequest"
 const auth = getAuth()
 const user = auth.currentUser
@@ -151,6 +158,8 @@ const isAdmin = ref(false)
 const showSelect = ref(false)
 const bla = ref(false)
 const favArr = ref([])
+const favDriv = ref([])
+const fontSize = ref("3rem")
 const currentEnc = JSON.parse(localStorage.getItem("currentUser"))
 if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
@@ -201,9 +210,9 @@ async function favoriteTeam() {
 }
 async function getFavDriver() {
   const resp = await axios(
-    `https://f1-site-api.vercel.app/mongo/piloti/${store.state.favDriver}`
+    `https://f1-site-api.vercel.app/mongo/piloti/${store.user.favDriver}`
   )
-  const yey = resp.data[0]
+  favDriv.value = resp.data[0]
 }
 if (user != null && store.user.favTeam != null) {
   await favoriteTeam()
