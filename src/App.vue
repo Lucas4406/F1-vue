@@ -44,7 +44,7 @@ export default {
   created() {
     setTimeout(async () => {
       await axios.get("https://f1-site-api.vercel.app/stiri-translate/6")
-    }, 4000)
+    }, 7000)
   },
   methods: {
     async getUserData(user) {
