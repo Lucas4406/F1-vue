@@ -78,6 +78,7 @@
   align-items: center;
   transform: translateY(0);
   transition: transform 200ms ease-in-out;
+  z-index: -1;
 }
 .dropdown-menu {
   position: absolute;

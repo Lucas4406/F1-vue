@@ -20,7 +20,7 @@
       leave-to-class="transform opacity-0 scale-95"
     >
       <MenuItems
-        class="text-xl absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-black ring-opacity-5 focus:outline-none"
+        class="text-xl absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-black ring-opacity-5 focus:outline-none peste"
       >
         <MenuItem v-slot="{ active }">
           <router-link
@@ -29,6 +29,7 @@
               active ? 'bg-gray-100' : '',
               'block px-4 py-2 text-md text-gray-700',
             ]"
+            class="peste"
             >Profil</router-link
           >
         </MenuItem>
@@ -39,6 +40,7 @@
               active ? 'bg-gray-100' : '',
               'block px-4 py-2 text-md text-gray-700',
             ]"
+            class="peste"
             >Schimbă profilul</router-link
           >
         </MenuItem>
@@ -48,7 +50,7 @@
               active ? 'bg-gray-100' : '',
               'block px-4 py-2 text-md text-gray-700',
             ]"
-            class="border-none"
+            class="border-none peste"
             @click="logout"
           >
             Sign out
@@ -78,5 +80,8 @@ function logout() {
 }
 .profimage {
   transition: transform 200ms ease-in-out;
+}
+.peste {
+  z-index: 9999;
 }
 </style>

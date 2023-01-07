@@ -6,8 +6,8 @@
           ><img src="./icons/7cg10kl1rdc8vogffcuquh9m1.png" class="logo-f1"
         /></router-link>
       </div>
-      <div class="fia" v-if="isLogged" v-once>
-        <profileBadge />
+      <div class="fia peste" v-if="isLogged" v-once>
+        <profileBadge class="peste" />
       </div>
     </div>
     <div class="bar">
@@ -101,4 +101,7 @@ onMounted(async () => {
 
 <style scoped>
 @import "./css/navbar.css";
+.peste {
+  z-index: 999;
+}
 </style>
