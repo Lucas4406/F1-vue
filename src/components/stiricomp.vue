@@ -88,7 +88,7 @@ export default {
         sessionData.exp < now.toISOString()
       ) {
         var numar = 6
-        var link = `https://f1-site-api.vercel.app/mongo/stiri/${numar}`
+        var link = `${import.meta.env.VITE_API_LINK}/mongo/stiri/${numar}`
         const response = await axios.get(link)
         const resData = response.data
         this.news = resData

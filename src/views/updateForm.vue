@@ -67,14 +67,15 @@
 import { ref, onMounted } from "vue"
 import { getAuth, updateProfile } from "firebase/auth"
 import axios from "axios"
-import { encrypt } from "../functions/encrypt"
 const primul = ref("")
 const doilea = ref("")
 const nick = ref("")
 const photo = ref("")
 const tara = ref("")
 async function getDbData(idul) {
-  const resp = await axios.get(`https://f1-site-api.vercel.app/profile/${idul}`)
+  const resp = await axios.get(
+    `${import.meta.env.VITE_API_LINK}/profile/${idul}`
+  )
   const profile = resp.data[0]
   return profile
 }
@@ -117,7 +118,7 @@ if (auth.currentUser.displayName != null) {
 async function updateDb(idul) {
   await axios({
     method: "POST",
-    url: `https://f1-site-api.vercel.app/profile/change/${idul}`,
+    url: `${import.meta.env.VITE_API_LINK}/profile/change/${idul}`,
     data: {
       firstName: primul.value,
       lastName: doilea.value,

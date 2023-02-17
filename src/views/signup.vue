@@ -57,7 +57,7 @@ function createDbUser() {
   const current = auth.currentUser
   axios({
     method: "POST",
-    url: "https://f1-site-api.vercel.app/profile",
+    url: `${import.meta.env.VITE_API_LINK}/profile`,
     data: {
       displayName: current.displayName,
       profileId: current.uid,

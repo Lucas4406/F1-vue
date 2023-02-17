@@ -171,7 +171,7 @@ function logout() {
 }
 async function getDataFull() {
   const resp = await makeRequest(
-    "https://f1-site-api.vercel.app/mongo/teams/all"
+    `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
   )
   let teams = []
   let drivers = []
@@ -210,7 +210,7 @@ async function favoriteTeam() {
 }
 async function getFavDriver() {
   const resp = await axios(
-    `https://f1-site-api.vercel.app/mongo/piloti/${store.user.favDriver}`
+    `${import.meta.env.VITE_API_LINK}/mongo/piloti/${store.user.favDriver}`
   )
   favDriv.value = resp.data[0]
 }
@@ -225,7 +225,9 @@ if (user != null && store.user.favDriver != null) {
 async function updateDb() {
   await axios({
     method: "POST",
-    url: `https://f1-site-api.vercel.app/profile/change/team/${currentEnc.currentUser}`,
+    url: `${import.meta.env.VITE_API_LINK}/profile/change/team/${
+      currentEnc.currentUser
+    }`,
     data: {
       favTeam: echipaPref.value,
       favDriver: soferPref.value,

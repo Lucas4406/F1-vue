@@ -104,7 +104,7 @@ export default {
     },
     async getTeams() {
       const data = await makeRequest(
-        "https://f1-site-api.vercel.app/mongo/teams/all"
+        `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
       )
       this.echipe = data
       for (var i = 0; i < data.length; i++) {

@@ -77,7 +77,7 @@ export default {
     }
   },
   mounted() {
-    fetch("https://f1-site-api.vercel.app/mongo/piloti")
+    fetch(`${import.meta.env.VITE_API_LINK}/mongo/piloti`)
       .then((res) => res.json())
       .then((data) => {
         var first = data[0].puncte
