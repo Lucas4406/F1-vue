@@ -126,7 +126,6 @@
       <PilotCard
         v-if="driverOk"
         :pilot="favDriv"
-        :fontSize="fontSize"
         :darkMode="darkMode"
         class="sm:w-[25rem]"
       />

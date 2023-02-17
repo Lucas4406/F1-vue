@@ -16,12 +16,29 @@
     <div class="stiri-grid">
       <stiricomp />
     </div>
+
+    <div class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4">
+      <ConstructorCard
+        v-if="bla"
+        :team="favArr"
+        :darkMode="darkMode"
+        class="sm:w-[20rem]"
+      />
+      <PilotCard
+        v-if="driverOk"
+        :pilot="favDriv"
+        :darkMode="darkMode"
+        class="sm:w-[25rem]"
+      />
+    </div>
   </div>
 </template>
 <script>
 import herocursa from "../components/herocursa.vue"
 import stiricomp from "../components/stiricomp.vue"
 import getNext from "../functions/getNext.js"
+import ConstructorCard from "../components/ConstructorCard.vue"
+import PilotCard from "../components/PilotCard.vue"
 import axios from "axios"
 
 export default {
@@ -29,7 +46,10 @@ export default {
   components: {
     herocursa,
     stiricomp,
+    PilotCard,
+    ConstructorCard,
   },
+  inject: ["store"],
   data() {
     let darkMode = localStorage.getItem("darkMode") == "true"
     return {
@@ -45,9 +65,13 @@ export default {
       Hero: false,
       heroError: false,
       componentKey: 0,
+      favArr: [],
+      favDriv: [],
+      bla: false,
+      driverOk: false,
     }
   },
-  mounted() {
+  async mounted() {
     document.title = "Acasă"
     if (this.darkMode) {
       document.body.classList.add("darkmode")
@@ -55,6 +79,14 @@ export default {
       document.body.classList.remove("darkmode")
     }
     this.getCursa()
+    if (this.store.user.favTeam != null) {
+      await this.favoriteTeam()
+      this.bla = true
+    }
+    if (this.store.user.favDriver != null) {
+      await this.getFavDriver()
+      this.driverOk = true
+    }
   },
   methods: {
     handleErr(val) {
@@ -87,6 +119,29 @@ export default {
         /* this.heroError = true
                 this.forceRerender() */
       }
+    },
+    async favoriteTeam() {
+      const fav = this.store.user.favTeam.substring(0, 4)
+      console.log(fav)
+      const resp = await axios(
+        "https://ergast.com/api/f1/current/constructorStandings.json"
+      )
+      const echipe = resp.data
+      const arr =
+        echipe.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i].Constructor.name.includes(fav)) {
+          this.favArr = arr[i]
+        }
+      }
+    },
+    async getFavDriver() {
+      const resp = await axios(
+        `${import.meta.env.VITE_API_LINK}/mongo/piloti/${
+          this.store.user.favDriver
+        }`
+      )
+      this.favDriv = resp.data[0]
     },
   },
 }
