@@ -17,7 +17,10 @@
       <stiricomp />
     </div>
 
-    <div class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4">
+    <div
+      class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
+      v-if="bla || driverOk"
+    >
       <ConstructorCard
         v-if="bla"
         :team="favArr"
