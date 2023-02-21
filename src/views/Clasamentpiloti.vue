@@ -16,7 +16,7 @@
     </div>
     <br />
     <p class="piloti-text" :class="{ darkmode: darkMode }">
-      Clasament piloți 2022
+      Clasament piloți 2023
     </p>
     <br />
     <br />

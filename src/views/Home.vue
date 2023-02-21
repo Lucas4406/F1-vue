@@ -16,24 +16,28 @@
     <div class="stiri-grid">
       <stiricomp />
     </div>
-
-    <div
-      class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
-      v-if="bla || driverOk"
+    <v-lazy
+      :options="{ threshold: 1 }"
+      transition="fade-transition"
+      v-model="modelValue"
     >
-      <ConstructorCard
-        v-if="bla"
-        :team="favArr"
-        :darkMode="darkMode"
-        class="sm:w-[20rem]"
-      />
-      <PilotCard
-        v-if="driverOk"
-        :pilot="favDriv"
-        :darkMode="darkMode"
-        class="sm:w-[25rem]"
-      />
-    </div>
+      <div
+        class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
+      >
+        <ConstructorCard
+          :team="favArr"
+          :darkMode="darkMode"
+          class="sm:w-[20rem]"
+          v-if="bla"
+        />
+        <PilotCard
+          :pilot="favDriv"
+          :darkMode="darkMode"
+          class="sm:w-[25rem]"
+          v-if="driverOk"
+        />
+      </div>
+    </v-lazy>
   </div>
 </template>
 <script>
@@ -72,6 +76,7 @@ export default {
       favDriv: [],
       bla: false,
       driverOk: false,
+      modelValue: false,
     }
   },
   async mounted() {
@@ -82,13 +87,17 @@ export default {
       document.body.classList.remove("darkmode")
     }
     this.getCursa()
-    if (this.store.user.favTeam != null) {
-      await this.favoriteTeam()
-      this.bla = true
-    }
-    if (this.store.user.favDriver != null) {
-      await this.getFavDriver()
-      this.driverOk = true
+  },
+  async updated() {
+    if (this.modelValue === true) {
+      if (this.store.user.favTeam != null) {
+        await this.favoriteTeam()
+        this.bla = true
+      }
+      if (this.store.user.favDriver != null) {
+        await this.getFavDriver()
+        this.driverOk = true
+      }
     }
   },
   methods: {
@@ -125,7 +134,7 @@ export default {
     },
     async favoriteTeam() {
       const fav = this.store.user.favTeam.substring(0, 4)
-      console.log(fav)
+      console.log("la inceput")
       const resp = await axios(
         "https://ergast.com/api/f1/current/constructorStandings.json"
       )
@@ -137,6 +146,7 @@ export default {
           this.favArr = arr[i]
         }
       }
+      console.log("la sfarsit")
     },
     async getFavDriver() {
       const resp = await axios(
