@@ -9,6 +9,7 @@ import "./index.css"
 import "./firebase/index.js"
 import { createVuetify } from "vuetify"
 import { VLazy } from "vuetify/components/VLazy"
+
 const vuetify = createVuetify({
   components: {
     VLazy,

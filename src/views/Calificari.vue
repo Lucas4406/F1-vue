@@ -7,12 +7,19 @@
         name="ancurse"
         class="selectie"
         v-model="ancaliSelect"
+        @change="anChange()"
       >
-        <option value="2023" class="optiune">2023</option>
-        <option value="2022" class="optiune">2022</option>
-        <option value="2021" class="optiune">2021</option>
-        <option value="2020" class="optiune">2020</option>
+        <option v-for="year in years" :key="year" :value="year" class="optiune">
+          {{ year }}
+        </option>
       </select>
+      <button
+        @click="order"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2 cursor-pointer border-solid border-red-500 hover:border-red-700"
+      >
+        <p v-if="!asc">Ascending</p>
+        <p v-else>Descending</p>
+      </button>
     </div>
     <div class="scroll-btns" v-show="show">
       <button class="darkmodeBtn" @click="darkModeToggle()">
@@ -28,33 +35,25 @@
         />
       </button>
     </div>
-    <!-- 2023 -->
+    <div class="text-wrap" :class="{ darkmode: darkMode }">
+      <p class="text-titlu" ref="titlul">
+        {{ "Rezultate calificări " + titlu }}
+      </p>
+    </div>
+    <div class="search-wrapper">
+      <input
+        type="text"
+        placeholder="Căutare"
+        class="search-bar"
+        v-model="search"
+        :class="{ darkmode: darkMode }"
+      />
+    </div>
     <tabelcali
-      :linkdata="cali2023.linkdata"
-      :titlupag="cali2023.titlupag"
+      v-for="tabel in filterCurse"
+      :key="tabel.id"
+      :qualiData="tabel"
       :darkMode="darkMode"
-      v-if="cali2023.an2023"
-    />
-    <!-- 2022 -->
-    <tabelcali
-      :linkdata="cali2022.linkdata"
-      :titlupag="cali2022.titlupag"
-      :darkMode="darkMode"
-      v-if="cali2022.an2022"
-    />
-    <!-- 2021 -->
-    <tabelcali
-      :linkdata="cali2021.linkdata"
-      :titlupag="cali2021.titlupag"
-      :darkMode="darkMode"
-      v-if="cali2021.an2021"
-    />
-    <!-- 2020 -->
-    <tabelcali
-      :linkdata="cali2020.linkdata"
-      :titlupag="cali2020.titlupag"
-      :darkMode="darkMode"
-      v-if="cali2020.an2020"
     />
   </div>
 </template>
@@ -62,6 +61,7 @@
 <script>
 import tabelcali from "../components/tabelcali.vue"
 import router from "../router"
+import { makeRequest } from "../functions/makeRequest"
 export default {
   name: "Calificari",
   components: {
@@ -71,48 +71,27 @@ export default {
     let darkMode = localStorage.getItem("darkMode") == "true"
     return {
       darkMode,
-      ancaliSelect: "2023",
-      cali2022: {
-        linkdata: "https://ergast.com/api/f1/2022/qualifying.json?limit=1000",
-        titlupag: "Rezultate calificări 2022",
-        an2022: false,
-      },
-      cali2021: {
-        linkdata: "https://ergast.com/api/f1/2021/qualifying.json?limit=1000",
-        titlupag: "Rezultate calificări 2021",
-        an2021: false,
-      },
-      cali2020: {
-        linkdata: "https://ergast.com/api/f1/2020/qualifying.json?limit=1000",
-        titlupag: "Rezultate calificări 2020",
-        an2020: false,
-      },
-      cali2023: {
-        linkdata: "https://ergast.com/api/f1/2023/qualifying.json?limit=1000",
-        titlupag: "Rezultate calificări 2023",
-        an2023: false,
-      },
-      an2021: false,
+      ancaliSelect: this.$route.params.an,
       show: false,
       textButon: false,
+      dataQuali: [],
+      search: "",
+      asc: false,
+      titlu: "",
     }
   },
-  mounted() {
-    document.title = "Rezultate Calificări 2022"
+  async mounted() {
     this.show = true
+    document.title = "Rezultate calificari"
     if (this.darkMode) {
       document.body.classList.add("darkmode")
     } else {
       document.body.classList.remove("darkmode")
     }
-    this.cali2022.an2022 = true
-    this.anCaliSelect()
-    this.ancaliSelect = this.$route.params.an
-  },
-  updated() {
     this.show = true
-    this.anCaliSelect()
+    await this.getData()
   },
+  async updated() {},
   methods: {
     darkModeToggle() {
       this.darkMode = !this.darkMode
@@ -123,46 +102,69 @@ export default {
         document.body.classList.remove("darkmode")
       }
     },
-    anCaliSelect() {
-      if (this.ancaliSelect === "2022") {
-        this.cali2022.an2022 = true
-        this.cali2021.an2021 = false
-        this.cali2020.an2020 = false
-        this.cali2023.an2023 = false
-        document.title = this.cali2022.titlupag
-      }
-      if (this.ancaliSelect === "2021") {
-        this.cali2022.an2022 = false
-        this.cali2021.an2021 = true
-        this.cali2020.an2020 = false
-        this.cali2023.an2023 = false
-        document.title = this.cali2021.titlupag
-      }
-      if (this.ancaliSelect === "2020") {
-        this.cali2022.an2022 = false
-        this.cali2021.an2021 = false
-        this.cali2020.an2020 = true
-        this.cali2023.an2023 = false
-        document.title = this.cali2020.titlupag
-      }
-      if (this.ancaliSelect === "2023") {
-        this.cali2022.an2022 = false
-        this.cali2021.an2021 = false
-        this.cali2020.an2020 = false
-        this.cali2023.an2023 = true
-        document.title = this.cali2023.titlupag
-      }
-
+    async getData() {
+      const data = await makeRequest(
+        `https://ergast.com/api/f1/${this.ancaliSelect}/qualifying.json?limit=1000`
+      )
+      this.titlu = data.MRData.RaceTable.season
+      this.dataQuali = data.MRData.RaceTable.Races
+      this.dataQuali.reverse()
+      this.asc = false
       router.push({
         name: "Calificari",
         params: { an: this.ancaliSelect },
       })
+      document.title = `Rezultate Calificări ${this.titlu}`
+    },
+    order() {
+      if (this.asc == false) {
+        this.dataQuali.reverse()
+        this.asc = true
+      } else {
+        this.dataQuali.reverse()
+        this.asc = false
+      }
+    },
+    async anChange() {
+      const data = await makeRequest(
+        `https://ergast.com/api/f1/${this.ancaliSelect}/qualifying.json?limit=1000`
+      )
+      this.titlu = data.MRData.RaceTable.season
+      this.dataQuali = data.MRData.RaceTable.Races
+      this.dataQuali.reverse()
+      this.asc = false
+      router.push({
+        name: "Calificari",
+        params: { an: this.ancaliSelect },
+      })
+      document.title = `Rezultate Calificări ${this.titlu}`
+    },
+  },
+  computed: {
+    filterCurse: function () {
+      return this.dataQuali.filter((tabel) => {
+        return (
+          tabel.raceName.toLowerCase().match(this.search.toLowerCase()) ||
+          tabel.Circuit.Location.country
+            .toLowerCase()
+            .match(this.search.toLowerCase())
+        )
+      })
+    },
+    years() {
+      const startYear = 2014
+      const endYear = 2023
+      const years = []
+      for (let i = startYear; i <= endYear; i++) {
+        years.push(i)
+      }
+      return years.reverse()
     },
   },
 }
 </script>
 
-<style>
+<style scoped>
 @import "../assets/calificari.css";
 @import "../assets/searchbar.css";
 </style>

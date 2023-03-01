@@ -46,7 +46,7 @@
   display: flex;
   justify-content: space-between;
   transform: translateY(0);
-  transition: transform 200ms ease-in-out;
+  transition: transform 150ms ease-in-out;
 }
 .header {
   position: fixed;
@@ -77,7 +77,7 @@
   height: calc(var(--one1rem) * 3.125);
   align-items: center;
   transform: translateY(0);
-  transition: transform 200ms ease-in-out;
+  transition: transform 150ms ease-in-out;
   z-index: -1;
 }
 .dropdown-menu {
