@@ -26,7 +26,12 @@
               <p class="text" id="stiretext">{{ stire.titlu }}</p>
             </div>
             <div class="content-photo">
-              <img :src="stire.poza" class="photo" id="stirephoto" />
+              <v-img
+                :src="stire.poza"
+                class="photo"
+                id="stirephoto"
+                :alt="stire.titlu"
+              />
             </div>
           </div>
         </div>

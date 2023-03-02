@@ -8,11 +8,12 @@ import "./assets/main.css"
 import "./index.css"
 import "./firebase/index.js"
 import { createVuetify } from "vuetify"
-import { VLazy } from "vuetify/components/VLazy"
+import { VLazy, VImg } from "vuetify/components"
 
 const vuetify = createVuetify({
   components: {
     VLazy,
+    VImg,
   },
 })
 const app = createApp(App)

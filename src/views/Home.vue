@@ -86,7 +86,27 @@ export default {
     } else {
       document.body.classList.remove("darkmode")
     }
-    this.getCursa()
+    if (this.store.heroBanner === undefined) {
+      await this.getCursa()
+      this.dataInceput = this.store.heroBanner.dataCursa1
+      this.dataSfarsit = this.store.heroBanner.dataCursa2
+      this.lunaCursa = this.store.heroBanner.lunaCursa
+      this.pozaHarta = this.store.heroBanner.harta
+      this.imagineMare = this.store.heroBanner.imagine
+      this.runda = this.store.heroBanner.runda
+      this.steag = this.store.heroBanner.steag
+      this.tara = this.store.heroBanner.tara
+    } else {
+      this.dataInceput = this.store.heroBanner.dataCursa1
+      this.dataSfarsit = this.store.heroBanner.dataCursa2
+      this.lunaCursa = this.store.heroBanner.lunaCursa
+      this.pozaHarta = this.store.heroBanner.harta
+      this.imagineMare = this.store.heroBanner.imagine
+      this.runda = this.store.heroBanner.runda
+      this.steag = this.store.heroBanner.steag
+      this.tara = this.store.heroBanner.tara
+      this.Hero = true
+    }
   },
   async updated() {
     if (this.modelValue === true) {
@@ -117,19 +137,10 @@ export default {
         var link = `${import.meta.env.VITE_API_LINK}/up-next/${j}`
         const response = await axios.get(link)
         const resData = response.data
-        this.dataInceput = resData.dataCursa1
-        this.dataSfarsit = resData.dataCursa2
-        this.lunaCursa = resData.lunaCursa
-        this.pozaHarta = resData.harta
-        this.imagineMare = resData.imagine
-        this.runda = resData.runda
-        this.steag = resData.steag
-        this.tara = resData.tara
+        this.store.heroBanner = resData
         this.Hero = true
       } catch (error) {
         console.log(error)
-        /* this.heroError = true
-                this.forceRerender() */
       }
     },
     async favoriteTeam() {
