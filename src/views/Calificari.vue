@@ -1,6 +1,6 @@
 <template>
   <div class="content-container">
-    <div class="form-select" :class="{ darkmode: darkMode }">
+    <div class="form-select">
       <label for="ancurse">Alege anul:</label>
       <select
         id="ancurse"
@@ -21,21 +21,7 @@
         <p v-else>Descending</p>
       </button>
     </div>
-    <div class="scroll-btns" v-show="show">
-      <button class="darkmodeBtn" @click="darkModeToggle()">
-        <img
-          src="/night-mode.png"
-          class="poza1"
-          :class="{ darkmode: darkMode }"
-        />
-        <img
-          src="/brightness.png"
-          class="poza2"
-          :class="{ darkmode: darkMode }"
-        />
-      </button>
-    </div>
-    <div class="text-wrap" :class="{ darkmode: darkMode }">
+    <div class="text-wrap">
       <p class="text-titlu" ref="titlul">
         {{ "Rezultate calificări " + titlu }}
       </p>
@@ -46,14 +32,12 @@
         placeholder="Căutare"
         class="search-bar"
         v-model="search"
-        :class="{ darkmode: darkMode }"
       />
     </div>
     <tabelcali
       v-for="tabel in filterCurse"
       :key="tabel.id"
       :qualiData="tabel"
-      :darkMode="darkMode"
     />
   </div>
 </template>
@@ -68,12 +52,8 @@ export default {
     tabelcali,
   },
   data() {
-    let darkMode = localStorage.getItem("darkMode") == "true"
     return {
-      darkMode,
       ancaliSelect: this.$route.params.an,
-      show: false,
-      textButon: false,
       dataQuali: [],
       search: "",
       asc: false,
@@ -81,27 +61,10 @@ export default {
     }
   },
   async mounted() {
-    this.show = true
-    document.title = "Rezultate calificari"
-    if (this.darkMode) {
-      document.body.classList.add("darkmode")
-    } else {
-      document.body.classList.remove("darkmode")
-    }
-    this.show = true
     await this.getData()
   },
   async updated() {},
   methods: {
-    darkModeToggle() {
-      this.darkMode = !this.darkMode
-      localStorage.setItem("darkMode", this.darkMode)
-      if (this.darkMode) {
-        document.body.classList.add("darkmode")
-      } else {
-        document.body.classList.remove("darkmode")
-      }
-    },
     async getData() {
       const data = await makeRequest(
         `https://ergast.com/api/f1/${this.ancaliSelect}/qualifying.json?limit=1000`
@@ -167,4 +130,5 @@ export default {
 <style scoped>
 @import "../assets/calificari.css";
 @import "../assets/searchbar.css";
+@import "../assets/formSelect-curse.css";
 </style>

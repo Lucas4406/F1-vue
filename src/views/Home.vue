@@ -159,8 +159,8 @@ export default {
 </script>
 
 <style>
-@import "../assets/home.css";
-@import "../assets/dkmodebtn.css";
+@import "../assets/home.scss";
+@import "../assets/clasamentpiloti.scss";
 
 @keyframes p-progress-spinner-color {
   100%,

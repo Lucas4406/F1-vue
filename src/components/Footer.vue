@@ -45,7 +45,7 @@
           <div class="buttons text-xs flex font-light">
             <router-link
               to="/profile"
-              class="btn p-2 mr-1 rounded shadow cursor-pointer hover:bg-gray-100"
+              class="btn p-2 mr-1 rounded shadow cursor-pointer hover:bg-red-400 bg-red-500"
             >
               <svg
                 class="w-8 h-8"
@@ -91,7 +91,7 @@
               </svg>
             </router-link>
             <div
-              class="btn p-2 mr-1 rounded shadow cursor-pointer hover:bg-gray-100"
+              class="btn p-2 mr-1 rounded shadow cursor-pointer hover:bg-red-400 bg-red-500"
               @click="logout"
             >
               <svg

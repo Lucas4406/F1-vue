@@ -1,23 +1,7 @@
 <template>
   <div class="content-wrapper">
-    <div class="scroll-btns">
-      <button class="darkmodeBtn" @click="darkModeToggle()">
-        <img
-          src="/night-mode.png"
-          class="poza1"
-          :class="{ darkmode: darkMode }"
-        />
-        <img
-          src="/brightness.png"
-          class="poza2"
-          :class="{ darkmode: darkMode }"
-        />
-      </button>
-    </div>
     <br />
-    <p class="piloti-text" :class="{ darkmode: darkMode }">
-      Clasament piloți 2023
-    </p>
+    <p class="piloti-text">Clasament piloți 2023</p>
     <br />
     <br />
     <div class="piloti-grid">
@@ -25,13 +9,12 @@
         class="pilot-container"
         v-for="(pilot, index) in piloti"
         :key="index"
-        :class="{ darkmode: darkMode }"
       >
         <div class="pozitiepuncte-pilot">
           <p class="pozitie-pilot" v-if="!dontShow">{{ pilot.pozitie }}</p>
           <div class="nrpuncte-container" v-if="!dontShow">
             <p class="nrpuncte-pilot">{{ pilot.puncte }}</p>
-            <p class="puncte-text-pilot" :class="{ darkmode: darkMode }">PCT</p>
+            <p class="puncte-text-pilot">PCT</p>
           </div>
         </div>
         <div class="numesteag">
@@ -52,13 +35,9 @@
           </p>
           <p class="echipa" v-if="!dontShow">{{ pilot.gapDelta }}</p>
         </div>
-        <div class="pozanumar" :class="{ darkmode: darkMode }">
+        <div class="pozanumar">
           <img :src="pilot.poza" class="poza-pilot" />
-          <img
-            :src="pilot.numar"
-            class="nr-pilot"
-            :class="{ darkmode: darkMode }"
-          />
+          <img :src="pilot.numar" class="nr-pilot" />
         </div>
       </div>
     </div>
@@ -69,10 +48,8 @@ export default {
   name: "CLasamentpiloti",
   inject: ["store"],
   data() {
-    let darkMode = localStorage.getItem("darkMode") == "true"
     return {
       piloti: [],
-      darkMode,
       dontShow: false,
     }
   },
@@ -100,20 +77,9 @@ export default {
       .catch((err) => console.log(err))
     document.title = "Clasament piloți"
   },
-  methods: {
-    darkModeToggle() {
-      this.darkMode = !this.darkMode
-      localStorage.setItem("darkMode", this.darkMode)
-      if (this.darkMode) {
-        document.body.classList.add("darkmode")
-      } else {
-        document.body.classList.remove("darkmode")
-      }
-    },
-  },
 }
 </script>
 
 <style scoped>
-@import "../assets/clasamentpiloti.css";
+@import "../assets/clasamentpiloti.scss";
 </style>

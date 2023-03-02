@@ -16,9 +16,6 @@
   font-size: 2.5rem;
   font-weight: bold;
 }
-.text-wrap.darkmode > .text-titlu {
-  color: white;
-}
 .quri {
   margin: 0;
   text-align: center;
@@ -31,11 +28,6 @@
   width: 50%;
   font-size: 1.5rem;
   gap: 0.5rem;
-}
-.tabel-container.darkmode {
-  border-color: white;
-  background-color: #333;
-  color: white;
 }
 .nume-cursa {
   display: flex;
@@ -111,20 +103,6 @@
 }
 #q2 {
   border-right: 2px solid black;
-}
-.tabel-container.darkmode
-  > .tabel
-  > .piloti-container
-  > .pilot
-  > .parte-stanga {
-  border-color: white;
-}
-.tabel-container.darkmode
-  > .tabel
-  > .piloti-container
-  > .pilot
-  > .parte-dreapta {
-  border-color: white;
 }
 .timp-container {
   display: flex;

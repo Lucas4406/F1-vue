@@ -1,23 +1,8 @@
 <template>
-  <div class="scroll-btns">
-    <button class="darkmodeBtn" @click="darkModeToggle()">
-      <img
-        src="/night-mode.png"
-        class="poza1"
-        :class="{ darkmode: darkMode }"
-      />
-      <img
-        src="/brightness.png"
-        class="poza2"
-        :class="{ darkmode: darkMode }"
-      />
-    </button>
-  </div>
   <div class="content-echipe" id="echipeCont">
     <div
       class="box"
       :class="[
-        { darkmode: darkMode },
         echipa.name.replace(/\s+/g, ''),
         { echipaFavorita: ok === index },
       ]"
@@ -74,10 +59,8 @@ export default {
   inject: ["store"],
   name: "Echipe",
   data() {
-    let darkMode = localStorage.getItem("darkMode") == "true"
     return {
       echipe: [],
-      darkMode,
       echipaFav: "",
       ok: "",
       puncteNull: false,
@@ -85,23 +68,9 @@ export default {
   },
   mounted() {
     document.title = "Echipe"
-    if (this.darkMode) {
-      document.body.classList.add("darkmode")
-    } else {
-      document.body.classList.remove("darkmode")
-    }
     this.getTeams()
   },
   methods: {
-    darkModeToggle() {
-      this.darkMode = !this.darkMode
-      localStorage.setItem("darkMode", this.darkMode)
-      if (this.darkMode) {
-        document.body.classList.add("darkmode")
-      } else {
-        document.body.classList.remove("darkmode")
-      }
-    },
     async getTeams() {
       const data = await makeRequest(
         `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
@@ -128,6 +97,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import "../assets/content-echipe.css";
 </style>

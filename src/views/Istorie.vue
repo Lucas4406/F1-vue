@@ -1,21 +1,7 @@
 <template>
   <div class="content" v-once>
-    <div class="scroll-btns">
-      <button class="darkmodeBtn" @click="darkModeToggle()">
-        <img
-          src="/night-mode.png"
-          class="poza1"
-          :class="{ darkmode: darkMode }"
-        />
-        <img
-          src="/brightness.png"
-          class="poza2"
-          :class="{ darkmode: darkMode }"
-        />
-      </button>
-    </div>
     <div class="text">
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         În perioada interbelică curse de Mare Premiu se organizau pe toate
         continentele, astfel că devenea din ce in ce mai evident că aceste
         întreceri ar trebui reunite sub egida unui campionat mondial. Planurile
@@ -27,7 +13,7 @@
         Premiu al Statelor Unite ale Americii, Marele Premiu al Elveției, Marele
         Premiu al Belgiei, Marele Premiu al Franței și Marele Premiu al Italiei.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Startul Campionatului Mondial de Formula 1 s-a dat în ziua de 13 mai
         1950 când la Silverstone s-a organizat Marele Premiu al Marii Britanii
         pe un circuit improvizat pe un fost aeroport militar folosit în timpul
@@ -36,7 +22,7 @@
         că în acea perioadă în Marea Britanie competițiile sportive erau
         interzise în zilele de duminică.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         În 1954 FIA a ridicat interdicția de participare a echipelor germane,
         astfel că Mercedes Benz și-a făcut debutul în campionat în Marele Premiu
         al Franței, cooptându-l în echipă pe Juan Manuel Fangio, liderul din
@@ -50,7 +36,7 @@
         echipei Lancia, singura care a putut să țină piept celor de la Mercedes
         Benz, dar care se desființase din motive financiare.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         În vara lui 1955 avea să se producă cel mai tragic accident din întreaga
         istorie a curselor auto când, la Le Mans, automobilul Mercedes Benz
         pilotat de francezul Pierre Levegh a provocat un accident care a ucis 77
@@ -60,7 +46,7 @@
         dus la interzicerea oricărei competiții auto din Elveția, inclusiv
         Marele Premiu al Elveției.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         În 1968 Matra, Ken Tyrrell și Jackie Stewart au reușit să câștige trei
         curse, dar în 1969 au dominat cu autoritate sezonul, câștigând la final
         ambele titluri mondiale. Un accident produs la Monaco în 1969 a dus la
@@ -78,7 +64,7 @@
         pentru prima dată in Formula 1, ridicând semnificativ importanța
         aerodinamicii în construcția de monoposturi de Formula 1.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         După ce în 1974 Ferrari a reușit să reînoade șirul victoriilor, în 1975
         s-a impus cu ușurință în lupta pentru cele două titluri mondiale,
         începând o dominare care avea să țină timp de trei sezoane și care avea
@@ -94,7 +80,7 @@
         sale, astfel că imediat ce austriacul a câștigat titlul mondial din 1977
         a fost concediat.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Formula 1 ajunsese deja unul dintre cele mai urmărite sporturi din lume,
         cursele fiind televizate în direct pe întreg mapamondul. Acest fapt a
         atras în campionat o serie de sponsori puternici, ceea ce a făcut ca
@@ -105,7 +91,7 @@
         pe două fronturi - cel al drepturilor comerciale și cel al
         regulamentului tehnic.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Deși Frank Williams beneficia de o relație foarte bună cu Honda, aceasta
         s-a rupt în momentul în care britanicul a refuzat să coopteze în echipă
         pe Satoru Nakajima, un pilot japonez de casă a companiei Honda.
@@ -122,7 +108,7 @@
         a șaisprezecea, dar aceasta a fost făcută cadou celor de la Scuderia
         Ferrari drept omagiu pentru decesul lui Enzo Ferrari in august 1988.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         După ce a câștigat tilul mondial în 1994, e drept la mare luptă cu Damon
         Hill de la Williams, nimeni altul decât fiul lui Graham Hill, fostul
         campion mondial din 1962 și 1968, Michael Schumacher a repetat
@@ -136,7 +122,7 @@
         de prim pilot la Williams de la Damon Hill. Williams s-a impus și la
         constructori.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Titlul cucerit de Scuderia Ferrari în 1999 nu a fost decât începutul
         unei perioade de dominare categorică care s-a extins până în 2004,
         italienii câștigând șase titluri mondiale consecutive la constructori,
@@ -151,7 +137,7 @@
         după mai bine de două decenii. Același Michael Schumacher s-a impus și
         în 2001 și 2002, de această dată fără prea multe eforturi.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Cu Ferrari dispărută din lupta pentru titlul mondial în 2005, Fernando
         Alonso și Kimi Räikkönen s-au duelat pentru titlu. În cele din urmă s-a
         impus primul, însă și datorită faptului ca motoarele Mercedes folosite
@@ -172,7 +158,7 @@
         penultimul viraj, Hamilton îl depășește pe Timo Glock și trece pe locul
         ce îi asigura Campionatul Mondial cu un punct peste Massa.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         2010 a înregistrat mai multe schimbări în modul de reglementare. KERS și
         difuzoarele duble au fost interzise pentru sezonul 2010, dar au fost
         introduse noi funcții inovatoare pentru mașini, cum ar fi F-duct. Un
@@ -184,7 +170,7 @@
         a fost înlocuit cu unul drastic diferit 25–18–15–12–10–8–6–4–2–1 pentru
         primii 10 piloți.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Sezonul din 2010 a fost o campanie clasică, care a ajuns la o bătălie în
         patru pentru titlul din runda finală de la Abu Dhabi. Red Bull RB6 a
         fost clasa terenului, iar Vettel a fost un campion demn - 10 pole
@@ -201,7 +187,7 @@
         șaselea. Cu Jenson Button pe primul loc ținându-l pe Alonso în spatele
         său, germanul a cucerit titlul cu trei puncte peste spaniol.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Patru ani de dominare Red Bull s-au încheiat în cele din urmă prin noile
         reguli de motor pe care Mercedes-Benz le-a exploatat până la
         perfecțiune. FIA a specificat motoare hibride de 1,6 litri
@@ -225,7 +211,7 @@
         din copilărie, Nico Rosberg a uimit sportul anunțând retragerea sa
         imediată din sport.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Odată cu noile reglementări la aerodinamică, Mercedes era amenințată de
         competitori. În 2017, constructorul german a avut o competiție mai
         strânsă pentru titlul, cu Ferrari producând o mașină mai avansată pentru
@@ -242,7 +228,7 @@
         din fruntea cursei în Germania. Victoria lui Vettel în Belgia a părut să
         restabilească ritmul campionatului, dar nu a mai câștigat.
       </p>
-      <p class="multscris" :class="{ darkmode: darkMode }">
+      <p class="multscris">
         Mercedes a trecut cu bine peste cele două sezoane în care a fost
         amenințată, iar în 2019 nu a mai avut niciun rival. Hamilton a câștigat
         cel de-al șaselea său titlu din carieră cu 3 curse înainte de final, iar
@@ -267,72 +253,52 @@
         între sezoanele 1999 și 2004.
       </p>
     </div>
-    <div class="imagini" :class="{ darkmode: darkMode }">
+    <div class="imagini">
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/Fangio.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Juan Manuel Fangio
-        </p>
+        <p class="subtitlu">Juan Manuel Fangio</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/jackie.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Jackie Stewart conducând o Matra Ford în 1969
-        </p>
+        <p class="subtitlu">Jackie Stewart conducând o Matra Ford în 1969</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/niki.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Niki Lauda la Nürburgring în 1976
-        </p>
+        <p class="subtitlu">Niki Lauda la Nürburgring în 1976</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/nelson.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Nelson Piquet în 1985
-        </p>
+        <p class="subtitlu">Nelson Piquet în 1985</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/benetton.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Benetton Renault campionă mondială în 1995
-        </p>
+        <p class="subtitlu">Benetton Renault campionă mondială în 1995</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/michael.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Michael Schumacher la volanul unui Ferrari
-        </p>
+        <p class="subtitlu">Michael Schumacher la volanul unui Ferrari</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/fernando.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
+        <p class="subtitlu">
           Fernando Alonso cu Renault, campioni mondiali în 2005 şi 2006
         </p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/redbull.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Sebastian Vettel - 2013
-        </p>
+        <p class="subtitlu">Sebastian Vettel - 2013</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/w07.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Nico Rosberg - 2016
-        </p>
+        <p class="subtitlu">Nico Rosberg - 2016</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/w11.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Lewis Hamilton - 2020
-        </p>
+        <p class="subtitlu">Lewis Hamilton - 2020</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/ferrari.jpg" class="poza-istorie" />
-        <p class="subtitlu" :class="{ darkmode: darkMode }">
-          Charles Leclerc - 2022
-        </p>
+        <p class="subtitlu">Charles Leclerc - 2022</p>
       </div>
     </div>
   </div>
@@ -340,28 +306,11 @@
 <script>
 export default {
   name: "Istorie",
-  data() {
-    let darkMode = localStorage.getItem("darkMode") == "true"
-    return {
-      darkMode,
-    }
-  },
   mounted() {
     document.title = "Istorie"
   },
-  methods: {
-    darkModeToggle() {
-      this.darkMode = !this.darkMode
-      localStorage.setItem("darkMode", this.darkMode)
-      if (this.darkMode) {
-        document.body.classList.add("darkmode")
-      } else {
-        document.body.classList.remove("darkmode")
-      }
-    },
-  },
 }
 </script>
-<style>
+<style scoped>
 @import "../assets/istorie.css";
 </style>

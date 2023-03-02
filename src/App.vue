@@ -13,6 +13,9 @@
   <div class="loading heightt" v-if="!loaded">
     <div class="spinner"></div>
   </div>
+  <div class="scroll-btns">
+    <darkModeBtn />
+  </div>
 </template>
 
 <script>
@@ -20,6 +23,7 @@ import Navbar from "./components/Navbar.vue"
 import Footertag from "./components/Footer.vue"
 import axios from "axios"
 import GreetingPageVue from "./components/GreetingPage.vue"
+import darkModeBtn from "./components/darkModeBtn.vue"
 
 export default {
   name: "App",
@@ -28,6 +32,7 @@ export default {
     Navbar,
     Footertag,
     GreetingPageVue,
+    darkModeBtn,
   },
   data() {
     return {
@@ -60,9 +65,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 @import "./components/css/navbar.css";
 @import "./assets/main.css";
+@import "./assets/darkMode.scss";
 .heightt {
   height: calc(100vh - 142px);
 }

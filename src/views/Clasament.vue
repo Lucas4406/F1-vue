@@ -1,25 +1,11 @@
 <template>
-  <div class="scroll-btns">
-    <button class="darkmodeBtn" @click="darkModeToggle()">
-      <img
-        src="/night-mode.png"
-        class="poza1"
-        :class="{ darkmode: darkMode }"
-      />
-      <img
-        src="/brightness.png"
-        class="poza2"
-        :class="{ darkmode: darkMode }"
-      />
-    </button>
-  </div>
   <div class="content-container-echipe mb-4">
     <div
       v-for="team in teams"
       v-bind:key="team.id"
       class="constructor-container"
     >
-      <ConstructorCard :darkMode="darkMode" :team="team" />
+      <ConstructorCard class="responsive-card" :team="team" />
     </div>
   </div>
 </template>
@@ -29,10 +15,8 @@ import ConstructorCard from "../components/ConstructorCard.vue"
 export default {
   name: "Clasament",
   data() {
-    let darkMode = localStorage.getItem("darkMode") == "true"
     return {
       teams: [],
-      darkMode,
     }
   },
   mounted() {
@@ -44,17 +28,6 @@ export default {
       })
       .catch((err) => console.log(err.message)),
       (document.title = "Clasament echipe")
-  },
-  methods: {
-    darkModeToggle() {
-      this.darkMode = !this.darkMode
-      localStorage.setItem("darkMode", this.darkMode)
-      if (this.darkMode) {
-        document.body.classList.add("darkmode")
-      } else {
-        document.body.classList.remove("darkmode")
-      }
-    },
   },
   components: { ConstructorCard },
 }

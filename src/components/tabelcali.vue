@@ -1,5 +1,5 @@
 <template>
-  <div class="tabel-container" :class="{ darkmode: darkMode }">
+  <div class="tabel-container">
     <div class="tabel">
       <div class="nume-cursa">{{ qualiData.raceName }}</div>
       <div class="data-cursa">
@@ -16,7 +16,7 @@
       <div class="laptime">
         <div class="gol"></div>
         <div class="q-container">
-          <p class="quri q1" id="q1" :class="{ darkmode: darkMode }">Q1</p>
+          <p class="quri q1" id="q1">Q1</p>
           <p class="quri" id="q2">Q2</p>
           <p class="quri" id="q3">Q3</p>
         </div>
@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  props: ["darkMode", "qualiData"],
+  props: ["qualiData"],
 }
 </script>
 

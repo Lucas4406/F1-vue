@@ -1,231 +1,219 @@
-.box{
-    border:3px solid black;
-    height:350px;
-    display:grid;
-    grid-template-rows: 1fr 1fr 2fr;
-    border-left:0;
-    border-bottom:0;
-    border-radius:12px;
-    transition:0.20s;
-    transition: transform 250ms ease-in-out;
+.box {
+  border: 3px solid black;
+  height: 350px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 2fr;
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 12px;
+  transition: 0.2s;
+  transition: transform 250ms ease-in-out;
 }
-.box:hover{
-    transform: scale(1.02);
+.box:hover {
+  transform: scale(1.02);
 }
-.box.darkmode{
-    border-color: white;
-    background-color: #333;
-    color:white;
+.box.Ferrari:hover {
+  box-shadow: 15px 15px 15px #f91536;
+  border: 3px solid #f91536;
+  border-left: 0;
+  border-bottom: 0;
 }
-
-.box.Ferrari:hover{
-    box-shadow:15px 15px 15px #F91536;
-    border:3px solid #F91536;
-    border-left:0;
-    border-bottom:0;
+.box.Ferrari:hover .linie {
+  color: #f91536;
 }
-.box.Ferrari:hover .linie{
-    color:#F91536;
+.box.Mercedes:hover {
+  box-shadow: 15px 15px 15px #6cd3bf;
+  border: 3px solid #6cd3bf;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.Mercedes:hover{
-    box-shadow:15px 15px 15px #6CD3BF;
-    border:3px solid #6CD3BF;
-    border-left:0;
-    border-bottom:0;
+.box.Mercedes:hover .linie {
+  color: #6cd3bf;
 }
-.box.Mercedes:hover .linie{
-    color:#6CD3BF;
+.box.RedBullRacing:hover {
+  box-shadow: 15px 15px 15px #3671c6;
+  border: 3px solid #3671c6;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.RedBullRacing:hover{
-    box-shadow:15px 15px 15px #3671C6;
-    border:3px solid #3671C6;
-    border-left:0;
-    border-bottom:0;
+.box.RedBullRacing:hover .linie {
+  color: #3671c6;
 }
-.box.RedBullRacing:hover .linie{
-    color:#3671C6;
+.box.McLaren:hover {
+  box-shadow: 15px 15px 15px #f58020;
+  border: 3px solid #f58020;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.McLaren:hover{
-    box-shadow:15px 15px 15px #F58020;
-    border:3px solid #F58020;
-    border-left:0;
-    border-bottom:0;
+.box.McLaren:hover .linie {
+  color: #f58020;
 }
-.box.McLaren:hover .linie{
-    color:#F58020;
+.box.Alpine:hover {
+  box-shadow: 15px 15px 15px #2293d1;
+  border: 3px solid #2293d1;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.Alpine:hover{
-    box-shadow:15px 15px 15px #2293D1;
-    border:3px solid #2293D1;
-    border-left:0;
-    border-bottom:0;
+.box.Alpine:hover .linie {
+  color: #2293d1;
 }
-.box.Alpine:hover .linie{
-    color:#2293D1;
+.box.AlfaRomeo:hover {
+  box-shadow: 15px 15px 15px #c92d4b;
+  border: 3px solid #c92d4b;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.AlfaRomeo:hover{
-    box-shadow:15px 15px 15px #C92D4B;
-    border:3px solid #C92D4B;
-    border-left:0;
-    border-bottom:0;
+.box.AlfaRomeo:hover .linie {
+  color: #c92d4b;
 }
-.box.AlfaRomeo:hover .linie{
-    color:#C92D4B;
+.box.HaasF1Team:hover {
+  box-shadow: 15px 15px 15px #b6babd;
+  border: 3px solid #b6babd;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.HaasF1Team:hover{
-    box-shadow:15px 15px 15px #B6BABD;
-    border:3px solid #B6BABD;
-    border-left:0;
-    border-bottom:0;
+.box.HaasF1Team:hover .linie {
+  color: #b6babd;
 }
-.box.HaasF1Team:hover .linie{
-    color:#B6BABD;
+.box.AlphaTauri:hover {
+  box-shadow: 15px 15px 15px #5e8faa;
+  border: 3px solid #5e8faa;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.AlphaTauri:hover{
-    box-shadow:15px 15px 15px #5E8FAA;
-    border:3px solid #5E8FAA;
-    border-left:0;
-    border-bottom:0;
+.box.AlphaTauri:hover .linie {
+  color: #5e8faa;
 }
-.box.AlphaTauri:hover .linie{
-    color:#5E8FAA;
+.box.Williams:hover {
+  box-shadow: 15px 15px 15px #37bedd;
+  border: 3px solid #37bedd;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.Williams:hover{
-    box-shadow:15px 15px 15px #37BEDD;
-    border:3px solid #37BEDD;
-    border-left:0;
-    border-bottom:0;
+.box.Williams:hover .linie {
+  color: #37bedd;
 }
-.box.Williams:hover .linie{
-    color:#37BEDD;
+.box.AstonMartin:hover {
+  box-shadow: 15px 15px 15px #358c75;
+  border: 3px solid #358c75;
+  border-left: 0;
+  border-bottom: 0;
 }
-.box.AstonMartin:hover{
-    box-shadow:15px 15px 15px #358C75;
-    border:3px solid #358C75;
-    border-left:0;
-    border-bottom:0;
+.box.AstonMartin:hover .linie {
+  color: #358c75;
 }
-.box.AstonMartin:hover .linie{
-    color:#358C75;
+.box.AstonMartin {
+  margin-bottom: 1rem;
 }
-.box.AstonMartin{
-    margin-bottom: 1rem;
+.content-echipe {
+  display: grid;
+  grid-template-columns: 30% 30%;
+  column-gap: 6.25rem;
+  row-gap: 1.875rem;
+  justify-content: center;
+  margin-top: 1%;
 }
-.content-echipe{
-    display:grid;
-    grid-template-columns: 30% 30%;
-    column-gap:6.25rem;
-    row-gap: 1.875rem;
-    justify-content: center;
-    margin-top:1%;
+.linie1 {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
 }
-.linie1{
-    display:grid;
-    grid-template-columns: 1fr 3fr 1fr;
+.poza1 {
+  height: 50px;
 }
-.poza1{
-    height: 50px;
+.pozae {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.pozae{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.numee {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 600;
 }
-.numee{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size:2.5rem;
-    font-weight: 600;
+.linie {
+  font-size: 3.75rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 0.5rem;
 }
-.linie{
-    font-size:3.75rem;
-    font-weight: 700;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left:.5rem;
+.linie2 {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
 }
-.linie2{
-    display:grid;
-    grid-template-columns: 2fr 2fr 1fr;
+.linie3 {
+  background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x1.png);
+  background-repeat: repeat;
+  background-size: 8px;
+  border-radius: 0 0 12px 0;
 }
-.linie3{
-    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x1.png);
-    background-repeat: repeat;
-    background-size: 8px;
-    border-radius: 0  0 12px 0;
+.points {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
-.box.darkmode > .linie3 {
-    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
-    background-repeat: repeat;
-    background-size: 8px;
-    border-radius: 0  0 12px 0;
+.inverted-pts {
+  color: white;
+  background-color: black;
+  padding: 0.1rem 0.4rem;
+  border: 1px black solid;
+  border-radius: 10%;
+  font-weight: bold;
 }
-.points{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: 500;
+.points-number {
+  font-size: 2rem;
 }
-.inverted-pts{
-    color: white;
-    background-color: black;
-    padding: .1rem .4rem;
-    border: 1px black solid;
-    border-radius: 10%;
-    font-weight: bold;
+.numepilot {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.points-number{
-    font-size: 2rem;
+.poza {
+  width: 100%;
+  transition: transform 250ms ease-in-out;
 }
-.numepilot{
-    font-size:1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.box:hover > .linie3 > .poza {
+  transform: scale(1.02);
 }
-.poza{
-    width:100%;
-    transition: transform 250ms ease-in-out;
+.content > a {
+  text-decoration: none;
+  color: black;
 }
-.box:hover > .linie3 > .poza{
-    transform: scale(1.02);
+.content-echipe {
+  margin-bottom: 1rem;
 }
-.content > a{
-    text-decoration: none;
-    color:black;
+.content > a:nth-child(10) {
+  margin-bottom: 2rem;
 }
-.content-echipe{
-    margin-bottom: 1rem;
-}
-.content > a:nth-child(10){
-    margin-bottom: 2rem;
-}
-a{
-    text-decoration: none;
-    color: black;
+a {
+  text-decoration: none;
+  color: black;
 }
 
-.pozaFav{
-    display: none;
+.pozaFav {
+  display: none;
 }
 .echipaFavorita > .linie1 > .linie > .Favcontainer > .pozaFav {
-    display: block;
+  display: block;
 }
-@media(max-width:1200px){
-    .content-echipe{
-        grid-template-columns: 70%;
-    }
-    .box{
-        height:auto;
-    }
-    .numepilot{
-        font-size:1.7rem;
-    }
-    .numee{
-        font-size:3rem;
-    }
+@media (max-width: 1200px) {
+  .content-echipe {
+    grid-template-columns: 70%;
+  }
+  .box {
+    height: auto;
+  }
+  .numepilot {
+    font-size: 1.7rem;
+  }
+  .numee {
+    font-size: 3rem;
+  }
 }

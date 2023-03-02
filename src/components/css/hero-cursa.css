@@ -1,163 +1,161 @@
-.hero-wrapper{
-    height: 30vh;
-    border: 4px solid red;
-    width: 60%;
-    margin: 0 auto;
-    display: flex;
-    font-size: 1.5rem;
-    border-radius: 15px;
-    background-color: #15151e;
-    color: white;
-    max-width: 1750px;
+.hero-wrapper {
+  height: 30vh;
+  border: 4px solid red;
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  background-color: #15151e;
+  color: white;
+  max-width: 1750px;
 }
 .hero-wrapper:hover .hero-dreapta .hero-image {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
-.hero-image{
-    width: 100%;
-    object-fit: cover;
-    transition: transform 300ms ease-in-out;
+.hero-image {
+  width: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease-in-out;
 }
-.image-wrapper{
-    overflow: hidden;
+.image-wrapper {
+  overflow: hidden;
 }
-.hero-stanga{
-    display: grid;
-    grid-template-rows: 30% 1fr;
-    width:40%;
-    margin-right: .25rem;
-    padding:.5rem;
-    row-gap: .2rem;
-
+.hero-stanga {
+  display: grid;
+  grid-template-rows: 30% 1fr;
+  width: 40%;
+  margin-right: 0.25rem;
+  padding: 0.5rem;
+  row-gap: 0.2rem;
 }
-.hero-info{
-    display: grid;
-    grid-template-rows: 1fr 1fr;
+.hero-info {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
-.hero-runda{
-    text-align: center;
-    color:red;
-    font-size: 1.3rem;
+.hero-runda {
+  text-align: center;
+  color: red;
+  font-size: 1.3rem;
 }
-.steag-wrapper{
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: .2rem;
+.steag-wrapper {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.2rem;
 }
-.hero-locatie{
-    margin: 0 auto;
-    font-weight: bold;
-    font-size: 2rem;
+.hero-locatie {
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 2rem;
 }
-.steag-locatie{
-    display: flex;  
-    align-items: center;
-    gap:.5rem;
+.steag-locatie {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
-.hero-steag{
-    width: 70px;
-    object-fit: cover;
+.hero-steag {
+  width: 70px;
+  object-fit: cover;
 }
-.hero-circuit{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
-    background-size: 8px;
-    background-repeat: repeat;
+.hero-circuit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
+  background-size: 8px;
+  background-repeat: repeat;
 }
-.circuit-image{
-    height: 90%;
-    object-fit: cover;
+.circuit-image {
+  height: 90%;
+  object-fit: cover;
 }
-.hero-dreapta{
-    display: flex;
-    position: relative;
-    padding:.5rem;
+.hero-dreapta {
+  display: flex;
+  position: relative;
+  padding: 0.5rem;
 }
-.hero-data{
-    position: absolute;
-    background-color: #15151e;
-    color: white;
-    right: .7rem;
-    top: .7rem;
-    padding:.3rem;
-    border-radius: 15px;
-    font-weight: bold;
+.hero-data {
+  position: absolute;
+  background-color: #15151e;
+  color: white;
+  right: 0.7rem;
+  top: 0.7rem;
+  padding: 0.3rem;
+  border-radius: 15px;
+  font-weight: bold;
 }
 @keyframes append-animate {
-	from {
-		transform: scale(0);
-		opacity: 0;
-	}
-	to {
-		transform: scale(1);
-		opacity: 1;	
-	}
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 .hero-wrapper {
-	animation: append-animate .4s ease-in-out;
+  animation: append-animate 0.4s ease-in-out;
 }
 
-
-@media(max-width: 1900px){
-    .hero-stanga{
-        width:30%;
-    }
-    .hero-dreapta{
-        width:70%;
-    }
-    .hero-image{
-        width: 100%;
-        object-fit: cover;
-    }
-    .circuit-image{
-        height: 80%;
-    }
-    .hero-circuit{
-        padding:1rem;
-    }
+@media (max-width: 1900px) {
+  .hero-stanga {
+    width: 30%;
+  }
+  .hero-dreapta {
+    width: 70%;
+  }
+  .hero-image {
+    width: 100%;
+    object-fit: cover;
+  }
+  .circuit-image {
+    height: 80%;
+  }
+  .hero-circuit {
+    padding: 1rem;
+  }
 }
-@media(max-width: 900px){
-    .hero-wrapper{
-        display: grid;
-        grid-template-rows: 40% 1fr;
-        height: 20vh;
-        width: 70%;
-        overflow: hidden;
-    }
-    .hero-stanga{
-        display: grid;
-        grid-template-columns: 40% 1fr;
-        width: 100%;
-    }
-    .hero-info{
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        gap:1.5rem;
-    }
-    .image-wrapper{
-        overflow: hidden;
-        width: 100%;
-    }
-    .hero-image{
-        width: 100%;
-        object-fit: cover;
-    }
-    .hero-dreapta{
-        display: flex;
-        width: 97%;
-    }
-    .hero-circuit{
-        display: flex;
-        padding: 0;
-        height: 8vh;
-    }
-    .circuit-image{
-        height: 100%;
-    }
+@media (max-width: 900px) {
+  .hero-wrapper {
+    display: grid;
+    grid-template-rows: 40% 1fr;
+    height: 20vh;
+    width: 70%;
+    overflow: hidden;
+  }
+  .hero-stanga {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    width: 100%;
+  }
+  .hero-info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1.5rem;
+  }
+  .image-wrapper {
+    overflow: hidden;
+    width: 100%;
+  }
+  .hero-image {
+    width: 100%;
+    object-fit: cover;
+  }
+  .hero-dreapta {
+    display: flex;
+    width: 97%;
+  }
+  .hero-circuit {
+    display: flex;
+    padding: 0;
+    height: 8vh;
+  }
+  .circuit-image {
+    height: 100%;
+  }
 }

@@ -1,51 +1,21 @@
-.darkmodeBtn{
-    width:60px;
-    height:60px;
-    background-color: red;
-    border:2px solid black;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 150ms ease-in-out
+.darkmodeBtn {
+  width: 60px;
+  height: 60px;
+  background-color: red;
+  border: 2px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 150ms ease-in-out;
 }
-.btn2021{
-    width:60px;
-    height:60px;
-    background-color: red;
-    border:2px solid black;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 150ms ease-in-out
+.darkmodeBtn:hover {
+  transform: scale(1.3);
 }
-.scroll-btns{
-    z-index: 77;
-    position: fixed;
-    bottom:.5rem;
-    right:.5rem;
-    display: flex;
-    flex-direction: column;
+.darkmodeBtn > img {
+  width: 100%;
 }
-.darkmodeBtn:hover{
-    transform: scale(1.3);
-}
-.btn2021:hover{
-    transform: scale(1.3);
-}
-.darkmodeBtn > img{
-    width:100%;
-}
-.poza2{
-    position: absolute;
-    left:0;
-    top:0;
-    display:none;
-}
-.poza2.darkmode{
-    display:block;
-}
-.poza1.darkmode{
-    display:none;
-}
-.btn2021 > p{
-    font-size: 1rem;
-    font-weight: bold;
+.poza2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
 }
