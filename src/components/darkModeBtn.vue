@@ -8,9 +8,15 @@
 <script>
 export default {
   data() {
-    let darkMode = localStorage.getItem("darkMode") == "true"
     return {
-      darkMode,
+      darkMode: localStorage.getItem("darkMode"),
+    }
+  },
+  mounted() {
+    if (this.darkMode) {
+      document.documentElement.classList.add("darkmode")
+    } else {
+      document.documentElement.classList.remove("darkmode")
     }
   },
   methods: {

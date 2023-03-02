@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       loaded: false,
+      select: false,
     }
   },
   async mounted() {
