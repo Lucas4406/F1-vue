@@ -13,7 +13,7 @@ export default {
     }
   },
   mounted() {
-    if (this.darkMode) {
+    if (this.darkMode == "true") {
       document.documentElement.classList.add("darkmode")
     } else {
       document.documentElement.classList.remove("darkmode")
