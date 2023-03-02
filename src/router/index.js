@@ -49,11 +49,6 @@ const router = createRouter({
       component: Clasamentpiloti,
     },
     {
-      path: "/stiri",
-      name: "Stiri",
-      component: () => import("../views/Stiri.vue"),
-    },
-    {
       path: "/joc",
       name: "Joc",
       component: Joc,
