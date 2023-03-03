@@ -1,17 +1,19 @@
 <template>
   <div class="site-wrapper mb-2">
     <br />
-    <herocursa
-      v-show="Hero"
-      :dataInceput="dataInceput"
-      :dataSfarsit="dataSfarsit"
-      :lunaCursa="lunaCursa"
-      :pozaHarta="pozaHarta"
-      :imagineMare="imagineMare"
-      :runda="runda"
-      :steag="steag"
-      :tara="tara"
-    />
+    <div class="top-hero">
+      <herocursa
+        v-show="Hero"
+        :dataInceput="dataInceput"
+        :dataSfarsit="dataSfarsit"
+        :lunaCursa="lunaCursa"
+        :pozaHarta="pozaHarta"
+        :imagineMare="imagineMare"
+        :runda="runda"
+        :steag="steag"
+        :tara="tara"
+      />
+    </div>
     <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
     <div class="stiri-grid">
       <stiricomp />
