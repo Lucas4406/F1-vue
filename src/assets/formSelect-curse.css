@@ -1,10 +1,7 @@
 .form-select {
   right: 0.5rem;
   top: 10rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 1.8rem;
+  font-size: 1rem;
   position: fixed;
 }
 .optiune {

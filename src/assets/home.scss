@@ -120,3 +120,8 @@
     justify-content: center;
   }
 }
+@media (max-width: 900px) {
+  .top-hero {
+    height: 20vh;
+  }
+}

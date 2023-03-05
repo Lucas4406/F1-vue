@@ -8,12 +8,22 @@ import "./assets/main.css"
 import "./index.css"
 import "./firebase/index.js"
 import { createVuetify } from "vuetify"
-import { VLazy, VImg } from "vuetify/components"
+import { VImg } from "vuetify/components/VImg"
+import { VLazy } from "vuetify/components/VLazy"
+import { VCard } from "vuetify/components/VCard"
+import { VTextField } from "vuetify/components/VTextField"
+import { VIcon } from "vuetify/components/VIcon"
+import { VSelect } from "vuetify/components/VSelect"
+import "vuetify/styles"
 
 const vuetify = createVuetify({
   components: {
     VLazy,
     VImg,
+    VCard,
+    VTextField,
+    VIcon,
+    VSelect,
   },
 })
 const app = createApp(App)
