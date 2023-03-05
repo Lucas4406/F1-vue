@@ -8,7 +8,8 @@ import "./assets/main.css"
 import "./index.css"
 import "./firebase/index.js"
 import { createVuetify } from "vuetify"
-import { VLazy, VImg } from "vuetify/components"
+import { VLazy } from "vuetify/components/VLazy"
+import { VImg } from "vuetify/components/VImg"
 
 const vuetify = createVuetify({
   components: {

@@ -15,6 +15,14 @@
           <input type="password" name="" required="" v-model="passConfirm" />
           <label>Confirmare parolă</label>
         </div>
+        <h3 class="text-white additional">
+          Ai deja cont?
+          <span class="clear"
+            ><RouterLink to="/login" class="text-[#03e9f4]"
+              >Log in</RouterLink
+            ></span
+          >
+        </h3>
         <a href="#" @click="register">
           <span></span>
           <span></span>
@@ -67,7 +75,7 @@ function createDbUser() {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 html {
   height: 100%;
 }
@@ -141,7 +149,6 @@ body {
   text-transform: uppercase;
   overflow: hidden;
   transition: 0.5s;
-  margin-top: 40px;
   letter-spacing: 4px;
 }
 
@@ -225,6 +232,21 @@ body {
   background: linear-gradient(360deg, transparent, #03e9f4);
   animation: btn-anim4 1s linear infinite;
   animation-delay: 0.75s;
+}
+
+.additional {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  a {
+    margin-top: 0;
+  }
+  .clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @keyframes btn-anim4 {

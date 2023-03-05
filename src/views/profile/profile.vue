@@ -253,6 +253,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+@import "../../assets/formSelect-curse.css";
 html {
   height: 100%;
 }

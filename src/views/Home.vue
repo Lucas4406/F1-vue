@@ -1,5 +1,5 @@
 <template>
-  <div class="site-wrapper mb-2">
+  <div class="site-wrapper mb-2" :class="{ loggedin: store.user != null }">
     <br />
     <div class="top-hero">
       <herocursa
@@ -13,6 +13,7 @@
         :steag="steag"
         :tara="tara"
       />
+      <AccountCard v-if="store.user == null" />
     </div>
     <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
     <div class="stiri-grid">
@@ -25,6 +26,7 @@
     >
       <div
         class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
+        v-if="bla || driverOk"
       >
         <ConstructorCard
           :team="favArr"
@@ -48,6 +50,7 @@ import stiricomp from "../components/stiricomp.vue"
 import getNext from "../functions/getNext.js"
 import ConstructorCard from "../components/ConstructorCard.vue"
 import PilotCard from "../components/PilotCard.vue"
+import AccountCard from "../components/AccountCard.vue"
 import axios from "axios"
 
 export default {
@@ -57,6 +60,7 @@ export default {
     stiricomp,
     PilotCard,
     ConstructorCard,
+    AccountCard,
   },
   inject: ["store"],
   data() {

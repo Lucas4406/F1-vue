@@ -5,8 +5,19 @@
   z-index: 20;
   max-height: 650px;
 }
+
+.loggedin {
+  .top-hero {
+    height: 30vh;
+  }
+  @media (max-width: 900px) {
+    .top-hero {
+      height: 20vh;
+    }
+  }
+}
 .top-hero {
-  min-height: 30vh;
+  height: 90vh;
 }
 .photo {
   width: 100%;
@@ -108,6 +119,11 @@
   margin-bottom: 1rem;
   margin-top: 1.2%;
   transition: color 200ms ease-in-out;
+}
+@media (max-width: 900px) {
+  .top-hero {
+    height: 60vh;
+  }
 }
 @media (max-width: 1380px) {
   .content-grid {
