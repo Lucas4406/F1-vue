@@ -140,6 +140,16 @@ html.darkmode {
   .reaction-wrapper > .instructiuni {
     color: white;
   }
+  /* Searchbar */
+  .search-bar {
+    color: white;
+    background-color: #333;
+    border: 2px solid white;
+  }
+  .search-bar:focus {
+    color: white;
+  }
+
   /* Program */
   .animatie {
     p {

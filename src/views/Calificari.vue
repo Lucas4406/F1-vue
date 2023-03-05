@@ -1,6 +1,18 @@
 <template>
   <div class="content-container">
     <div class="form-select">
+      <label for="ancurse">Alege anul:</label>
+      <select
+        id="ancurse"
+        name="ancurse"
+        class="selectie"
+        v-model="ancaliSelect"
+        @change="anChange()"
+      >
+        <option v-for="year in years" :key="year" :value="year" class="optiune">
+          {{ year }}
+        </option>
+      </select>
       <button
         @click="order"
         class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2 cursor-pointer border-solid border-red-500 hover:border-red-700"
@@ -15,27 +27,12 @@
       </p>
     </div>
     <div class="search-wrapper">
-      <v-card class="search-bar" elevation="0" theme="light">
-        <v-text-field
-          elevation="0"
-          density="comfortable"
-          variant="solo"
-          label="Caută o cursă"
-          single-line
-          hide-details
-          v-model="search"
-        ></v-text-field>
-      </v-card>
-      <v-select
-        class="select-box"
-        label="Alege anul:"
-        :items="years"
-        item-value="years"
-        variant="solo"
-        density="comfortable"
-        v-model="ancaliSelect"
-        @update:modelValue="anChange()"
-      ></v-select>
+      <input
+        type="text"
+        placeholder="Căutare"
+        class="search-bar"
+        v-model="search"
+      />
     </div>
     <tabelcali
       v-for="tabel in filterCurse"
@@ -134,7 +131,4 @@ export default {
 @import "../assets/calificari.css";
 @import "../assets/searchbar.css";
 @import "../assets/formSelect-curse.css";
-.v-card--variant-elevated {
-  background: none;
-}
 </style>
