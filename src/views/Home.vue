@@ -2,17 +2,7 @@
   <div class="site-wrapper mb-2" :class="{ loggedin: store.user != null }">
     <br />
     <div class="top-hero">
-      <herocursa
-        v-show="Hero"
-        :dataInceput="dataInceput"
-        :dataSfarsit="dataSfarsit"
-        :lunaCursa="lunaCursa"
-        :pozaHarta="pozaHarta"
-        :imagineMare="imagineMare"
-        :runda="runda"
-        :steag="steag"
-        :tara="tara"
-      />
+      <herocursa v-show="Hero" :heroData="heroData" />
       <AccountCard v-if="store.user == null" />
     </div>
     <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
@@ -67,14 +57,7 @@ export default {
     let darkMode = localStorage.getItem("darkMode") == "true"
     return {
       darkMode,
-      dataInceput: "",
-      dataSfarsit: "",
-      lunaCursa: "",
-      pozaHarta: "",
-      imagineMare: "",
-      runda: "",
-      steag: "",
-      tara: "",
+      heroData: [],
       Hero: false,
       heroError: false,
       componentKey: 0,
@@ -94,23 +77,9 @@ export default {
     }
     if (this.store.heroBanner === undefined) {
       await this.getCursa()
-      this.dataInceput = this.store.heroBanner.dataCursa1
-      this.dataSfarsit = this.store.heroBanner.dataCursa2
-      this.lunaCursa = this.store.heroBanner.lunaCursa
-      this.pozaHarta = this.store.heroBanner.harta
-      this.imagineMare = this.store.heroBanner.imagine
-      this.runda = this.store.heroBanner.runda
-      this.steag = this.store.heroBanner.steag
-      this.tara = this.store.heroBanner.tara
+      this.heroData = this.store.heroBanner
     } else {
-      this.dataInceput = this.store.heroBanner.dataCursa1
-      this.dataSfarsit = this.store.heroBanner.dataCursa2
-      this.lunaCursa = this.store.heroBanner.lunaCursa
-      this.pozaHarta = this.store.heroBanner.harta
-      this.imagineMare = this.store.heroBanner.imagine
-      this.runda = this.store.heroBanner.runda
-      this.steag = this.store.heroBanner.steag
-      this.tara = this.store.heroBanner.tara
+      this.heroData = this.store.heroBanner
       this.Hero = true
     }
   },
