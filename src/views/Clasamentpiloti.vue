@@ -54,7 +54,7 @@ export default {
     }
   },
   mounted() {
-    fetch(`${import.meta.env.VITE_API_LINK}/mongo/piloti`)
+    fetch(`${import.meta.env.VITE_API_LINK}/mongo/piloti?order=asc`)
       .then((res) => res.json())
       .then((data) => {
         var first = data[0].puncte
