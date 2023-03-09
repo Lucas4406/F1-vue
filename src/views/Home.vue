@@ -108,10 +108,14 @@ export default {
     async getCursa() {
       try {
         let nrCursa = await getNext
-        var j = nrCursa
-        var link = `${import.meta.env.VITE_API_LINK}/up-next/${j}`
+        var j = nrCursa + 1
+        var link = `${import.meta.env.VITE_API_LINK}/heroprogram/${j}`
         const response = await axios.get(link)
-        const resData = response.data
+        let resData = response.data[0]
+        const dataInc = new Date(resData.dataInceput)
+        const dataSf = new Date(resData.dataSfarsit)
+        resData["inceput"] = dataInc.getDate()
+        resData["sfarsit"] = dataSf.getDate()
         this.store.heroBanner = resData
         this.Hero = true
       } catch (error) {
