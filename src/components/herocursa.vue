@@ -2,7 +2,7 @@
   <router-link to="/program" class="hero-wrapper">
     <div class="hero-stanga">
       <div class="hero-info">
-        <p class="hero-runda">Next - {{ heroData.rundaNr }}</p>
+        <p class="hero-runda">{{ smallText }} {{ heroData.rundaNr }}</p>
         <div class="steag-locatie">
           <div class="steag-wrapper">
             <img class="hero-steag" :src="heroData.pozaSteag" />
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  props: ["heroData"],
+  props: ["heroData", "smallText"],
 }
 </script>
 

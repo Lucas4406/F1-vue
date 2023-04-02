@@ -2,7 +2,7 @@
   <div class="site-wrapper mb-2" :class="{ loggedin: store.user != null }">
     <br />
     <div class="top-hero">
-      <herocursa v-show="Hero" :heroData="heroData" />
+      <herocursa v-show="Hero" :heroData="heroData" :smallText="smallText" />
       <AccountCard v-if="store.user == null" />
     </div>
     <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
@@ -66,6 +66,7 @@ export default {
       bla: false,
       driverOk: false,
       modelValue: false,
+      smallText: "",
     }
   },
   async mounted() {
@@ -114,8 +115,32 @@ export default {
         let resData = response.data[0]
         const dataInc = new Date(resData.dataInceput)
         const dataSf = new Date(resData.dataSfarsit)
-        resData["inceput"] = dataInc.getDate()
-        resData["sfarsit"] = dataSf.getDate()
+        var dataI = dataInc.getDate()
+        var dataS = dataSf.getDate()
+        function padWithLeadingZeros(num, totalLength) {
+          return String(num).padStart(totalLength, "0")
+        }
+        let dataInceput = ""
+        let dataSfarsit = ""
+        if (dataI < 10) {
+          dataInceput = padWithLeadingZeros(dataI, 2)
+        } else {
+          dataInceput = dataI
+        }
+        if (dataS < 10) {
+          dataSfarsit = padWithLeadingZeros(dataS, 2)
+        } else {
+          dataSfarsit = dataS
+        }
+        resData["inceput"] = dataInceput
+        resData["sfarsit"] = dataSfarsit
+
+        const dataActuala = new Date(Date.now())
+        if (dataActuala >= dataInc && dataActuala <= dataSf) {
+          this.smallText = "Now-"
+        } else {
+          this.smallText = "Next-"
+        }
         this.store.heroBanner = resData
         this.Hero = true
       } catch (error) {

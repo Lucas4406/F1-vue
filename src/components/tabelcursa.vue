@@ -27,7 +27,10 @@
               <p class="nume-pilot">
                 {{ pilot.Driver.givenName }} {{ pilot.Driver.familyName }}
               </p>
-              <p class="echipa-pilot">{{ pilot.Constructor.name }}</p>
+              <div class="echipa-pilot">
+                <p>{{ pilot.Constructor.name }}</p>
+                <p>+{{ pilot.points }}pt</p>
+              </div>
             </div>
           </div>
           <div class="parte-jos-pilot">
