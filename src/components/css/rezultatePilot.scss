@@ -27,7 +27,7 @@ html {
   border: 3px solid black;
   border-radius: 1%;
   padding: 0.5rem;
-  width: 50%;
+  width: 30%;
   font-size: 1.4rem;
 }
 
@@ -63,9 +63,9 @@ html {
   box-shadow: 10px 10px 10px black;
 }
 .tabel-body-curse {
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  justify-content: space-between;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   row-gap: 0.5rem;
 }
 .parte-sus-pilot {
@@ -140,7 +140,7 @@ html {
 
 @media (max-width: 1700px) {
   .tabel-cursa {
-    width: 60% !important;
+    width: 60%;
   }
   .pilot-container-curse {
     min-width: 0;
@@ -148,7 +148,7 @@ html {
 }
 @media (max-width: 1300px) {
   .tabel-cursa {
-    width: 70% !important;
+    width: 70%;
   }
   .pilot-container-curse {
     min-width: 0;
@@ -156,7 +156,7 @@ html {
 }
 @media (max-width: 1100px) {
   .tabel-cursa {
-    width: 80% !important;
+    width: 80%;
   }
   .pilot-container-curse {
     min-width: 0;
@@ -165,7 +165,7 @@ html {
 
 @media (max-width: 900px) {
   .tabel-cursa {
-    width: 90% !important;
+    width: 90%;
   }
   .nume-pilot {
     font-size: 1.6rem;

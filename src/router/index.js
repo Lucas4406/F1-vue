@@ -9,6 +9,7 @@ import Joc from "../views/Joculet.vue"
 import Calificari from "../views/Calificari.vue"
 import Curse from "../views/Curse.vue"
 import Program from "../views/Program.vue"
+import Pilotiview from "../views/Pilotview.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,6 +48,18 @@ const router = createRouter({
       path: "/clasament-piloti",
       name: "Clasamentpiloti",
       component: Clasamentpiloti,
+      children: [
+        {
+          path: ":id",
+          name: "Pilotdetails",
+          component: () => import("../views/Pilotview.vue"),
+        },
+      ],
+    },
+    {
+      path: "/clasament-piloti/:id",
+      name: "Pilotdetails",
+      component: () => import("../views/Pilotview.vue"),
     },
     {
       path: "/joc",

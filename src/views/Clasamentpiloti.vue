@@ -5,10 +5,11 @@
     <br />
     <br />
     <div class="piloti-grid">
-      <div
+      <router-link
         class="pilot-container"
         v-for="(pilot, index) in piloti"
         :key="index"
+        :to="{ name: 'Pilotdetails', params: { id: pilot.driver_id } }"
       >
         <div class="pozitiepuncte-pilot">
           <p class="pozitie-pilot" v-if="!dontShow">{{ pilot.pozitie }}</p>
@@ -39,7 +40,7 @@
           <img :src="pilot.poza" class="poza-pilot" />
           <img :src="pilot.numar" class="nr-pilot" />
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

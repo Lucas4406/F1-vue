@@ -73,6 +73,7 @@ export default {
         }
       }
       this.dataCurse = resData
+      this.dataCurse.reverse()
       this.titlu = response.MRData.RaceTable.season
       this.asc = false
       router.push({
@@ -106,6 +107,7 @@ export default {
         }
       }
       this.dataCurse = resData
+
       this.titlu = response.MRData.RaceTable.season
       this.asc = false
       router.push({
