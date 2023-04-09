@@ -28,13 +28,43 @@
       </button>
     </div>
   </div>
+
+  <div class="wrapper-profile">
+    <profile-card
+      v-for="profile in profiles"
+      :key="profile.id"
+      :profileInfo="profile"
+      @refresh-data="updateData"
+    />
+  </div>
 </template>
 
 <script setup>
 import { ref, inject } from "vue"
+import { makeRequest } from "../functions/makeRequest"
+import ProfileCard from "../components/ProfileCard.vue"
 const store = inject("store")
 const isAdmin = ref(false)
+const profiles = ref([])
 if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
 }
+
+await getData()
+async function updateData() {
+  await getData()
+}
+
+async function getData() {
+  const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/profile`)
+  profiles.value = data
+}
 </script>
+
+<style lang="scss" scoped>
+.wrapper-profile {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-gap: 20px;
+}
+</style>
