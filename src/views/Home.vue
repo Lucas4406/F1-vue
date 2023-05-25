@@ -109,7 +109,7 @@ export default {
     async getCursa() {
       try {
         let nrCursa = await getNext
-        var j = nrCursa + 1
+        var j = nrCursa + 2
         var link = `${import.meta.env.VITE_API_LINK}/heroprogram/${j}`
         const response = await axios.get(link)
         let resData = response.data[0]
