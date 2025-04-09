@@ -47,11 +47,11 @@ export default {
     }
     this.loaded = true
   },
-  created() {
-    setTimeout(async () => {
-      await axios.get(`${import.meta.env.VITE_API_LINK}/stiri-translate/6`)
-    }, 6000)
-  },
+  // created() {
+  //   setTimeout(async () => {
+  //     await axios.get(`${import.meta.env.VITE_API_LINK}/stiri-translate/6`)
+  //   }, 6000)
+  // },
   methods: {
     async getUserData(user) {
       const response = await axios(

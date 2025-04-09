@@ -13,7 +13,7 @@
     </div>
     <div class="content-grid">
       <a
-        :href="stire.link"
+        :href="stire.linkPost"
         v-for="stire in news"
         v-bind:key="stire.id"
         class="ltag"
@@ -27,7 +27,7 @@
             </div>
             <div class="content-photo">
               <v-img
-                :src="stire.poza"
+                :src="stire.imagine"
                 class="photo"
                 id="stirephoto"
                 :alt="stire.titlu"
@@ -66,8 +66,7 @@ export default {
         isItemInSessionStorage("news") == 0 ||
         sessionData.exp < now.toISOString()
       ) {
-        var numar = 6
-        var link = `${import.meta.env.VITE_API_LINK}/mongo/stiri/${numar}`
+        var link = `${import.meta.env.VITE_API_LINK}/stiri-noi`
         const response = await axios.get(link)
         const resData = response.data
         this.news = resData

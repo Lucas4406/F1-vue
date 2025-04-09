@@ -20,7 +20,7 @@ export default {
     }
   },
   mounted() {
-    fetch("https://ergast.com/api/f1/2023/constructorStandings.json")
+    fetch("https://api.jolpi.ca/ergast/f1/2025/constructorstandings.json")
       .then((res) => res.json())
       .then((data) => {
         this.teams =
