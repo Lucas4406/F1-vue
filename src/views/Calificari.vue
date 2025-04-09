@@ -67,7 +67,7 @@ export default {
   methods: {
     async getData() {
       const data = await makeRequest(
-        `https://api.jolpi.ca/ergast/f1/${this.ancaliSelect}/constructorstandings.json?limit=100`
+        `https://api.jolpi.ca/ergast/f1/${this.ancaliSelect}/qualifying.json?limit=100`
       )
       this.titlu = data.MRData.RaceTable.season
       this.dataQuali = data.MRData.RaceTable.Races
@@ -90,7 +90,7 @@ export default {
     },
     async anChange() {
       const data = await makeRequest(
-        `https://api.jolpi.ca/ergast/f1/${this.ancaliSelect}/constructorstandings.json?limit=100`
+        `https://api.jolpi.ca/ergast/f1/${this.ancaliSelect}/qualifying.json?limit=100`
       )
       this.titlu = data.MRData.RaceTable.season
       this.dataQuali = data.MRData.RaceTable.Races
