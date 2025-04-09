@@ -67,7 +67,7 @@ export default {
   methods: {
     async getData() {
       const data = await makeRequest(
-        `https://ergast.com/api/f1/${this.ancaliSelect}/qualifying.json?limit=1000`
+        `https://api.jolpi.ca/ergast/f1/${this.ancaliSelect}/constructorstandings.json?limit=100`
       )
       this.titlu = data.MRData.RaceTable.season
       this.dataQuali = data.MRData.RaceTable.Races
@@ -90,7 +90,7 @@ export default {
     },
     async anChange() {
       const data = await makeRequest(
-        `https://ergast.com/api/f1/${this.ancaliSelect}/qualifying.json?limit=1000`
+        `https://api.jolpi.ca/ergast/f1/${this.ancaliSelect}/constructorstandings.json?limit=100`
       )
       this.titlu = data.MRData.RaceTable.season
       this.dataQuali = data.MRData.RaceTable.Races
@@ -116,7 +116,7 @@ export default {
     },
     years() {
       const startYear = 2014
-      const endYear = 2023
+      const endYear = 2025
       const years = []
       for (let i = startYear; i <= endYear; i++) {
         years.push(i)

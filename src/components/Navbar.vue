@@ -3,7 +3,7 @@
     <div class="sus">
       <div class="logo">
         <router-link to="/" class="link-router"
-          ><img src="./icons/7cg10kl1rdc8vogffcuquh9m1.png" class="logo-f1"
+          ><img src="./icons/ferrari.avif" class="logo-f1"
         /></router-link>
       </div>
       <div class="fia peste" v-if="isLogged" v-once>
@@ -31,10 +31,10 @@
       <div class="buton" id="buton-dpd" data-dropdown>
         <p style="color: red; margin: 0" data-dropdown-button>Rezultate</p>
         <div class="dropdown-menu">
-          <router-link to="/rezultate-curse/2023" class="text-dropdown"
+          <router-link to="/rezultate-curse/2025" class="text-dropdown"
             >Curse</router-link
           >
-          <router-link to="/rezultate-calificari/2023" class="text-dropdown"
+          <router-link to="/rezultate-calificari/2025" class="text-dropdown"
             >Calificări</router-link
           >
         </div>

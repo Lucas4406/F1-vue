@@ -59,7 +59,7 @@ export default {
   methods: {
     async getData() {
       const response = await makeRequest(
-        `https://ergast.com/api/f1/${this.ancursaSelect}/results.json?limit=1000`
+        `https://api.jolpi.ca/ergast/f1/${this.ancursaSelect}/results.json?limit=100`
       )
       const resData = response.MRData.RaceTable.Races
       for (var i = 0; i < resData.length; i++) {
@@ -93,7 +93,7 @@ export default {
     },
     async anChange() {
       const response = await makeRequest(
-        `https://ergast.com/api/f1/${this.ancursaSelect}/results.json?limit=1000`
+        `https://api.jolpi.ca/ergast/f1/${this.ancursaSelect}/results.json?limit=100`
       )
       const resData = response.MRData.RaceTable.Races
       for (var i = 0; i < resData.length; i++) {
@@ -130,7 +130,7 @@ export default {
     },
     years() {
       const startYear = 2014
-      const endYear = 2023
+      const endYear = 2025
       const years = []
       for (let i = startYear; i <= endYear; i++) {
         years.push(i)
