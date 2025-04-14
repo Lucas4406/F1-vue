@@ -150,7 +150,7 @@ export default {
     async favoriteTeam() {
       const fav = this.store.user.favTeam.substring(0, 4)
       const resp = await axios(
-        "https://ergast.com/api/f1/2023/constructorStandings.json"
+        "https://ergast.com/api/f1/2025/constructorStandings.json"
       )
       const echipe = resp.data
       const arr =
