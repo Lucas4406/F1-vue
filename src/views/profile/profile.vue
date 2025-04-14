@@ -196,7 +196,7 @@ async function getDataFull() {
 async function favoriteTeam() {
   const fav = store.user.favTeam.substring(0, 4)
   const resp = await axios(
-    "https://ergast.com/api/f1/2023/constructorStandings.json"
+    "https://api.jolpi.ca/ergast/f1/current/constructorstandings.json"
   )
   const echipe = resp.data
   const arr =
