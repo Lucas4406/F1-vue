@@ -2,9 +2,9 @@
   "name": "f1-vue",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5178",
     "build": "vite build",
-    "preview": "vite preview --port 4173"
+    "preview": "vite preview --port 5178"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
