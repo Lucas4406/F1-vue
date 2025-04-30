@@ -26,7 +26,10 @@
           >Update 6 stiri</a
         >
       </button>
+      <button @click="counter.increment" class="text-xl items-center justify-center mt-6">Adaugă 1 la curse</button>
+      <button @click="counter.decrease" class="text-xl items-center justify-center mt-6">Scade 1 la curse</button>
     </div>
+    <p>Numărul curent este: {{ counter.count }}</p>
   </div>
 
   <div class="wrapper-profile">
@@ -44,6 +47,8 @@ import { ref, inject } from "vue"
 import { makeRequest } from "../functions/makeRequest"
 import ProfileCard from "../components/ProfileCard.vue"
 import axios from "axios"
+import { useCounterStore } from '../stores.js'
+const counter = useCounterStore()
 const store = inject("store")
 const isAdmin = ref(false)
 const profiles = ref([])

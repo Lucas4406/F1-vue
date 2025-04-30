@@ -3,6 +3,7 @@ import App from "./App.vue"
 import router from "./router"
 import PrimeVue from "primevue/config"
 import { MotionPlugin } from "@vueuse/motion"
+import { createPinia } from 'pinia'
 import store from "./store"
 import "./assets/main.css"
 import "./index.css"
@@ -18,6 +19,9 @@ const vuetify = createVuetify({
   },
 })
 const app = createApp(App)
+
+const pinia = createPinia()
+app.use(pinia)
 
 app.provide("store", store)
 
