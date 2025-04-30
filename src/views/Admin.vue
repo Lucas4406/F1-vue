@@ -21,7 +21,7 @@
       </button>
       <button class="text-xl items-center justify-center mt-6">
         <a
-          href="https://f1-site-api.vercel.app/stiri-translate/6"
+          href="https://f1-site-api.vercel.app/stiri-translate"
           target="_blank"
           >Update 6 stiri</a
         >
