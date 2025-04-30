@@ -68,39 +68,47 @@ async function getData() {
 
 async function getCalendar() {
   const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/RaceData/all`)
-  console.log(data)
+  const wow = []
+  for (let i = 0; i < 3; i++) {
+    wow.push(data[i])
+  }
+  const wow0 = wow[0]
+  const dataInceput = wow0[5].race.meetingStartDate
+  const localDate = new Date(dataInceput);
+
+  console.log("Local time:", localDate.getDate().toString().padStart(2, '0'))
 }
 await getCalendar()
 
-const proxyUrl = "https://cors-anywhere-xafh.onrender.com/"
-const apiUrl = "https://api.formula1.com/v1/event-tracker"
-const data = await fetchData(apiUrl)
-console.log(data, data.fomRaceId)
-
-const dataRace = await fetchData(apiUrl + `/meeting/${data.fomRaceId}`)
-console.log(dataRace)
-
-const dataRace2 = await fetchData(apiUrl + `/meeting/${Number(data.fomRaceId)+1}`)
-console.log(dataRace2)
-
-
-async function fetchData(url) {
-  try {
-    const response = await axios.get(proxyUrl + url, {
-      headers: {
-        "X-Requested-With": "XMLHttpRequest",
-        Apikey: "BQ1SiSmLUOsp460VzXBlLrh689kGgYEZ",
-        Locale: "en",
-      },
-    })
-
-    // Handle the response data
-    return response.data
-  } catch (error) {
-    // Handle the error
-    return error
-  }
-}
+// const proxyUrl = "https://cors-anywhere-xafh.onrender.com/"
+// const apiUrl = "https://api.formula1.com/v1/event-tracker"
+// const data = await fetchData(apiUrl)
+// console.log(data, data.fomRaceId)
+//
+// const dataRace = await fetchData(apiUrl + `/meeting/${data.fomRaceId}`)
+// console.log(dataRace)
+//
+// const dataRace2 = await fetchData(apiUrl + `/meeting/${Number(data.fomRaceId)+1}`)
+// console.log(dataRace2)
+//
+//
+// async function fetchData(url) {
+//   try {
+//     const response = await axios.get(proxyUrl + url, {
+//       headers: {
+//         "X-Requested-With": "XMLHttpRequest",
+//         Apikey: "qPgPPRJyGCIPxFT3el4MF7thXHyJCzAP",
+//         Locale: "en",
+//       },
+//     })
+//
+//     // Handle the response data
+//     return response.data
+//   } catch (error) {
+//     // Handle the error
+//     return error
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>
