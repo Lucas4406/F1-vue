@@ -137,35 +137,35 @@
             }}
           </p>
         </div>
-        <div alt="Quali" v-if="cursa.Sprint" class="flex justify-between">
+        <div alt="SprintQuali" v-if="cursa.Sprint" class="flex justify-between">
           <div alt="parte-st" class="flex justify-between w-[50%]">
-            <p class="">Quali</p>
+            <p class="">SprintQuali</p>
             <p alt="data" class="">
               {{
-                new Date(cursa.Qualifying.date)
-                  .toISOString()
-                  .replace(/T.*/, "")
-                  .split("-")
-                  .reverse()
-                  .join("-")
+                new Date(cursa.SprintQualifying.date)
+                    .toISOString()
+                    .replace(/T.*/, "")
+                    .split("-")
+                    .reverse()
+                    .join("-")
               }}
             </p>
           </div>
           <p alt="timp" class="w-[50%] flex justify-end items-center">
             {{
               new Date(
-                cursa.Qualifying.date + "T" + cursa.Qualifying.time
+                  cursa.SprintQualifying.date + "T" + cursa.SprintQualifying.time
               ).toLocaleTimeString("ro-RO", { timeStyle: "short" }) +
               " " +
               "-" +
               " " +
               add1(
-                cursa.Qualifying.date + "T" + cursa.Qualifying.time
+                  cursa.SprintQualifying.date + "T" + cursa.SprintQualifying.time
               ).toLocaleTimeString("ro-RO", { timeStyle: "short" })
             }}
           </p>
         </div>
-        <div alt="FP2" class="flex justify-between">
+        <div alt="FP2" v-if="!cursa.Sprint" class="flex justify-between">
           <div alt="parte-st" class="flex justify-between w-[50%]">
             <p>FP2</p>
             <p alt="data">
@@ -221,7 +221,7 @@
             }}
           </p>
         </div>
-        <div alt="FP3" v-if="cursa.ThirdPractice" class="flex justify-between">
+        <div alt="FP3" v-if="!cursa.Sprint" class="flex justify-between">
           <div alt="parte-st" class="flex justify-between w-[50%]">
             <p>FP3</p>
             <p alt="data">
@@ -245,6 +245,34 @@
               " " +
               add1(
                 cursa.ThirdPractice.date + "T" + cursa.ThirdPractice.time
+              ).toLocaleTimeString("ro-RO", { timeStyle: "short" })
+            }}
+          </p>
+        </div>
+        <div alt="Quali" v-if="cursa.Sprint" class="flex justify-between">
+          <div alt="parte-st" class="flex justify-between w-[50%]">
+            <p class="">Quali</p>
+            <p alt="data" class="">
+              {{
+                new Date(cursa.Qualifying.date)
+                    .toISOString()
+                    .replace(/T.*/, "")
+                    .split("-")
+                    .reverse()
+                    .join("-")
+              }}
+            </p>
+          </div>
+          <p alt="timp" class="w-[50%] flex justify-end items-center">
+            {{
+              new Date(
+                  cursa.Qualifying.date + "T" + cursa.Qualifying.time
+              ).toLocaleTimeString("ro-RO", { timeStyle: "short" }) +
+              " " +
+              "-" +
+              " " +
+              add1(
+                  cursa.Qualifying.date + "T" + cursa.Qualifying.time
               ).toLocaleTimeString("ro-RO", { timeStyle: "short" })
             }}
           </p>
@@ -333,6 +361,10 @@ export default {
         date: "",
         time: "",
       },
+      SprintQuali: {
+        date: "",
+        time: "",
+      },
       Quali: {
         date: "",
         time: "",
@@ -346,16 +378,18 @@ export default {
     }
   },
   mounted() {
-    document.title = "Program 2022"
+    document.title = "Program 2025"
     this.getCurse()
   },
   methods: {
     async getCurse() {
-      var link1 = "https://ergast.com/api/f1/2023/results.json?limit=1000"
-      const res = await axios.get(link1)
-      const resData1 = res.data.MRData.RaceTable.Races.length
+      // var link1 = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
+      // const res = await axios.get(link1)
+      // const resData1 = res.data.MRData.RaceTable.Races.length
 
-      var link = "https://ergast.com/api/f1/2023.json"
+      const resData1 = 3
+
+      var link = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
       const response = await axios.get(link)
       const resData = response.data.MRData.RaceTable.Races
       this.curse = resData
@@ -367,6 +401,7 @@ export default {
         }
       }
       this.hero = this.curse[resData1]
+
 
       this.circuitName =
         this.hero.Circuit.circuitId.charAt(0).toUpperCase() +
@@ -439,6 +474,24 @@ export default {
           add1Hour(
             this.hero.Sprint.date + "T" + this.hero.Sprint.time
           ).toLocaleTimeString("ro-RO", { timeStyle: "short" })
+      }
+      if (this.hero.SprintQualifying) {
+        this.SprintQuali.date = new Date(this.hero.SprintQualifying.date)
+            .toISOString()
+            .replace(/T.*/, "")
+            .split("-")
+            .reverse()
+            .join("-")
+        this.SprintQuali.time =
+            new Date(
+                this.hero.SprintQualifying.date + "T" + this.hero.SprintQualifying.time
+            ).toLocaleTimeString("ro-RO", { timeStyle: "short" }) +
+            " " +
+            "-" +
+            " " +
+            add1Hour(
+                this.hero.Sprint.date + "T" + this.hero.Sprint.time
+            ).toLocaleTimeString("ro-RO", { timeStyle: "short" })
       }
       this.Quali.date = new Date(this.hero.Qualifying.date)
         .toISOString()
