@@ -66,7 +66,13 @@ async function getData() {
   profiles.value = data
 }
 
-const proxyUrl = "http://localhost:8080/"
+async function getCalendar() {
+  const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/RaceData/all`)
+  console.log(data)
+}
+await getCalendar()
+
+const proxyUrl = "https://cors-anywhere-xafh.onrender.com/"
 const apiUrl = "https://api.formula1.com/v1/event-tracker"
 const data = await fetchData(apiUrl)
 console.log(data, data.fomRaceId)
@@ -74,12 +80,16 @@ console.log(data, data.fomRaceId)
 const dataRace = await fetchData(apiUrl + `/meeting/${data.fomRaceId}`)
 console.log(dataRace)
 
+const dataRace2 = await fetchData(apiUrl + `/meeting/${Number(data.fomRaceId)+1}`)
+console.log(dataRace2)
+
+
 async function fetchData(url) {
   try {
     const response = await axios.get(proxyUrl + url, {
       headers: {
         "X-Requested-With": "XMLHttpRequest",
-        Apikey: "qPgPPRJyGCIPxFT3el4MF7thXHyJCzAP",
+        Apikey: "BQ1SiSmLUOsp460VzXBlLrh689kGgYEZ",
         Locale: "en",
       },
     })
