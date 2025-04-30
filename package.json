@@ -15,6 +15,7 @@
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.2",
     "firebase": "^9.23.0",
+    "pinia": "^3.0.2",
     "primeicons": "^5.0.0",
     "primevue": "^3.16.2",
     "vue": "^3.2.37",

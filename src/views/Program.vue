@@ -29,22 +29,22 @@
               {{ FP1.time }}
             </p>
           </div>
-          <div alt="Quali" v-if="Sprint.date" class="flex justify-between">
-            <div alt="parte-st" class="flex justify-between w-[50%]">
-              <p class="">Quali</p>
-              <p alt="data" class="">{{ Quali.date }}</p>
-            </div>
-            <p alt="timp" class="w-[50%] flex justify-end items-center">
-              {{ Quali.time }}
-            </p>
-          </div>
-          <div alt="FP2" class="flex justify-between">
+          <div alt="FP2" v-if="!Sprint.date" class="flex justify-between">
             <div alt="parte-st" class="flex justify-between w-[50%]">
               <p>FP2</p>
               <p alt="data">{{ FP2.date }}</p>
             </div>
             <p alt="timp" class="w-[50%] flex justify-end items-center">
               {{ FP2.time }}
+            </p>
+          </div>
+          <div alt="SprintQuali" v-if="Sprint.date" class="flex justify-between">
+            <div alt="parte-st" class="flex justify-between w-[50%]">
+              <p>SprintQuali</p>
+              <p alt="data">{{ SprintQuali.date }}</p>
+            </div>
+            <p alt="timp" class="w-[50%] flex justify-end items-center">
+              {{ SprintQuali.time }}
             </p>
           </div>
           <div alt="Sprint" v-if="Sprint.date" class="flex justify-between">
@@ -65,7 +65,7 @@
               {{ FP3.time }}
             </p>
           </div>
-          <div alt="Quali" v-if="!Sprint.date" class="flex justify-between">
+          <div alt="Quali" class="flex justify-between">
             <div alt="parte-st" class="flex justify-between w-[50%]">
               <p>Quali</p>
               <p alt="data">{{ Quali.date }}</p>
@@ -335,6 +335,7 @@
 
 <script>
 import axios from "axios"
+import { useCounterStore } from '@/stores.js'
 export default {
   name: "Program",
   data() {
@@ -386,8 +387,8 @@ export default {
       // var link1 = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
       // const res = await axios.get(link1)
       // const resData1 = res.data.MRData.RaceTable.Races.length
-
-      const resData1 = 3
+      const counter = useCounterStore()
+      const resData1 = counter.count
 
       var link = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
       const response = await axios.get(link)
@@ -401,6 +402,7 @@ export default {
         }
       }
       this.hero = this.curse[resData1]
+
 
 
       this.circuitName =
@@ -423,22 +425,24 @@ export default {
         add1Hour(
           this.hero.FirstPractice.date + "T" + this.hero.FirstPractice.time
         ).toLocaleTimeString("ro-RO", { timeStyle: "short" })
-      this.FP2.date = new Date(this.hero.SecondPractice.date)
-        .toISOString()
-        .replace(/T.*/, "")
-        .split("-")
-        .reverse()
-        .join("-")
-      this.FP2.time =
-        new Date(
-          this.hero.SecondPractice.date + "T" + this.hero.SecondPractice.time
-        ).toLocaleTimeString("ro-RO", { timeStyle: "short" }) +
-        " " +
-        "-" +
-        " " +
-        add1Hour(
-          this.hero.SecondPractice.date + "T" + this.hero.SecondPractice.time
-        ).toLocaleTimeString("ro-RO", { timeStyle: "short" })
+      if (this.hero.ThirdPractice) {
+        this.FP2.date = new Date(this.hero.SecondPractice.date)
+            .toISOString()
+            .replace(/T.*/, "")
+            .split("-")
+            .reverse()
+            .join("-")
+        this.FP2.time =
+            new Date(
+                this.hero.SecondPractice.date + "T" + this.hero.SecondPractice.time
+            ).toLocaleTimeString("ro-RO", { timeStyle: "short" }) +
+            " " +
+            "-" +
+            " " +
+            add1Hour(
+                this.hero.SecondPractice.date + "T" + this.hero.SecondPractice.time
+            ).toLocaleTimeString("ro-RO", { timeStyle: "short" })
+      }
       if (this.hero.ThirdPractice) {
         this.FP3.date = new Date(this.hero.ThirdPractice.date)
           .toISOString()
