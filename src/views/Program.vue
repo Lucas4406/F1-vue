@@ -384,9 +384,9 @@ export default {
   },
   methods: {
     async getCurse() {
-      // var link1 = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
-      // const res = await axios.get(link1)
-      // const resData1 = res.data.MRData.RaceTable.Races.length
+      var link1 = `${import.meta.env.VITE_API_LINK}/get-next`
+      const res = await axios.get(link1)
+      const cursaActuala = res.data.seasonContext.seasonContextUIState
       const counter = useCounterStore()
       const resData1 = counter.count
 
@@ -394,14 +394,14 @@ export default {
       const response = await axios.get(link)
       const resData = response.data.MRData.RaceTable.Races
       this.curse = resData
-      const idcurent = resData[resData1].Circuit.circuitId
+      const idcurent = resData[cursaActuala].Circuit.circuitId
       var i
       for (i = 0; i < resData.length; i++) {
         if (resData[i].Circuit.circuitId.toLowerCase() === idcurent) {
           this.idCurent = i
         }
       }
-      this.hero = this.curse[resData1]
+      this.hero = this.curse[cursaActuala]
 
 
 

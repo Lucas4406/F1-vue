@@ -46,7 +46,6 @@
 import { ref, inject } from "vue"
 import { makeRequest } from "../functions/makeRequest"
 import ProfileCard from "../components/ProfileCard.vue"
-import axios from "axios"
 import { useCounterStore } from '../stores.js'
 const counter = useCounterStore()
 const store = inject("store")
@@ -65,21 +64,6 @@ async function getData() {
   const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/profile`)
   profiles.value = data
 }
-
-async function getCalendar() {
-  const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/RaceData/all`)
-  const wow = []
-  for (let i = 0; i < 3; i++) {
-    wow.push(data[i])
-  }
-  const wow0 = wow[0]
-  const dataInceput = wow0[5].race.meetingStartDate
-  const localDate = new Date(dataInceput);
-
-  console.log("Local time:", localDate.getDate().toString().padStart(2, '0'))
-}
-await getCalendar()
-
 // const proxyUrl = "https://cors-anywhere-xafh.onrender.com/"
 // const apiUrl = "https://api.formula1.com/v1/event-tracker"
 // const data = await fetchData(apiUrl)
