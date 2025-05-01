@@ -2,7 +2,7 @@
   <div class="site-wrapper mb-2" :class="{ loggedin: store.user != null }">
     <br />
     <div class="top-hero">
-      <herocursa v-show="Hero" :heroData="heroData" :smallText="smallText" />
+      <herocursa v-show="Hero" v-if="heroData" :heroData="heroData" :smallText="smallText" />
       <AccountCard v-if="store.user == null" />
     </div>
     <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
@@ -57,7 +57,7 @@ export default {
     let darkMode = localStorage.getItem("darkMode") == "true"
     return {
       darkMode,
-      heroData: [],
+      heroData: null,
       Hero: false,
       heroError: false,
       componentKey: 0,
@@ -71,19 +71,21 @@ export default {
   },
   async mounted() {
     document.title = "Acasă"
+    await this.getCursa()
     if (this.darkMode) {
       document.body.classList.add("darkmode")
     } else {
       document.body.classList.remove("darkmode")
     }
-    if (this.store.heroBanner === undefined) {
-      await this.getCursa()
-      this.heroData = this.store.heroBanner
-    } else {
-      this.heroData = this.store.heroBanner
-      this.Hero = true
-    }
+    // if (this.store.heroBanner === undefined) {
+    //   await this.getCursa()
+    //   this.heroData = this.store.heroBanner
+    // } else {
+    //   this.heroData = this.store.heroBanner
+    //   this.Hero = true
+    // }
   },
+
   async updated() {
     if (this.modelValue === true) {
       if (this.store.user.favTeam != null) {
@@ -108,13 +110,11 @@ export default {
     },
     async getCursa() {
       try {
-        let nrCursa = await getNext
-        var j = nrCursa + 2
-        var link = `${import.meta.env.VITE_API_LINK}/heroprogram/${j}`
-        const response = await axios.get(link)
-        let resData = response.data[0]
-        const dataInc = new Date(resData.dataInceput)
-        const dataSf = new Date(resData.dataSfarsit)
+        var linkBun = `${import.meta.env.VITE_API_LINK}/get-next`
+        const resp = await axios.get(linkBun)
+        const date = resp.data
+        const dataInc = new Date(date.race.meetingStartDate)
+        const dataSf = new Date(date.race.meetingEndDate)
         var dataI = dataInc.getDate()
         var dataS = dataSf.getDate()
         function padWithLeadingZeros(num, totalLength) {
@@ -132,16 +132,18 @@ export default {
         } else {
           dataSfarsit = dataS
         }
-        resData["inceput"] = dataInceput
-        resData["sfarsit"] = dataSfarsit
+        const monthName = dataInc.toLocaleString('en-US', { month: 'short' })
+        date["inceput"] = dataInceput
+        date["sfarsit"] = dataSfarsit
+        date["lunaCursaText"] = monthName
 
         const dataActuala = new Date(Date.now())
         if (dataActuala >= dataInc && dataActuala <= dataSf) {
-          this.smallText = "Now-"
+          this.smallText = "In prezent-"
         } else {
-          this.smallText = "Next-"
+          this.smallText = "Urmatoarea runda -"
         }
-        this.store.heroBanner = resData
+        this.heroData = date
         this.Hero = true
       } catch (error) {
         console.log(error)
