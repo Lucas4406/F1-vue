@@ -2,7 +2,7 @@
   <router-link to="/program" class="hero-wrapper">
     <div class="hero-stanga">
       <div class="hero-info">
-        <p class="hero-runda">{{ smallText }} {{ Number(heroData.seasonContext.seasonContextUIState) + 1 }}</p>
+        <p class="hero-runda">{{ heroData.status }}</p>
         <div class="steag-locatie">
 <!--          <div class="steag-wrapper">-->
 <!--            <img class="hero-steag" :src="heroData.pozaSteag" />-->

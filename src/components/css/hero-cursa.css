@@ -20,6 +20,9 @@
 }
 .image-wrapper {
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .hero-stanga {
   display: grid;

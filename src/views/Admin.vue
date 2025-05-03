@@ -9,19 +9,19 @@
     <div class="flex flex-row gap-2">
       <button class="text-xl items-center justify-center mt-6">
         <a
-          href="https://f1-site-api.vercel.app/clasament-piloti"
+          :href=clasament_piloti_link
           target="_blank"
           >Update clasament piloti</a
         >
       </button>
       <button class="text-xl items-center justify-center mt-6">
-        <a href="https://f1-site-api.vercel.app/echipe" target="_blank"
+        <a :href=echipe_link
           >Update clasament echipe</a
         >
       </button>
       <button class="text-xl items-center justify-center mt-6">
         <a
-          href="https://f1-site-api.vercel.app/stiri-translate"
+          :href=stiri_translate_link
           target="_blank"
           >Update 6 stiri</a
         >
@@ -51,6 +51,9 @@ const counter = useCounterStore()
 const store = inject("store")
 const isAdmin = ref(false)
 const profiles = ref([])
+const clasament_piloti_link = `${import.meta.env.VITE_API_LINK}/clasament-piloti`
+const echipe_link = `${import.meta.env.VITE_API_LINK}/echipe`
+const stiri_translate_link = `${import.meta.env.VITE_API_LINK}/stiri-translate`
 if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
 }
