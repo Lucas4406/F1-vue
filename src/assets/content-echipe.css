@@ -57,32 +57,32 @@
 .box.Alpine:hover .linie {
   color: #2293d1;
 }
-.box.AlfaRomeo:hover {
-  box-shadow: 15px 15px 15px #c92d4b;
-  border: 3px solid #c92d4b;
+.box.KickSauber:hover {
+  box-shadow: 15px 15px 15px rgb(82, 226, 82);
+  border: 3px solid rgb(82, 226, 82);
   border-left: 0;
   border-bottom: 0;
 }
-.box.AlfaRomeo:hover .linie {
-  color: #c92d4b;
+.box.KickSauber:hover .linie {
+  color: rgb(82, 226, 82);
 }
-.box.HaasF1Team:hover {
+.box.Haas:hover {
   box-shadow: 15px 15px 15px #b6babd;
   border: 3px solid #b6babd;
   border-left: 0;
   border-bottom: 0;
 }
-.box.HaasF1Team:hover .linie {
+.box.Haas:hover .linie {
   color: #b6babd;
 }
-.box.AlphaTauri:hover {
-  box-shadow: 15px 15px 15px #5e8faa;
-  border: 3px solid #5e8faa;
+.box.RacingBulls:hover {
+  box-shadow: 15px 15px 15px rgb(102, 146, 255);
+  border: 3px solid rgb(102, 146, 255);
   border-left: 0;
   border-bottom: 0;
 }
-.box.AlphaTauri:hover .linie {
-  color: #5e8faa;
+.box.RacingBulls:hover .linie {
+  color: rgb(102, 146, 255);
 }
 .box.Williams:hover {
   box-shadow: 15px 15px 15px #37bedd;

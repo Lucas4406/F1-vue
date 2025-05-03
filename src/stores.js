@@ -4,7 +4,8 @@ export const useCounterStore = defineStore('counter', {
     state: () => ({
         count: Number(localStorage.getItem('count')) || 0,
         user: "",
-        heroBanner: []
+        heroBanner: [],
+
     }),
     actions: {
         increment() {
