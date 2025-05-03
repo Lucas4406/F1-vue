@@ -31,16 +31,12 @@
       <div class="linie2">
         <div class="numepilot">
           {{
-            echipa.drivers[0].driver1.primulNume +
-            " " +
-            echipa.drivers[0].driver1.alDoileaNume
+            echipa.pilot_1
           }}
         </div>
         <div class="numepilot">
           {{
-            echipa.drivers[0].driver2.primulNume +
-            " " +
-            echipa.drivers[0].driver2.alDoileaNume
+            echipa.pilot_2
           }}
         </div>
         <div class="pozae">
@@ -76,6 +72,8 @@ export default {
         `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
       )
       this.echipe = data
+      const an_prezent = new Date(data[0].createdAt).getFullYear()
+      document.title = `Echipe ${an_prezent}`
       for (var i = 0; i < data.length; i++) {
         if (data[i].nrpuncte === null) {
           this.puncteNull = true
