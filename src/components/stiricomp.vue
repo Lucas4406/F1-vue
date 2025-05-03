@@ -79,7 +79,9 @@ export default {
           exp: expiration,
           data: resData,
         }
-        sessionStorage.setItem("news", JSON.stringify(storeItem))
+        if(storeItem.data){
+          sessionStorage.setItem("news", JSON.stringify(storeItem))
+        }
       } else {
         const data = JSON.parse(sessionStorage.getItem("news"))
         this.news = data.data

@@ -136,13 +136,6 @@ export default {
         date["inceput"] = dataInceput
         date["sfarsit"] = dataSfarsit
         date["lunaCursaText"] = monthName
-
-        const dataActuala = new Date(Date.now())
-        if (dataActuala >= dataInc && dataActuala <= dataSf) {
-          this.smallText = "In prezent-"
-        } else {
-          this.smallText = "Urmatoarea runda -"
-        }
         this.heroData = date
         this.Hero = true
       } catch (error) {
