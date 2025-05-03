@@ -9,7 +9,7 @@
         class="pilot-container"
         v-for="(pilot, index) in piloti"
         :key="index"
-        :to="{ name: 'Pilotdetails', params: { id: pilot.driver_id } }"
+        :to="{ name: 'Pilotdetails', params: { id: pilot.alDoileaNume.slice(0, 3).toUpperCase() } }"
       >
         <div class="pozitiepuncte-pilot">
           <p class="pozitie-pilot" v-if="!dontShow">{{ pilot.pozitie }}</p>

@@ -24,8 +24,18 @@ export default {
   },
   methods: {
     async fetchData() {
+      let driverId_obtinut
+      const numeId = await makeRequest("https://api.jolpi.ca/ergast/f1/2025/drivers.json")
+      console.log(numeId)
+      for (let i = 0; i < numeId.MRData.DriverTable.Drivers.length; i++) {
+        const numeCod = numeId.MRData.DriverTable.Drivers[i]
+        if( numeCod.code === this.pilotId){
+            driverId_obtinut = numeCod.driverId
+            console.log(driverId_obtinut)
+        }
+      }
       const data = await makeRequest(
-        `https://ergast.com/api/f1/2023/drivers/${this.pilotId}/results.json`
+        `https://api.jolpi.ca/ergast/f1/2025/drivers/${driverId_obtinut}/results.json?limit=100`
       )
       const resData = data.MRData.RaceTable.Races.reverse()
       for (var i = 0; i < resData.length; i++) {
@@ -40,7 +50,6 @@ export default {
       }
       this.titlu = data.MRData.RaceTable.season
       this.curse = resData
-      console.log(resData)
     },
     async getName() {
       let numePilot
@@ -48,7 +57,7 @@ export default {
         `${import.meta.env.VITE_API_LINK}/mongo/piloti?order=asc`
       )
       for (var i = 0; i < data.length; i++) {
-        if (data[i].driver_id === this.pilotId) {
+        if (data[i].alDoileaNume.slice(0, 3).toUpperCase() === this.pilotId) {
           numePilot = data[i].primulNume + " " + data[i].alDoileaNume
         }
       }
