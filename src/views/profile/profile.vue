@@ -158,6 +158,7 @@ const bla = ref(false)
 const driverOk = ref(false)
 const favArr = ref([])
 const favDriv = ref([])
+const allDrivers = ref([])
 const fontSize = ref("3rem")
 const currentEnc = JSON.parse(localStorage.getItem("currentUser"))
 if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
@@ -173,25 +174,14 @@ async function getDataFull() {
     `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
   )
   let teams = []
-  let drivers = []
-  let a1 = []
-  let a2 = []
   for (var i = 0; i < resp.length; i++) {
     teams[i] = resp[i].name
     echipeArray.value[i] = teams[i]
   }
-  for (var i = 0; i < resp.length; i++) {
-    a1[i] =
-      resp[i].drivers[0].driver1.primulNume +
-      " " +
-      resp[i].drivers[0].driver1.alDoileaNume
-    a2[i] =
-      resp[i].drivers[0].driver2.primulNume +
-      " " +
-      resp[i].drivers[0].driver2.alDoileaNume
-  }
-  drivers = a1.concat(a2)
-  soferiArray.value = drivers
+}
+async function getAllDrivers() {
+  const date = await axios.get(`${import.meta.env.VITE_API_LINK}/mongo/piloti?order=asc`)
+  soferiArray.value = date.data.map(item => `${item.primulNume} ${item.alDoileaNume}`)
 }
 async function favoriteTeam() {
   const fav = store.user.favTeam.substring(0, 4)
@@ -241,6 +231,7 @@ if (favArr.value === null) {
 onMounted(async () => {
   document.title = "Profil" + "-" + user.displayName
   router.push({ query: { user: store.user.displayName } })
+  await getAllDrivers()
   await getDataFull()
   showSelect.value = true
   if (soferPref.value == "") {

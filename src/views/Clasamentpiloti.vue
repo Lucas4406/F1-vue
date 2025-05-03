@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <br />
-    <p class="piloti-text">Clasament piloți 2023</p>
+    <p class="piloti-text">Clasament piloți 2025</p>
     <br />
     <br />
     <div class="piloti-grid">
