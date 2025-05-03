@@ -37,6 +37,10 @@ p {
 
 .poza-pilot {
   transition: transform 250ms ease-in-out;
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
 }
 .pilot-container:hover {
   transform: scale(1.02);
@@ -121,6 +125,7 @@ p {
   background-size: 8px;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .nr-pilot {
@@ -129,6 +134,7 @@ p {
   position: absolute;
   left: 0.5rem;
   bottom: 0;
+  z-index: 2;
 }
 @media (max-width: 1000px) {
   .piloti-grid {
