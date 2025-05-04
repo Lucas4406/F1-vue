@@ -14,24 +14,28 @@
           {{ year }}
         </option>
       </select>
-      <button
-        @click="order"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2 cursor-pointer border-solid border-red-500 hover:border-red-700"
-      >
-        <p v-if="!asc">Ascending</p>
-        <p v-else>Descending</p>
-      </button>
+<!--      <button-->
+<!--        @click="order"-->
+<!--        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2 cursor-pointer border-solid border-red-500 hover:border-red-700"-->
+<!--      >-->
+<!--        <p v-if="!asc">Ascending</p>-->
+<!--        <p v-else>Descending</p>-->
+<!--      </button>-->
     </div>
     <p class="titlu-pagina-curse">{{ "Rezultate curse " + titlu }}</p>
     <div class="search-wrapper">
       <input
         type="text"
         v-model="search"
-        placeholder="Căutare"
+        placeholder="Căutare - dupa incarcare"
         class="search-bar"
       />
     </div>
     <tabelcursa v-for="cursa in filterCurse" :key="cursa.id" :cursa="cursa" />
+    <div ref="sentinel" class="loading" v-if="this.currentRaceRound > 0">
+      <p v-if="loading">Se încarcă...</p>
+      <p v-else>Dă scroll pentru mai multe curse</p>
+    </div>
   </div>
 </template>
 
@@ -50,71 +54,141 @@ export default {
       titlu: "",
       dataCurse: [],
       search: "",
-      asc: false,
+      // asc: false,
+      totalRounds: null,
+      loading: false,
+      currentRaceRound: null,
     }
   },
   async mounted() {
+    router.push({
+      name: "Curse",
+      params: { an: this.$route.params.an },
+    })
+    await this.fetchTotalRounds()
+    if (this.$route.params.an === '2025') {
+      this.currentRaceRound = await this.getCurrentRound();
+    } else {
+      this.currentRaceRound = this.totalRounds;
+    }
     await this.getData()
+    this.titlu = this.ancursaSelect
+    document.title = `Rezultate Curse ${this.titlu}`
+    const observer = new IntersectionObserver(async (entries) => {
+      if (entries[0].isIntersecting && this.currentRaceRound > 0 && !this.loading) {
+        await this.getData()
+      }
+    }, { threshold: 0.1 })
+
+    this.$nextTick(() => {
+      const sentinel = this.$refs.sentinel
+      if (sentinel) {
+        observer.observe(sentinel)
+      }
+    })
   },
   methods: {
     async getData() {
-      const response = await makeRequest(
-        `https://api.jolpi.ca/ergast/f1/${this.ancursaSelect}/results.json?limit=100`
-      )
-      const resData = response.MRData.RaceTable.Races
-      for (var i = 0; i < resData.length; i++) {
-        for (var j = 0; j < resData[i].Results.length; j++) {
-          if (resData[i].Results[j].FastestLap === undefined) {
-            resData[i].Results[j].FastestLap = "-"
-          } else {
-            resData[i].Results[j].FastestLap =
-              resData[i].Results[j].FastestLap.Time.time
-          }
-        }
+      if (this.loading || this.currentRaceRound < 1) {
+        return;
       }
-      this.dataCurse = resData
-      this.dataCurse.reverse()
-      this.titlu = response.MRData.RaceTable.season
-      this.asc = false
-      router.push({
-        name: "Curse",
-        params: { an: this.ancursaSelect },
-      })
-      document.title = `Rezultate Curse ${this.titlu}`
+      this.loading = true;
+      try {
+        const response = await makeRequest(
+            `https://api.jolpi.ca/ergast/f1/${this.ancursaSelect}/${this.currentRaceRound}/results.json?limit=100`
+        );
+        if (response?.MRData?.RaceTable?.Races?.length > 0) {
+          const race = response.MRData.RaceTable.Races[0];
+          for (const result of race.Results) {
+            result.FastestLap = result.FastestLap?.Time?.time || "-";
+          }
+          this.dataCurse.push(race);
+          this.currentRaceRound--;
+        } else {
+          this.currentRaceRound = 0;
+        }
+      } catch (error) {
+        console.error("Error fetching race round:", error);
+        this.currentRaceRound = 0;
+      } finally {
+        this.loading = false;
+      }
     },
-    order() {
-      if (this.asc == false) {
-        this.dataCurse.reverse()
-        this.asc = true
+    async fetchTotalRounds() {
+      try {
+        const response = await makeRequest(
+            `https://api.jolpi.ca/ergast/f1/${this.ancursaSelect}.json?limit=100`
+        );
+        const races = response?.MRData?.RaceTable?.Races;
+        if (races) {
+          this.totalRounds = races.length;
+          this.currentRaceRound = this.totalRounds; // Setează și aici, pentru siguranță
+        } else {
+          this.totalRounds = 0;
+          this.currentRaceRound = 0;
+        }
+      } catch (error) {
+        console.error("Error fetching total rounds:", error);
+        this.totalRounds = 0;
+        this.currentRaceRound = 0;
+      }
+    },
+    async getCurrentRound() {
+      const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-next`)
+      const data_actuala = new Date()
+      const data_sfarsit_cursa = new Date(response.race.meetingEndDate)
+      const plus_unu = data_sfarsit_cursa.setDate(data_sfarsit_cursa.getDate() + 1)
+      if(data_actuala <= plus_unu){
+        return Number(response.seasonContext.seasonContextUIState)
       } else {
-        this.dataCurse.reverse()
-        this.asc = false
+        return Number(response.seasonContext.seasonContextUIState) - 1
       }
     },
+    // order() {
+    //   if (this.asc == false) {
+    //     this.dataCurse.reverse()
+    //     this.asc = true
+    //   } else {
+    //     this.dataCurse.reverse()
+    //     this.asc = false
+    //   }
+    // },
     async anChange() {
-      const response = await makeRequest(
-        `https://api.jolpi.ca/ergast/f1/${this.ancursaSelect}/results.json?limit=100`
-      )
-      const resData = response.MRData.RaceTable.Races
-      for (var i = 0; i < resData.length; i++) {
-        for (var j = 0; j < resData[i].Results.length; j++) {
-          if (resData[i].Results[j].FastestLap === undefined) {
-            resData[i].Results[j].FastestLap = "-"
-          } else {
-            resData[i].Results[j].FastestLap =
-              resData[i].Results[j].FastestLap.Time.time
-          }
-        }
-      }
-      this.dataCurse = resData
-
-      this.titlu = response.MRData.RaceTable.season
-      this.asc = false
-      router.push({
-        name: "Curse",
-        params: { an: this.ancursaSelect },
-      })
+      this.dataCurse = [];
+      this.currentRaceRound = null;
+      this.totalRounds = null;
+      this.loading = true;
+      router.push({ name: "Curse", params: { an: this.ancursaSelect } });
+      this.titlu =this.ancursaSelect
       document.title = `Rezultate Curse ${this.titlu}`
+      try {
+        await this.fetchTotalRounds();
+        if (this.$route.params.an === '2025') {
+          this.currentRaceRound = await this.getCurrentRound()
+        } else {
+          this.currentRaceRound = this.totalRounds;
+        }
+      } catch (error) {
+        console.error("Error fetching total rounds:", error);
+      } finally {
+        this.loading = false;
+      }
+      // Apelăm getData() acum, după ce loading ar trebui să fie false
+      await this.getData();
+      const observer = new IntersectionObserver(async (entries) => {
+        if (entries[0].isIntersecting && this.currentRaceRound > 0 && !this.loading) {
+          await this.getData()
+        }
+      }, { threshold: 0.1 })
+
+      this.$nextTick(() => {
+        const sentinel = this.$refs.sentinel
+        if (sentinel) {
+          observer.observe(sentinel)
+        }
+      })
+      this.titlu = this.ancursaSelect;
+      // this.asc = false;
     },
   },
   computed: {
@@ -153,5 +227,10 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+.loading {
+  text-align: center;
+  margin: 20px 0;
+  color: gray;
 }
 </style>
