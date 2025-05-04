@@ -138,10 +138,10 @@ export default {
       const data_actuala = new Date()
       const data_sfarsit_cursa = new Date(response.race.meetingEndDate)
       const plus_unu = data_sfarsit_cursa.setDate(data_sfarsit_cursa.getDate() + 1)
-      if(data_actuala <= plus_unu){
-        return Number(response.seasonContext.seasonContextUIState)
-      } else {
+      if(data_actuala <= plus_unu && data_actuala >= data_sfarsit_cursa){
         return Number(response.seasonContext.seasonContextUIState) - 1
+      } else {
+        return Number(response.seasonContext.seasonContextUIState)
       }
     },
     // order() {
