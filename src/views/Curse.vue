@@ -134,14 +134,26 @@ export default {
       }
     },
     async getCurrentRound() {
-      const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-next`)
-      const data_actuala = new Date()
-      const data_sfarsit_cursa = new Date(response.race.meetingEndDate)
-      const plus_unu = data_sfarsit_cursa.setDate(data_sfarsit_cursa.getDate() + 1)
-      if(data_actuala <= plus_unu && data_actuala >= data_sfarsit_cursa){
-        return Number(response.seasonContext.seasonContextUIState) - 1
-      } else {
-        return Number(response.seasonContext.seasonContextUIState)
+      try {
+        const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-next`);
+        let nr_runda = response.nr_runda;
+
+        // Coboară până găsești o rundă validă în Ergast API
+        while (nr_runda > 0) {
+          const checkErgast = await makeRequest(
+              `https://api.jolpi.ca/ergast/f1/2025/${nr_runda}/results.json`
+          );
+
+          const exists = checkErgast?.MRData?.RaceTable?.Races?.length > 0;
+          if (exists) {
+            return nr_runda;
+          }
+          nr_runda--; // Scade și încearcă din nou
+        }
+        return 0; // Dacă nicio rundă nu e disponibilă
+      } catch (error) {
+        console.error("Eroare la getCurrentRound:", error);
+        return 0;
       }
     },
     // order() {

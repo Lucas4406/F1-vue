@@ -249,15 +249,14 @@ export default {
     async getCurse() {
       let link_api = `${import.meta.env.VITE_API_LINK}/get-next`
       const res = await axios.get(link_api)
-      const cursaActuala = res.data.seasonContext.seasonContextUIState
+      const cursaActuala = res.data.nr_runda
 
       let link = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
       const response = await axios.get(link)
       const resData = response.data.MRData.RaceTable.Races
       this.curse = resData
-      const idcurent = resData[cursaActuala].Circuit.circuitId
       for (let i = 0; i < resData.length; i++) {
-        if (resData[i].Circuit.circuitId.toLowerCase() === idcurent) {
+        if (Number(resData[i].round) === (cursaActuala + 1) ) {
           this.idCurent = i
         }
       }
