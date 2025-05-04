@@ -1,85 +1,60 @@
 <template>
-  <div class="live-wrapper" :class="{darkmode: darkMode}">
-    <p>Livestream</p>
-    <br>
-    <iframe src="//f1livegp.me/f1/live.php" class="live-frame" name="frame" scrolling="no" frameborder="no" allow="fullscreen" align="center"></iframe>
-    <div class="scroll-btns">
-        <button class="darkmodeBtn" @click="darkModeToggle()">
-            <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">
-            <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
-        </button>
-    </div>
+  <div>
+    <h2>Documente FIA</h2>
+    <ul v-if="documents.length">
+      <li v-for="doc in documents" :key="doc.id">
+        <a :href="doc.link" target="_blank">{{ doc.title }}</a><br />
+        Publicat: {{ doc.date }}
+      </li>
+    </ul>
+    <p v-else>Se încarcă documentele...</p>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-    name: "Live",
-    data() {
-        let darkMode = localStorage.getItem('darkMode') == 'true';
-        return {
-            darkMode,
-        }
-    },
-    methods: {
-        darkModeToggle() {
-            this.darkMode = !this.darkMode;
-            localStorage.setItem('darkMode', this.darkMode);
-            if(this.darkMode){
-                document.body.classList.add("darkmode")
-            }else{
-                document.body.classList.remove("darkmode")
-            } 
-        },
-    },
-    mounted() {
-        document.title = "Livestream-F1"
-        if(this.darkMode){
-            document.body.classList.add("darkmode")
-        }else{
-            document.body.classList.remove("darkmode")
-        } 
-        this.$emit("live-page")
-    },
+  data() {
+    return {
+      documents: []
+    }
+  },
+  async mounted() {
+    await this.fetchData()
+    axios.get('https://cors-anywhere-xafh.onrender.com/https://www.fia.com/decision-document-list/ajax/55041')
+        .then(response => {
+          // Răspunsul este un JSON care conține documente HTML în 'data'
+          const rawHtml = response.data[2].data;
+
+          // Creezi un DOM temporar pentru parsing
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(rawHtml, 'text/html');
+          // Selectezi fiecare bloc de document
+          const items = doc.querySelectorAll('.document-row');
+          // Extragi datele într-un array simplu
+          this.documents = Array.from(items).map(item => {
+            const titleEl = item.querySelector('li.document-row > div > a > div.title > div > div > div');
+            const dateEl = item.querySelector('.date-display-single');
+            const linkEl = item.querySelector('li.document-row > div > a');
+
+            return {
+              id: item.getAttribute('data-id') || Math.random(),
+              title: titleEl?.textContent.trim() || 'Fără titlu',
+              link: "https://www.fia.com" + linkEl?.getAttribute('href') || '#',
+              date: dateEl?.textContent.trim() || 'Fără dată'
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Eroare la preluarea documentelor:', error);
+        });
+  },
+  methods: {
+    async fetchData () {
+      const date = await axios.get("https://cors-anywhere-xafh.onrender.com/https://f1tv.formula1.com/2.0/R/ENG/WEB_DASH/ALL/PAGE/1724/PRO/2")
+      console.log(date.data.resultObj.containers[3].retrieveItems.resultObj.containers)
+    }
+  },
 }
 </script>
-
-<style scoped>
-    .live-wrapper{
-        height: 80vh;
-        width: 100vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-    .live-wrapper.darkmode > p{
-        color: white;
-    }
-    .live-wrapper > p{
-        font-size: 3.5rem;
-        font-weight: bold;
-    }
-    .live-frame{
-        aspect-ratio: 16/9;
-        width: 60%;
-    }
-    .live-wrapper.darkmode > .live-frame{
-        border:2px solid white;
-        border-radius: 5px;
-    }
-    @media(max-width: 1000px){
-        .live-wrapper{
-            justify-content: flex-start;
-        }
-        .live-frame{
-            aspect-ratio: 16/9;
-            width: 90%;
-        }
-        .live-wrapper > p{
-            font-size: 3.5rem;
-            font-weight: bold;
-            margin-top: 1rem;
-        }
-    }
-</style>
