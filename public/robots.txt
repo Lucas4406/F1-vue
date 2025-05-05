@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://f1-vue.vercel.app/sitemap.xml
+Sitemap: https://formula1-ro.vercel.app/sitemap.xml
 Disallow: /admin
 Disallow: /updateteams
 Disallow: /updateprofile
