@@ -15,7 +15,7 @@
             {{ echipa.pozitie }}
           </div>
           <div class="flex Favcontainer">
-            <img src="/Favico.svg" class="w-6 h-6 pozaFav" />
+            <img src="/Favico.svg" class="w-6 h-6 pozaFav" alt="Icon echipă favorită" />
           </div>
         </div>
         <div class="numee">
@@ -40,57 +40,82 @@
           }}
         </div>
         <div class="pozae">
-          <img :src="echipa.logo" class="poza1" />
+          <img :src="echipa.logo" class="poza1" :alt="`Logo ${echipa.name}`" />
         </div>
       </div>
       <div class="linie3">
-        <img :src="echipa.masinaPoza" class="poza" />
+        <img :src="echipa.masinaPoza" class="poza" :alt="`Mașina ${echipa.name}`" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import { onMounted, ref, inject } from "vue"
+import { useHead } from "@vueuse/head"
 import { makeRequest } from "../functions/makeRequest"
+
 export default {
-  inject: ["store"],
   name: "Echipe",
-  data() {
-    return {
-      echipe: [],
-      echipaFav: "",
-      ok: "",
-      puncteNull: false,
+  setup() {
+    const echipe = ref([])
+    const echipaFav = ref("")
+    const ok = ref("")
+    const puncteNull = ref(false)
+    const store = inject("store")
+
+    const setHead = (year) => {
+      useHead({
+        title: `Echipe Formula 1 ${year}`,
+        meta: [
+          {
+            name: "description",
+            content: `Vezi echipele participante în Formula 1 sezonul ${year}, cu piloți și punctaje actualizate.`,
+          },
+          {
+            property: "og:title",
+            content: `Echipe Formula 1 ${year}`,
+          },
+          {
+            property: "og:description",
+            content: `Clasamentul echipelor actuale din sezonul ${year} de Formula 1.`,
+          },
+        ],
+      })
     }
-  },
-  mounted() {
-    document.title = "Echipe"
-    this.getTeams()
-  },
-  methods: {
-    async getTeams() {
-      const data = await makeRequest(
-        `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
-      )
-      this.echipe = data
-      const an_prezent = new Date(data[0].createdAt).getFullYear()
-      document.title = `Echipe ${an_prezent}`
-      for (var i = 0; i < data.length; i++) {
+
+    const getTeams = async () => {
+      const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)
+      echipe.value = data
+
+      const year = new Date(data[0].createdAt).getFullYear()
+      setHead(year)
+
+      for (let i = 0; i < data.length; i++) {
         if (data[i].nrpuncte === null) {
-          this.puncteNull = true
+          puncteNull.value = true
         }
       }
-      if (this.store.user != null) {
-        let fav = this.store.user.favTeam
-        for (var i = 0; i < data.length; i++) {
+
+      if (store.user != null) {
+        let fav = store.user.favTeam
+        for (let i = 0; i < data.length; i++) {
           if (data[i].name === fav) {
-            this.ok = i
-          }
-          if (data[i].nrpuncte === null) {
-            this.puncteNull = true
+            ok.value = i
           }
         }
       }
-    },
+    }
+
+    onMounted(() => {
+      getTeams()
+    })
+
+    return {
+      echipe,
+      echipaFav,
+      ok,
+      puncteNull,
+    }
   },
 }
 </script>

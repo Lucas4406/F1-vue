@@ -1,7 +1,7 @@
 <template>
   <button class="darkmodeBtn" @click="darkModeToggle()">
-    <img src="/night-mode.png" class="poza1" />
-    <img src="/brightness.png" class="poza2" />
+    <img src="/night-mode.png" class="poza1" alt="buton darkmode dark" />
+    <img src="/brightness.png" class="poza2" alt="buton darkmode light"/>
   </button>
 </template>
 

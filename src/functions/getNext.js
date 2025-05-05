@@ -1,9 +1,9 @@
 import axios from "axios"
 async function getNext() {
-    var link = "https://ergast.com/api/f1/2023/results.json?limit=1000"
-    const response = await axios.get(link)
-    const resData = response.data.MRData.RaceTable.Races.length
-    return resData
+    let link_api = `${import.meta.env.VITE_API_LINK}/get-next`
+    const res = await axios.get(link_api)
+    const cursaActuala = res.data.nr_runda
+    return cursaActuala
 }
 
 export default getNext()

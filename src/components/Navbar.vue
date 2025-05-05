@@ -3,7 +3,7 @@
     <div class="sus">
       <div class="logo">
         <router-link to="/" class="link-router"
-          ><img src="./icons/ferrari.avif" class="logo-f1"
+          ><img src="./icons/ferrari.avif" class="logo-f1" alt="logo site F1"
         /></router-link>
       </div>
       <div class="fia peste" v-if="isLogged" v-once>
@@ -44,6 +44,7 @@
           src="../components/icons/hamburger.svg"
           class="w-20 h-10"
           data-dropdown-button
+          alt="icon hamburger meniu"
         />
         <div class="dropdown-menu">
           <router-link to="/joc" class="text-dropdown-right">Joc</router-link>

@@ -4,6 +4,7 @@ import router from "./router"
 import PrimeVue from "primevue/config"
 import { MotionPlugin } from "@vueuse/motion"
 import { createPinia } from 'pinia'
+import { createHead } from "@vueuse/head"
 import store from "./store"
 import "./assets/main.css"
 import "./index.css"
@@ -21,8 +22,9 @@ const vuetify = createVuetify({
 const app = createApp(App)
 
 const pinia = createPinia()
+const head = createHead()
 app.use(pinia)
-
+app.use(head)
 app.provide("store", store)
 
 app.use(router)
