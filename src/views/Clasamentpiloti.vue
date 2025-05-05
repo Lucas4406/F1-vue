@@ -37,8 +37,8 @@
           <p class="echipa" v-if="!dontShow">{{ pilot.gapDelta }}</p>
         </div>
         <div class="pozanumar">
-          <img :src="pilot.poza" class="poza-pilot" />
-          <img :src="pilot.numar" class="nr-pilot" />
+          <img :src="pilot.poza" class="poza-pilot"  />
+          <img :src="pilot.numar" class="nr-pilot"  />
         </div>
       </router-link>
     </div>
