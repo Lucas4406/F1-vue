@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://f1-vue.vercel.app/</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/profile</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/updateprofile</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/program</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/echipe</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/clasament-echipe</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/clasament-piloti</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/rezultate-curse/2025</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/rezultate-calificari/2025</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/joc</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/istorie</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/login</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/signup</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/surse</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/href</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/live</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/test</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/updateteams</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://f1-vue.vercel.app/admin</loc>
+	<lastmod>2025-05-05T15:11:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+</urlset>
