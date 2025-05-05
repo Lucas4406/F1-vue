@@ -1,2 +1,8 @@
 User-agent: *
 Allow: /
+Sitemap: https://f1-vue.vercel.app/sitemap.xml
+Disallow: /admin
+Disallow: /updateteams
+Disallow: /updateprofile
+Disallow: /test
+Disallow: /href
