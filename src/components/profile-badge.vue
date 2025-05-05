@@ -7,7 +7,7 @@
         <img
           class="h-14 w-14 rounded-full profimage object-cover"
           :src="store.user.profilePhoto"
-          alt="profile picture"
+          :alt="`Poza de profil ${store.user.displayName}`"
         />
       </MenuButton>
     </div>

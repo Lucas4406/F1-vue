@@ -3,19 +3,19 @@
     <div class="p-6 border border-gray-300 md:rounded-md">
       <form class="font-xxl text-2xl" @submit.prevent="updateProfil">
         <label class="block mb-6">
+          <span class="text-gray-700">First name</span>
+          <input
+              v-model="primul"
+              name="firstName"
+              type="text"
+              class="block w-full mt-1 h-8 text-xl border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </label>
+        <label class="block mb-6">
           <span class="text-gray-700">Last name</span>
           <input
             v-model="doilea"
             name="lastName"
-            type="text"
-            class="block w-full mt-1 h-8 text-xl border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          />
-        </label>
-        <label class="block mb-6">
-          <span class="text-gray-700">First name</span>
-          <input
-            v-model="primul"
-            name="firstName"
             type="text"
             class="block w-full mt-1 h-8 text-xl border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           />
