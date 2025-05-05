@@ -20,7 +20,7 @@
         target="_blank"
         v-motion-slide-right
       >
-        <div class="stire">
+        <article class="stire">
           <div class="content-row">
             <div class="content-text">
               <p class="text" id="stiretext">{{ stire.titlu }}</p>
@@ -34,7 +34,7 @@
               <span class="sr-only">{{ stire.titlu }}</span>
             </div>
           </div>
-        </div>
+        </article>
       </a>
     </div>
   </div>
