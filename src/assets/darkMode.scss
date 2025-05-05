@@ -17,8 +17,11 @@ html.darkmode {
     background-repeat: repeat;
     background-size: 8px;
   }
-  .nr-pilot {
-    background-color: none;
+  .surse-text{
+    color: white;
+  }
+  .surse-link{
+    color: white;
   }
 
   /* Dark-mode-btn */
@@ -90,6 +93,9 @@ html.darkmode {
   }
   /* Form-select */
   .form-select {
+    color: white;
+  }
+  .text-label{
     color: white;
   }
   /* Home */

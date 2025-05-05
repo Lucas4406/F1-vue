@@ -11,12 +11,12 @@
         </div>
       </div>
       <div class="hero-circuit">
-        <img class="circuit-image" :src="heroData.circuitSmallImage.url" />
+        <img class="circuit-image" :src="heroData.circuitSmallImage.url" :alt="`Poza circuit ${heroData.race.meetingLocation}`" />
       </div>
     </div>
     <div class="hero-dreapta">
       <div class="image-wrapper">
-        <img class="hero-image" :src="heroData.seasonYearImage" />
+        <img class="hero-image" :src="heroData.seasonYearImage" :alt="`Poza sezon ${heroData.seasonContext.seasonYear}`"/>
       </div>
       <div class="hero-data">
         <p class="data-paragraf">
