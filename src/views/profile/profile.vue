@@ -11,6 +11,7 @@
               <img
                 :src="store.user.profilePhoto"
                 class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                :alt="`Poza de profil ${store.user.displayName}`"
               />
             </div>
           </div>
@@ -73,7 +74,7 @@
       v-if="showSelect"
     >
       <div alt="echipa" class="flex flex-row gap-2 items-center justify-center">
-        <label for="echipaPref">Echipa favorita:</label>
+        <label class="text-label" for="echipaPref">Echipa favorita:</label>
         <select
           id="echipaPref"
           name="echipa"
@@ -91,7 +92,7 @@
         </select>
       </div>
       <div alt="sofer" class="flex flex-row gap-2 items-center justify-center">
-        <label for="soferPref">Pilotul favorit:</label>
+        <label class="text-label" for="soferPref">Pilotul favorit:</label>
         <select
           id="soferPref"
           name="pilot"
@@ -158,7 +159,6 @@ const bla = ref(false)
 const driverOk = ref(false)
 const favArr = ref([])
 const favDriv = ref([])
-const allDrivers = ref([])
 const fontSize = ref("3rem")
 const currentEnc = JSON.parse(localStorage.getItem("currentUser"))
 if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {

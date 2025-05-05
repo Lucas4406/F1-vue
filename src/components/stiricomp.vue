@@ -3,11 +3,11 @@
     <div class="stiri">
       <div class="titlu">
         <div>
-          <img src="/checker.webp" class="titlu-poza" />
+          <img src="/checker.webp" class="titlu-poza" alt="chequered flag" />
         </div>
         <div class="titlu-text">Știri de ultimă oră</div>
         <div>
-          <img src="/checker.webp" class="titlu-poza" />
+          <img src="/checker.webp" class="titlu-poza" alt="chequered flag" />
         </div>
       </div>
     </div>
@@ -30,8 +30,8 @@
                 :src="stire.poza"
                 class="photo"
                 id="stirephoto"
-                :alt="stire.titlu"
               />
+              <span class="sr-only">{{ stire.titlu }}</span>
             </div>
           </div>
         </div>
@@ -93,3 +93,17 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+</style>
