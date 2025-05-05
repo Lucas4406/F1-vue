@@ -1,111 +1,93 @@
-p{
-    margin: 0;
+p {
+  margin: 0;
 }
-.reaction-wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 80vh;
-    position: relative;
-    font-size: 1.5rem;
+.reaction-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 85vh;
+  position: relative;
+  font-size: 1.5rem;
 }
-.reaction-wrapper.darkmode > .reaction-titlu{
-    color: white;
+.reaction-titlu {
+  font-size: 1.8rem;
+  font-weight: bold;
 }
-.reaction-titlu{
-    font-size: 1.8rem;
-    font-weight: bold;
+.btn {
+  font-size: 2rem;
+  padding: 0.3rem 0.5rem;
+  color: white;
+  background-color: red;
+  border: 1px solid red;
+  border-radius: 10%;
+  transition: transform 250ms ease-in-out;
+  cursor: pointer;
 }
-.btn{
-    font-size: 2rem;
-    padding: .3rem .5rem;
-    color: white;
-    background-color: red;
-    border: 1px solid red;
-    border-radius: 10%;
-    transition: transform 250ms ease-in-out;
-    cursor: pointer;
+.btn:hover {
+  transform: scale(1.05);
 }
-.btn:hover{
-    transform: scale(1.05);
+.timpi-tabel {
+  position: absolute;
+  font-size: 2rem;
+  right: 1rem;
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 3%;
+  padding: 0.5rem;
 }
-.timpi-tabel{
-    position: absolute;
-    font-size:2rem;
-    right:1rem;
-    top:20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 3%;
-    padding:.5rem;
+.best-tabel {
+  position: absolute;
+  font-size: 2rem;
+  left: 1rem;
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 3%;
+  padding: 0.5rem;
 }
-.reaction-wrapper.darkmode > .timpi-tabel{
-    color: white;
-    border: 2px solid white;
-}
-.reaction-wrapper.darkmode > .timpi-tabel > p{
-    border-top: 1px solid white;
 
+.timpi-tabel > p {
+  border-top: 1px solid black;
+  width: 100%;
+  text-align: center;
 }
-.best-tabel{
-    position: absolute;
-    font-size:2rem;
-    left:1rem;
-    top:20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 3%;
-    padding:.5rem;
+.result-box {
+  position: absolute;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.reaction-wrapper.darkmode > .best-tabel{
-    color: white;
-    border: 2px solid white;
+
+.instructiuni {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
-.timpi-tabel > p{
-    border-top: 1px solid black;
-    width: 100%;
-    text-align: center;
-}
-.result-box{
-    position: absolute;
-    bottom:1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.reaction-wrapper.darkmode > .result-box{
-    color: white;
-}
-.instructiuni{
-    display: flex;
-    flex-direction: column;
-    gap:.3rem;
-}
-.reaction-wrapper.darkmode > .instructiuni{
-    color: white;
-}
-@media(max-width: 900px){
-    .reaction-titlu{
-        font-size: 2rem;
-    }
-    .timpi-tabel{
-        top:50%;
-    }
-    .best-tabel{
-        top:50%;
-    }
-    .result-box{
-        bottom:10%;
-    }
-    .reaction-wrapper{
-        font-size: 2rem;
-    }
+
+@media (max-width: 900px) {
+  .reaction-titlu {
+    font-size: 2rem;
+  }
+  .timpi-tabel {
+    top: 50%;
+  }
+  .best-tabel {
+    top: 50%;
+  }
+  .result-box {
+    bottom: 10%;
+  }
+  .reaction-wrapper {
+    font-size: 2rem;
+  }
 }

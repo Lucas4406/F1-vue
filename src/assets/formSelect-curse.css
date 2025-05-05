@@ -1,27 +1,25 @@
-.form-select{
-    right: .5rem;
-    top: 10rem;
-    display: flex;
-    flex-direction: column;
-    gap: .25rem;
-    font-size: 1.8rem;
-    position: fixed;
+.form-select {
+  right: 0.5rem;
+  top: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 1.8rem;
+  position: fixed;
 }
-.form-select.darkmode{
-    color:white;
+.optiune {
+  font-size: 1rem;
+  text-align: center;
+  text-align-last: center;
+  -moz-text-align-last: center;
 }
-.optiune{
-    font-size: 1rem;
-    text-align: center;
-    text-align-last: center;
-    -moz-text-align-last: center;
-}
-.selectie{
-    font-size: 1.2rem;
+.selectie {
+  font-size: 1.2rem;
 }
 
-@media (max-width: 1000px){
-    .form-select{
-        position: absolute;
-    }
+@media (max-width: 1000px) {
+  .form-select {
+    position: absolute;
+    top: 9rem;
+  }
 }

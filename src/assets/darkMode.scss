@@ -1,0 +1,162 @@
+html.darkmode {
+  /* Clasament-piloti */
+  .piloti-text {
+    color: white;
+  }
+  .pilot-container {
+    color: white;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+  }
+  .puncte-text-pilot {
+    background-color: #fff;
+    color: black;
+  }
+  .pozanumar {
+    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
+    background-repeat: repeat;
+    background-size: 8px;
+  }
+  .nr-pilot {
+    background-color: none;
+  }
+
+  /* Dark-mode-btn */
+  .poza2 {
+    display: block;
+  }
+  .poza1 {
+    display: none;
+  }
+
+  /* Curse */
+  .titlu-pagina-curse {
+    color: white;
+  }
+  .tabel-cursa {
+    background-color: #333;
+    color: white;
+    border-color: white;
+  }
+  .parte-jos-pilot {
+    border-color: white;
+  }
+  .spatiu-intre {
+    background-color: white;
+    color: white;
+  }
+
+  /* Calificari */
+  .text-wrap > .text-titlu {
+    color: white;
+  }
+  .tabel-container {
+    border-color: white;
+    background-color: #333;
+    color: white;
+  }
+  .tabel-container > .tabel > .piloti-container > .pilot > .parte-stanga {
+    border-color: white;
+  }
+  .tabel-container > .tabel > .piloti-container > .pilot > .parte-dreapta {
+    border-color: white;
+  }
+  /* Clasament - ergast */
+  .card-const {
+    background-color: #333;
+    border-color: white;
+    color: white;
+  }
+  .pozitie {
+    border-color: white;
+  }
+  .curse-castigate-cont {
+    border-color: white;
+  }
+  .nrpuncte-cont {
+    border-color: white;
+  }
+  /* Echipe - mongo */
+  .box {
+    border-color: white;
+    background-color: #333;
+    color: white;
+  }
+  .box > .linie3 {
+    background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
+    background-repeat: repeat;
+    background-size: 8px;
+    border-radius: 0 0 12px 0;
+  }
+  /* Form-select */
+  .form-select {
+    color: white;
+  }
+  /* Home */
+  .content-grid {
+    color: white;
+  }
+  .content-text {
+    border-color: white;
+    color: white;
+    background-color: rgb(41, 40, 40);
+  }
+  .ltag {
+    color: white;
+  }
+  .stiri {
+    color: white;
+  }
+
+  /* Isotrie */
+  .subtitlu {
+    color: white;
+  }
+  .multscris {
+    border-color: white;
+    color: white;
+  }
+  .imagini {
+    color: white;
+  }
+  /* Joc */
+  .reaction-wrapper > .reaction-titlu {
+    color: white;
+  }
+  .reaction-wrapper > .timpi-tabel {
+    color: white;
+    border: 2px solid white;
+  }
+  .reaction-wrapper > .timpi-tabel > p {
+    border-top: 1px solid white;
+  }
+  .reaction-wrapper > .best-tabel {
+    color: white;
+    border: 2px solid white;
+  }
+  .reaction-wrapper > .result-box {
+    color: white;
+  }
+  .reaction-wrapper > .instructiuni {
+    color: white;
+  }
+  /* Searchbar */
+  .search-bar {
+    color: white;
+    background-color: #333;
+    border: 2px solid white;
+  }
+  .search-bar:focus {
+    color: white;
+  }
+
+  /* Program */
+  .animatie {
+    p {
+      color: white;
+    }
+    background-color: #333;
+  }
+
+  /* Profile-badge */
+}

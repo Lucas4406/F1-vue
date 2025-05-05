@@ -1,135 +1,222 @@
 <template>
-    <div class="content-container">
-        <div class="form-select" :class="{darkmode: darkMode}">
-            <label for="ancurse">Alege anul:</label>
-            <select id="ancurse" name="ancurse" class="selectie" v-model="ancaliSelect">
-                <option value="2022" class="optiune">2022</option>
-                <option value="2021" class="optiune">2021</option>
-                <option value="2020" class="optiune">2020</option>
-                <option value="2019" class="optiune">2019</option>
-            </select>
-        </div>
-        <div class="scroll-btns" v-show="show">
-            <button class="darkmodeBtn" @click="darkModeToggle()">
-                <img src="/night-mode.png" class="poza1" :class="{darkmode: darkMode}">
-                <img src="/brightness.png" class="poza2" :class="{darkmode: darkMode}">
-            </button>
-        </div>
-        <!-- 2022 -->
-        <tabelcali :linkdata="cali2022.linkdata" :titlupag="cali2022.titlupag" :darkMode="darkMode" v-if="cali2022.an2022"/>
-        <!-- 2021 -->
-        <tabelcali :linkdata="cali2021.linkdata" :titlupag="cali2021.titlupag" :darkMode="darkMode" v-if="cali2021.an2021"/>
-        <!-- 2020 -->
-        <tabelcali :linkdata="cali2020.linkdata" :titlupag="cali2020.titlupag" :darkMode="darkMode" v-if="cali2020.an2020"/>
-        <!-- 2019 -->
-        <tabelcali :linkdata="cali2019.linkdata" :titlupag="cali2019.titlupag" :darkMode="darkMode" v-if="cali2019.an2019"/>
+  <div class="content-container">
+    <div class="form-select">
+      <label for="ancurse">Alege anul:</label>
+      <select
+        id="ancurse"
+        name="ancurse"
+        class="selectie"
+        v-model="ancaliSelect"
+        @change="anChange()"
+      >
+        <option v-for="year in years" :key="year" :value="year" class="optiune">
+          {{ year }}
+        </option>
+      </select>
     </div>
+    <div class="text-wrap">
+      <p class="text-titlu" ref="titlul">
+        {{ "Rezultate calificări " + titlu }}
+      </p>
+    </div>
+    <div class="search-wrapper">
+      <input
+        type="text"
+        placeholder="Căutare"
+        class="search-bar"
+        v-model="search"
+      />
+    </div>
+    <tabelcali
+      v-for="tabel in filterCurse"
+      :key="tabel.id"
+      :qualiData="tabel"
+    />
+    <div ref="sentinel" class="loading" v-if="this.currentRaceRound > 0">
+      <p v-if="loading">Se încarcă...</p>
+      <p v-else>Dă scroll pentru mai multe curse</p>
+    </div>
+  </div>
 </template>
 
 <script>
 import tabelcali from "../components/tabelcali.vue"
 import router from "../router"
+import { makeRequest } from "../functions/makeRequest"
 export default {
-    name: "Calificari",
-    components: {
-        tabelcali
-    },
-    data() {
-        let darkMode = localStorage.getItem('darkMode') == 'true';
-        return {
-            darkMode,
-            ancaliSelect: "2022",
-            cali2022: {
-                linkdata: "https://ergast.com/api/f1/2022/qualifying.json?limit=1000",
-                titlupag: "Rezultate calificări 2022",
-                an2022: false
-            },
-            cali2021: {
-                linkdata: "https://ergast.com/api/f1/2021/qualifying.json?limit=1000",
-                titlupag: "Rezultate calificări 2021",
-                an2021: false
-            },
-            cali2020: {
-                linkdata: "https://ergast.com/api/f1/2020/qualifying.json?limit=1000",
-                titlupag: "Rezultate calificări 2020",
-                an2020: false
-            },
-            cali2019: {
-                linkdata: "https://ergast.com/api/f1/2019/qualifying.json?limit=1000",
-                titlupag: "Rezultate calificări 2019",
-                an2019: false
-            },
-            an2021: false,
-            show: false,
-            textButon: false
-        }
-    },
-    mounted() {
-        document.title = "Rezultate Calificări 2022";
-        this.show = true
-        if(this.darkMode){
-            document.body.classList.add("darkmode")
-        }else{
-            document.body.classList.remove("darkmode")
-        } 
-        this.cali2022.an2022 = true
-        this.anCaliSelect()
-        this.ancaliSelect = this.$route.params.an
-    },
-    updated() {
-        this.show = true
-        this.anCaliSelect()
-    },
-    methods: {
-        darkModeToggle() {
-            this.darkMode = !this.darkMode;
-            localStorage.setItem('darkMode', this.darkMode);
-            if(this.darkMode){
-                document.body.classList.add("darkmode")
-            }else{
-                document.body.classList.remove("darkmode")
-            } 
-        },
-        anCaliSelect () {
-            if(this.ancaliSelect === "2022"){
-                this.cali2022.an2022 = true
-                this.cali2021.an2021 = false
-                this.cali2020.an2020 = false
-                this.cali2019.an2019 = false
-                document.title = this.cali2022.titlupag
-            }
-            if(this.ancaliSelect === "2021"){
-                this.cali2022.an2022 = false
-                this.cali2021.an2021 = true
-                this.cali2020.an2020 = false
-                this.cali2019.an2019 = false
-                document.title = this.cali2021.titlupag
-            }
-            if(this.ancaliSelect === "2020"){
-                this.cali2022.an2022 = false
-                this.cali2021.an2021 = false
-                this.cali2020.an2020 = true
-                this.cali2019.an2019 = false
-                document.title = this.cali2020.titlupag
-            }
-            if(this.ancaliSelect === "2019"){
-                this.cali2022.an2022 = false
-                this.cali2021.an2021 = false
-                this.cali2020.an2020 = false
-                this.cali2019.an2019 = true
-                document.title = this.cali2019.titlupag
-            }
+  name: "Calificari",
+  components: {
+    tabelcali,
+  },
+  data() {
+    return {
+      ancaliSelect: this.$route.params.an,
+      dataQuali: [],
+      search: "",
+      titlu: "",
+      totalRounds: null,
+      loading: false,
+      currentRaceRound: null,
+    }
+  },
+  async mounted() {
+    router.push({
+      name: "Calificari",
+      params: { an: this.ancaliSelect },
+    })
+    await this.fetchTotalRounds()
+    if (this.$route.params.an === '2025') {
+      this.currentRaceRound = await this.getCurrentRound();
+    } else {
+      this.currentRaceRound = this.totalRounds;
+    }
+    await this.getData()
+    this.titlu = this.ancaliSelect
+    document.title = `Rezultate Calificări ${this.titlu}`
+    const observer = new IntersectionObserver(async (entries) => {
+      if (entries[0].isIntersecting && this.currentRaceRound > 0 && !this.loading) {
+        await this.getData()
+      }
+    }, { threshold: 0.1 })
 
-            router.push({
-                name: "Calificari",
-                params: {an: this.ancaliSelect}
-            })
+    this.$nextTick(() => {
+      const sentinel = this.$refs.sentinel
+      if (sentinel) {
+        observer.observe(sentinel)
+      }
+    })
+  },
+  methods: {
+    async getData() {
+      if (this.loading || this.currentRaceRound < 1) {
+        return;
+      }
+      this.loading = true;
+      try {
+        const response = await makeRequest(
+            `https://api.jolpi.ca/ergast/f1/${this.ancaliSelect}/${this.currentRaceRound}/qualifying.json?limit=100`
+        );
+        if (response?.MRData?.RaceTable?.Races?.length > 0) {
+          const race = response.MRData.RaceTable.Races[0];
+          this.dataQuali.push(race);
+          this.currentRaceRound--;
+        } else {
+          this.currentRaceRound = 0;
         }
+      } catch (error) {
+        console.error("Error fetching qualifying round:", error);
+        this.currentRaceRound = 0;
+      } finally {
+        this.loading = false;
+      }
     },
+    async fetchTotalRounds() {
+      try {
+        const response = await makeRequest(
+            `https://api.jolpi.ca/ergast/f1/${this.ancaliSelect}.json?limit=100`
+        );
+        const races = response?.MRData?.RaceTable?.Races;
+        if (races) {
+          this.totalRounds = races.length;
+          this.currentRaceRound = this.totalRounds; // Setează și aici, pentru siguranță
+        } else {
+          this.totalRounds = 0;
+          this.currentRaceRound = 0;
+        }
+      } catch (error) {
+        console.error("Error fetching total rounds:", error);
+        this.totalRounds = 0;
+        this.currentRaceRound = 0;
+      }
+    },
+    async getCurrentRound() {
+      try {
+        const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-next`);
+        let nr_runda = response.nr_runda;
+
+        // Coboară până găsești o rundă validă în Ergast API
+        while (nr_runda > 0) {
+          const checkErgast = await makeRequest(
+              `https://api.jolpi.ca/ergast/f1/2025/${nr_runda}/qualifying.json`
+          );
+
+          const exists = checkErgast?.MRData?.RaceTable?.Races?.length > 0;
+          if (exists) {
+            return nr_runda;
+          }
+          nr_runda--; // Scade și încearcă din nou
+        }
+        return 0; // Dacă nicio rundă nu e disponibilă
+      } catch (error) {
+        console.error("Eroare la getCurrentRound:", error);
+        return 0;
+      }
+    },
+    async anChange() {
+      this.dataQuali = [];
+      this.currentRaceRound = null;
+      this.totalRounds = null;
+      this.loading = true;
+      router.push({ name: "Curse", params: { an: this.ancaliSelect } });
+      this.titlu =this.ancaliSelect
+      document.title = `Rezultate Curse ${this.titlu}`
+      try {
+        await this.fetchTotalRounds();
+        if (this.$route.params.an === '2025') {
+          this.currentRaceRound = await this.getCurrentRound()
+        } else {
+          this.currentRaceRound = this.totalRounds;
+        }
+      } catch (error) {
+        console.error("Error fetching total rounds:", error);
+      } finally {
+        this.loading = false;
+      }
+      // Apelăm getData() acum, după ce loading ar trebui să fie false
+      await this.getData();
+      const observer = new IntersectionObserver(async (entries) => {
+        if (entries[0].isIntersecting && this.currentRaceRound > 0 && !this.loading) {
+          await this.getData()
+        }
+      }, { threshold: 0.1 })
+
+      this.$nextTick(() => {
+        const sentinel = this.$refs.sentinel
+        if (sentinel) {
+          observer.observe(sentinel)
+        }
+      })
+      this.titlu = this.ancaliSelect;
+      // this.asc = false;
+    },
+  },
+
+  computed: {
+    filterCurse: function () {
+      return this.dataQuali.filter((tabel) => {
+        return (
+          tabel.raceName.toLowerCase().match(this.search.toLowerCase()) ||
+          tabel.Circuit.Location.country
+            .toLowerCase()
+            .match(this.search.toLowerCase())
+        )
+      })
+    },
+    years() {
+      const startYear = 2014
+      const endYear = 2025
+      const years = []
+      for (let i = startYear; i <= endYear; i++) {
+        years.push(i)
+      }
+      return years.reverse()
+    },
+  },
 }
 </script>
 
-<style>
-    @import "../assets/calificari.css";
-    @import "../assets/searchbar.css";
+<style scoped>
+@import "../assets/calificari.css";
+@import "../assets/searchbar.css";
+@import "../assets/formSelect-curse.css";
 </style>

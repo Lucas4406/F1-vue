@@ -1,177 +1,160 @@
-.content-container{
-    padding:1rem;
+.content-container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  gap: 1.5rem;
+}
+.text-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text-titlu {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.quri {
+  margin: 0;
+  text-align: center;
+}
+.tabel-container {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  padding: 0.5rem;
+  width: 50%;
+  font-size: 1.5rem;
+  gap: 0.5rem;
+}
+.nume-cursa {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 500;
+}
+.data-cursa {
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+.loc-cursa {
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+.laptime {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.gol {
+  width: 50%;
+  padding: 1%;
+}
+.q-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+  padding: 1%;
+}
+.pilot {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  transition: transform 250ms ease-in-out;
+}
+.pilot:hover {
+  transform: scale(1.02);
+}
+.pilot:hover > .parte-dreapta {
+  font-size: 1.6rem;
+}
+.parte-stanga {
+  width: 50%;
+  margin-bottom: 0.5rem;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  padding: 1%;
+}
+.parte-dreapta {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+  padding: 1%;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  border-top: 2px solid black;
+}
+#q1,
+#q2,
+#q3 {
+  width: 33.33%;
+}
+#q1 {
+  border-right: 2px solid black;
+}
+#q2 {
+  border-right: 2px solid black;
+}
+.timp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.neparticipat {
+  display: inline;
+  margin: 0;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  font-weight: 500;
+}
+.first-pilot {
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+.first-timp {
+  font-weight: 600;
+}
+.piloti-container:nth-child(5) > .pilot > .parte-stanga {
+  font-weight: bold;
+}
+.piloti-container:nth-child(5) > .pilot > .parte-dreapta > #q3 {
+  font-weight: bold;
+}
+.poza-cali {
+  height: 30px;
+  display: none;
+}
+.piloti-container:nth-child(5) > .pilot > .parte-stanga > span > .poza-cali {
+  display: block;
+}
+@media (max-width: 1250px) {
+  .tabel-container {
+    width: 70%;
+  }
+}
+@media (max-width: 900px) {
+  .tabel-container {
+    width: 90%;
+    font-size: 1.8rem;
+  }
+  .parte-dreapta {
+    font-size: 1.6rem;
+  }
+  .content-container {
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    gap:1.5rem;
-}
-.text-wrap{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.text-titlu{
-    margin:0;
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-.text-wrap.darkmode > .text-titlu{
-    color:white;
-}
-.quri{
-    margin:0;
-    text-align: center;
-}
-.tabel-container{
-    display:flex;
-    flex-direction: column;
-    border:2px solid black;
-    border-radius:1%;
-    padding:.5rem;
-    width: 50%;
-    font-size: 1.5rem;
-    gap:.5rem;
-}
-.tabel-container.darkmode{
-    border-color: white;
-    background-color: #333;
-    color: white;
-}
-.nume-cursa{
-    display:flex;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 500;
-}
-.data-cursa{
-    display:flex;
-    justify-content: center;
-    font-size:1.4rem;
-}
-.loc-cursa{
-    display:flex;
-    justify-content: center;
-    font-size:1.4rem;
-}
-.laptime{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.gol{
-    width: 50%;
-    padding: 1%;
-}
-.q-container{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width:50%;
-    padding:1%;
-}
-.pilot{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    transition: transform 250ms ease-in-out;
-}
-.pilot:hover{
-    transform: scale(1.02);
-}
-.pilot:hover > .parte-dreapta{
-    font-size: 1.6rem;
-}
-.parte-stanga{
-    width:50%;
-    margin-bottom: .5rem;
-    border: 2px solid black;
-    display: flex;
-    align-items: center;
-    padding: 1%;
-}
-.parte-dreapta{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width:50%;
-    padding:1%;
-    margin-bottom: .5rem;
-    border-bottom: 2px solid black;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
-    border-top: 2px solid black;
-}
-#q1, #q2, #q3{
-    width: 33.33%;
-}
-#q1{
-    border-right: 2px solid black;
-}
-#q2{
-    border-right: 2px solid black;
-}
-.tabel-container.darkmode > 
-.tabel >
-.piloti-container > 
-.pilot > 
-.parte-stanga{
-    border-color:white ;
-}
-.tabel-container.darkmode > 
-.tabel >
-.piloti-container > 
-.pilot > 
-.parte-dreapta{
-    border-color:white ;
-}
-.timp-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.neparticipat{
-    display: inline;
-    margin:0;
-    font-size:1.1rem;
-    vertical-align: middle;
-    font-weight: 500;
-}
-.first-pilot{
-    font-weight: 600;
-    font-size: 1.6rem;
-}
-.first-timp{
-    font-weight: 600;
-}
-.piloti-container:nth-child(5) > .pilot > .parte-stanga{
-    font-weight: bold;
-}
-.piloti-container:nth-child(5) > .pilot > .parte-dreapta > #q3{
-    font-weight: bold;
-}
-.poza-cali{
-    height: 30px;
-    display: none;
-}
-.piloti-container:nth-child(5) > .pilot > .parte-stanga > span > .poza-cali{
-    display: block;
-}
-@media(max-width:1250px){
-    .tabel-container{
-        width: 70%;
-    }
-}
-@media(max-width:900px){
-    .tabel-container{
-        width: 90%;
-    }
-    .content-container{
-        padding:.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100vw;
-        overflow-x: hidden;
-    }
+    overflow-x: hidden;
+  }
 }
