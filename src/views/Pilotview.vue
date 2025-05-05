@@ -26,12 +26,10 @@ export default {
     async fetchData() {
       let driverId_obtinut
       const numeId = await makeRequest("https://api.jolpi.ca/ergast/f1/2025/drivers.json")
-      console.log(numeId)
       for (let i = 0; i < numeId.MRData.DriverTable.Drivers.length; i++) {
         const numeCod = numeId.MRData.DriverTable.Drivers[i]
         if( numeCod.code === this.pilotId){
             driverId_obtinut = numeCod.driverId
-            console.log(driverId_obtinut)
         }
       }
       const data = await makeRequest(
