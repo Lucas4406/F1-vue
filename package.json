@@ -10,6 +10,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@headlessui/vue": "^1.7.3",
     "@heroicons/vue": "^2.0.12",
+    "@vueuse/head": "^2.0.0",
     "@vueuse/motion": "^2.0.0-beta.12",
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",
