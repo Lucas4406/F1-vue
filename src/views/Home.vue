@@ -70,7 +70,6 @@ export default {
     }
   },
   async mounted() {
-    document.title = "Formula1-ro | Acasa"
     await this.getCursa()
     if (this.darkMode) {
       document.body.classList.add("darkmode")
