@@ -70,6 +70,7 @@ export default {
     }
   },
   async mounted() {
+    document.title = "Formula1-ro | Date din Formula 1 actualizate regulat"
     await this.getCursa()
     if (this.darkMode) {
       document.body.classList.add("darkmode")
