@@ -67,35 +67,6 @@ async function getData() {
   const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/profile`)
   profiles.value = data
 }
-// const proxyUrl = "https://cors-anywhere-xafh.onrender.com/"
-// const apiUrl = "https://api.formula1.com/v1/event-tracker"
-// const data = await fetchData(apiUrl)
-// console.log(data, data.fomRaceId)
-//
-// const dataRace = await fetchData(apiUrl + `/meeting/${data.fomRaceId}`)
-// console.log(dataRace)
-//
-// const dataRace2 = await fetchData(apiUrl + `/meeting/${Number(data.fomRaceId)+1}`)
-// console.log(dataRace2)
-//
-//
-// async function fetchData(url) {
-//   try {
-//     const response = await axios.get(proxyUrl + url, {
-//       headers: {
-//         "X-Requested-With": "XMLHttpRequest",
-//         Apikey: "qPgPPRJyGCIPxFT3el4MF7thXHyJCzAP",
-//         Locale: "en",
-//       },
-//     })
-//
-//     // Handle the response data
-//     return response.data
-//   } catch (error) {
-//     // Handle the error
-//     return error
-//   }
-// }
 </script>
 
 <style lang="scss" scoped>

@@ -55,7 +55,6 @@
 <script setup>
 import { onMounted, ref } from "vue"
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
-import { encrypt } from "../functions/encrypt"
 const isLoggedIn = ref(false)
 const profilePic = ref(false)
 const Name = ref("")
@@ -69,7 +68,7 @@ onMounted(() => {
       const current = {
         User: user.email,
         Username: user.displayName,
-        currentUser: encrypt(user.uid),
+        currentUser: user.uid,
       }
       localStorage.setItem("currentUser", JSON.stringify(current))
       Name.value = user.displayName
