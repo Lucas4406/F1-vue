@@ -6,6 +6,9 @@
     <button class="text-xl items-center justify-center mt-6">
       <router-link to="/test">Introducere echipe</router-link>
     </button>
+    <button class="text-xl items-center justify-center mt-6">
+      <router-link to="/updateteams">Editare echipe</router-link>
+    </button>
     <div class="flex flex-row gap-2">
       <button class="text-xl items-center justify-center mt-6">
         <a

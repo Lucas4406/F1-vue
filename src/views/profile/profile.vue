@@ -234,10 +234,10 @@ onMounted(async () => {
   await getAllDrivers()
   await getDataFull()
   showSelect.value = true
-  if (soferPref.value == "") {
+  if (soferPref.value === "") {
     soferPref.value = soferPrefdata.value
   }
-  if (echipaPref.value == "") {
+  if (echipaPref.value === "") {
     echipaPref.value = echipaPrefdata.value
   }
 })
