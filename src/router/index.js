@@ -64,12 +64,12 @@ const router = createRouter({
     {
       path: "/joc",
       name: "Joc",
-      component: Joc,
+      component: () => import("../views/Joculet.vue"),
     },
     {
       path: "/istorie",
       name: "Istorie",
-      component: Istorie,
+      component: () => import("../views/Istorie.vue"),
     },
     {
       path: "/live",
