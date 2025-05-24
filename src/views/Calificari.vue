@@ -132,7 +132,7 @@ export default {
     async getCurrentRound() {
       try {
         const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-next`);
-        let nr_runda = response.nr_runda;
+        let nr_runda = response.meetingContext.nr_runda;
 
         // Coboară până găsești o rundă validă în Ergast API
         while (nr_runda > 0) {

@@ -19,6 +19,7 @@
     "pinia": "^3.0.2",
     "primeicons": "^5.0.0",
     "primevue": "^3.16.2",
+    "three": "^0.176.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2",
     "vuetify": "^3.1.5"

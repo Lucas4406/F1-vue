@@ -2,7 +2,7 @@
   <router-link to="/program" class="hero-wrapper">
     <div class="hero-stanga">
       <div class="hero-info">
-        <p class="hero-runda">{{ heroData.status }}</p>
+        <p class="hero-runda">{{ heroData.meetingContext.status }}</p>
         <div class="steag-locatie">
 <!--          <div class="steag-wrapper">-->
 <!--            <img class="hero-steag" :src="heroData.pozaSteag" />-->

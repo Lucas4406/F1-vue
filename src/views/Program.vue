@@ -249,7 +249,7 @@ export default {
     async getCurse() {
       let link_api = `${import.meta.env.VITE_API_LINK}/get-next`
       const res = await axios.get(link_api)
-      const cursaActuala = res.data.nr_runda
+      const cursaActuala = res.data.meetingContext.nr_runda
 
       let link = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
       const response = await axios.get(link)
