@@ -15,6 +15,9 @@ export default {
       cursaData: null,
       sprintData: null,
       qualiData: null,
+      raceControlLast: null,
+      sessionKey: null,
+      nrRundaActuala: null,
     }
   },
   methods: {
@@ -33,6 +36,10 @@ export default {
           this.nrCursa = i
         }
       }
+      const res = await this.fetchData(`${import.meta.env.VITE_API_LINK}/mongo/RaceData/all`)
+      this.sessionKey = res[this.nrCursa].fomRaceId
+      const nrRunda = await this.fetchData(`${import.meta.env.VITE_API_LINK}/get-next`)
+      this.nrRundaActuala = nrRunda.meetingContext.nr_runda
       const linkFormat = `https://api.jolpi.ca/ergast/f1/${this.an}/${this.nrCursa + 1}`
       const terminare = ".json?limit=100"
       const qualiData = await this.fetchData(linkFormat + "/qualifying" + terminare)
@@ -58,17 +65,62 @@ export default {
           result.FastestLap = result.FastestLap?.Time?.time || "-";
         }
         this.sprintData = sprintDataFormat
-        console.log(sprintDataFormat)
       }
-      let link_api = `${import.meta.env.VITE_API_LINK}/mongo/RaceData/all`
-      const res = await axios.get(link_api)
-      const dateActualeApi = res.data[this.nrCursa]
-      const dateActualeErgast = resData[this.nrCursa]
+    },
+    async getOpenApiData() {
+      const dateOpen = await this.fetchData(`https://api.openf1.org/v1/sessions?year=${this.an}&meeting_key=${this.sessionKey}`)
+      const sesiuniInvers = dateOpen.reverse()
+      const keyUltima = sesiuniInvers[0].session_key
+
+      const raceControlDataUltima = await this.fetchData(`https://api.openf1.org/v1/race_control?meeting_key=${this.sessionKey}&session_key=${keyUltima}`)
+      this.raceControlLast = raceControlDataUltima.reverse()
+      console.log("updated")
+    },
+    formatDate(dateStr) {
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Bucharest',   // 🕒 Ora României
+        timeZoneName: 'short'
+      }
+      return new Date(dateStr).toLocaleString('ro-RO', options)
+    },
+    getFlagClass(flag) {
+      switch (flag) {
+        case 'CLEAR':
+          return 'bg-green-100 text-green-800'
+        case 'YELLOW':
+          return 'bg-yellow-100 text-yellow-800'
+        case 'RED':
+          return 'bg-red-100 text-red-800'
+        case 'BLUE':
+          return 'bg-blue-100 text-blue-800'
+        case 'DOUBLE YELLOW':
+          return 'bg-yellow-300 text-yellow-800'
+        default:
+          return 'bg-gray-100 text-gray-800'
+      }
     }
   },
   async mounted() {
     await this.getData()
-  }
+    await this.getOpenApiData()
+
+    if(this.nrCursa === this.nrRundaActuala){
+      // Rulează getOpenApiData la fiecare 10 secunde
+      this.interval = setInterval(() => {
+        this.getOpenApiData()
+      }, 10000) // 10 secunde = 10000 ms
+    }
+  },
+  beforeUnmount() {
+    // Curăță intervalul când componenta se distruge
+    clearInterval(this.interval)
+  },
 }
 </script>
 
@@ -88,6 +140,37 @@ export default {
     <p class="titlu-pagina-curse" v-if="sprintData">Rezultate sprint</p>
     <tabelsprint :cursa="sprintData" v-if="sprintData"/>
     <br />
+    <p class="titlu-pagina-curse" v-if="raceControlLast">Race control ultima sesiune</p>
+    <div class="p-4 max-w-xl mx-auto">
+      <div
+          class="grid grid-cols-1 gap-4 bg-white shadow-md rounded-2xl p-6 border-solid border-black"
+          v-for="(mesaj, index) in raceControlLast"
+          :key="index"
+      >
+        <h2 class="text-xl font-semibold text-red-600">
+          {{ mesaj.message }}
+        </h2>
+        <p class="text-sm text-gray-500 mb-2">
+          {{ formatDate(mesaj.date) }}
+        </p>
+
+        <div class="grid grid-cols-2 text-sm text-gray-700 gap-y-1">
+          <div><span class="font-medium">Driver #:</span> {{ mesaj.driver_number ?? '–' }}</div>
+          <div><span class="font-medium">Lap #:</span> {{ mesaj.lap_number ?? '–' }}</div>
+          <div><span class="font-medium">Category:</span> {{ mesaj.category }}</div>
+
+          <div class="flex items-center gap-2">
+            <span class="font-medium">Flag:</span>
+            <span :class="getFlagClass(mesaj.flag)" class="px-2 py-0.5 rounded-full text-xs font-semibold">
+            {{ mesaj.flag }}
+          </span>
+          </div>
+
+          <div><span class="font-medium">Scope:</span> {{ mesaj.scope }}</div>
+          <div><span class="font-medium">Sector:</span> {{ mesaj.sector ?? '–' }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
