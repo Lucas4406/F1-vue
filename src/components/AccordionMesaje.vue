@@ -68,7 +68,6 @@ export default {
       this.isLoading = true
       try {
         const res = await axios.get(`https://api.openf1.org/v1/race_control?meeting_key=${this.meetingKey}&session_key=${this.sessionKey}`)
-        console.log(res.data)
         this.mesaje = res.data.reverse()
       } catch (e) {
         console.error('Eroare la fetch:', e)
@@ -87,12 +86,10 @@ export default {
       for(let i = 0 ; i<resData.length; i++) {
         if(this.meetingName === resData[i].raceName) {
           this.nrCursa = i
-          console.log(this.nrCursa)
         }
       }
       const nrRunda = await this.fetchData(`${import.meta.env.VITE_API_LINK}/get-next`)
       this.nrRundaActuala = nrRunda.meetingContext.nr_runda
-      console.log(this.nrRundaActuala)
     },
     formatDate(dateStr) {
       const options = {
