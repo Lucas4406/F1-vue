@@ -18,6 +18,7 @@ export default {
       raceControlLast: null,
       sessionKey: null,
       nrRundaActuala: null,
+      lastSessionOpenKey: null,
     }
   },
   methods: {
@@ -67,12 +68,13 @@ export default {
         this.sprintData = sprintDataFormat
       }
     },
-    async getOpenApiData() {
+    async getLastOpenSession () {
       const dateOpen = await this.fetchData(`https://api.openf1.org/v1/sessions?year=${this.an}&meeting_key=${this.sessionKey}`)
       const sesiuniInvers = dateOpen.reverse()
-      const keyUltima = sesiuniInvers[0].session_key
-
-      const raceControlDataUltima = await this.fetchData(`https://api.openf1.org/v1/race_control?meeting_key=${this.sessionKey}&session_key=${keyUltima}`)
+      this.lastSessionOpenKey = sesiuniInvers[0].session_key
+    },
+    async getOpenApiData() {
+      const raceControlDataUltima = await this.fetchData(`https://api.openf1.org/v1/race_control?meeting_key=${this.sessionKey}&session_key=${this.lastSessionOpenKey}`)
       this.raceControlLast = raceControlDataUltima.reverse()
       console.log("updated")
     },
@@ -109,6 +111,7 @@ export default {
   },
   async mounted() {
     await this.getData()
+    await this.getLastOpenSession()
     await this.getOpenApiData()
 
     if(this.nrCursa === this.nrRundaActuala){
