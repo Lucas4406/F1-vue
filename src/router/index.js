@@ -10,6 +10,7 @@ import Calificari from "../views/Calificari.vue"
 import Curse from "../views/Curse.vue"
 import Program from "../views/Program.vue"
 import Pilotiview from "../views/Pilotview.vue"
+import Meeting from "@/views/meeting.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,7 @@ const router = createRouter({
       name: "Acasă",
       component: Home,
     },
+
     {
       path: "/echipe",
       name: "Echipe",
@@ -28,6 +30,18 @@ const router = createRouter({
       path: "/program",
       name: "Program",
       component: Program,
+      children: [
+        {
+          path: ":meeting_name",
+          name: "Meeting",
+          component: () => import("../views/meeting.vue"),
+        },
+      ],
+    },
+    {
+      path: "/program/:an/:meeting_name",
+      name: "Meeting",
+      component: () => import("../views/meeting.vue"),
     },
     {
       path: "/clasament-echipe",

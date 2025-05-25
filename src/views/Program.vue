@@ -95,12 +95,13 @@
     alt="card-grid"
     class="lg:grid lg:grid-cols-2 md:grid-cols-1 lg:px-14 lg:p-6 lg:gap-6 sm:justify-center sm:flex sm:flex-col sm:gap-6"
   >
-    <div
-      class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-24 lg:ml-0 rounded-md animatie"
+    <router-link
+      class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-24 lg:ml-0 rounded-md animatie text-black"
       v-for="(cursa, index) in curse"
       :key="index"
       :id="cursa.Circuit.circuitId.replace(/_/g, '')"
       :class="{ cursaCurenta: idCurent === index }"
+      :to="{ name: 'Meeting', params: {an: cursa.season ,  meeting_name: cursa.raceName.replace(/\s+/g, '_') } }"
     >
       <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
         <p alt="titlu">{{ cursa.round }}. {{ cursa.raceName }}</p>
@@ -221,7 +222,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
