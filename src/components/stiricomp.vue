@@ -79,7 +79,7 @@
 
 <script>
 import axios from "axios"
-import { isItemInSessionStorage } from "../functions/checkSessionS.js"
+import { isItemInSessionStorage } from "@/functions/checkSessionS.js"
 export default {
   name: "Stiri",
   data() {
@@ -90,17 +90,17 @@ export default {
       newsRF: [],
     }
   },
-  async mounted() {
-    await this.fetchData()
-    await this.fetchRaceFansNews()
+  mounted() {
+    this.fetchData()
+    this.fetchRaceFansNews()
   },
   methods: {
     async fetchData() {
       let now = new Date()
       let sessionData = JSON.parse(sessionStorage.getItem("news"))
       if (
-        isItemInSessionStorage("news") === 0 ||
-        sessionData.exp < now.toISOString()
+          isItemInSessionStorage("news") == 0 ||
+          sessionData.exp < now.toISOString()
       ) {
         var link = `${import.meta.env.VITE_API_LINK}/mongo/stiri/6`
         const response = await axios.get(link)
