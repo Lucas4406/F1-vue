@@ -243,7 +243,7 @@ export default {
     }
   },
   mounted() {
-    document.title = "Program 2025"
+    document.title = "F1 schedule 2025"
     this.getCurse()
   },
   methods: {

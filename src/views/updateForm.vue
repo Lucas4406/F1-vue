@@ -129,7 +129,7 @@ async function updateDb(idul) {
   })
 }
 onMounted(() => {
-  document.title = "Schimba profilul"
+  document.title = "Update profile information"
 })
 </script>
 

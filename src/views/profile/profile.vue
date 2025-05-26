@@ -229,7 +229,7 @@ if (favArr.value === null) {
 }
 
 onMounted(async () => {
-  document.title = "Profil" + "-" + user.displayName
+  document.title = "Profile" + "-" + user.displayName
   router.push({ query: { user: store.user.displayName } })
   await getAllDrivers()
   await getDataFull()

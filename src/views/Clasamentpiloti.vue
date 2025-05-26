@@ -76,7 +76,7 @@ export default {
         this.piloti = data
       })
       .catch((err) => console.log(err))
-    document.title = "Clasament piloți"
+    document.title = "Driver standings 2025"
   },
 }
 </script>

@@ -65,23 +65,23 @@ export default {
 
     const setHead = (year) => {
       useHead({
-        title: `Echipe Formula 1 ${year}`,
+        title: `Formula 1 Teams ${year}`,
         meta: [
           {
             name: "description",
-            content: `Vezi echipele participante în Formula 1 sezonul ${year}, cu piloți și punctaje actualizate.`,
+            content: `See the teams participating in the Formula 1 ${year} season, including drivers and updated points.`,
           },
           {
             property: "og:title",
-            content: `Echipe Formula 1 ${year}`,
+            content: `Formula 1 Teams ${year}`,
           },
           {
             property: "og:description",
-            content: `Clasamentul echipelor actuale din sezonul ${year} de Formula 1.`,
+            content: `Current team standings for the Formula 1 ${year} season.`,
           },
         ],
-      })
-    }
+      });
+    };
 
     const getTeams = async () => {
       const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)
