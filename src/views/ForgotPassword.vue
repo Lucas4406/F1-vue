@@ -39,9 +39,8 @@ async function sendReset() {
 
   const auth = getAuth()
   try {
-    console.log(email.value)
     await sendPasswordResetEmail(auth, email.value)
-    message.value = "We've sent you a password reset link via email."
+    message.value = "We've sent you a password reset link via email. You can close this page"
   } catch (err) {
     error.value = "Couldn't send reset email. Please check the address."
   } finally {
