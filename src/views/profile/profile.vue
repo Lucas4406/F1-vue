@@ -222,7 +222,14 @@ async function updateDb() {
       favDriver: soferPref.value,
     },
   })
-  window.location.reload()
+  if(store.user.favTeam !== echipaPref.value){
+    store.user.favTeam = echipaPref.value
+    await favoriteTeam()
+  }
+  if(store.user.favDriver !== soferPref.value){
+    store.user.favDriver = soferPref.value
+    await getFavDriver()
+  }
 }
 if (favArr.value === null) {
   bla.value = false
