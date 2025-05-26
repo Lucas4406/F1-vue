@@ -1,7 +1,7 @@
 <template>
   <br />
   <div class="container-curse">
-    <p class="titlu-pagina-curse">{{ "Rezultate " + numePil + " " + titlu }}</p>
+    <p class="titlu-pagina-curse">{{ "Race results " + numePil + " " + titlu }}</p>
     <rezultatePiloti v-for="cursa in curse" :key="cursa.id" :cursa="cursa" />
   </div>
 </template>
@@ -60,7 +60,7 @@ export default {
         }
       }
       this.numePil = numePilot
-      document.title = `Rezultate ${numePilot}`
+      document.title = `Race results ${numePilot}`
     },
   },
   computed: {

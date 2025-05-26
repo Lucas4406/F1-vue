@@ -73,7 +73,7 @@ export default {
     }
     await this.getData()
     this.titlu = this.ancursaSelect
-    document.title = `Rezultate Curse ${this.titlu}`
+    document.title = `Race results ${this.titlu}`
     const observer = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting && this.currentRaceRound > 0 && !this.loading) {
         await this.getData()
@@ -172,7 +172,7 @@ export default {
       this.loading = true;
       router.push({ name: "Curse", params: { an: this.ancursaSelect } });
       this.titlu =this.ancursaSelect
-      document.title = `Rezultate Curse ${this.titlu}`
+      document.title = `Race results ${this.titlu}`
       try {
         await this.fetchTotalRounds();
         if (this.$route.params.an === '2025') {

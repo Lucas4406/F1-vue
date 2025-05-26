@@ -84,6 +84,7 @@ export default {
     }
   },
   async mounted() {
+    document.title = this.meetingName.replaceAll("_", " ") + " " + this.an + " results"
     await this.getData()
     await this.getToateSesiunile()
   }

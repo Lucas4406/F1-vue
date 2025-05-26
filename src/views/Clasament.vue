@@ -27,7 +27,7 @@ export default {
           data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
       })
       .catch((err) => console.log(err.message)),
-      (document.title = "Clasament echipe")
+      (document.title = "Team standings 2025")
   },
   components: { ConstructorCard },
 }
