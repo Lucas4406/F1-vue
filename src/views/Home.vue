@@ -3,35 +3,36 @@
     <br />
     <div class="top-hero">
       <herocursa v-show="Hero" v-if="heroData" :heroData="heroData" :smallText="smallText" />
-      <AccountCard v-if="store.user == null" />
     </div>
+    <br />
+    <v-lazy
+        :options="{ threshold: 1 }"
+        transition="fade-transition"
+        v-model="modelValue"
+    >
+      <div
+          class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
+          v-if="store.user == null && (bla || driverOk)"
+      >
+        <ConstructorCard
+            :team="favArr"
+            :darkMode="darkMode"
+            class="sm:w-[20rem]"
+            v-if="bla"
+        />
+        <PilotCard
+            :pilot="favDriv"
+            :darkMode="darkMode"
+            class="sm:w-[25rem]"
+            v-if="driverOk"
+        />
+      </div>
+    </v-lazy>
     <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
     <div class="stiri-grid">
       <stiricomp />
     </div>
-    <v-lazy
-      :options="{ threshold: 1 }"
-      transition="fade-transition"
-      v-model="modelValue"
-    >
-      <div
-        class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
-        v-if="bla || driverOk"
-      >
-        <ConstructorCard
-          :team="favArr"
-          :darkMode="darkMode"
-          class="sm:w-[20rem]"
-          v-if="bla"
-        />
-        <PilotCard
-          :pilot="favDriv"
-          :darkMode="darkMode"
-          class="sm:w-[25rem]"
-          v-if="driverOk"
-        />
-      </div>
-    </v-lazy>
+    <AccountCard v-if="store.user == null" />
   </div>
 </template>
 <script>
@@ -70,7 +71,7 @@ export default {
     }
   },
   async mounted() {
-    document.title = "Formula1-ro | Date din Formula 1 actualizate regulat"
+    document.title = "Formula1-ro | Regularly Updated Formula 1 News & Data"
     await this.getCursa()
     if (this.darkMode) {
       document.body.classList.add("darkmode")
