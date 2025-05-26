@@ -1,12 +1,8 @@
 <template>
   <div class="w-screen flex justify-center items-center min-h-screen flex-col">
     <div class="login-box">
-      <h2>Sign up</h2>
-      <form @submit.prevent="register">
-        <div class="user-box">
-          <input type="email" name="" required="" v-model="email" />
-          <label>Email</label>
-        </div>
+      <h2>Log in</h2>
+      <form @submit.prevent="resetPassword">
         <div class="user-box">
           <input type="password" name="" required="" v-model="pass" />
           <label>Password</label>
@@ -15,20 +11,13 @@
           <input type="password" name="" required="" v-model="passConfirm" />
           <label>Confirm password</label>
         </div>
-        <h3 class="text-white additional">
-          Already have an account?
-          <span class="clear"
-            ><RouterLink to="/login" class="text-[#03e9f4]"
-              >Log in</RouterLink
-            ></span
-          >
-        </h3>
+        <p class="m-0 p-0 w-full text-center text-white">{{ errMsg }}</p>
         <button type="submit" class="login-button">
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-          Sign up
+          Submit
         </button>
         <input type="submit" hidden />
       </form>
@@ -37,43 +26,52 @@
 </template>
 
 <script setup>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-import { ref } from "vue"
-import { useRouter } from "vue-router"
-import axios from "axios"
-const pass = ref("")
-const email = ref("")
-const passConfirm = ref("")
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { getAuth, verifyPasswordResetCode, confirmPasswordReset } from 'firebase/auth'
+
+const route = useRoute()
 const router = useRouter()
-function register() {
-  const auth = getAuth()
-  if (pass.value === passConfirm.value) {
-    createUserWithEmailAndPassword(auth, email.value, pass.value)
-      .then((data) => {
-        createDbUser()
-        router.push("/updateprofile")
-      })
-      .catch((error) => {
-        alert(error.message)
-      })
-  } else {
-    alert("Parolele nu se potrivesc")
+const pass = ref('')
+const passConfirm = ref('')
+const errMsg = ref('')
+const message = ref('')
+const oobCode = route.query.oobCode || ''
+
+const auth = getAuth()
+
+onMounted(async () => {
+  if (!oobCode) {
+    errMsg.value = 'Invalid or missing reset code.'
+    return
+  }
+
+  try {
+    await verifyPasswordResetCode(auth, oobCode)
+  } catch (err) {
+    errMsg.value = 'This password reset link is invalid or has expired.'
+  }
+})
+
+async function resetPassword() {
+  errMsg.value = ''
+  message.value = ''
+
+  if (pass.value !== passConfirm.value) {
+    errMsg.value = 'Passwords do not match.'
+    return
+  }
+
+  try {
+    await confirmPasswordReset(auth, oobCode, pass.value)
+    message.value = 'Your password has been reset successfully! Redirecting...'
+    setTimeout(() => router.push('/login'), 3000)
+  } catch (error) {
+    errMsg.value = error.message || 'Something went wrong.'
   }
 }
-function createDbUser() {
-  const auth = getAuth()
-  const current = auth.currentUser
-  axios({
-    method: "POST",
-    url: `${import.meta.env.VITE_API_LINK}/profile`,
-    data: {
-      displayName: current.displayName,
-      profileId: current.uid,
-      email: current.email,
-    },
-  })
-}
 </script>
+
 
 <style scoped>
 html {
@@ -83,11 +81,13 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .login-button{
   background: none;
   border: none;
   cursor: pointer;
 }
+
 .login-box {
   position: absolute;
   top: 50%;

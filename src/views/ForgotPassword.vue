@@ -1,34 +1,20 @@
 <template>
   <div class="w-screen flex justify-center items-center min-h-screen flex-col">
     <div class="login-box">
-      <h2>Sign up</h2>
-      <form @submit.prevent="register">
+      <h2>Reset Password</h2>
+      <form @submit.prevent="sendReset">
         <div class="user-box">
-          <input type="email" name="" required="" v-model="email" />
+          <input type="email" required v-model="email" />
           <label>Email</label>
         </div>
-        <div class="user-box">
-          <input type="password" name="" required="" v-model="pass" />
-          <label>Password</label>
-        </div>
-        <div class="user-box">
-          <input type="password" name="" required="" v-model="passConfirm" />
-          <label>Confirm password</label>
-        </div>
-        <h3 class="text-white additional">
-          Already have an account?
-          <span class="clear"
-            ><RouterLink to="/login" class="text-[#03e9f4]"
-              >Log in</RouterLink
-            ></span
-          >
-        </h3>
+        <p class="m-0 p-0 w-full text-center text-red-400" v-if="error">{{ error }}</p>
+        <p class="m-0 p-0 w-full text-center text-green-400" v-if="message">{{ message }}</p>
         <button type="submit" class="login-button">
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-          Sign up
+          Send Email
         </button>
         <input type="submit" hidden />
       </form>
@@ -37,45 +23,35 @@
 </template>
 
 <script setup>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { ref } from "vue"
-import { useRouter } from "vue-router"
-import axios from "axios"
-const pass = ref("")
+import { getAuth, sendPasswordResetEmail } from "firebase/auth"
+
 const email = ref("")
-const passConfirm = ref("")
-const router = useRouter()
-function register() {
+const error = ref("")
+const message = ref("")
+const isSending = ref(false)
+
+async function sendReset() {
+  if (isSending.value) return
+  isSending.value = true
+  error.value = ""
+  message.value = ""
+
   const auth = getAuth()
-  if (pass.value === passConfirm.value) {
-    createUserWithEmailAndPassword(auth, email.value, pass.value)
-      .then((data) => {
-        createDbUser()
-        router.push("/updateprofile")
-      })
-      .catch((error) => {
-        alert(error.message)
-      })
-  } else {
-    alert("Parolele nu se potrivesc")
+  try {
+    console.log(email.value)
+    await sendPasswordResetEmail(auth, email.value)
+    message.value = "We've sent you a password reset link via email."
+  } catch (err) {
+    error.value = "Couldn't send reset email. Please check the address."
+  } finally {
+    isSending.value = false
   }
-}
-function createDbUser() {
-  const auth = getAuth()
-  const current = auth.currentUser
-  axios({
-    method: "POST",
-    url: `${import.meta.env.VITE_API_LINK}/profile`,
-    data: {
-      displayName: current.displayName,
-      profileId: current.uid,
-      email: current.email,
-    },
-  })
 }
 </script>
 
 <style scoped>
+/* poți păstra exact același style ca în pagina de login */
 html {
   height: 100%;
 }
@@ -83,11 +59,13 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .login-button{
   background: none;
   border: none;
   cursor: pointer;
 }
+
 .login-box {
   position: absolute;
   top: 50%;
@@ -152,7 +130,7 @@ body {
   text-transform: uppercase;
   overflow: hidden;
   transition: 0.5s;
-  margin-top: 40px;
+  margin-top: 20px;
   letter-spacing: 4px;
 }
 
@@ -177,15 +155,9 @@ body {
   background: linear-gradient(90deg, transparent, #03e9f4);
   animation: btn-anim1 1s linear infinite;
 }
-
 @keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%,
-  100% {
-    left: 100%;
-  }
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
 }
 
 .login-box .login-button span:nth-child(2) {
@@ -197,15 +169,9 @@ body {
   animation: btn-anim2 1s linear infinite;
   animation-delay: 0.25s;
 }
-
 @keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%,
-  100% {
-    top: 100%;
-  }
+  0% { top: -100%; }
+  50%, 100% { top: 100%; }
 }
 
 .login-box .login-button span:nth-child(3) {
@@ -217,15 +183,9 @@ body {
   animation: btn-anim3 1s linear infinite;
   animation-delay: 0.5s;
 }
-
 @keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%,
-  100% {
-    right: 100%;
-  }
+  0% { right: -100%; }
+  50%, 100% { right: 100%; }
 }
 
 .login-box .login-button span:nth-child(4) {
@@ -237,14 +197,8 @@ body {
   animation: btn-anim4 1s linear infinite;
   animation-delay: 0.75s;
 }
-
 @keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,
-  100% {
-    bottom: 100%;
-  }
+  0% { bottom: -100%; }
+  50%, 100% { bottom: 100%; }
 }
 </style>
