@@ -12,7 +12,7 @@
     >
       <div
           class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
-          v-if="store.user == null && (bla || driverOk)"
+          v-if="store.user != null && (bla || driverOk)"
       >
         <ConstructorCard
             :team="favArr"
