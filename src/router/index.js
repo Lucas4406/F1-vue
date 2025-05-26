@@ -146,6 +146,16 @@ const router = createRouter({
       },
     },
     {
+      path: "/change-password",
+      name: "ResetPassword",
+      component: () => import("../views/ResetPassword.vue"),
+    },
+    {
+      path: "/forgot-password",
+      name: "ForgotPassword",
+      component: () => import("../views/ForgotPassword.vue"),
+    },
+    {
       path: "/updateprofile",
       name: "updateForm",
       component: () => import("../views/updateForm.vue"),

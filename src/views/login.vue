@@ -20,13 +20,21 @@
             ></span
           >
         </h3>
-        <a href="#" @click="login" class="login-button">
+        <h3 class="text-white">
+          Forgot password?
+          <span class="clear"
+          ><RouterLink to="/forgot-password" class="text-[#03e9f4]"
+          >Click here</RouterLink
+          ></span
+          >
+        </h3>
+        <button type="submit" class="login-button">
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-          Submit
-        </a>
+          Log in
+        </button>
         <input type="submit" hidden />
       </form>
     </div>
@@ -74,7 +82,11 @@ body {
   margin: 0;
   padding: 0;
 }
-
+.login-button{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
 .login-box {
   position: absolute;
   top: 50%;
