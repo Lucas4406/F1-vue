@@ -23,7 +23,7 @@
         :style="{ borderColor: pilot.culoare }"
         :class="{ darkmode: darkMode }"
       >
-        <p class="text-curse">Echipă</p>
+        <p class="text-curse">Team</p>
         <p class="curse-castigate" id="curseCastigate">
           {{ pilot.echipa }}
         </p>
@@ -33,7 +33,7 @@
         :class="{ darkmode: darkMode }"
         :style="{ borderColor: pilot.culoare }"
       >
-        <p class="text-puncte">Număr puncte</p>
+        <p class="text-puncte">Points</p>
         <p class="nrpuncte" id="nrpuncte">
           {{ pilot.puncte === null ? 0 : pilot.puncte }}
         </p>

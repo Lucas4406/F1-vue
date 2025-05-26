@@ -2,7 +2,7 @@
   <br />
   <div class="container-curse">
     <div class="form-select">
-      <label for="ancurse">Alege anul:</label>
+      <label for="ancurse">Choose year:</label>
       <select
         id="ancurse"
         name="ancurse"
@@ -22,19 +22,19 @@
 <!--        <p v-else>Descending</p>-->
 <!--      </button>-->
     </div>
-    <p class="titlu-pagina-curse">{{ "Rezultate curse " + titlu }}</p>
+    <p class="titlu-pagina-curse">{{ "Race results " + titlu }}</p>
     <div class="search-wrapper">
       <input
         type="text"
         v-model="search"
-        placeholder="Căutare - dupa incarcare"
+        placeholder="Use only after loading"
         class="search-bar"
       />
     </div>
     <tabelcursa v-for="cursa in filterCurse" :key="cursa.id" :cursa="cursa" />
     <div ref="sentinel" class="loading" v-if="this.currentRaceRound > 0">
-      <p v-if="loading">Se încarcă...</p>
-      <p v-else>Dă scroll pentru mai multe curse</p>
+      <p v-if="loading">Loading...</p>
+      <p v-else>Scroll for more races</p>
     </div>
   </div>
 </template>

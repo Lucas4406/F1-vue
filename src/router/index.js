@@ -133,7 +133,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/surse",
+      path: "/sources",
       name: "Surse",
       component: () => import("../views/Surse-pagina.vue"),
     },

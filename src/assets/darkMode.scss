@@ -1,4 +1,16 @@
 html.darkmode {
+  .source{
+    color: white;
+  }
+  .racefansgrid{
+    color: white;
+    background-color: #333;
+  }
+  .racefansgrid h3,
+  .racefansgrid p,
+   .racefansgrid span {
+    color: white !important;
+  }
   /* Clasament-piloti */
   .piloti-text {
     color: white;
