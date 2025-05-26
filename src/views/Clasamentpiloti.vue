@@ -76,7 +76,7 @@ export default {
         this.piloti = data
       })
       .catch((err) => console.log(err))
-    document.title = "Driver standings 2025"
+    document.title = "Formula 1 2025 driver standings"
   },
 }
 </script>

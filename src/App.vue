@@ -58,8 +58,7 @@ export default {
         `${import.meta.env.VITE_API_LINK}/profile/${user}`
       )
       if (response != null) {
-        const data = response.data[0]
-        this.store.user = data
+        this.store.user = response.data[0]
       }
     },
   },

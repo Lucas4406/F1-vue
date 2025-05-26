@@ -88,14 +88,16 @@ export default {
   },
 
   async updated() {
-    if (this.modelValue === true) {
-      if (this.store.user.favTeam != null) {
-        await this.favoriteTeam()
-        this.bla = true
-      }
-      if (this.store.user.favDriver != null) {
-        await this.getFavDriver()
-        this.driverOk = true
+    if(this.store.user){
+      if (this.modelValue === true) {
+        if (this.store.user.favTeam != null) {
+          await this.favoriteTeam()
+          this.bla = true
+        }
+        if (this.store.user.favDriver != null) {
+          await this.getFavDriver()
+          this.driverOk = true
+        }
       }
     }
   },

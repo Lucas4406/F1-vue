@@ -4,13 +4,9 @@ import Clasament from "../views/Clasament.vue"
 import Home from "../views/Home.vue"
 import Echipe from "../views/Echipe.vue"
 import Clasamentpiloti from "../views/Clasamentpiloti.vue"
-import Istorie from "../views/Istorie.vue"
-import Joc from "../views/Joculet.vue"
 import Calificari from "../views/Calificari.vue"
 import Curse from "../views/Curse.vue"
 import Program from "../views/Program.vue"
-import Pilotiview from "../views/Pilotview.vue"
-import Meeting from "@/views/meeting.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -214,12 +210,12 @@ router.beforeEach(async (to, from, next) => {
     const user = getAuth()
     if (
       (await getCurrentUser()) &&
-      user.currentUser.uid == import.meta.env.VITE_ADMIN_UID
+      user.currentUser.uid === import.meta.env.VITE_ADMIN_UID
     ) {
       next()
     } else {
       alert("Nu ai drepturile necesare")
-      next("/")
+      next("/login")
     }
   } else {
     next()
