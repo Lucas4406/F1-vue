@@ -93,37 +93,37 @@ export default {
 <template>
   <div class="container-curse">
     <br />
-    <p class="titlu-pagina-curse">{{ "Rezultate " + meetingName.replaceAll("_", " ") + " " + an }}</p>
+    <p class="titlu-pagina-curse">{{ meetingName.replaceAll("_", " ") + " " + an + " results" }}</p>
 
     <p v-if="!cursaData && !qualiData && !sprintData" class="titlu-pagina-curse">
-      Rezultatele vor apărea după finalizarea sesiunii
+      Results will appear after the session has ended
     </p>
 
     <template v-if="cursaData">
-      <p class="titlu-pagina-curse">Rezultate cursă</p>
+      <p class="titlu-pagina-curse">Race results</p>
       <tabelcursa :cursa="cursaData" />
       <br />
     </template>
 
     <template v-if="qualiData">
-      <p class="titlu-pagina-curse">Rezultate calificări</p>
+      <p class="titlu-pagina-curse">Qualifying results</p>
       <tabelcali :qualiData="qualiData" />
       <br />
     </template>
 
     <template v-if="sprintData">
-      <p class="titlu-pagina-curse">Rezultate sprint</p>
+      <p class="titlu-pagina-curse">Sprint results</p>
       <Tabelsprint :cursa="sprintData" />
       <br />
     </template>
 
-    <p class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Mesaje Race Control (toate sesiunile)</p>
+    <p class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Race Control messages</p>
     <Suspense>
       <template #default>
         <AccordionMesaje
             v-for="(sesiune, index) in sesiuniOrdinate"
             :key="sesiune.session_key"
-            :title="'Mesaje sesiune: ' + sesiune.session_name"
+            :title="'Session messages: ' + sesiune.session_name"
             :sessionKey="sesiune.session_key"
             :meetingKey="sessionKey"
             :esteUltimul="index === 0"
@@ -131,7 +131,7 @@ export default {
         />
       </template>
       <template #fallback>
-        <p class="text-sm text-gray-500">Se încarcă componentele sesiunilor...</p>
+        <p class="text-sm text-gray-500">Loading</p>
       </template>
     </Suspense>
   </div>

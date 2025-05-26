@@ -13,7 +13,7 @@
           <img
               class="w-14 h-14 rounded-full border object-cover"
               :src="Poza"
-              alt="profile-pic"
+              alt="profile-picture"
               v-if="profilePic"
           />
         </router-link>
@@ -41,10 +41,10 @@
 
       <!-- INFO LEGAL & COPYRIGHT -->
       <div class="flex flex-col items-center lg:items-end text-center lg:text-right gap-2">
-        <p class="text-white text-sm sm:text-base">© 2025 Formula1-ro | F1 știri & date</p>
+        <p class="text-white text-sm sm:text-base">© 2025 Formula1-ro | F1 news & data</p>
         <div class="flex gap-4 text-white text-sm sm:text-base underline">
-          <router-link to="/surse" class="text-white">Surse</router-link>
-          <a href="https://www.termsfeed.com/live/5008d345-1123-4ce3-b36a-11a869a8a60c" class="text-white" target="_blank">Privacy Policy</a>
+          <router-link to="/sources" class="text-white">Sources</router-link>
+          <a href="https://www.termsfeed.com/live/5008d345-1123-4ce3-b36a-11a869a8a60c" class="text-white" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
         </div>
       </div>
     </div>

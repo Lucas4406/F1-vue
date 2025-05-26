@@ -37,7 +37,7 @@
                   class="text-xl font-bold block uppercase tracking-wide text-slate-700"
                   >{{ store.user.country }}</span
                 >
-                <span class="text-sm text-slate-400">Țară</span>
+                <span class="text-sm text-slate-400">Country</span>
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@
       v-if="showSelect"
     >
       <div alt="echipa" class="flex flex-row gap-2 items-center justify-center">
-        <label class="text-label" for="echipaPref">Echipa favorita:</label>
+        <label class="text-label" for="echipaPref">Favourite team:</label>
         <select
           id="echipaPref"
           name="echipa"
@@ -92,7 +92,7 @@
         </select>
       </div>
       <div alt="sofer" class="flex flex-row gap-2 items-center justify-center">
-        <label class="text-label" for="soferPref">Pilotul favorit:</label>
+        <label class="text-label" for="soferPref">Favourite driver:</label>
         <select
           id="soferPref"
           name="pilot"

@@ -3,7 +3,7 @@
     <div class="sus">
       <div class="logo">
         <router-link to="/" class="link-router"
-          ><img src="./icons/ferrari.avif" class="logo-f1" alt="logo site F1"
+          ><img src="./icons/ferrari.avif" class="logo-f1" alt="website logo"
         /></router-link>
       </div>
       <div class="fia peste" v-if="isLogged" v-once>
@@ -12,30 +12,30 @@
     </div>
     <div class="bar">
       <div class="buton">
-        <router-link to="/program" class="link-router">Program</router-link>
+        <router-link to="/program" class="link-router">Schedule</router-link>
       </div>
       <div class="buton">
-        <router-link to="/echipe" class="link-router">Echipe</router-link>
+        <router-link to="/echipe" class="link-router">Teams</router-link>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
-        <p style="color: red; margin: 0" data-dropdown-button>Clasament</p>
+        <p style="color: red; margin: 0" data-dropdown-button>Standings</p>
         <div class="dropdown-menu">
           <router-link to="/clasament-echipe" class="text-dropdown"
-            >Echipe</router-link
+            >Teams</router-link
           >
           <router-link to="/clasament-piloti" class="text-dropdown"
-            >Piloți</router-link
+            >Drivers</router-link
           >
         </div>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
-        <p style="color: red; margin: 0" data-dropdown-button>Rezultate</p>
+        <p style="color: red; margin: 0" data-dropdown-button>Results</p>
         <div class="dropdown-menu">
           <router-link to="/rezultate-curse/2025" class="text-dropdown"
-            >Curse</router-link
+            >Races</router-link
           >
           <router-link to="/rezultate-calificari/2025" class="text-dropdown"
-            >Calificări</router-link
+            >Qualifying</router-link
           >
         </div>
       </div>
@@ -47,12 +47,12 @@
           alt="icon hamburger meniu"
         />
         <div class="dropdown-menu">
-          <router-link to="/joc" class="text-dropdown-right">Joc</router-link>
+          <router-link to="/joc" class="text-dropdown-right">Game</router-link>
           <router-link
             to="/istorie"
             class="text-dropdown-right"
             :class="{ logat: isLogged }"
-            >Istorie</router-link
+            >History</router-link
           >
           <router-link
             to="/login"

@@ -89,10 +89,10 @@
   justify-content: center;
   align-items: center;
   padding: var(--point5rem);
-  left: calc(var(--one1rem) * -1);
+  left: calc(var(--one1rem) * -3);
   border-top: 2px solid red;
   box-shadow: 0 3px 10px #333;
-  width: var(--percent100);
+  width: 150%;
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;

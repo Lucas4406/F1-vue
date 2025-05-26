@@ -9,11 +9,11 @@
         </div>
         <div class="user-box">
           <input type="password" name="" required="" v-model="pass" />
-          <label>Parolă</label>
+          <label>Password</label>
         </div>
         <p class="m-0 p-0 w-full text-center text-white">{{ errMsg }}</p>
         <h3 class="text-white">
-          Nu ai cont?
+          No account?
           <span class="clear"
             ><RouterLink to="/signup" class="text-[#03e9f4]"
               >Sign up</RouterLink

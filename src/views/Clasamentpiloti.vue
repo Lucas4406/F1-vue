@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <br />
-    <p class="piloti-text">Clasament piloți 2025</p>
+    <p class="piloti-text">Formula 1 2025 Driver standings</p>
     <br />
     <br />
     <div class="piloti-grid">
@@ -15,7 +15,7 @@
           <p class="pozitie-pilot" v-if="!dontShow">{{ pilot.pozitie }}</p>
           <div class="nrpuncte-container" v-if="!dontShow">
             <p class="nrpuncte-pilot">{{ pilot.puncte }}</p>
-            <p class="puncte-text-pilot">PCT</p>
+            <p class="puncte-text-pilot">PTS</p>
           </div>
         </div>
         <div class="numesteag">

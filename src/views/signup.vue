@@ -9,14 +9,14 @@
         </div>
         <div class="user-box">
           <input type="password" name="" required="" v-model="pass" />
-          <label>Parolă</label>
+          <label>Password</label>
         </div>
         <div class="user-box">
           <input type="password" name="" required="" v-model="passConfirm" />
-          <label>Confirmare parolă</label>
+          <label>Confirm password</label>
         </div>
         <h3 class="text-white additional">
-          Ai deja cont?
+          Already have an account?
           <span class="clear"
             ><RouterLink to="/login" class="text-[#03e9f4]"
               >Log in</RouterLink

@@ -7,7 +7,7 @@
         <img
           class="h-14 w-14 rounded-full profimage object-cover"
           :src="store.user.profilePhoto"
-          :alt="`Poza de profil ${store.user.displayName}`"
+          :alt="`Profile photo ${store.user.displayName}`"
         />
       </MenuButton>
     </div>
@@ -30,7 +30,7 @@
               'block px-4 py-2 text-md text-gray-700',
             ]"
             class="peste"
-            >Profil</router-link
+            >Profile</router-link
           >
         </MenuItem>
         <MenuItem v-slot="{ active }">
@@ -41,7 +41,7 @@
               'block px-4 py-2 text-md text-gray-700',
             ]"
             class="peste"
-            >Schimbă profilul</router-link
+            >Update profile</router-link
           >
         </MenuItem>
         <MenuItem v-slot="{ active }">

@@ -1,7 +1,7 @@
 <template>
   <div class="content-container">
     <div class="form-select">
-      <label for="ancurse">Alege anul:</label>
+      <label for="ancurse">Choose year:</label>
       <select
         id="ancurse"
         name="ancurse"
@@ -16,13 +16,13 @@
     </div>
     <div class="text-wrap">
       <p class="text-titlu" ref="titlul">
-        {{ "Rezultate calificări " + titlu }}
+        {{ "Qualifying results " + titlu }}
       </p>
     </div>
     <div class="search-wrapper">
       <input
         type="text"
-        placeholder="Căutare"
+        placeholder="Use only after loading"
         class="search-bar"
         v-model="search"
       />
@@ -33,8 +33,8 @@
       :qualiData="tabel"
     />
     <div ref="sentinel" class="loading" v-if="this.currentRaceRound > 0">
-      <p v-if="loading">Se încarcă...</p>
-      <p v-else>Dă scroll pentru mai multe curse</p>
+      <p v-if="loading">Loading...</p>
+      <p v-else>Scroll for more results</p>
     </div>
   </div>
 </template>

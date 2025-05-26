@@ -8,11 +8,11 @@
     </div>
     <div class="partejos">
       <div class="curse-castigate-cont" :class="{ darkmode: darkMode }">
-        <p class="text-curse">Curse câștigate</p>
+        <p class="text-curse">Races won</p>
         <p class="curse-castigate" id="curseCastigate">{{ team.wins }}</p>
       </div>
       <div class="nrpuncte-cont" :class="{ darkmode: darkMode }">
-        <p class="text-puncte">Număr puncte</p>
+        <p class="text-puncte">Points</p>
         <p class="nrpuncte" id="nrpuncte">{{ team.points }}</p>
       </div>
     </div>
