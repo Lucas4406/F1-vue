@@ -45,34 +45,47 @@ const pass = ref("")
 const email = ref("")
 const passConfirm = ref("")
 const router = useRouter()
-function register() {
+async function register() {
   const auth = getAuth()
   if (pass.value === passConfirm.value) {
-    createUserWithEmailAndPassword(auth, email.value, pass.value)
-      .then((data) => {
-        createDbUser()
-        router.push("/updateprofile")
-      })
-      .catch((error) => {
-        alert(error.message)
-      })
+    try {
+      const data = await createUserWithEmailAndPassword(auth, email.value, pass.value)
+      await createDbUser()
+      router.push("/updateprofile")
+    } catch (error) {
+      alert(error.message)
+    }
   } else {
-    alert("Parolele nu se potrivesc")
+    alert("Passwords don't match")
   }
 }
-function createDbUser() {
+
+async function createDbUser() {
   const auth = getAuth()
   const current = auth.currentUser
-  axios({
-    method: "POST",
-    url: `${import.meta.env.VITE_API_LINK}/profile`,
-    data: {
-      displayName: current.displayName,
-      profileId: current.uid,
-      email: current.email,
-    },
-  })
+  if (!current) return
+
+  const token = await current.getIdToken(/* forceRefresh */ true)
+
+  try {
+    await axios.post(
+        `${import.meta.env.VITE_API_LINK}/profile`,
+        {
+          displayName: current.displayName,
+          profileId: current.uid,
+          email: current.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+    )
+  } catch (error) {
+    alert("Eroare la crearea profilului în baza de date: " + error.message)
+  }
 }
+
 </script>
 
 <style scoped>

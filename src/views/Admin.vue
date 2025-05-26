@@ -51,6 +51,8 @@ import { makeRequest } from "../functions/makeRequest"
 import ProfileCard from "../components/ProfileCard.vue"
 import { useCounterStore } from '../stores.js'
 const counter = useCounterStore()
+import { getAuth } from "firebase/auth"
+import axios from "axios"
 const store = inject("store")
 const isAdmin = ref(false)
 const profiles = ref([])
@@ -67,8 +69,26 @@ async function updateData() {
 }
 
 async function getData() {
-  const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/profile`)
-  profiles.value = data
+  const auth = getAuth()
+  const user = auth.currentUser
+  if (!user) {
+    alert("Nu ești autentificat")
+    return
+  }
+
+  const token = await user.getIdToken()
+
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_LINK}/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    profiles.value = response.data
+  } catch (error) {
+    console.error(error)
+    alert("Eroare la preluarea datelor: " + error.message)
+  }
 }
 </script>
 
