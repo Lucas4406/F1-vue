@@ -2,7 +2,7 @@
   <br />
   <div class="reaction-wrapper">
     <p class="reaction-titlu">
-      Jocul de reacție folosit de piloții de Formula 1
+      Reaction test game used by real Formula 1 drivers
     </p>
     <br />
     <button
@@ -18,24 +18,24 @@
     <Boxreactie v-if="isPlaying" :delay="delay" @sfarsit="endGame" />
     <div class="instructiuni" v-if="!isPlaying">
       <p class="instructiune">
-        1. Apasă pe butonul <span style="color: red">"Start"</span>
+        1. Press the  <span style="color: red">"Start"</span> button
       </p>
-      <p class="instructiune">2. Așteaptă câteva secunde</p>
-      <p class="instructiune">3. Apasă pe cutiuța apărută</p>
-      <p class="instructiune">4. Verifică scorul</p>
+      <p class="instructiune">2. Wait a few seconds (random)</p>
+      <p class="instructiune">3. Click on the box that appeares as fast as you can</p>
+      <p class="instructiune">4. Check your score</p>
     </div>
     <div class="result-box" v-if="showResult">
       <Results :score="score" />
     </div>
     <div class="timpi-tabel">
-      <span v-if="textshow">Ultimul timp:</span>
-      <span v-else>Rezultate:</span>
+      <span v-if="textshow">Last times:</span>
+      <span v-else>Results:</span>
       <p v-for="timpi in timp.slice().reverse()" :key="timpi.id">
         {{ timpi }} ms
       </p>
     </div>
     <div class="best-tabel" v-if="!textshow">
-      <span>Cel mai bun timp:</span>
+      <span>Best time:</span>
       <span style="font-weight: bold">{{ maxim }} ms</span>
     </div>
   </div>
@@ -61,7 +61,7 @@ export default {
     }
   },
   mounted() {
-    document.title = "Joc Reacție"
+    document.title = "Formula1-ro | Reaction test game"
     if (JSON.parse(localStorage.getItem("score"))) {
       try {
         this.timp.push(JSON.parse(localStorage.getItem("score")))

@@ -243,7 +243,7 @@ export default {
     }
   },
   mounted() {
-    document.title = "F1 schedule 2025"
+    document.title = "Formula 1 schedule 2025"
     this.getCurse()
   },
   methods: {

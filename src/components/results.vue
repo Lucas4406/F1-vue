@@ -1,5 +1,5 @@
 <template>
-  <span>Timpul tău de reacție este de:</span>
+  <span>Your reaction time is:</span>
   <span style="font-weight: bold">{{ score }} ms</span>
   <br />
   <p>{{ rank }}</p>
@@ -14,15 +14,15 @@ export default {
   },
   mounted() {
     if (this.score < 100) {
-      this.rank = "De ce nu te-ai făcut pilot?"
+      this.rank = "Why didn't you become a pilot?"
     } else if (this.score > 100 && this.score < 200) {
-      this.rank = "Ești șofer în București"
+      this.rank = "You are a driver in Bucharest for sure"
     } else if (this.score > 200 && this.score < 300) {
-      this.rank = "Ești destul de rapid!"
+      this.rank = "You're pretty quick!"
     } else if (this.score > 300 && this.score < 400) {
-      this.rank = "Nu ar strica puțin antrenament"
+      this.rank = "Some practice wouldn't hurt..."
     } else {
-      this.rank = "Ai adormit?"
+      this.rank = "Did you fall asleep?"
     }
   },
 }
