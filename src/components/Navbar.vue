@@ -3,7 +3,7 @@
     <div class="sus">
       <div class="logo">
         <router-link to="/" class="link-router"
-          ><img src="./icons/logo-maiinchis.jpg" class="logo-f1" alt="GridFanHub website logo"
+          ><img src="./icons/Logo-transparent-456x139.png" class="logo-f1" alt="GridFanHub website logo"
         /></router-link>
       </div>
       <div class="fia peste" v-if="isLogged" v-once>
