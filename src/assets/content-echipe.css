@@ -111,7 +111,7 @@
   column-gap: 6.25rem;
   row-gap: 1.875rem;
   justify-content: center;
-  margin-top: 1%;
+  margin-top: 2%;
 }
 .linie1 {
   display: grid;
@@ -206,6 +206,7 @@ a {
 @media (max-width: 1200px) {
   .content-echipe {
     grid-template-columns: 70%;
+    margin-top: 4%;
   }
   .box {
     height: auto;

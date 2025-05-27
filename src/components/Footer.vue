@@ -46,6 +46,19 @@
           <router-link to="/sources" class="text-white">Sources</router-link>
           <a href="https://www.privacypolicies.com/live/c7de1b24-3f41-4ea2-a495-0216f2d3c0a4" class="text-white" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
         </div>
+        <!-- Dark Mode Toggle -->
+        <button
+            class="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 hover:text-white transition text-black mt-4"
+            @click="darkModeToggle"
+        >
+          <svg v-if="isDark" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-12.66l-.71.71M4.05 19.95l-.7-.71m16.97 0l-.71.71M4.05 4.05l-.7.71M21 12h-1M4 12H3m9-9a9 9 0 100 18 9 9 0 000-18z" />
+          </svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.293 14.707A8 8 0 019.293 6.707 8 8 0 0012 20a8 8 0 005.293-5.293z" />
+          </svg>
+          <span class="text-sm hidden sm:inline">{{ isDark ? 'Dark Mode' : 'Light Mode' }}</span>
+        </button>
       </div>
     </div>
   </div>
@@ -91,9 +104,16 @@ function logout() {
     window.location.reload()
   })
 }
-function bla() {
-  document.body.scrollTop = 0
-  document.documentElement.scrollTop = 0
+const isDark = ref(localStorage.getItem("darkMode") === "true")
+
+function darkModeToggle() {
+  isDark.value = !isDark.value
+  localStorage.setItem("darkMode", isDark.value)
+  if (isDark.value) {
+    document.documentElement.classList.add("darkmode")
+  } else {
+    document.documentElement.classList.remove("darkmode")
+  }
 }
 </script>
 

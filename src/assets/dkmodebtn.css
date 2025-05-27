@@ -8,7 +8,7 @@
   transition: transform 150ms ease-in-out;
 }
 .darkmodeBtn:hover {
-  transform: scale(1.3);
+  transform: scale(1.05);
 }
 .darkmodeBtn > img {
   width: 100%;

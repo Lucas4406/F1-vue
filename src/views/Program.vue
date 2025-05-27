@@ -228,7 +228,7 @@
       </div>
     </router-link>
   </div>
-  <Calendar :races="curse" />
+  <Calendar v-if="show === true" :races="curse" />
 </template>
 
 <script>
