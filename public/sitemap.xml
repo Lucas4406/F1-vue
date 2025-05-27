@@ -3,87 +3,97 @@
 		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 	<loc>https://gridfanhub.com/</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
 	<loc>https://gridfanhub.com/profile</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>https://gridfanhub.com/program</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<loc>https://gridfanhub.com/update-profile</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>https://gridfanhub.com/echipe</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<loc>https://gridfanhub.com/schedule</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>https://gridfanhub.com/clasament-echipe</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<loc>https://gridfanhub.com/teams</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>https://gridfanhub.com/clasament-piloti</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<loc>https://gridfanhub.com/team-standings</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>https://gridfanhub.com/rezultate-curse/2025</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<loc>https://gridfanhub.com/drivers</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://gridfanhub.com/race-results/2025</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>https://gridfanhub.com/rezultate-calificari/2025</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<loc>https://gridfanhub.com/qualifying-results/2025</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>0.8</priority>
 </url>
 <url>
-	<loc>https://gridfanhub.com/joc</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<loc>https://gridfanhub.com/reaction-game</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>https://gridfanhub.com/istorie</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<loc>https://gridfanhub.com/f1-history</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
 	<loc>https://gridfanhub.com/login</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
 	<loc>https://gridfanhub.com/signup</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
 	<loc>https://gridfanhub.com/sources</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
 	<loc>https://gridfanhub.com/live</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
 	<loc>https://gridfanhub.com/fun</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://gridfanhub.com/update-teams</loc>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
 	<loc>https://gridfanhub.com/change-password</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 <url>
 	<loc>https://gridfanhub.com/forgot-password</loc>
-	<lastmod>2025-05-27T13:19:32+01:00</lastmod>
+	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
 	<priority>1.0</priority>
 </url>
 </urlset>
