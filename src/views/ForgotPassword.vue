@@ -30,7 +30,7 @@ const email = ref("")
 const error = ref("")
 const message = ref("")
 const isSending = ref(false)
-
+document.title = "GridFanHub | Reset password"
 async function sendReset() {
   if (isSending.value) return
   isSending.value = true

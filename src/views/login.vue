@@ -49,6 +49,8 @@ const pass = ref("")
 const email = ref("")
 const errMsg = ref("")
 const router = useRouter()
+
+document.title = "GridFanHub | Login"
 function login() {
   const auth = getAuth()
   signInWithEmailAndPassword(auth, email.value, pass.value)

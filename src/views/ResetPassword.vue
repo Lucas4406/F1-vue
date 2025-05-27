@@ -37,7 +37,7 @@ const passConfirm = ref('')
 const errMsg = ref('')
 const message = ref('')
 const oobCode = route.query.oobCode || ''
-
+document.title = "GridFanHub | New password"
 const auth = getAuth()
 
 onMounted(async () => {

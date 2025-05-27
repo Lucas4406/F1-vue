@@ -307,7 +307,7 @@
 export default {
   name: "Istorie",
   mounted() {
-    document.title = "Istorie"
+    document.title = " GridFanHub | Formula 1 History"
   },
 }
 </script>
