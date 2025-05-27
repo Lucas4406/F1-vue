@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar max-w-3xl mx-auto p-4 border-black border-2 border-solid rounded-md mb-4">
+  <div class="calendar max-w-3xl mx-auto p-4 border-black border-2 border-solid rounded-md mb-4 calendar-schedule">
     <div class="flex justify-between items-center mb-4">
       <button
           @click="prevMonth"
