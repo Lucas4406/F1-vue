@@ -45,6 +45,7 @@ const pass = ref("")
 const email = ref("")
 const passConfirm = ref("")
 const router = useRouter()
+document.title = "GridFanHub | Sign-up"
 async function register() {
   const auth = getAuth()
   if (pass.value === passConfirm.value) {

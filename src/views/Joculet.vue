@@ -61,7 +61,7 @@ export default {
     }
   },
   mounted() {
-    document.title = "Formula1-ro | Reaction test game"
+    document.title = "GridFanHub | Reaction test game"
     if (JSON.parse(localStorage.getItem("score"))) {
       try {
         this.timp.push(JSON.parse(localStorage.getItem("score")))

@@ -71,7 +71,7 @@ export default {
     }
   },
   async mounted() {
-    document.title = "Formula1-ro | Regularly Updated Formula 1 News & Data"
+    document.title = "GridFanHub | Regularly Updated Formula 1 News & Data"
     await this.getCursa()
     if (this.darkMode) {
       document.body.classList.add("darkmode")
