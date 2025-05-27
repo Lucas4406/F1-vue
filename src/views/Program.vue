@@ -3,7 +3,6 @@
   <div
     class="mt-6 flex justify-center w-screen sm:mb-6 lg:mb-0"
     id="hero"
-    alt="hero"
     v-if="show"
   >
     <div
@@ -16,71 +15,71 @@
         style="text-decoration: none; color: black"
       >
 
-        <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
-          <p alt="titlu">{{ round }}. {{ Name }}</p>
-          <p alt="circuit">{{ circuitName }}</p>
+        <div  class="flex justify-between text-2xl mb-4 font-bold">
+          <p >{{ round }}. {{ Name }}</p>
+          <p >{{ circuitName }}</p>
         </div>
-        <div alt="data-wrapper" class="text-2xl gap-2 flex flex-col">
-          <div alt="FP1" class="flex justify-between">
-            <div alt="parte-st" class="flex justify-between w-[50%]">
+        <div class="text-2xl gap-2 flex flex-col">
+          <div class="flex justify-between">
+            <div  class="flex justify-between w-[50%]">
               <p class="">FP1</p>
-              <p alt="data" class="">{{ this.formatDate(this.hero.FirstPractice.date) }}</p>
+              <p class="">{{ this.formatDate(this.hero.FirstPractice.date) }}</p>
             </div>
-            <p alt="timp" class="w-[50%] flex justify-end items-center">
+            <p class="w-[50%] flex justify-end items-center">
               {{ this.formatSession(this.hero.FirstPractice , 60).timpul }}
             </p>
           </div>
-          <div alt="FP2" v-if="!this.hero.Sprint" class="flex justify-between">
-            <div alt="parte-st" class="flex justify-between w-[50%]">
+          <div  v-if="!this.hero.Sprint" class="flex justify-between">
+            <div  class="flex justify-between w-[50%]">
               <p>FP2</p>
-              <p alt="data">{{ this.formatDate(this.hero.SecondPractice.date) }}</p>
+              <p >{{ this.formatDate(this.hero.SecondPractice.date) }}</p>
             </div>
-            <p alt="timp" class="w-[50%] flex justify-end items-center">
+            <p class="w-[50%] flex justify-end items-center">
               {{ this.formatSession(this.hero.SecondPractice , 60).timpul }}
             </p>
           </div>
-          <div alt="SprintQuali" v-if="this.hero.Sprint" class="flex justify-between">
-            <div alt="parte-st" class="flex justify-between w-[50%]">
+          <div  v-if="this.hero.Sprint" class="flex justify-between">
+            <div  class="flex justify-between w-[50%]">
               <p>SprintQuali</p>
-              <p alt="data">{{ this.formatDate(this.hero.SprintQualifying.date) }}</p>
+              <p>{{ this.formatDate(this.hero.SprintQualifying.date) }}</p>
             </div>
-            <p alt="timp" class="w-[50%] flex justify-end items-center">
+            <p  class="w-[50%] flex justify-end items-center">
               {{ this.formatSession(this.hero.SprintQualifying , 44).timpul }}
             </p>
           </div>
-          <div alt="Sprint" v-if="this.hero.Sprint" class="flex justify-between">
-            <div alt="parte-st" class="flex justify-between w-[50%]">
+          <div  v-if="this.hero.Sprint" class="flex justify-between">
+            <div  class="flex justify-between w-[50%]">
               <p>Sprint</p>
-              <p alt="data">{{ this.formatDate(this.hero.Sprint.date) }}</p>
+              <p >{{ this.formatDate(this.hero.Sprint.date) }}</p>
             </div>
-            <p alt="timp" class="w-[50%] flex justify-end items-center">
+            <p  class="w-[50%] flex justify-end items-center">
               {{ this.formatSession(this.hero.Sprint , 60).timpul }}
             </p>
           </div>
-          <div alt="FP3" v-if="!this.hero.Sprint" class="flex justify-between">
-            <div alt="parte-st" class="flex justify-between w-[50%]">
+          <div v-if="!this.hero.Sprint" class="flex justify-between">
+            <div  class="flex justify-between w-[50%]">
               <p>FP3</p>
-              <p alt="data">{{ this.formatDate(this.hero.ThirdPractice.date) }}</p>
+              <p >{{ this.formatDate(this.hero.ThirdPractice.date) }}</p>
             </div>
-            <p alt="timp" class="w-[50%] flex justify-end items-center">
+            <p  class="w-[50%] flex justify-end items-center">
               {{ this.formatSession(this.hero.ThirdPractice , 60).timpul }}
             </p>
           </div>
-          <div alt="Quali" class="flex justify-between">
-            <div alt="parte-st" class="flex justify-between w-[50%]">
+          <div  class="flex justify-between">
+            <div  class="flex justify-between w-[50%]">
               <p>Quali</p>
-              <p alt="data">{{ this.formatDate(this.hero.Qualifying.date) }}</p>
+              <p >{{ this.formatDate(this.hero.Qualifying.date) }}</p>
             </div>
-            <p alt="timp" class="w-[50%] flex justify-end items-center">
+            <p class="w-[50%] flex justify-end items-center">
               {{ this.formatSession(this.hero.Qualifying , 60).timpul }}
             </p>
           </div>
-          <div alt="Cursa" class="flex justify-between">
-            <div alt="parte-st" class="flex justify-between w-[50%]">
+          <div class="flex justify-between">
+            <div  class="flex justify-between w-[50%]">
               <p>Cursă</p>
-              <p alt="data">{{ this.formatDate(this.hero.date) }}</p>
+              <p >{{ this.formatDate(this.hero.date) }}</p>
             </div>
-            <p alt="timp" class="w-[50%] flex justify-end items-center">
+            <p class="w-[50%] flex justify-end items-center">
               {{ new Date(this.hero.date + "T" + this.hero.time).toLocaleTimeString(
                 "ro-RO",
                 { timeStyle: "short" }
@@ -96,7 +95,6 @@
   </div>
   <!-- Card Grid -->
   <div
-    alt="card-grid"
     class="lg:grid lg:grid-cols-2 md:grid-cols-1 lg:px-14 lg:p-6 lg:gap-6 sm:justify-center sm:flex sm:flex-col sm:gap-6"
   >
     <router-link
@@ -107,116 +105,116 @@
       :class="{ cursaCurenta: idCurent === index }"
       :to="{ name: 'Meeting', params: {an: cursa.season ,  meeting_name: cursa.raceName.replace(/\s+/g, '_') } }"
     >
-      <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
-        <p alt="titlu">{{ cursa.round }}. {{ cursa.raceName }}</p>
-        <p alt="circuit">
+      <div class="flex justify-between text-2xl mb-4 font-bold">
+        <p >{{ cursa.round }}. {{ cursa.raceName }}</p>
+        <p >
           {{
             cursa.Circuit.circuitId.charAt(0).toUpperCase() +
             cursa.Circuit.circuitId.slice(1).replace(/_/g, " ")
           }}
         </p>
       </div>
-      <div alt="data-wrapper" class="text-2xl gap-2 flex flex-col">
-        <div alt="FP1" class="flex justify-between">
-          <div alt="parte-st" class="flex justify-between w-[50%]">
+      <div class="text-2xl gap-2 flex flex-col">
+        <div  class="flex justify-between">
+          <div  class="flex justify-between w-[50%]">
             <p class="">FP1</p>
-            <p alt="data" class="">
+            <p  class="">
               {{
                 this.formatDate(cursa.FirstPractice.date)
               }}
             </p>
           </div>
-          <p alt="timp" class="w-[50%] flex justify-end items-center">
+          <p class="w-[50%] flex justify-end items-center">
             {{
               this.formatSession(cursa.FirstPractice , 60).timpul
             }}
           </p>
         </div>
-        <div alt="SprintQuali" v-if="cursa.Sprint" class="flex justify-between">
-          <div alt="parte-st" class="flex justify-between w-[50%]">
+        <div v-if="cursa.Sprint" class="flex justify-between">
+          <div class="flex justify-between w-[50%]">
             <p class="">SprintQuali</p>
-            <p alt="data" class="">
+            <p  class="">
               {{
                 this.formatDate(cursa.SprintQualifying.date)
               }}
             </p>
           </div>
-          <p alt="timp" class="w-[50%] flex justify-end items-center">
+          <p  class="w-[50%] flex justify-end items-center">
             {{
               this.formatSession(cursa.SprintQualifying , 44).timpul
             }}
           </p>
         </div>
-        <div alt="FP2" v-if="!cursa.Sprint" class="flex justify-between">
-          <div alt="parte-st" class="flex justify-between w-[50%]">
+        <div v-if="!cursa.Sprint" class="flex justify-between">
+          <div  class="flex justify-between w-[50%]">
             <p>FP2</p>
-            <p alt="data">
+            <p >
               {{
                 this.formatDate(cursa.SecondPractice.date)
               }}
             </p>
           </div>
-          <p alt="timp" class="w-[50%] flex justify-end items-center">
+          <p  class="w-[50%] flex justify-end items-center">
             {{
               this.formatSession(cursa.SecondPractice , 60).timpul
             }}
           </p>
         </div>
-        <div alt="Sprint" v-if="cursa.Sprint" class="flex justify-between">
-          <div alt="parte-st" class="flex justify-between w-[50%]">
+        <div  v-if="cursa.Sprint" class="flex justify-between">
+          <div  class="flex justify-between w-[50%]">
             <p>Sprint</p>
-            <p alt="data">
+            <p>
               {{
                 this.formatDate(cursa.Sprint.date)
               }}
             </p>
           </div>
-          <p alt="timp" class="w-[50%] flex justify-end items-center">
+          <p class="w-[50%] flex justify-end items-center">
             {{
               this.formatSession(cursa.Sprint , 60).timpul
             }}
           </p>
         </div>
-        <div alt="FP3" v-if="!cursa.Sprint" class="flex justify-between">
-          <div alt="parte-st" class="flex justify-between w-[50%]">
+        <div v-if="!cursa.Sprint" class="flex justify-between">
+          <div class="flex justify-between w-[50%]">
             <p>FP3</p>
-            <p alt="data">
+            <p>
               {{
                 this.formatDate(cursa.ThirdPractice.date)
               }}
             </p>
           </div>
-          <p alt="timp" class="w-[50%] flex justify-end items-center">
+          <p class="w-[50%] flex justify-end items-center">
             {{
               this.formatSession(cursa.ThirdPractice , 60).timpul
             }}
           </p>
         </div>
-        <div alt="Quali" class="flex justify-between">
-          <div alt="parte-st" class="flex justify-between w-[50%]">
+        <div class="flex justify-between">
+          <div class="flex justify-between w-[50%]">
             <p>Quali</p>
-            <p alt="data">
+            <p>
               {{
                 this.formatDate(cursa.Qualifying.date)
               }}
             </p>
           </div>
-          <p alt="timp" class="w-[50%] flex justify-end items-center">
+          <p class="w-[50%] flex justify-end items-center">
             {{
               this.formatSession(cursa.Qualifying , 60).timpul
             }}
           </p>
         </div>
-        <div alt="Cursa" class="flex justify-between">
-          <div alt="parte-st" class="flex justify-between w-[50%]">
+        <div class="flex justify-between">
+          <div class="flex justify-between w-[50%]">
             <p>Cursă</p>
-            <p alt="data">
+            <p>
               {{
                 this.formatDate(cursa.date)
               }}
             </p>
           </div>
-          <p alt="timp" class="w-[50%] flex justify-end items-center">
+          <p class="w-[50%] flex justify-end items-center">
             {{
               new Date(cursa.date + "T" + cursa.time).toLocaleTimeString(
                 "ro-RO",
