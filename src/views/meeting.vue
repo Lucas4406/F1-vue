@@ -5,6 +5,7 @@ import tabelcursa from "@/components/tabelcursa.vue"
 import tabelcali from "@/components/tabelcali.vue"
 import Tabelsprint from "@/components/tabelsprint.vue"
 import AccordionMesaje from "@/components/AccordionMesaje.vue"
+import getNext from "@/functions/getNext";
 
 export default {
   name: "Meeting",
@@ -50,7 +51,7 @@ export default {
       const raceRes = await this.fetchData(`${import.meta.env.VITE_API_LINK}/mongo/RaceData/all`)
       this.sessionKey = raceRes[this.nrCursa].fomRaceId
 
-      const runda = await this.fetchData(`${import.meta.env.VITE_API_LINK}/get-next`)
+      const runda = await getNext
       this.nrRundaActuala = runda.meetingContext.nr_runda
 
       const linkBase = `https://api.jolpi.ca/ergast/f1/${this.an}/${this.nrCursa + 1}`

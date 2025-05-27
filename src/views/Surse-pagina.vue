@@ -14,10 +14,26 @@
 
     <a
         class="text-black underline surse-link cursor-pointer"
+        href="https://www.RaceFans.net"
+        target="_blank" rel="noopener noreferrer"
+    >
+      RaceFans website
+    </a>
+
+    <a
+        class="text-black underline surse-link cursor-pointer"
         href="https://github.com/jolpica/jolpica-f1/blob/main/docs/README.md"
         target="_blank" rel="noopener noreferrer"
     >
-      Data API
+      Ergast Data API
+    </a>
+
+    <a
+        class="text-black underline surse-link cursor-pointer"
+        href="https://openf1.org/"
+        target="_blank" rel="noopener noreferrer"
+    >
+      OpenF1 data API
     </a>
 
     <p class="text-sm sm:text-base">
@@ -28,3 +44,5 @@
   </div>
 
 </template>
+<script setup lang="ts">
+</script>

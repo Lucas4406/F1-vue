@@ -37,6 +37,7 @@
 
 <script>
 import axios from 'axios'
+import getNext from "@/functions/getNext";
 
 export default {
   name: 'AccordionMesaje',
@@ -88,7 +89,7 @@ export default {
           this.nrCursa = i
         }
       }
-      const nrRunda = await this.fetchData(`${import.meta.env.VITE_API_LINK}/get-next`)
+      const nrRunda = await getNext
       this.nrRundaActuala = nrRunda.meetingContext.nr_runda
     },
     formatDate(dateStr) {
@@ -100,10 +101,9 @@ export default {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
-        timeZone: 'Europe/Bucharest',
-        timeZoneName: 'short'
+        timeZoneName: 'short' // ← doar arată fusul orar local
       }
-      return new Date(dateStr).toLocaleString('ro-RO', options)
+      return new Date(dateStr).toLocaleString(undefined, options)
     },
     getFlagClass(flag) {
       switch (flag) {
