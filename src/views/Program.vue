@@ -15,6 +15,7 @@
         "
         style="text-decoration: none; color: black"
       >
+
         <div alt="header" class="flex justify-between text-2xl mb-4 font-bold">
           <p alt="titlu">{{ round }}. {{ Name }}</p>
           <p alt="circuit">{{ circuitName }}</p>
@@ -87,6 +88,9 @@
             </p>
           </div>
         </div>
+        <p class="text-sm text-gray-600 italic mt-2">
+          * All times shown are in your device's local time zone.
+        </p>
       </a>
     </div>
   </div>
@@ -224,12 +228,18 @@
       </div>
     </router-link>
   </div>
+  <Calendar :races="curse" />
 </template>
 
 <script>
 import axios from "axios"
+import getNext from "@/functions/getNext";
+import Calendar from "@/components/Calendar.vue"
 export default {
   name: "Program",
+  components: {
+    Calendar
+  },
   data() {
     return {
       curse: [],
@@ -248,9 +258,8 @@ export default {
   },
   methods: {
     async getCurse() {
-      let link_api = `${import.meta.env.VITE_API_LINK}/get-next`
-      const res = await axios.get(link_api)
-      const cursaActuala = res.data.meetingContext.nr_runda
+      const res = await getNext
+      const cursaActuala = res.meetingContext.nr_runda
 
       let link = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
       const response = await axios.get(link)

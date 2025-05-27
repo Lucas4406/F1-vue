@@ -43,6 +43,7 @@
 import tabelcursa from "../components/tabelcursa.vue"
 import router from "../router"
 import { makeRequest } from "../functions/makeRequest"
+import getNext from "@/functions/getNext";
 export default {
   name: "Curse",
   components: {
@@ -135,7 +136,7 @@ export default {
     },
     async getCurrentRound() {
       try {
-        const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-next`);
+        const response = await getNext;
         let nr_runda = response.meetingContext.nr_runda + 1;
 
         // Coboară până găsești o rundă validă în Ergast API

@@ -55,7 +55,7 @@ export default {
   },
   inject: ["store"],
   data() {
-    let darkMode = localStorage.getItem("darkMode") == "true"
+    let darkMode = localStorage.getItem("darkMode") === "true"
     return {
       darkMode,
       heroData: null,
@@ -78,13 +78,6 @@ export default {
     } else {
       document.body.classList.remove("darkmode")
     }
-    // if (this.store.heroBanner === undefined) {
-    //   await this.getCursa()
-    //   this.heroData = this.store.heroBanner
-    // } else {
-    //   this.heroData = this.store.heroBanner
-    //   this.Hero = true
-    // }
   },
 
   async updated() {
@@ -102,20 +95,9 @@ export default {
     }
   },
   methods: {
-    handleErr(val) {
-      if (val === true) {
-        this.componentKey += 1
-        console.log("component reloaded")
-      }
-    },
-    forceRerender() {
-      this.componentKey += 1
-    },
     async getCursa() {
       try {
-        var linkBun = `${import.meta.env.VITE_API_LINK}/get-next`
-        const resp = await axios.get(linkBun)
-        const date = resp.data
+        const date = await getNext
         const dataInc = new Date(date.race.meetingStartDate)
         const dataSf = new Date(date.race.meetingEndDate)
         var dataI = dataInc.getDate()
@@ -135,7 +117,7 @@ export default {
         } else {
           dataSfarsit = dataS
         }
-        const monthName = dataInc.toLocaleString('en-US', { month: 'short' })
+        const monthName = dataInc.toLocaleString('en-GB', { month: 'short' })
         date["inceput"] = dataInceput
         date["sfarsit"] = dataSfarsit
         date["lunaCursaText"] = monthName
