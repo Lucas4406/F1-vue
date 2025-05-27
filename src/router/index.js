@@ -18,12 +18,12 @@ const router = createRouter({
     },
 
     {
-      path: "/echipe",
+      path: "/teams",
       name: "Echipe",
       component: Echipe,
     },
     {
-      path: "/program",
+      path: "/schedule",
       name: "Program",
       component: Program,
       children: [
@@ -35,27 +35,27 @@ const router = createRouter({
       ],
     },
     {
-      path: "/program/:an/:meeting_name",
+      path: "/schedule/:an/:meeting_name",
       name: "Meeting",
       component: () => import("../views/meeting.vue"),
     },
     {
-      path: "/clasament-echipe",
+      path: "/team-standings",
       name: "Clasament",
       component: Clasament,
     },
     {
-      path: "/rezultate-calificari/:an?",
+      path: "/qualifying-results/:an?",
       name: "Calificari",
       component: Calificari,
     },
     {
-      path: "/rezultate-curse/:an?",
+      path: "/race-results/:an?",
       name: "Curse",
       component: Curse,
     },
     {
-      path: "/clasament-piloti",
+      path: "/drivers",
       name: "Clasamentpiloti",
       component: Clasamentpiloti,
       children: [
@@ -67,17 +67,17 @@ const router = createRouter({
       ],
     },
     {
-      path: "/clasament-piloti/:id",
+      path: "/drivers/:id",
       name: "Pilotdetails",
       component: () => import("../views/Pilotview.vue"),
     },
     {
-      path: "/joc",
+      path: "/reaction-game",
       name: "Joc",
       component: () => import("../views/Joculet.vue"),
     },
     {
-      path: "/istorie",
+      path: "/f1-history",
       name: "Istorie",
       component: () => import("../views/Istorie.vue"),
     },
@@ -100,7 +100,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/updateteams",
+      path: "/update-teams",
       name: "updateTeams",
       component: () => import("../views/updateTeams.vue"),
       meta: {
@@ -152,7 +152,7 @@ const router = createRouter({
       component: () => import("../views/ForgotPassword.vue"),
     },
     {
-      path: "/updateprofile",
+      path: "/update-profile",
       name: "updateForm",
       component: () => import("../views/updateForm.vue"),
       meta: {
@@ -182,7 +182,7 @@ function getCurrentUser() {
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.isAuth)) {
     if (await getCurrentUser()) {
-      alert("Nu poti accesa aceasta pagina")
+      alert("Can't access this page")
       next("/")
     } else {
       next()
@@ -197,7 +197,7 @@ router.beforeEach(async (to, from, next) => {
     if (await getCurrentUser()) {
       next()
     } else {
-      alert("Nu poti accesa aceasta pagina")
+      alert("Can't access this page")
       next("/")
     }
   } else {
@@ -214,7 +214,7 @@ router.beforeEach(async (to, from, next) => {
     ) {
       next()
     } else {
-      alert("Nu ai drepturile necesare")
+      alert("Don't have the right role for this page")
       next("/login")
     }
   } else {

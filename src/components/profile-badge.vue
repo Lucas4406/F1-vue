@@ -35,7 +35,7 @@
         </MenuItem>
         <MenuItem v-slot="{ active }">
           <router-link
-            to="/updateprofile"
+            to="/update-profile"
             :class="[
               active ? 'bg-gray-100' : '',
               'block px-4 py-2 text-md text-gray-700',

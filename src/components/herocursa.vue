@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/program" class="hero-wrapper">
+  <router-link to="/schedule" class="hero-wrapper">
     <div class="hero-stanga">
       <div class="hero-info">
         <p class="hero-runda">{{ heroData.meetingContext.status }}</p>

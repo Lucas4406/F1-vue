@@ -52,7 +52,7 @@ async function register() {
     try {
       const data = await createUserWithEmailAndPassword(auth, email.value, pass.value)
       await createDbUser()
-      router.push("/updateprofile")
+      router.push("/update-profile")
     } catch (error) {
       alert(error.message)
     }
