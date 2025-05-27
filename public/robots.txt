@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.formula1-ro.tech/sitemap.xml
+Sitemap: https://gridfanhub.com/sitemap.xml
 Disallow: /admin
 Disallow: /updateteams
 Disallow: /updateprofile

@@ -60,7 +60,7 @@
                 >Log Out</a
               >
               <router-link
-                to="/updateprofile"
+                to="/update-profile"
                 class="font-normal text-slate-700 hover:text-slate-400 cursor-pointer"
                 >Update Profile</router-link
               >

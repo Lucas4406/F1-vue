@@ -12,18 +12,18 @@
     </div>
     <div class="bar">
       <div class="buton">
-        <router-link to="/program" class="link-router">Schedule</router-link>
+        <router-link to="/schedule" class="link-router">Schedule</router-link>
       </div>
       <div class="buton">
-        <router-link to="/echipe" class="link-router">Teams</router-link>
+        <router-link to="/teams" class="link-router">Teams</router-link>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
         <p style="color: red; margin: 0" data-dropdown-button>Standings</p>
         <div class="dropdown-menu">
-          <router-link to="/clasament-echipe" class="text-dropdown"
+          <router-link to="/team-standings" class="text-dropdown"
             >Teams</router-link
           >
-          <router-link to="/clasament-piloti" class="text-dropdown"
+          <router-link to="/drivers" class="text-dropdown"
             >Drivers</router-link
           >
         </div>
@@ -31,10 +31,10 @@
       <div class="buton" id="buton-dpd" data-dropdown>
         <p style="color: red; margin: 0" data-dropdown-button>Results</p>
         <div class="dropdown-menu">
-          <router-link to="/rezultate-curse/2025" class="text-dropdown"
+          <router-link to="/race-results/2025" class="text-dropdown"
             >Races</router-link
           >
-          <router-link to="/rezultate-calificari/2025" class="text-dropdown"
+          <router-link to="/qualifying-results/2025" class="text-dropdown"
             >Qualifying</router-link
           >
         </div>
@@ -47,9 +47,9 @@
           alt="icon hamburger meniu"
         />
         <div class="dropdown-menu">
-          <router-link to="/joc" class="text-dropdown-right">Game</router-link>
+          <router-link to="/reaction-game" class="text-dropdown-right">Game</router-link>
           <router-link
-            to="/istorie"
+            to="/f1-history"
             class="text-dropdown-right"
             :class="{ logat: isLogged }"
             >History</router-link
