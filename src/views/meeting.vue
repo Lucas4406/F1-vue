@@ -4,7 +4,8 @@ import axios from "axios"
 import tabelcursa from "@/components/tabelcursa.vue"
 import tabelcali from "@/components/tabelcali.vue"
 import Tabelsprint from "@/components/tabelsprint.vue"
-import AccordionMesaje from "@/components/AccordionMesaje.vue"
+import {useHead} from "@vueuse/head"
+import { useRoute } from 'vue-router'
 import getNext from "@/functions/getNext";
 
 export default {
@@ -88,6 +89,71 @@ export default {
     document.title = this.meetingName.replaceAll("_", " ") + " " + this.an + " results"
     await this.getData()
     await this.getToateSesiunile()
+  },
+  setup(){
+    const route = useRoute()
+    const an = route.params.an
+    const meetingName = route.params.meeting_name
+    const meetingNameFormatted = meetingName.replaceAll('_', ' ')
+    useHead({
+      title: `GridFanHub | ${meetingNameFormatted} ${an} Results`,
+      meta: [
+        {
+          name: "description",
+          content: `See all results from the ${meetingNameFormatted} ${an} Formula 1 weekend: race, qualifying, sprint and race control messages.`,
+        },
+        {
+          name: "keywords",
+          content: `${meetingNameFormatted} ${an} F1, Formula 1 ${an} ${meetingNameFormatted} results, F1 qualifying, F1 sprint results, ${an} F1 race outcome, race control messages, race control`,
+        },
+        {
+          name: "robots",
+          content: "index, follow",
+        },
+        {
+          property: "og:title",
+          content: `GridFanHub | ${meetingNameFormatted} ${an} Results`,
+        },
+        {
+          property: "og:description",
+          content: `Catch up on all sessions from ${meetingNameFormatted} ${an}. View race, qualifying, and sprint results and race control messages.`,
+        },
+        {
+          property: "og:type",
+          content: "website",
+        },
+        {
+          property: "og:url",
+          content: `https://gridfanhub.com/schedule/${an}/${meetingName}`,
+        },
+        {
+          property: "og:image",
+          content: "https://gridfanhub.com/favicon.ico", // ← înlocuiește cu imaginea OG reală
+        },
+        {
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        {
+          name: "twitter:title",
+          content: `GridFanHub | ${meetingNameFormatted} ${an} Results`,
+        },
+        {
+          name: "twitter:description",
+          content: `Results from ${meetingNameFormatted} ${an} — check out qualifying, sprint, race results and race control messages in one place.`,
+        },
+        {
+          name: "twitter:image",
+          content: "https://gridfanhub.com/favicon.ico", // ← imagine reală
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: `https://gridfanhub.com/schedule/${an}/${meetingName}`,
+        },
+      ],
+    })
   }
 }
 </script>

@@ -93,6 +93,7 @@
 
 <script>
 import axios from "axios"
+import {useHead} from "@vueuse/head";
 export default {
   name: "Test-form",
   data() {
@@ -106,6 +107,11 @@ export default {
     }
   },
   mounted() {
+    useHead({
+      meta: [
+        { name: "robots", content: "noindex, nofollow" }
+      ]
+    })
     this.getEchipe()
   },
   methods: {

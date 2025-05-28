@@ -1,6 +1,6 @@
 <template>
   <div class="border rounded-xl shadow mb-4">
-    <button @click="toggleOpen" class="w-full flex justify-between items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 font-semibold">
+    <button @click="toggleOpen" class="w-full flex justify-between items-center text-xl px-4 py-2 bg-gray-100 hover:bg-gray-200 font-semibold">
       {{ title }}
       <span>{{ isOpen ? '▲' : '▼' }}</span>
     </button>

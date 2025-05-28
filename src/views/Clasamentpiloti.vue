@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <br />
-    <p class="piloti-text">Formula 1 2025 Driver standings</p>
+    <p class="piloti-text">Formula 1 Driver standings 2025</p>
     <br />
     <br />
     <div class="piloti-grid">
@@ -45,6 +45,8 @@
   </div>
 </template>
 <script>
+import {useHead} from "@vueuse/head";
+
 export default {
   name: "CLasamentpiloti",
   inject: ["store"],
@@ -76,7 +78,69 @@ export default {
         this.piloti = data
       })
       .catch((err) => console.log(err))
-    document.title = "Formula 1 2025 driver standings"
+    useHead({
+      title: "GridFanHub | Formula 1 Driver Standings 2025",
+      meta: [
+        {
+          name: "description",
+          content:
+              "Stay updated with the latest 2025 Formula 1 driver standings. View positions, points, gaps and more for each F1 driver this season.",
+        },
+        {
+          name: "keywords",
+          content:
+              "F1 2025 standings, Formula 1 drivers 2025, F1 driver points, F1 ranking 2025, F1 drivers table, Formula 1 drivers gap, F1 points 2025",
+        },
+        {
+          name: "robots",
+          content: "index, follow",
+        },
+        {
+          property: "og:title",
+          content: "GridFanHub | Formula 1 Driver Standings 2025",
+        },
+        {
+          property: "og:description",
+          content:
+              "Check out the full Formula 1 2025 driver standings, updated after every race. Discover driver positions, points, and gaps to the leader.",
+        },
+        {
+          property: "og:type",
+          content: "website",
+        },
+        {
+          property: "og:url",
+          content: "https://gridfanhub.com/drivers",
+        },
+        {
+          property: "og:image",
+          content: "https://gridfanhub.com/favicon.ico", // modifică cu imaginea OG reală
+        },
+        {
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        {
+          name: "twitter:title",
+          content: "GridFanHub | Formula 1 Driver Standings 2025",
+        },
+        {
+          name: "twitter:description",
+          content:
+              "Explore the complete driver standings for the 2025 F1 season on GridFanHub. Updated after every race weekend.",
+        },
+        {
+          name: "twitter:image",
+          content: "https://gridfanhub.com/favicon.ico", // modifică cu imaginea reală
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: "https://gridfanhub.com/drivers",
+        },
+      ],
+    })
   },
 }
 </script>

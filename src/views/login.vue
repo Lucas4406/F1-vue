@@ -48,7 +48,6 @@ import { useRouter } from "vue-router"
 const pass = ref("")
 const email = ref("")
 const errMsg = ref("")
-const router = useRouter()
 
 document.title = "GridFanHub | Login"
 function login() {
@@ -60,16 +59,16 @@ function login() {
     .catch((error) => {
       switch (error.code) {
         case "auth/invalid-email":
-          errMsg.value = "Email invalid"
+          errMsg.value = "Invalid email address"
           break
         case "auth/user-not-found":
-          errMsg.value = "Nu există cont cu acel email"
+          errMsg.value = "No account found"
           break
         case "auth/wrong-password":
-          errMsg.value = "Parolă incorectă"
+          errMsg.value = "Incorrect password"
           break
         default:
-          errMsg.value = "Email sau parolă incorecte"
+          errMsg.value = "Email or password are incorrect"
           break
       }
     })

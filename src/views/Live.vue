@@ -13,6 +13,7 @@
 
 <script>
 import axios from 'axios'
+import {useHead} from "@vueuse/head";
 
 export default {
   data() {
@@ -21,6 +22,11 @@ export default {
     }
   },
   async mounted() {
+    useHead({
+      meta: [
+        { name: "robots", content: "noindex, nofollow" }
+      ]
+    })
     await this.fetchData()
     axios.get('https://cors-anywhere-xafh.onrender.com/https://www.fia.com/decision-document-list/ajax/55041')
         .then(response => {

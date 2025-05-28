@@ -41,6 +41,7 @@
   </div>
 </template>
 <script>
+import { useHead } from "@vueuse/head"
 import Boxreactie from "../components/Boxreactie.vue"
 import Results from "../components/results.vue"
 export default {
@@ -61,7 +62,69 @@ export default {
     }
   },
   mounted() {
-    document.title = "GridFanHub | Reaction test game"
+    useHead({
+      title: "GridFanHub | Reaction test game",
+      meta: [
+        {
+          name: "description",
+          content:
+              "Try the Formula 1 reaction test game used by real drivers. See how fast you can react!",
+        },
+        {
+          name: "keywords",
+          content:
+              "F1 reaction test, reaction time game, Formula 1 reflex test, reaction test online",
+        },
+        {
+          name: "robots",
+          content: "index, follow",
+        },
+        {
+          property: "og:title",
+          content: "GridFanHub | Reaction test game",
+        },
+        {
+          property: "og:description",
+          content:
+              "Can you beat the reaction times of F1 drivers? Play the reflex game used in motorsport.",
+        },
+        {
+          property: "og:type",
+          content: "website",
+        },
+        {
+          property: "og:url",
+          content: "https://gridfanhub.com/reaction-game",
+        },
+        {
+          property: "og:image",
+          content: "https://gridfanhub.com/favicon.ico",
+        },
+        {
+          name: "twitter:card",
+          content: "summary",
+        },
+        {
+          name: "twitter:title",
+          content: "GridFanHub | Reaction test game",
+        },
+        {
+          name: "twitter:description",
+          content:
+              "Try the same reaction test game used by F1 drivers and track your fastest time!",
+        },
+        {
+          name: "twitter:image",
+          content: "https://gridfanhub.com/favicon.ico",
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: "https://gridfanhub.com/reaction-game",
+        },
+      ],
+    })
     if (JSON.parse(localStorage.getItem("score"))) {
       try {
         this.timp.push(JSON.parse(localStorage.getItem("score")))
