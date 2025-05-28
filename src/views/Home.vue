@@ -36,6 +36,7 @@
   </div>
 </template>
 <script>
+import { useHead } from "@vueuse/head"
 import herocursa from "../components/herocursa.vue"
 import stiricomp from "../components/stiricomp.vue"
 import getNext from "../functions/getNext.js"
@@ -71,13 +72,38 @@ export default {
     }
   },
   async mounted() {
-    document.title = "GridFanHub | Regularly Updated Formula 1 News & Data"
     await this.getCursa()
     if (this.darkMode) {
       document.body.classList.add("darkmode")
     } else {
       document.body.classList.remove("darkmode")
     }
+    useHead({
+      title: "GridFanHub | Regularly Updated Formula 1 News & Data",
+      meta: [
+        { name: "keywords", content: "Formula 1, F1, F1 news, F1 standings, Formula 1 calendar, F1 teams, F1 drivers, race results, F1 qualifying, F1 history, Formula 1 reaction game, Formula 1 Romania, F1 RO, formula1 ro, formula1 romania, F1 schedule" },
+        { name: "description", content: "GridFanHub is your complete source of information about Formula 1: updated news, race schedules, live results, and standings for drivers and teams. Discover qualifying and race data, play a reaction game for F1 fans, and explore the fascinating history of this sport. All in one place, in English." },
+        { name: "author", content: "GridFanHub" },
+        { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+
+        // Open Graph
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: "https://gridfanhub.com" },
+        { property: "og:title", content: "GridFanHub - Constantly Updated News, Standings and Results" },
+        { property: "og:description", content: "GridFanHub is your complete source of information about Formula 1" },
+        { property: "og:image", content: "https://gridfanhub.com/favicon.ico" },
+
+        // Twitter
+        { property: "twitter:card", content: "summary_large_image" },
+        { property: "twitter:url", content: "https://gridfanhub.com" },
+        { property: "twitter:title", content: "GridFanHub - Constantly Updated News, Standings and Results" },
+        { property: "twitter:description", content: "GridFanHub is your complete source of information about Formula 1" },
+        { property: "twitter:image", content: "https://gridfanhub.com/favicon.ico" },
+      ],
+      link: [
+        { rel: "canonical", href: "https://gridfanhub.com" }
+      ]
+    })
   },
 
   async updated() {

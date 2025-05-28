@@ -65,23 +65,66 @@ export default {
 
     const setHead = (year) => {
       useHead({
-        title: `Formula 1 Teams ${year}`,
+        title: `GridFanHub | Formula 1 Teams ${year}`,
         meta: [
           {
             name: "description",
-            content: `See the teams participating in the Formula 1 ${year} season, including drivers and updated points.`,
+            content: `Discover all Formula 1 teams from the ${year} season, with updated points, drivers, cars, and logos.`,
+          },
+          {
+            name: "keywords",
+            content:
+                "F1 2025 teams, Formula 1 teams, F1 constructors, F1 team standings 2025, F1 car photos, F1 logos, F1 team drivers 2025",
+          },
+          {
+            name: "robots",
+            content: "index, follow",
           },
           {
             property: "og:title",
-            content: `Formula 1 Teams ${year}`,
+            content: `GridFanHub | Formula 1 Teams ${year}`,
           },
           {
             property: "og:description",
-            content: `Current team standings for the Formula 1 ${year} season.`,
+            content: `Explore the complete list of Formula 1 teams in the ${year} season, including team standings, driver pairings, and car designs.`,
+          },
+          {
+            property: "og:type",
+            content: "website",
+          },
+          {
+            property: "og:url",
+            content: "https://gridfanhub.com/teams",
+          },
+          {
+            property: "og:image",
+            content: "https://gridfanhub.com/favicon.ico", // înlocuiește cu imaginea reală OG
+          },
+          {
+            name: "twitter:card",
+            content: "summary_large_image",
+          },
+          {
+            name: "twitter:title",
+            content: `GridFanHub | Formula 1 Teams ${year}`,
+          },
+          {
+            name: "twitter:description",
+            content: `Get up-to-date information about all Formula 1 teams from the ${year} season on GridFanHub.`,
+          },
+          {
+            name: "twitter:image",
+            content: "https://gridfanhub.com/favicon.ico", // înlocuiește cu imaginea reală OG
+          },
+        ],
+        link: [
+          {
+            rel: "canonical",
+            href: "https://gridfanhub.com/teams",
           },
         ],
       });
-    };
+    }
 
     const getTeams = async () => {
       const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)

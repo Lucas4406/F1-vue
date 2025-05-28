@@ -111,6 +111,7 @@
 <script>
 import axios from "axios"
 import { makeRequest } from "../functions/makeRequest"
+import {useHead} from "@vueuse/head";
 export default {
   name: "updateTeams",
   data() {
@@ -125,6 +126,11 @@ export default {
     }
   },
   mounted() {
+    useHead({
+      meta: [
+        { name: "robots", content: "noindex, nofollow" }
+      ]
+    })
     document.title = "Updateteams"
     this.getDriverList()
     this.getTeams()

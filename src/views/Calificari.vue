@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import {useHead} from "@vueuse/head"
 import tabelcali from "../components/tabelcali.vue"
 import router from "../router"
 import { makeRequest } from "../functions/makeRequest"
@@ -73,7 +74,6 @@ export default {
     }
     await this.getData()
     this.titlu = this.ancaliSelect
-    document.title = `Qualifying results ${this.titlu}`
     const observer = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting && this.currentRaceRound > 0 && !this.loading) {
         await this.getData()
@@ -86,6 +86,8 @@ export default {
         observer.observe(sentinel)
       }
     })
+    this.setSeoMeta(this.ancaliSelect)
+
   },
   methods: {
     async getData() {
@@ -158,9 +160,8 @@ export default {
       this.currentRaceRound = null;
       this.totalRounds = null;
       this.loading = true;
-      router.push({ name: "Curse", params: { an: this.ancaliSelect } });
+      router.push({ name: "Calificari", params: { an: this.ancaliSelect } });
       this.titlu =this.ancaliSelect
-      document.title = `Qualifying results ${this.titlu}`
       try {
         await this.fetchTotalRounds();
         if (this.$route.params.an === '2025') {
@@ -189,6 +190,30 @@ export default {
       })
       this.titlu = this.ancaliSelect;
       // this.asc = false;
+      this.setSeoMeta(this.ancaliSelect)
+
+    },
+    setSeoMeta(year) {
+      useHead({
+        title: `GridFanHub | Qualifying results ${year}`,
+        meta: [
+          { name: "description", content: `Complete qualifying results for Formula 1 season ${year} on GridFanHub.` },
+          { name: "keywords", content: `F1 qualifying ${year}, Formula 1 qualifying results, F1 ${year} season, Formula 1 calendar, F1 news` },
+          { property: "og:title", content: `GridFanHub | Qualifying results ${year}` },
+          { property: "og:description", content: `Complete qualifying results for Formula 1 season ${year} on GridFanHub.` },
+          { property: "og:type", content: "website" },
+          { property: "og:url", content: `https://gridfanhub.com/qualifying-results/${year}` },
+          { property: "og:image", content: "https://gridfanhub.com/favicon.ico" },
+          { property: "twitter:card", content: "summary_large_image" },
+          { property: "twitter:title", content: `GridFanHub | Qualifying results ${year}` },
+          { property: "twitter:description", content: `Complete qualifying results for Formula 1 season ${year} on GridFanHub.` },
+          { property: "twitter:image", content: "https://gridfanhub.com/favicon.ico" },
+          { name: "robots", content: "index, follow" },
+        ],
+        link: [
+          { rel: "canonical", href: `https://gridfanhub.com/qualifying-results/${year}` }
+        ],
+      })
     },
   },
 

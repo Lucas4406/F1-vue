@@ -5,6 +5,7 @@
 <script setup>
 import * as THREE from 'three'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import {useHead} from "@vueuse/head";
 
 const container = ref(null)
 
@@ -71,6 +72,11 @@ function onClick() {
 }
 
 onMounted(() => {
+  useHead({
+    meta: [
+      { name: "robots", content: "noindex, nofollow" }
+    ]
+  })
   scene = new THREE.Scene()
   scene.background = new THREE.Color(0xf9f9f9)
 

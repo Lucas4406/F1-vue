@@ -233,6 +233,8 @@
 import axios from "axios"
 import getNext from "@/functions/getNext";
 import Calendar from "@/components/Calendar.vue"
+import {useHead} from "@vueuse/head";
+
 export default {
   name: "Program",
   components: {
@@ -251,7 +253,24 @@ export default {
     }
   },
   mounted() {
-    document.title = "Formula 1 schedule 2025"
+    useHead({
+      title: 'GridFanHub | Formula 1 Schedule 2025',
+      meta: [
+        { name: 'description', content: 'Complete Formula 1 2025 schedule: sessions, practice, qualifying, and race times — all in your local timezone. Updated live on GridFanHub.' },
+        { property: 'og:title', content: ' GridFanHub | Formula 1 Schedule 2025' },
+        { property: 'og:description', content: 'Check the full Formula 1 2025 race calendar with session details, local time conversions, and links to each race weekend.' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://gridfanhub.com/schedule' },
+        { property: 'og:image', content: 'https://gridfanhub.com/favicon.ico' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'GridFanHub | Formula 1 Schedule 2025' },
+        { name: 'twitter:description', content: 'F1 2025 race calendar with full session times. All shown in your local timezone.' },
+        { name: 'twitter:image', content: 'https://gridfanhub.com/favicon.ico' },
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://gridfanhub.com/schedule' }
+      ]
+    })
     this.getCurse()
   },
   methods: {

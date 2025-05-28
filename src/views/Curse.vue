@@ -42,8 +42,9 @@
 <script>
 import tabelcursa from "../components/tabelcursa.vue"
 import router from "../router"
-import { makeRequest } from "../functions/makeRequest"
-import getNext from "@/functions/getNext";
+import { makeRequest } from "@/functions/makeRequest"
+import getNext from "@/functions/getNext"
+import { useHead} from "@vueuse/head"
 export default {
   name: "Curse",
   components: {
@@ -74,7 +75,6 @@ export default {
     }
     await this.getData()
     this.titlu = this.ancursaSelect
-    document.title = `Race results ${this.titlu}`
     const observer = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting && this.currentRaceRound > 0 && !this.loading) {
         await this.getData()
@@ -87,6 +87,7 @@ export default {
         observer.observe(sentinel)
       }
     })
+    this.setHead()
   },
   methods: {
     async getData() {
@@ -173,7 +174,6 @@ export default {
       this.loading = true;
       router.push({ name: "Curse", params: { an: this.ancursaSelect } });
       this.titlu =this.ancursaSelect
-      document.title = `Race results ${this.titlu}`
       try {
         await this.fetchTotalRounds();
         if (this.$route.params.an === '2025') {
@@ -201,7 +201,70 @@ export default {
         }
       })
       this.titlu = this.ancursaSelect;
+      this.setHead()
       // this.asc = false;
+    },
+    setHead() {
+      const year = this.ancursaSelect
+      useHead({
+        title: `GridFanHub | Formula 1 race results ${year}`,
+        meta: [
+          {
+            name: "description",
+            content: `Full Formula 1 ${year} race results with positions, fastest laps, and all circuits from the championship.`,
+          },
+          {
+            name: "keywords",
+            content: `F1 ${year} race results, Formula 1 ${year} calendar, F1 ${year} standings, ${year} GP results`,
+          },
+          {
+            name: "robots",
+            content: "index, follow",
+          },
+          {
+            property: "og:title",
+            content: `GridFanHub | Formula 1 race results ${year}`,
+          },
+          {
+            property: "og:description",
+            content: `Browse complete Formula 1 ${year} race results by round. Updated live with every race.`,
+          },
+          {
+            property: "og:type",
+            content: "website",
+          },
+          {
+            property: "og:url",
+            content: `https://gridfanhub.com/race-results/${year}`,
+          },
+          {
+            property: "og:image",
+            content: "https://gridfanhub.com/favicon.ico", // imagine OG sugerată
+          },
+          {
+            name: "twitter:card",
+            content: "summary_large_image",
+          },
+          {
+            name: "twitter:title",
+            content: `GridFanHub | Formula 1 race results ${year}`,
+          },
+          {
+            name: "twitter:description",
+            content: `All Formula 1 ${year} races with positions, circuits, and more in one place.`,
+          },
+          {
+            name: "twitter:image",
+            content: "https://gridfanhub.com/favicon.ico",
+          },
+        ],
+        link: [
+          {
+            rel: "canonical",
+            href: `https://gridfanhub.com/race-results/${year}`,
+          },
+        ],
+      })
     },
   },
   computed: {
