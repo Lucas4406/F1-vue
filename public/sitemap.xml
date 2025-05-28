@@ -1,89 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
-		<!--	created with www.mysitemapgenerator.com	-->
-		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-	<loc>https://gridfanhub.com/</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/profile</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/update-profile</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/schedule</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/teams</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/team-standings</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/drivers</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/race-results/2025</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/qualifying-results/2025</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/reaction-game</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/f1-history</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/login</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/signup</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/sources</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/update-teams</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/change-password</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>https://gridfanhub.com/forgot-password</loc>
-	<lastmod>2025-05-27T13:56:42+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+>
+
+  <url>
+    <loc>https://gridfanhub.com/</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>1</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/team-standings</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/profile</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.6</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/update-profile</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.6</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/race-results/2025</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>1</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/qualifying-results/2025</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>1</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/reaction-game</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>1</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/f1-history</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://gridfanhub.com/drivers</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>1</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/teams</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>1</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>1</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/login</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/signup</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/sources</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/change-password</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/forgot-password</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Australian_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Chinese_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Japanese_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Bahrain_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Saudi_Arabian_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Miami_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Emilia_Romagna_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Monaco_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Spanish_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Canadian_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Austrian_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/British_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Belgian_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Hungarian_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Dutch_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Italian_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Azerbaijan_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Singapore_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/United_States_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Mexico_City_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/São_Paulo_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Las_Vegas_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Qatar_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/schedule/2025/Abu_Dhabi_Grand_Prix</loc>
+    <lastmod>2025-05-28</lastmod>
+    <priority>0.7</priority>
+  </url>
 </urlset>
