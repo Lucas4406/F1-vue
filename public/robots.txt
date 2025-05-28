@@ -3,6 +3,6 @@ Allow: /
 Sitemap: https://gridfanhub.com/sitemap.xml
 Disallow: /admin
 Disallow: /updateteams
-Disallow: /updateprofile
 Disallow: /test
 Disallow: /href
+Disallow: /fun
