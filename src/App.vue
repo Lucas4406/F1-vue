@@ -44,6 +44,11 @@ export default {
     }
   },
   async mounted() {
+    if (localStorage.getItem("darkMode") === "true") {
+      document.documentElement.classList.add("darkmode")
+    } else {
+      document.documentElement.classList.remove("darkmode")
+    }
     let currUser = JSON.parse(localStorage.getItem("currentUser"))
     if (currUser != null) {
       await this.getUserData(currUser.currentUser)
