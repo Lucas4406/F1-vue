@@ -16,9 +16,11 @@
   <div class="scroll-btns">
     <darkModeBtn />
   </div>
+  <CookieBanner />
 </template>
 
 <script>
+import CookieBanner from "./components/CookieBanner.vue"
 import Navbar from "./components/Navbar.vue"
 import Footertag from "./components/Footer.vue"
 import axios from "axios"
@@ -33,6 +35,7 @@ export default {
     Footertag,
     GreetingPageVue,
     darkModeBtn,
+    CookieBanner
   },
   data() {
     return {

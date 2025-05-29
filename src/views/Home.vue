@@ -56,9 +56,8 @@ export default {
   },
   inject: ["store"],
   data() {
-    let darkMode = localStorage.getItem("darkMode") === "true"
     return {
-      darkMode,
+      darkMode: null,
       heroData: null,
       Hero: false,
       heroError: false,
@@ -72,12 +71,8 @@ export default {
     }
   },
   async mounted() {
+    this.darkMode = localStorage.getItem("darkMode")
     await this.getCursa()
-    if (this.darkMode) {
-      document.body.classList.add("darkmode")
-    } else {
-      document.body.classList.remove("darkmode")
-    }
     useHead({
       title: "GridFanHub | Regularly Updated Formula 1 News & Data",
       meta: [
