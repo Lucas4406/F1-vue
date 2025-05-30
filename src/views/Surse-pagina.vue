@@ -44,5 +44,6 @@
   </div>
 
 </template>
-<script setup lang="ts">
+<script setup>
+  document.title = "GridFanHub | Sources page"
 </script>

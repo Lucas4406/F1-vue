@@ -69,12 +69,12 @@ export default {
         meta: [
           {
             name: "description",
-            content: `Discover all Formula 1 teams from the ${year} season, with updated points, drivers, cars, and logos.`,
+            content: `Discover all Formula 1 teams from the ${year} season, with updated points, drivers, cars, and logos only on GridFanHub.`,
           },
           {
             name: "keywords",
             content:
-                "F1 2025 teams, Formula 1 teams, F1 constructors, F1 team standings 2025, F1 car photos, F1 logos, F1 team drivers 2025",
+                "F1 2025 teams, Formula 1 teams, F1 constructors, F1 team standings 2025, F1 car photos, F1 logos, F1 team drivers 2025, formula1, gridfanhub drivers, mercedes, red bull, ferrari, alpine, williams, alex albon, aston martin, lewis hamilton, max verstappen, charles leclerc, oscar piastri, lando norris, fernando alonso, f1 points, standings updated constantly, f1 number of points, favourite team",
           },
           {
             name: "robots",
