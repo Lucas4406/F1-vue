@@ -66,18 +66,15 @@
 <script setup>
 import { ref, onMounted } from "vue"
 import { getAuth, updateProfile } from "firebase/auth"
-import axios from "axios"
+import {authRequest} from "@/functions/authRequest";
 const primul = ref("")
 const doilea = ref("")
 const nick = ref("")
 const photo = ref("")
 const tara = ref("")
 async function getDbData(idul) {
-  const resp = await axios.get(
-    `${import.meta.env.VITE_API_LINK}/profile/${idul}`
-  )
-  const profile = resp.data[0]
-  return profile
+  const resp = await authRequest("GET", `${import.meta.env.VITE_API_LINK}/profile/${idul}`)
+  return resp.data
 }
 const auth = getAuth()
 const curentEnc = JSON.parse(localStorage.getItem("currentUser"))
@@ -90,7 +87,7 @@ async function updateProfil() {
     displayName: currentNick,
     photoURL: currentPhoto,
   })
-    .then((data) => {
+    .then(() => {
       window.location.replace("/profile")
     })
     .catch((err) => {
@@ -99,34 +96,30 @@ async function updateProfil() {
 }
 if (auth.currentUser.displayName != null) {
   const response = await getDbData(curentEnc.currentUser)
-  if (primul.value == "") {
+  if (primul.value === "") {
     primul.value = response.firstName
   }
-  if (doilea.value == "") {
+  if (doilea.value === "") {
     doilea.value = response.lastName
   }
-  if (nick.value == "") {
+  if (nick.value === "") {
     nick.value = response.displayName
   }
-  if (photo.value == "") {
+  if (photo.value === "") {
     photo.value = response.profilePhoto
   }
-  if (tara.value == "") {
+  if (tara.value === "") {
     tara.value = response.country
   }
 }
 async function updateDb(idul) {
-  await axios({
-    method: "POST",
-    url: `${import.meta.env.VITE_API_LINK}/profile/change/${idul}`,
-    data: {
-      firstName: primul.value,
-      lastName: doilea.value,
-      displayName: nick.value,
-      profilePhoto: photo.value,
-      country: tara.value,
-    },
-  })
+  await authRequest("POST", `${import.meta.env.VITE_API_LINK}/profile/change/${idul}`, {
+    firstName: primul.value,
+    lastName: doilea.value,
+    displayName: nick.value,
+    profilePhoto: photo.value,
+    country: tara.value,
+  });
 }
 onMounted(() => {
   document.title = "Update profile information"

@@ -141,7 +141,8 @@ import { ref, onMounted, inject } from "vue"
 import { useRouter } from "vue-router"
 import ConstructorCard from "../../components/ConstructorCard.vue"
 import PilotCard from "../../components/PilotCard.vue"
-import { makeRequest } from "../../functions/makeRequest"
+import { makeRequest } from "@/functions/makeRequest"
+import { authRequest } from "@/functions/authRequest"
 const auth = getAuth()
 const user = auth.currentUser
 const router = useRouter()
@@ -159,7 +160,6 @@ const bla = ref(false)
 const driverOk = ref(false)
 const favArr = ref([])
 const favDriv = ref([])
-const fontSize = ref("3rem")
 const currentEnc = JSON.parse(localStorage.getItem("currentUser"))
 if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
@@ -169,10 +169,13 @@ function logout() {
     window.location.replace("/")
   })
 }
-async function getDataFull() {
-  const resp = await makeRequest(
-    `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
+async function getAllTeams() {
+  return await makeRequest(
+      `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
   )
+}
+async function getDataFull() {
+  const resp = await getAllTeams()
   let teams = []
   for (var i = 0; i < resp.length; i++) {
     teams[i] = resp[i].name
@@ -185,6 +188,7 @@ async function getAllDrivers() {
 }
 async function favoriteTeam() {
   const fav = store.user.favTeam.substring(0, 4)
+  const date = await getAllTeams()
   const resp = await axios(
     "https://api.jolpi.ca/ergast/f1/current/constructorstandings.json"
   )
@@ -192,7 +196,7 @@ async function favoriteTeam() {
   const arr =
     echipe.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i].Constructor.name.includes(fav)) {
+    if (date[i].name.includes(fav)) {
       favArr.value = arr[i]
     }
   }
@@ -212,23 +216,23 @@ if (user != null && store.user.favDriver != null) {
   driverOk.value = true
 }
 async function updateDb() {
-  await axios({
-    method: "POST",
-    url: `${import.meta.env.VITE_API_LINK}/profile/change/team/${
-      currentEnc.currentUser
-    }`,
-    data: {
-      favTeam: echipaPref.value,
-      favDriver: soferPref.value,
-    },
-  })
-  if(store.user.favTeam !== echipaPref.value){
-    store.user.favTeam = echipaPref.value
-    await favoriteTeam()
+  const url = `${import.meta.env.VITE_API_LINK}/profile/change/team/${currentEnc.currentUser}`
+  const data = {
+    favTeam: echipaPref.value,
+    favDriver: soferPref.value,
   }
-  if(store.user.favDriver !== soferPref.value){
-    store.user.favDriver = soferPref.value
-    await getFavDriver()
+  try {
+    await authRequest("POST", url, data)
+    if(store.user.favTeam !== echipaPref.value){
+      store.user.favTeam = echipaPref.value
+      await favoriteTeam()
+    }
+    if(store.user.favDriver !== soferPref.value){
+      store.user.favDriver = soferPref.value
+      await getFavDriver()
+    }
+  } catch (error) {
+    console.error("Failed to update DB:", error)
   }
 }
 if (favArr.value === null) {

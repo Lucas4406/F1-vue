@@ -23,9 +23,10 @@
 import CookieBanner from "./components/CookieBanner.vue"
 import Navbar from "./components/Navbar.vue"
 import Footertag from "./components/Footer.vue"
-import axios from "axios"
 import GreetingPageVue from "./components/GreetingPage.vue"
 import darkModeBtn from "./components/darkModeBtn.vue"
+import { authRequest } from "@/functions/authRequest"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 export default {
   name: "App",
@@ -43,30 +44,31 @@ export default {
       select: false,
     }
   },
-  async mounted() {
-    let currUser = JSON.parse(localStorage.getItem("currentUser"))
-    if (currUser != null) {
-      await this.getUserData(currUser.currentUser)
-    }
-    this.loaded = true
+  mounted() {
+    const auth = getAuth()
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          await this.getUserData(user.uid)
+        } catch (err) {
+          console.error("Failed to fetch user data:", err)
+        }
+      }
+      this.loaded = true
+    })
   },
-  // created() {
-  //   setTimeout(async () => {
-  //     await axios.get(`${import.meta.env.VITE_API_LINK}/stiri-translate/6`)
-  //   }, 6000)
-  // },
   methods: {
-    async getUserData(user) {
-      const response = await axios(
-        `${import.meta.env.VITE_API_LINK}/profile/${user}`
-      )
-      if (response != null) {
-        this.store.user = response.data[0]
+    async getUserData(uid) {
+      const response = await authRequest("GET", `${import.meta.env.VITE_API_LINK}/profile/${uid}`)
+      if (response) {
+        this.store.user = response.data
       }
     },
   },
 }
 </script>
+
 
 <style>
 @import "./components/css/navbar.css";

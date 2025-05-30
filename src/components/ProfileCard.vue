@@ -11,40 +11,36 @@
 </template>
 
 <script>
-import axios from "axios"
+import { authRequest } from "@/functions/authRequest"
+
 export default {
   props: ["profileInfo"],
-  data() {
-    return {
-      data: this.profileInfo,
-      link_delete: `${import.meta.env.VITE_API_LINK}/profile/delete/${
-        this.profileInfo._id
-      }`,
-      link_role: `${import.meta.env.VITE_API_LINK}/profile/${
-        this.profileInfo._id
-      }/role`,
-    }
+  computed: {
+    linkDelete() {
+      return `${import.meta.env.VITE_API_LINK}/profile/delete/${this.profileInfo._id}`
+    },
+    linkRole() {
+      return `${import.meta.env.VITE_API_LINK}/profile/${this.profileInfo._id}/role`
+    },
   },
   methods: {
     async deleteUser() {
-      await axios.delete(this.link_delete)
-      this.$emit("refresh-data")
-    },
-    async changeRole(role) {
-      if (role === 1) {
-        role = "user"
-      }
-      if (role === 0) {
-        role = "admin"
-      }
-      const data = {
-        role: role,
-      }
       try {
-        await axios.put(this.link_role, data)
+        await authRequest("DELETE", this.linkDelete)
         this.$emit("refresh-data")
       } catch (error) {
-        console.log(error)
+        console.error("Delete failed:", error)
+      }
+    },
+    async changeRole(role) {
+      const mappedRole = role === 1 ? "user" : "admin"
+      const data = { role: mappedRole }
+
+      try {
+        await authRequest("PUT", this.linkRole, data)
+        this.$emit("refresh-data")
+      } catch (error) {
+        console.error("Role change failed:", error)
       }
     },
   },
