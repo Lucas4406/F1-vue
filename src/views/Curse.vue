@@ -215,7 +215,7 @@ export default {
           },
           {
             name: "keywords",
-            content: `F1 ${year} race results, Formula 1 ${year} calendar, F1 ${year} standings, ${year} GP results`,
+            content: `F1 ${year} race results, Formula 1 ${year} calendar, F1 ${year} standings, ${year} GP results, race clasification, all races, 2014-2025, f1 race clasification, gridfanhub, gridfanhub curse, gridfanhub races, formula1, 2025 season, 2025 season races, f1 races, updated races, curse f1, curse formula 1, rezultate formula 1, rezultate f1`,
           },
           {
             name: "robots",
