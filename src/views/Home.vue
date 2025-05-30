@@ -9,10 +9,11 @@
         :options="{ threshold: 1 }"
         transition="fade-transition"
         v-model="modelValue"
+        v-if="store.user != null"
     >
       <div
           class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
-          v-if="store.user != null && (bla || driverOk)"
+          v-if="bla === true && driverOk === true"
       >
         <ConstructorCard
             :team="favArr"
@@ -44,6 +45,7 @@ import ConstructorCard from "../components/ConstructorCard.vue"
 import PilotCard from "../components/PilotCard.vue"
 import AccountCard from "../components/AccountCard.vue"
 import axios from "axios"
+import {makeRequest} from "@/functions/makeRequest";
 
 export default {
   name: "Home",
@@ -101,20 +103,21 @@ export default {
     })
   },
 
-  async updated() {
-    if(this.store.user){
-      if (this.modelValue === true) {
-        if (this.store.user.favTeam != null) {
+  watch: {
+    async modelValue(newVal) {
+      if (newVal && this.store.user) {
+        if (this.store.user.favTeam) {
           await this.favoriteTeam()
           this.bla = true
         }
-        if (this.store.user.favDriver != null) {
+        if (this.store.user.favDriver) {
           await this.getFavDriver()
           this.driverOk = true
         }
       }
     }
   },
+
   methods: {
     async getCursa() {
       try {
@@ -150,6 +153,7 @@ export default {
     },
     async favoriteTeam() {
       const fav = this.store.user.favTeam.substring(0, 4)
+      const date = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)
       const resp = await axios(
         "https://api.jolpi.ca/ergast/f1/current/constructorstandings.json"
       )
@@ -157,7 +161,7 @@ export default {
       const arr =
         echipe.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
       for (var i = 0; i < arr.length; i++) {
-        if (arr[i].Constructor.name.includes(fav)) {
+        if (date[i].name.includes(fav)) {
           this.favArr = arr[i]
         }
       }
