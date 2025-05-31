@@ -47,9 +47,8 @@
 
 <script setup>
 import { ref, inject } from "vue"
-import { makeRequest } from "../functions/makeRequest"
 import ProfileCard from "../components/ProfileCard.vue"
-import { useCounterStore } from '../stores.js'
+import { useCounterStore } from '@/stores.js'
 const counter = useCounterStore()
 import { getAuth } from "firebase/auth"
 import axios from "axios"
