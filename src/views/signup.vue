@@ -50,9 +50,9 @@ async function register() {
   const auth = getAuth()
   if (pass.value === passConfirm.value) {
     try {
-      const data = await createUserWithEmailAndPassword(auth, email.value, pass.value)
+      await createUserWithEmailAndPassword(auth, email.value, pass.value)
       await createDbUser()
-      router.push("/update-profile")
+      router.push("/confirm")
     } catch (error) {
       alert(error.message)
     }
