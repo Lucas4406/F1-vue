@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword , signOut } from "firebase/auth"
 import { ref } from "vue"
 import { useRouter } from "vue-router"
 const pass = ref("")
@@ -52,26 +52,36 @@ const errMsg = ref("")
 document.title = "GridFanHub | Login"
 function login() {
   const auth = getAuth()
+  errMsg.value = ""  // curățăm mesajul de eroare
+
   signInWithEmailAndPassword(auth, email.value, pass.value)
-    .then((data) => {
-      window.location.replace("/")
-    })
-    .catch((error) => {
-      switch (error.code) {
-        case "auth/invalid-email":
-          errMsg.value = "Invalid email address"
-          break
-        case "auth/user-not-found":
-          errMsg.value = "No account found"
-          break
-        case "auth/wrong-password":
-          errMsg.value = "Incorrect password"
-          break
-        default:
-          errMsg.value = "Email or password are incorrect"
-          break
-      }
-    })
+      .then((userCredential) => {
+        const user = userCredential.user
+        if (user.emailVerified) {
+          // email confirmat
+          window.location.replace("/")
+        } else {
+          // email neconfirmat
+          errMsg.value = "Please verify your email address before logging in."
+          signOut(auth)  // facem logout pentru că email-ul nu e confirmat
+        }
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case "auth/invalid-email":
+            errMsg.value = "Invalid email address"
+            break
+          case "auth/user-not-found":
+            errMsg.value = "No account found"
+            break
+          case "auth/wrong-password":
+            errMsg.value = "Incorrect password"
+            break
+          default:
+            errMsg.value = "Email or password are incorrect"
+            break
+        }
+      })
 }
 </script>
 
