@@ -1,250 +1,174 @@
 <template>
-  <div class="w-screen flex justify-center items-center min-h-screen flex-col">
-    <div class="login-box">
-      <h2>Log in</h2>
-      <form @submit.prevent="resetPassword">
+  <div class="w-screen flex justify-center items-center min-h-screen flex-col bg-gray-900 text-white px-4">
+    <div class="login-box max-w-md w-full text-center">
+      <h2 class="text-2xl font-bold mb-4">Email Confirmation</h2>
+
+      <!-- Confirmare email -->
+      <div v-if="mode === 'verifyEmail' && verified" class="space-y-4">
+        <p class="text-green-400">Thanks for signing up!</p>
+        <p>Click on the button below to finish registration.</p>
+        <router-link to="/update-profile" class="login-button inline-block">Continue</router-link>
+      </div>
+
+      <!-- Resetare parolă -->
+      <form v-if="mode === 'resetPassword' && !resetDone" @submit.prevent="handlePasswordReset" class="space-y-4">
         <div class="user-box">
-          <input type="password" name="" required="" v-model="pass" />
-          <label>Password</label>
+          <input type="password" v-model="password" required />
+          <label>New Password</label>
         </div>
         <div class="user-box">
-          <input type="password" name="" required="" v-model="passConfirm" />
-          <label>Confirm password</label>
+          <input type="password" v-model="confirmPassword" required />
+          <label>Confirm Password</label>
         </div>
-        <p class="m-0 p-0 w-full text-center text-white">{{ errMsg }}</p>
-        <button type="submit" class="login-button">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          Submit
-        </button>
-        <input type="submit" hidden />
+        <p v-if="error" class="text-red-400">{{ error }}</p>
+        <p v-if="message" class="text-green-400">{{ message }}</p>
+        <button class="login-button" type="submit">Reset Password</button>
       </form>
+      <div v-if="resetDone" class="space-y-4">
+        <p class="text-green-400">Password successfully reset. You can now log in.</p>
+        <router-link to="/login" class="login-button inline-block">Login</router-link>
+      </div>
+
+      <!-- Cod invalid -->
+      <p v-if="invalidCode" class="text-red-400">
+        The code is invalid or expired. Please <router-link to="/signup" class="underline">sign up again</router-link>.
+      </p>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { getAuth, verifyPasswordResetCode, confirmPasswordReset } from 'firebase/auth'
+import { useRoute } from 'vue-router'
+import { getAuth, applyActionCode, verifyPasswordResetCode, confirmPasswordReset } from 'firebase/auth'
 
 const route = useRoute()
-const router = useRouter()
-const pass = ref('')
-const passConfirm = ref('')
-const errMsg = ref('')
-const message = ref('')
-const oobCode = route.query.oobCode || ''
-document.title = "GridFanHub | New password"
 const auth = getAuth()
 
+const mode = ref('')
+const oobCode = ref('')
+const verified = ref(false)
+const invalidCode = ref(false)
+const resetDone = ref(false)
+
+const password = ref('')
+const confirmPassword = ref('')
+const error = ref('')
+const message = ref('')
+
 onMounted(async () => {
-  if (!oobCode) {
-    errMsg.value = 'Invalid or missing reset code.'
+  mode.value = route.query.mode
+  oobCode.value = route.query.oobCode
+
+  if (!mode.value || !oobCode.value) {
+    invalidCode.value = true
     return
   }
 
-  try {
-    await verifyPasswordResetCode(auth, oobCode)
-  } catch (err) {
-    errMsg.value = 'This password reset link is invalid or has expired.'
+  if (mode.value === 'verifyEmail') {
+    try {
+      await applyActionCode(auth, oobCode.value)
+      verified.value = true
+    } catch (e) {
+      invalidCode.value = true
+    }
+  }
+
+  if (mode.value === 'resetPassword') {
+    try {
+      await verifyPasswordResetCode(auth, oobCode.value)
+    } catch (e) {
+      invalidCode.value = true
+    }
   }
 })
 
-async function resetPassword() {
-  errMsg.value = ''
+async function handlePasswordReset() {
+  error.value = ''
   message.value = ''
 
-  if (pass.value !== passConfirm.value) {
-    errMsg.value = 'Passwords do not match.'
+  if (password.value !== confirmPassword.value) {
+    error.value = 'Passwords do not match.'
+    return
+  }
+
+  if (password.value.length < 6) {
+    error.value = 'Password must be at least 6 characters.'
     return
   }
 
   try {
-    await confirmPasswordReset(auth, oobCode, pass.value)
-    message.value = 'Your password has been reset successfully! Redirecting...'
-    setTimeout(() => router.push('/login'), 3000)
-  } catch (error) {
-    errMsg.value = error.message || 'Something went wrong.'
+    await confirmPasswordReset(auth, oobCode.value, password.value)
+    resetDone.value = true
+  } catch (e) {
+    error.value = 'Failed to reset password.'
   }
 }
 </script>
 
-
 <style scoped>
-html {
-  height: 100%;
-}
-body {
-  margin: 0;
-  padding: 0;
-}
-
-.login-button{
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
+/* Same style as in your login/reset */
 .login-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  padding: 40px;
-  transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.5);
-  box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  padding: 40px;
   border-radius: 10px;
 }
 
 .login-box h2 {
-  margin: 0 0 30px;
-  padding: 0;
   color: #fff;
-  text-align: center;
 }
 
-.login-box .user-box {
+.user-box {
   position: relative;
 }
 
-.login-box .user-box input {
+.user-box input {
   width: 100%;
   padding: 10px 0;
-  font-size: 16px;
   color: #fff;
-  margin-bottom: 30px;
+  background: transparent;
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
-  background: transparent;
+  margin-bottom: 30px;
 }
-.login-box .user-box label {
+
+.user-box label {
   position: absolute;
   top: 0;
   left: 0;
   padding: 10px 0;
-  font-size: 16px;
   color: #fff;
-  pointer-events: none;
   transition: 0.5s;
+  pointer-events: none;
 }
 
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
+.user-box input:focus ~ label,
+.user-box input:valid ~ label {
   top: -20px;
-  left: 0;
-  color: #03e9f4;
   font-size: 12px;
+  color: #03e9f4;
 }
 
-.login-box form .login-button {
+.login-button {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
   color: #03e9f4;
   font-size: 16px;
-  text-decoration: none;
+  border: none;
+  background: none;
   text-transform: uppercase;
-  overflow: hidden;
+  cursor: pointer;
   transition: 0.5s;
-  margin-top: 40px;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
 }
 
-.login-box .login-button:hover {
+.login-button:hover {
   background: #03e9f4;
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
-  0 0 100px #03e9f4;
-}
-
-.login-box .login-button span {
-  position: absolute;
-  display: block;
-}
-
-.login-box .login-button span:nth-child(1) {
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: btn-anim1 1s linear infinite;
-}
-
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
-.login-box .login-button span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: 0.25s;
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%,
-  100% {
-    top: 100%;
-  }
-}
-
-.login-box .login-button span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: 0.5s;
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-.login-box .login-button span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: 0.75s;
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,
-  100% {
-    bottom: 100%;
-  }
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4;
 }
 </style>

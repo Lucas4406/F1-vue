@@ -12,6 +12,7 @@ import "./firebase/index.js"
 import { createVuetify } from "vuetify"
 import { VLazy } from "vuetify/components/VLazy"
 import { VImg } from "vuetify/components/VImg"
+import ProgressSpinner from "primevue/progressspinner"
 
 const vuetify = createVuetify({
   components: {
@@ -19,20 +20,21 @@ const vuetify = createVuetify({
     VImg,
   },
 })
+
 const app = createApp(App)
 
 const pinia = createPinia()
 const head = createHead()
+
 app.use(pinia)
 app.use(head)
-app.provide("store", store)
+app.provide("store", store) // dacă ai nevoie
 
 app.use(router)
 app.use(PrimeVue)
 app.use(MotionPlugin)
 app.use(vuetify)
+
+app.component("ProgressSpinner", ProgressSpinner)  // Înregistrează componenta înainte de mount
+
 app.mount("#app")
-
-import ProgressSpinner from "primevue/progressspinner"
-
-app.component("ProgressSpinner", ProgressSpinner)
