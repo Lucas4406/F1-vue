@@ -106,11 +106,14 @@
           </select>
           <p v-if="errors.tara" class="text-red-600 text-sm mt-1">{{ errors.tara }}</p>
         </label>
-
+        <div v-if="isSubmitting" class="text-center text-indigo-700 font-medium mb-4">
+          Please wait, saving profile...
+        </div>
         <div class="mb-6 flex justify-center items-center mt-6">
           <button
               type="submit"
-              class="h-10 w-[40%] text-xl px-5 text-indigo-100 bg-indigo-700 rounded-lg transition-colors duration-150 focus:shadow-outline hover:bg-indigo-800 cursor-pointer"
+              :disabled="isSubmitting"
+              class="h-10 w-[40%] text-xl px-5 text-indigo-100 bg-indigo-700 rounded-lg transition-colors duration-150 focus:shadow-outline hover:bg-indigo-800 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Save
           </button>
@@ -130,6 +133,7 @@ const primul = ref("")
 const doilea = ref("")
 const nick = ref("")
 const photo = ref("")
+const initialPhotoUrl = ref("") // ✅ nou
 const tara = ref("")
 const photoInputMethod = ref("url") // "url" sau "file"
 const selectedFile = ref(null)
@@ -137,13 +141,12 @@ const fileError = ref("")
 const previewPhoto = ref("")
 const countries = ref([])
 const oldPhotoPublicId = ref(null)
+const isSubmitting = ref(false)
 
-const errors = ref({}) // obiect pentru erori validare
-
+const errors = ref({})
 const auth = getAuth()
 const curentEnc = JSON.parse(localStorage.getItem("currentUser"))
 
-// Validări
 function validate() {
   errors.value = {}
 
@@ -180,7 +183,6 @@ function validate() {
   return Object.keys(errors.value).length === 0
 }
 
-// Funcție de validare URL simplă
 function isValidUrl(string) {
   try {
     new URL(string)
@@ -196,10 +198,7 @@ async function loadCountries() {
     if (!response.ok) throw new Error("Failed to load countries")
     const data = await response.json()
     countries.value = data
-        .map(c => ({
-          name: c.name.common,
-          code: c.cca2
-        }))
+        .map(c => ({ name: c.name.common, code: c.cca2 }))
         .sort((a, b) => a.name.localeCompare(b.name))
   } catch (err) {
     console.error("Error loading countries:", err)
@@ -245,50 +244,24 @@ async function getToken() {
 }
 
 async function updateProfil() {
-  if (!validate()) {
-    return
-  }
+  if (!validate()) return
 
+  isSubmitting.value = true
   let profilePhotoUrl = photo.value
   let photoPublicId = null
 
-  // Dacă userul a trecut la "URL" și avea poză veche în Cloudinary, o ștergem
-  if (photoInputMethod.value === "url" && oldPhotoPublicId.value) {
-    try {
-      await authRequest("POST", `${import.meta.env.VITE_API_LINK}/upload/delete`, {
-        public_id: oldPhotoPublicId.value,
-      })
-      oldPhotoPublicId.value = null
-    } catch (err) {
-      console.warn("Failed to delete old photo (url switch):", err.message)
-    }
-  }
-
-  // Dacă userul a ales upload
-  if (photoInputMethod.value === "file") {
-    if (!selectedFile.value) {
-      alert("Please select a valid image file under 10MB.")
-      return
-    }
-
-    // Dacă există o poză veche, o ștergem înainte de upload
-    if (oldPhotoPublicId.value) {
-      try {
-        await authRequest("POST", `${import.meta.env.VITE_API_LINK}/upload/delete`, {
-          public_id: oldPhotoPublicId.value,
-        })
-        oldPhotoPublicId.value = null
-      } catch (err) {
-        console.warn("Failed to delete old photo:", err.message)
+  try {
+    if (photoInputMethod.value === "file") {
+      if (!selectedFile.value) {
+        alert("Please select a valid image file under 10MB.")
+        isSubmitting.value = false
+        return
       }
-    }
 
-    const formData = new FormData()
-    formData.append("file", selectedFile.value)
+      const formData = new FormData()
+      formData.append("file", selectedFile.value)
 
-    try {
       const token = await getToken()
-
       const uploadResp = await fetch(`${import.meta.env.VITE_API_LINK}/upload`, {
         method: "POST",
         headers: {
@@ -302,34 +275,47 @@ async function updateProfil() {
       const uploadData = await uploadResp.json()
       profilePhotoUrl = uploadData.url
       photoPublicId = uploadData.public_id
-    } catch (err) {
-      alert("Image upload failed: " + err.message)
-      return
+    } else {
+      // Dacă e link URL, nu avem public_id
+      photoPublicId = null
     }
+
+    // Verificăm dacă poza a fost schimbată
+    const changedPhoto = initialPhotoUrl.value !== profilePhotoUrl
+
+    // Ștergem poza veche doar dacă a fost schimbată și există public_id vechi
+    if (changedPhoto && oldPhotoPublicId.value) {
+      await authRequest("POST", `${import.meta.env.VITE_API_LINK}/upload/delete`, {
+        public_id: oldPhotoPublicId.value,
+      })
+      oldPhotoPublicId.value = null
+    }
+
+    initialPhotoUrl.value = profilePhotoUrl // actualizăm valoarea curentă
+
+    await authRequest("POST", `${import.meta.env.VITE_API_LINK}/profile/change/${curentEnc.currentUser}`, {
+      firstName: primul.value,
+      lastName: doilea.value,
+      displayName: nick.value,
+      profilePhoto: profilePhotoUrl,
+      photoPublicId: photoPublicId,
+      country: tara.value,
+    })
+
+    const loggedIn = await getDbData(curentEnc.currentUser)
+    await updateProfile(auth.currentUser, {
+      displayName: loggedIn.displayName,
+      photoURL: loggedIn.profilePhoto,
+    })
+
+    window.location.replace("/profile")
+  } catch (err) {
+    alert(err.message)
+    isSubmitting.value = false
   }
-
-  // Trimite datele către backend
-  await authRequest("POST", `${import.meta.env.VITE_API_LINK}/profile/change/${curentEnc.currentUser}`, {
-    firstName: primul.value,
-    lastName: doilea.value,
-    displayName: nick.value,
-    profilePhoto: profilePhotoUrl,
-    photoPublicId: photoPublicId,
-    country: tara.value,
-  })
-
-  const loggedIn = await getDbData(curentEnc.currentUser)
-  updateProfile(auth.currentUser, {
-    displayName: loggedIn.displayName,
-    photoURL: loggedIn.profilePhoto,
-  })
-      .then(() => {
-        window.location.replace("/profile")
-      })
-      .catch((err) => {
-        alert(err.message)
-      })
 }
+
+
 
 
 async function loadProfile() {
@@ -341,16 +327,18 @@ async function loadProfile() {
     if (photo.value === "") photo.value = response.profilePhoto
     if (tara.value === "") tara.value = response.country
 
+    initialPhotoUrl.value = response.profilePhoto || "" // ✅ salvează valoarea inițială
     oldPhotoPublicId.value = response.photoPublicId || null
   }
 }
 
 onMounted(async () => {
-  document.title = "Update profile information"
+  document.title = "GridFanHub | Update profile information"
   await loadCountries()
   await loadProfile()
 })
 </script>
+
 
 <style scoped>
 html.darkmode label > span {
