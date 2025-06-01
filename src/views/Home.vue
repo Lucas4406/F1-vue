@@ -2,17 +2,19 @@
   <div class="site-wrapper mb-2" :class="{ loggedin: store.user != null }">
     <br />
     <div class="top-hero">
-      <herocursa v-show="Hero" v-if="heroData" :heroData="heroData" :smallText="smallText" />
+      <transition name="scale-fade" appear>
+        <div v-if="Hero && heroData">
+          <herocursa :heroData="heroData" :link="linkCursa" />
+        </div>
+      </transition>
     </div>
     <br />
-    <v-lazy
-        :options="{ threshold: 1 }"
-        transition="fade-transition"
-        v-model="modelValue"
+    <div
+        v-if="store.user != null"
     >
       <div
           class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
-          v-if="store.user != null && (bla || driverOk)"
+          v-if="bla === true && driverOk === true"
       >
         <ConstructorCard
             :team="favArr"
@@ -27,7 +29,7 @@
             v-if="driverOk"
         />
       </div>
-    </v-lazy>
+    </div>
     <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
     <div class="stiri-grid">
       <stiricomp />
@@ -44,6 +46,7 @@ import ConstructorCard from "../components/ConstructorCard.vue"
 import PilotCard from "../components/PilotCard.vue"
 import AccountCard from "../components/AccountCard.vue"
 import axios from "axios"
+import {makeRequest} from "@/functions/makeRequest";
 
 export default {
   name: "Home",
@@ -68,13 +71,14 @@ export default {
       driverOk: false,
       modelValue: false,
       smallText: "",
+      linkCursa: null,
     }
   },
   async mounted() {
     this.darkMode = localStorage.getItem("darkMode")
     await this.getCursa()
     useHead({
-      title: "GridFanHub | Constantly Updated Formula 1 News & Data",
+      title: "GridFanHub | Up-to-Date Formula 1 News & Insights",
       meta: [
         { name: "keywords", content: "Formula 1, F1, F1 news, F1 standings, Formula 1 calendar, F1 teams, F1 drivers, race results, F1 qualifying, F1 history, Formula 1 reaction game, Formula 1 Romania, F1 RO, formula1 ro, formula1 romania, F1 schedule, gridfanhub f1, GridFanHub, formula1, formula 1, formula 1 aggregated news, f1 race control, race control messages, fia messages" },
         { name: "description", content: "GridFanHub is your complete source of information about Formula 1: updated and aggregated news, race schedules, live results, race control messages and standings for drivers and teams. Discover qualifying and race data, play a reaction game for F1 fans, and explore the fascinating history of this sport. All in one place, in English." },
@@ -84,14 +88,14 @@ export default {
         // Open Graph
         { property: "og:type", content: "website" },
         { property: "og:url", content: "https://gridfanhub.com" },
-        { property: "og:title", content: "GridFanHub | Constantly Updated Formula 1 News & Data" },
+        { property: "og:title", content: "GridFanHub | Up-to-Date Formula 1 News & Insights" },
         { property: "og:description", content: "GridFanHub is your complete source of information about Formula 1" },
         { property: "og:image", content: "https://gridfanhub.com/favicon.ico" },
 
         // Twitter
         { property: "twitter:card", content: "summary_large_image" },
         { property: "twitter:url", content: "https://gridfanhub.com" },
-        { property: "twitter:title", content: "GridFanHub | Constantly Updated Formula 1 News & Data" },
+        { property: "twitter:title", content: "GridFanHub | Up-to-Date Formula 1 News & Insights" },
         { property: "twitter:description", content: "GridFanHub is your complete source of information about Formula 1" },
         { property: "twitter:image", content: "https://gridfanhub.com/favicon.ico" },
       ],
@@ -101,20 +105,25 @@ export default {
     })
   },
 
-  async updated() {
-    if(this.store.user){
-      if (this.modelValue === true) {
-        if (this.store.user.favTeam != null) {
-          await this.favoriteTeam()
-          this.bla = true
-        }
-        if (this.store.user.favDriver != null) {
-          await this.getFavDriver()
-          this.driverOk = true
+  watch: {
+    'store.user': {
+      immediate: true,
+      handler: async function (newUser) {
+        if (newUser) {
+          if (newUser.favTeam) {
+            await this.favoriteTeam()
+            this.bla = true
+          }
+          if (newUser.favDriver) {
+            await this.getFavDriver()
+            this.driverOk = true
+          }
         }
       }
     }
   },
+
+
   methods: {
     async getCursa() {
       try {
@@ -142,6 +151,11 @@ export default {
         date["inceput"] = dataInceput
         date["sfarsit"] = dataSfarsit
         date["lunaCursaText"] = monthName
+        const roundNum = date.meetingContext.nr_runda
+        const dataApi = await makeRequest(`https://api.jolpi.ca/ergast/f1/${date.meetingContext.season}.json?limit=100`)
+        const rundaActuala = dataApi.MRData.RaceTable.Races[roundNum]
+        const rundaLink = rundaActuala.raceName.replace(/\s+/g, '_');
+        this.linkCursa = `/schedule/${date.meetingContext.season}/${rundaLink}`
         this.heroData = date
         this.Hero = true
       } catch (error) {
@@ -150,6 +164,7 @@ export default {
     },
     async favoriteTeam() {
       const fav = this.store.user.favTeam.substring(0, 4)
+      const date = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)
       const resp = await axios(
         "https://api.jolpi.ca/ergast/f1/current/constructorstandings.json"
       )
@@ -157,7 +172,7 @@ export default {
       const arr =
         echipe.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
       for (var i = 0; i < arr.length; i++) {
-        if (arr[i].Constructor.name.includes(fav)) {
+        if (date[i].name.includes(fav)) {
           this.favArr = arr[i]
         }
       }
@@ -194,4 +209,21 @@ export default {
     stroke: #ff0000;
   }
 }
+
+/* Animație pentru componenta herocursa la mount */
+.scale-fade-enter-active,
+.scale-fade-leave-active {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.scale-fade-enter-from,
+.scale-fade-leave-to {
+  transform: scale(0.8);
+  opacity: 0;
+}
+.scale-fade-enter-to,
+.scale-fade-leave-from {
+  transform: scale(1);
+  opacity: 1;
+}
+
 </style>

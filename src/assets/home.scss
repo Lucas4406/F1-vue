@@ -1,23 +1,24 @@
 .stire {
-  transition: 200ms;
   transition: transform 200ms ease-in-out;
   overflow: hidden;
   z-index: 20;
   max-height: 650px;
 }
-
-.loggedin {
-  .top-hero {
-    height: 30vh;
-  }
-  @media (max-width: 900px) {
-    .top-hero {
-      height: 20vh;
-    }
-  }
+.stiri-grid {
+  margin-top: 2rem;
+  min-height: 400px;
+}
+.stire,
+.content-row,
+.content-text {
+  position: relative;
+  z-index: 2;
 }
 .top-hero {
-  height: 30vh;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+  height: auto;
 }
 .photo {
   width: 100%;
@@ -74,7 +75,6 @@
   border-color: black;
   border-width: 6px;
   border-radius: 10px;
-  transition: 0.15s;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: 0;
@@ -115,15 +115,11 @@
   justify-content: center;
   align-items: center;
 }
+
 .stiri {
   margin-bottom: 1rem;
   margin-top: 1.2%;
   transition: color 200ms ease-in-out;
-}
-@media (max-width: 900px) {
-  .top-hero {
-    height: 20vh;
-  }
 }
 @media (max-width: 1380px) {
   .content-grid {

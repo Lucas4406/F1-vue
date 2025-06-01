@@ -16,7 +16,11 @@ const router = createRouter({
       name: "Acasă",
       component: Home,
     },
-
+    {
+      path: "/track-vizualizer",
+      name: "Trackvizualizer",
+      component: () => import("@/views/Trackvizualizer.vue"),
+    },
     {
       path: "/teams",
       name: "Echipe",
@@ -110,7 +114,15 @@ const router = createRouter({
     {
       path: "/admin",
       name: "AdminPage",
-      component: () => import("../views/Admin.vue"),
+      component: () => import("../views/AdminPages/AdminDashboard.vue"),
+      meta: {
+        Admin: true,
+      },
+    },
+    {
+      path: "/admin/season-events",
+      name: "SeasonEvents",
+      component: () => import("../views/AdminPages/SeasonEvents.vue"),
       meta: {
         Admin: true,
       },
@@ -142,14 +154,19 @@ const router = createRouter({
       },
     },
     {
-      path: "/change-password",
-      name: "ResetPassword",
+      path: "/auth-action",
+      name: "Confirmed&ResetPage",
       component: () => import("../views/ResetPassword.vue"),
     },
     {
       path: "/forgot-password",
       name: "ForgotPassword",
       component: () => import("../views/ForgotPassword.vue"),
+    },
+    {
+      path: "/confirm",
+      name: "ConfirmPage",
+      component: () => import("../views/ConfirmPage.vue"),
     },
     {
       path: "/update-profile",
