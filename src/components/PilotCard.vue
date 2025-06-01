@@ -1,6 +1,7 @@
 <template>
-  <div
-    class="card-const"
+  <router-link
+      to="/drivers"
+    class="card-const text-inherit no-underline hover:no-underline"
     :class="{ darkmode: darkMode }"
     :style="{ borderColor: pilot.culoare }"
   >
@@ -39,7 +40,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>

@@ -2,13 +2,14 @@
   <div class="site-wrapper mb-2" :class="{ loggedin: store.user != null }">
     <br />
     <div class="top-hero">
-      <herocursa v-show="Hero" v-if="heroData" :heroData="heroData" :smallText="smallText" />
+      <transition name="scale-fade" appear>
+        <div v-if="Hero && heroData">
+          <herocursa :heroData="heroData" :link="linkCursa" />
+        </div>
+      </transition>
     </div>
     <br />
-    <v-lazy
-        :options="{ threshold: 1 }"
-        transition="fade-transition"
-        v-model="modelValue"
+    <div
         v-if="store.user != null"
     >
       <div
@@ -28,7 +29,7 @@
             v-if="driverOk"
         />
       </div>
-    </v-lazy>
+    </div>
     <!-- <p v-show="heroError" class="text-center text-xl mt-4">Please reload the page</p> -->
     <div class="stiri-grid">
       <stiricomp />
@@ -70,6 +71,7 @@ export default {
       driverOk: false,
       modelValue: false,
       smallText: "",
+      linkCursa: null,
     }
   },
   async mounted() {
@@ -104,19 +106,23 @@ export default {
   },
 
   watch: {
-    async modelValue(newVal) {
-      if (newVal && this.store.user) {
-        if (this.store.user.favTeam) {
-          await this.favoriteTeam()
-          this.bla = true
-        }
-        if (this.store.user.favDriver) {
-          await this.getFavDriver()
-          this.driverOk = true
+    'store.user': {
+      immediate: true,
+      handler: async function (newUser) {
+        if (newUser) {
+          if (newUser.favTeam) {
+            await this.favoriteTeam()
+            this.bla = true
+          }
+          if (newUser.favDriver) {
+            await this.getFavDriver()
+            this.driverOk = true
+          }
         }
       }
     }
   },
+
 
   methods: {
     async getCursa() {
@@ -145,6 +151,11 @@ export default {
         date["inceput"] = dataInceput
         date["sfarsit"] = dataSfarsit
         date["lunaCursaText"] = monthName
+        const roundNum = date.meetingContext.nr_runda
+        const dataApi = await makeRequest(`https://api.jolpi.ca/ergast/f1/${date.meetingContext.season}.json?limit=100`)
+        const rundaActuala = dataApi.MRData.RaceTable.Races[roundNum]
+        const rundaLink = rundaActuala.raceName.replace(/\s+/g, '_');
+        this.linkCursa = `/schedule/${date.meetingContext.season}/${rundaLink}`
         this.heroData = date
         this.Hero = true
       } catch (error) {
@@ -198,4 +209,21 @@ export default {
     stroke: #ff0000;
   }
 }
+
+/* Animație pentru componenta herocursa la mount */
+.scale-fade-enter-active,
+.scale-fade-leave-active {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.scale-fade-enter-from,
+.scale-fade-leave-to {
+  transform: scale(0.8);
+  opacity: 0;
+}
+.scale-fade-enter-to,
+.scale-fade-leave-from {
+  transform: scale(1);
+  opacity: 1;
+}
+
 </style>
