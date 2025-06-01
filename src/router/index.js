@@ -128,6 +128,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/admin/driver-editor",
+      name: "SeasonEvents",
+      component: () => import("../views/AdminPages/DriverEditor.vue"),
+      meta: {
+        Admin: true,
+      },
+    },
+    {
       path: "/login",
       name: "Login",
       component: () => import("../views/login.vue"),
