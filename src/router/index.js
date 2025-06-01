@@ -114,7 +114,15 @@ const router = createRouter({
     {
       path: "/admin",
       name: "AdminPage",
-      component: () => import("../views/Admin.vue"),
+      component: () => import("../views/AdminPages/AdminDashboard.vue"),
+      meta: {
+        Admin: true,
+      },
+    },
+    {
+      path: "/admin/season-events",
+      name: "SeasonEvents",
+      component: () => import("../views/AdminPages/SeasonEvents.vue"),
       meta: {
         Admin: true,
       },
