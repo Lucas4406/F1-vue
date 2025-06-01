@@ -48,6 +48,13 @@
           Evenimente sezon
         </router-link>
       </button>
+      <button
+          class="px-6 py-3 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition cursor-pointer"
+      >
+        <router-link to="/admin/driver-editor" class="text-inherit no-underline hover:no-underline">
+          Editare piloti
+        </router-link>
+      </button>
     </div>
   </div>
 
