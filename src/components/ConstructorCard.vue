@@ -1,5 +1,5 @@
 <template>
-  <div class="card-const" :class="{ darkmode: darkMode }">
+  <router-link to="/teams" class="card-const text-inherit no-underline hover:no-underline" :class="{ darkmode: darkMode }">
     <div class="partesus">
       <p class="pozitie" id="pozitie" :class="{ darkmode: darkMode }">
         {{ team.position }}
@@ -16,7 +16,7 @@
         <p class="nrpuncte" id="nrpuncte">{{ team.points }}</p>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>

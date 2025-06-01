@@ -127,7 +127,7 @@
     display: grid;
     grid-template-rows: 40% 1fr;
     height: 20vh;
-    width: 70%;
+    width: 50%;
     overflow: hidden;
   }
   .hero-stanga {

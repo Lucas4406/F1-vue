@@ -1,151 +1,64 @@
 <template>
   <div class="px-4 py-8 space-y-12">
-    <!-- Titlu general -->
-    <div class="flex items-center justify-center gap-4">
-      <h2 class="text-4xl font-bold text-center text-black flex items-center justify-center gap-2 source">
+    <div class="flex flex-col items-center gap-2">
+      <h2 class="text-4xl font-bold text-center text-black source">
         🏁 Latest News 🏁
       </h2>
     </div>
 
-    <!-- Grid pentru ambele surse -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 px-4 mt-8 max-w-7xl mx-auto">
-      <!-- Stiri Formula1.com (cu poze) -->
-      <a
-          v-for="stire in news"
-          :key="'f1-' + stire.id"
-          :href="stire.link"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-white rounded-2xl shadow-lg hover:shadow-xl border border-gray-300 overflow-hidden flex flex-col w-full min-h-[460px] racefansgrid"
-      >
-        <img
-            :src="stire.poza"
-            :alt="stire.titlu"
-            class="w-full h-60 object-cover"
-        />
-        <div class="p-6 flex flex-col justify-between flex-1">
-          <h3 class="text-xl font-semibold text-gray-800 mb-3 leading-snug">
-            {{ stire.titlu }}
-          </h3>
-          <span class="text-sm text-gray-400 mt-auto">Source: Formula1.com</span>
-        </div>
-      </a>
-
-      <!-- Stiri RaceFans (fără poze) -->
-      <a
-          v-for="stire in newsRF"
-          :key="'rf-' + stire._id"
-          :href="stire.linkPost"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-white rounded-2xl shadow-md hover:shadow-xl border border-gray-200 flex flex-col w-full min-h-[460px] racefansgrid"
-      >
-        <div class="p-5 flex flex-col h-full">
-          <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">{{ stire.titlu }}</h3>
-
-          <p class="text-sm sm:text-base text-gray-500 mb-1">
-            <strong>Author:</strong> {{ stire.autor || "Unknown" }}
-          </p>
-          <p class="text-sm sm:text-base text-gray-500 mb-1">
-            <strong>Published:</strong> {{ formatDate(stire.dataPublicare) }}
-          </p>
-
-          <p class="text-sm sm:text-base text-gray-700 mt-2 line-clamp-4 flex-1">
-            {{ stire.descriere }}
-          </p>
-
-          <div class="mt-4 flex justify-between items-center">
-            <span class="text-xs sm:text-sm text-gray-400">{{ stire.categorii?.[0] }}</span>
-            <span class="text-sm sm:text-base text-blue-600 hover:underline read-more">Read more →</span>
-          </div>
-
-          <span class="text-sm sm:text-base text-gray-400 mt-4 block">Source: RaceFans.net</span>
-        </div>
-      </a>
+      <StireF1Card v-for="stire in news" :key="'f1-' + stire.id" :stire="stire" />
+      <StireRaceFansCard v-for="stire in newsRF" :key="'rf-' + stire._id" :stire="stire" />
     </div>
 
-    <!-- Loader -->
     <div class="flex justify-center items-center mt-8" v-if="!show">
       <ProgressSpinner />
     </div>
   </div>
 </template>
 
-
-
-
-<script>
+<script setup>
 import axios from "axios"
-import { isItemInSessionStorage } from "@/functions/checkSessionS.js"
+import StireF1Card from "@/components/StireF1Card.vue"
+import StireRaceFansCard from "@/components/StireRaceFansCard.vue"
 
-export default {
-  name: "Stiri",
-  data() {
-    return {
-      news: [],
-      newsRF: [],
-      show: false,
-    }
-  },
-  mounted() {
-    this.fetchData()
-    this.fetchRaceFansNews()
-  },
-  methods: {
-    async fetchData() {
-      let now = new Date()
-      let sessionData = JSON.parse(sessionStorage.getItem("news"))
-      if (
-          isItemInSessionStorage("news") == 0 ||
-          sessionData.exp < now.toISOString()
-      ) {
-        const link = `${import.meta.env.VITE_API_LINK}/mongo/stiri/6`
-        const response = await axios.get(link)
-        const resData = response.data
-        this.news = resData
-        let expiration = new Date()
-        expiration.setMinutes(expiration.getMinutes() + 30)
-        sessionStorage.setItem(
-            "news",
-            JSON.stringify({ exp: expiration, data: resData })
-        )
-      } else {
-        this.news = sessionData.data
-      }
-      this.show = true
-    },
+import { ref, onMounted } from "vue"
 
-    async fetchRaceFansNews() {
-      const storageKey = "news_rf"
-      const now = new Date()
-      const sessionData = JSON.parse(sessionStorage.getItem(storageKey))
+const news = ref([])
+const newsRF = ref([])
+const show = ref(false)
+const lastUpdate = ref(null)
 
-      if (!sessionData || sessionData.exp < now.toISOString()) {
-        try {
-          const link = `${import.meta.env.VITE_API_LINK}/mongo/stiri-rf/all`
-          const response = await axios.get(link)
-          const resData = response.data
-          this.newsRF = resData
-          const expiration = new Date()
-          expiration.setMinutes(expiration.getMinutes() + 30)
-          sessionStorage.setItem(
-              storageKey,
-              JSON.stringify({ exp: expiration, data: resData })
-          )
-        } catch (error) {
-          console.error("Eroare la fetch news_rf:", error)
-        }
-      } else {
-        this.newsRF = sessionData.data
-      }
-      this.show = true
-    },
+onMounted(async () => {
+  try {
+    const [f1, rf] = await Promise.all([
+      fetchWithCache("news", `${import.meta.env.VITE_API_LINK}/mongo/stiri/6`),
+      fetchWithCache("news_rf", `${import.meta.env.VITE_API_LINK}/mongo/stiri-rf/all`)
+    ])
 
-    formatDate(dateString) {
-      const options = { year: "numeric", month: "long", day: "numeric" }
-      return new Date(dateString).toLocaleDateString("ro-RO", options)
-    },
-  },
+    news.value = f1
+    newsRF.value = rf
+    lastUpdate.value = new Date()
+  } catch (error) {
+    console.error("Eroare la fetch știri:", error)
+  } finally {
+    show.value = true
+  }
+})
+
+async function fetchWithCache(key, url) {
+  const now = new Date()
+  const cached = JSON.parse(sessionStorage.getItem(key))
+
+  if (!cached || cached.exp < now.toISOString()) {
+    const { data } = await axios.get(url)
+    const expiration = new Date()
+    expiration.setMinutes(expiration.getMinutes() + 30)
+    sessionStorage.setItem(key, JSON.stringify({ exp: expiration, data }))
+    return data
+  } else {
+    return cached.data
+  }
 }
 </script>
 
@@ -153,7 +66,6 @@ export default {
 .racefansgrid {
   transition: transform 0.2s ease-in-out;
 }
-
 .racefansgrid:hover {
   transform: scale(1.02) translateY(-5px);
 }

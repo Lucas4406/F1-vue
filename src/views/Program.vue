@@ -1,98 +1,13 @@
 <template>
   <!-- Cursa Urmatoare -->
-  <div
-    class="mt-6 flex justify-center w-screen sm:mb-6 lg:mb-0"
-    id="hero"
-    v-if="show"
-  >
-    <div
-      class="border-red-500 border-2 border-solid sm:max-w-xl sm:w-xl lg:max-w-4xl lg:w-4xl p-4 rounded-md w-[100%] animatie"
-    >
-      <a
-        @click="
-          getItem(`#${circuitName.replace(/\s/g, '').toLocaleLowerCase()}`)
-        "
-        style="text-decoration: none; color: black"
-      >
-
-        <div  class="flex justify-between text-2xl mb-4 font-bold">
-          <p >{{ round }}. {{ Name }}</p>
-          <p >{{ circuitName }}</p>
-        </div>
-        <div class="text-2xl gap-2 flex flex-col">
-          <div class="flex justify-between">
-            <div  class="flex justify-between w-[50%]">
-              <p class="">FP1</p>
-              <p class="">{{ this.formatDate(this.hero.FirstPractice.date) }}</p>
-            </div>
-            <p class="w-[50%] flex justify-end items-center">
-              {{ this.formatSession(this.hero.FirstPractice , 60).timpul }}
-            </p>
-          </div>
-          <div  v-if="!this.hero.Sprint" class="flex justify-between">
-            <div  class="flex justify-between w-[50%]">
-              <p>FP2</p>
-              <p >{{ this.formatDate(this.hero.SecondPractice.date) }}</p>
-            </div>
-            <p class="w-[50%] flex justify-end items-center">
-              {{ this.formatSession(this.hero.SecondPractice , 60).timpul }}
-            </p>
-          </div>
-          <div  v-if="this.hero.Sprint" class="flex justify-between">
-            <div  class="flex justify-between w-[50%]">
-              <p>SprintQuali</p>
-              <p>{{ this.formatDate(this.hero.SprintQualifying.date) }}</p>
-            </div>
-            <p  class="w-[50%] flex justify-end items-center">
-              {{ this.formatSession(this.hero.SprintQualifying , 44).timpul }}
-            </p>
-          </div>
-          <div  v-if="this.hero.Sprint" class="flex justify-between">
-            <div  class="flex justify-between w-[50%]">
-              <p>Sprint</p>
-              <p >{{ this.formatDate(this.hero.Sprint.date) }}</p>
-            </div>
-            <p  class="w-[50%] flex justify-end items-center">
-              {{ this.formatSession(this.hero.Sprint , 60).timpul }}
-            </p>
-          </div>
-          <div v-if="!this.hero.Sprint" class="flex justify-between">
-            <div  class="flex justify-between w-[50%]">
-              <p>FP3</p>
-              <p >{{ this.formatDate(this.hero.ThirdPractice.date) }}</p>
-            </div>
-            <p  class="w-[50%] flex justify-end items-center">
-              {{ this.formatSession(this.hero.ThirdPractice , 60).timpul }}
-            </p>
-          </div>
-          <div  class="flex justify-between">
-            <div  class="flex justify-between w-[50%]">
-              <p>Quali</p>
-              <p >{{ this.formatDate(this.hero.Qualifying.date) }}</p>
-            </div>
-            <p class="w-[50%] flex justify-end items-center">
-              {{ this.formatSession(this.hero.Qualifying , 60).timpul }}
-            </p>
-          </div>
-          <div class="flex justify-between">
-            <div  class="flex justify-between w-[50%]">
-              <p>Cursă</p>
-              <p >{{ this.formatDate(this.hero.date) }}</p>
-            </div>
-            <p class="w-[50%] flex justify-end items-center">
-              {{ new Date(this.hero.date + "T" + this.hero.time).toLocaleTimeString(
-                "ro-RO",
-                { timeStyle: "short" }
-            ) }}
-            </p>
-          </div>
-        </div>
-        <p class="text-sm text-gray-600 italic mt-2">
-          * All times shown are in your device's local time zone.
-        </p>
-      </a>
-    </div>
-  </div>
+  <ProgramHero
+      v-if="show"
+      :hero="hero"
+      :round="round"
+      :circuitName="circuitName"
+      :Name="Name"
+      :getItem="getItem"
+  />
   <!-- Card Grid -->
   <div
     class="lg:grid lg:grid-cols-2 md:grid-cols-1 lg:px-14 lg:p-6 lg:gap-6 sm:justify-center sm:flex sm:flex-col sm:gap-6"
@@ -234,11 +149,13 @@ import axios from "axios"
 import getNext from "@/functions/getNext";
 import Calendar from "@/components/Calendar.vue"
 import {useHead} from "@vueuse/head";
+import ProgramHero from "@/components/ProgramHero.vue"
 
 export default {
   name: "Program",
   components: {
-    Calendar
+    Calendar,
+    ProgramHero
   },
   data() {
     return {
