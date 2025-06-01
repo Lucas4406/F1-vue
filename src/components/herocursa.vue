@@ -74,7 +74,13 @@ export default {
   async mounted() {
     this.findNextSession();
     if (this.nextSession && this.nextSession.status === "isNext") {
-      this.startCountdown();
+      const now = new Date();
+      const start = this.getLocalStartTimeWithOffset(this.nextSession);
+      const diff = start - now;
+      const hours24 = 24 * 60 * 60 * 1000;
+      if (diff > 0 && diff <= hours24) {
+        this.startCountdown();
+      }
     }
   },
   beforeUnmount() {
@@ -127,6 +133,16 @@ export default {
 
     startCountdown() {
       if (!this.nextSession) return;
+
+      const now = new Date();
+      const start = this.getLocalStartTimeWithOffset(this.nextSession);
+      const diff = start - now;
+      const hours24 = 24 * 60 * 60 * 1000;
+      if (diff <= 0 || diff > hours24) {
+        // Nu pornim countdown-ul daca sesiunea a inceput sau e la mai mult de 24h distanta
+        this.countdown = "";
+        return;
+      }
 
       this.updateCountdown();
       this.countdownInterval = setInterval(() => {
