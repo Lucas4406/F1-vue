@@ -38,7 +38,6 @@
         </div>
         <div class="pozanumar">
           <img :src="pilot.poza" class="poza-pilot"  />
-          <img :src="pilot.numar" class="nr-pilot"  />
         </div>
       </router-link>
     </div>
