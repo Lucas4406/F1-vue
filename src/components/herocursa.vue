@@ -1,8 +1,9 @@
 <template>
   <router-link
       :to="link"
-      class="group block w-full max-w-4xl mx-auto px-4 py-6 md:py-8 rounded-xl bg-zinc-900 text-white shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+      class="group block w-full max-w-2xl xl:max-w-4xl mx-auto xl:px-4 mt-4 py-6 md:py-8 rounded-xl bg-zinc-900 text-white shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
   >
+
   <div class="flex flex-col md:flex-row items-center gap-4 w-full overflow-hidden">
     <!-- Left: Circuit Image -->
     <div class="w-full md:w-1/3 aspect-[3/2] bg-zinc-800 rounded-lg overflow-hidden">
