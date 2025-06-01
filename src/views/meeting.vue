@@ -100,11 +100,11 @@ export default {
       meta: [
         {
           name: "description",
-          content: `See all results from the ${meetingNameFormatted} ${an} Formula 1 weekend: race, qualifying, sprint and race control messages.`,
+          content: `See all results from the ${meetingNameFormatted} ${an} Formula 1 weekend: race, qualifying, sprint and race control messages on GridFanHub.`,
         },
         {
           name: "keywords",
-          content: `${meetingNameFormatted} ${an} F1, Formula 1 ${an} ${meetingNameFormatted} results, F1 qualifying, F1 sprint results, ${an} F1 race outcome, race control messages, race control`,
+          content: `${meetingNameFormatted} ${an} F1, GridFanHub, F1 race control, formula1, f1, finishing order, Formula 1 ${an} ${meetingNameFormatted} results, F1 qualifying, F1 sprint results, ${an} F1 race outcome, race control messages, race control`,
         },
         {
           name: "robots",

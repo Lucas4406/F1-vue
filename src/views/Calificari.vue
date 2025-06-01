@@ -198,7 +198,7 @@ export default {
         title: `GridFanHub | Qualifying results ${year}`,
         meta: [
           { name: "description", content: `Complete qualifying results for Formula 1 season ${year} on GridFanHub.` },
-          { name: "keywords", content: `F1 qualifying ${year}, Formula 1 qualifying results, F1 ${year} season, Formula 1 calendar, F1 news` },
+          { name: "keywords", content: `F1 qualifying ${year}, Formula 1 qualifying results, F1 ${year} season, Formula 1 calendar, F1 news, gridfanhub, f1, formula1, qualifying clasification, calificari, qualifying data, multiple years, 2014-2025, gridfanhub qualifying data, updated qualifying, f1 site data, formula1 qualifying, lewis hamilton, oscar piastri, max vrestappen, fastestlap, fastest lap` },
           { property: "og:title", content: `GridFanHub | Qualifying results ${year}` },
           { property: "og:description", content: `Complete qualifying results for Formula 1 season ${year} on GridFanHub.` },
           { property: "og:type", content: "website" },

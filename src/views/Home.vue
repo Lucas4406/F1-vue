@@ -80,8 +80,8 @@ export default {
     useHead({
       title: "GridFanHub | Up-to-Date Formula 1 News & Insights",
       meta: [
-        { name: "keywords", content: "Formula 1, F1, F1 news, F1 standings, Formula 1 calendar, F1 teams, F1 drivers, race results, F1 qualifying, F1 history, Formula 1 reaction game, Formula 1 Romania, F1 RO, formula1 ro, formula1 romania, F1 schedule" },
-        { name: "description", content: "GridFanHub is your complete source of information about Formula 1: updated news, race schedules, live results, and standings for drivers and teams. Discover qualifying and race data, play a reaction game for F1 fans, and explore the fascinating history of this sport. All in one place, in English." },
+        { name: "keywords", content: "Formula 1, F1, F1 news, F1 standings, Formula 1 calendar, F1 teams, F1 drivers, race results, F1 qualifying, F1 history, Formula 1 reaction game, Formula 1 Romania, F1 RO, formula1 ro, formula1 romania, F1 schedule, gridfanhub f1, GridFanHub, formula1, formula 1, formula 1 aggregated news, f1 race control, race control messages, fia messages" },
+        { name: "description", content: "GridFanHub is your complete source of information about Formula 1: updated and aggregated news, race schedules, live results, race control messages and standings for drivers and teams. Discover qualifying and race data, play a reaction game for F1 fans, and explore the fascinating history of this sport. All in one place, in English." },
         { name: "author", content: "GridFanHub" },
         { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
 

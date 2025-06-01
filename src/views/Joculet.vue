@@ -68,12 +68,12 @@ export default {
         {
           name: "description",
           content:
-              "Try the Formula 1 reaction test game used by real drivers. See how fast you can react!",
+              "Try the GridFanHub reaction test game used by real Formula 1 drivers. See how fast you can react!",
         },
         {
           name: "keywords",
           content:
-              "F1 reaction test, reaction time game, Formula 1 reflex test, reaction test online",
+              "F1 reaction test, reaction time game, Formula 1 reflex test, reaction test online, gridfanhub reaction, gridfanhub game, joc reactie f1, reacite formula 1, piloti formula 1, f1 pilots, f1, formula 1, f1 game",
         },
         {
           name: "robots",
@@ -86,7 +86,7 @@ export default {
         {
           property: "og:description",
           content:
-              "Can you beat the reaction times of F1 drivers? Play the reflex game used in motorsport.",
+              "Can you beat the reaction times of F1 drivers? Play the reflex game used in motorsport made by GridFanHub.",
         },
         {
           property: "og:type",
@@ -111,7 +111,7 @@ export default {
         {
           name: "twitter:description",
           content:
-              "Try the same reaction test game used by F1 drivers and track your fastest time!",
+              "Try the same GridFanHub reaction test game used by F1 drivers and track your fastest time!",
         },
         {
           name: "twitter:image",
