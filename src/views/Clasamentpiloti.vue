@@ -79,17 +79,17 @@ export default {
       })
       .catch((err) => console.log(err))
     useHead({
-      title: "GridFanHub | Formula 1 Driver Standings 2025",
+      title: "GridFanHub | Formula 1 Drivers 2025",
       meta: [
         {
           name: "description",
           content:
-              "Stay updated with the latest 2025 Formula 1 driver standings. View positions, points, gaps and more for each F1 driver this season.",
+              "Stay updated with the latest 2025 Formula 1 driver standings on GridFanHub. View positions, points, gaps and more for each F1 driver this season.",
         },
         {
           name: "keywords",
           content:
-              "F1 2025 standings, Formula 1 drivers 2025, F1 driver points, F1 ranking 2025, F1 drivers table, Formula 1 drivers gap, F1 points 2025",
+              "F1 2025 standings, Formula 1 drivers 2025, F1 driver points, F1 ranking 2025, F1 drivers table, Formula 1 drivers gap, F1 points 2025, gridfanhub drivers, gridfanhub, f1, formula1, piloti formula 1 , piloti gridfanhub, f1 driver standings, f1 all drivers, lewis hamilton, max verstappen, george russell, kimi antonelli, charles leclrec, lando norris, oscar piastri, red bull, mercedes, fernando alonso, alex albon, carlos sainz, franco colapinto f1 updated points, updated drivers",
         },
         {
           name: "robots",
@@ -102,7 +102,7 @@ export default {
         {
           property: "og:description",
           content:
-              "Check out the full Formula 1 2025 driver standings, updated after every race. Discover driver positions, points, and gaps to the leader.",
+              "Check out the full Formula 1 2025 driver standings on GridFanHub, updated after every race. Discover driver positions, points, and gaps to the leader.",
         },
         {
           property: "og:type",

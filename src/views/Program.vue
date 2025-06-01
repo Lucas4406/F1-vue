@@ -173,7 +173,8 @@ export default {
     useHead({
       title: 'GridFanHub | Formula 1 Schedule 2025',
       meta: [
-        { name: 'description', content: 'Complete Formula 1 2025 schedule: sessions, practice, qualifying, and race times — all in your local timezone. Updated live on GridFanHub.' },
+        { name: 'description', content: 'Complete Formula 1 2025 schedule : sessions, practice, qualifying, and race times — all in your local timezone. Updated live on GridFanHub.' },
+        { name: 'keywords', content: 'Formula 1, 2025 schedule, sessions, practice, qualifying, and race times, local timezone, GridFanHub, updated, f1 season 2025, gridfanhub, f1 calendar, formula1, calendar, race weekend, f1 next race, formula 1 next race' },
         { property: 'og:title', content: ' GridFanHub | Formula 1 Schedule 2025' },
         { property: 'og:description', content: 'Check the full Formula 1 2025 race calendar with session details, local time conversions, and links to each race weekend.' },
         { property: 'og:type', content: 'website' },

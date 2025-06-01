@@ -2,7 +2,15 @@ User-agent: *
 Allow: /
 Sitemap: https://gridfanhub.com/sitemap.xml
 Disallow: /admin
-Disallow: /updateteams
+Disallow: /update-teams
 Disallow: /test
 Disallow: /href
 Disallow: /fun
+Disallow: /admin/season-events
+Disallow: /update-profile
+Disallow: /confirm
+Disallow: /auth-action
+Disallow: /forgot-password
+Disallow: /profile
+Disallow: /live
+Disallow: /track-vizualizer
