@@ -14,3 +14,6 @@ Disallow: /forgot-password
 Disallow: /profile
 Disallow: /live
 Disallow: /track-vizualizer
+Disallow: /admin/team-editor
+Disallow: /admin/season-events
+Disallow: /admin/driver-editor

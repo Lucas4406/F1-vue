@@ -39,9 +39,9 @@
             echipa.pilot_2
           }}
         </div>
-        <div class="pozae">
-          <img :src="echipa.logo" class="poza1" :alt="`Logo ${echipa.name}`" />
-        </div>
+<!--        <div class="pozae">-->
+<!--          <img :src="echipa.logo" class="poza1" :alt="`Logo ${echipa.name}`" />-->
+<!--        </div>-->
       </div>
       <div class="linie3">
         <img :src="echipa.masinaPoza" class="poza" :alt="`Mașina ${echipa.name}`" />
