@@ -1,47 +1,46 @@
 <template>
   <div class="p-6">
-    <!-- Bara de căutare -->
+    <!-- Căutare echipă -->
     <div class="max-w-md mx-auto mb-8">
       <input
           v-model="searchQuery"
-          @input="filterPilots"
+          @input="filterTeams"
           type="text"
-          placeholder="Caută după nume..."
+          placeholder="Caută echipă după nume..."
           class="w-full border rounded p-2 text-sm"
       />
     </div>
 
-    <!-- Lista de Piloți -->
+    <!-- Lista echipe -->
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
       <div
-          v-for="pilot in filteredPilots"
-          :key="pilot._id"
+          v-for="team in filteredTeams"
+          :key="team._id"
           class="bg-white shadow rounded-xl p-4 border relative"
       >
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-lg font-bold">
-            {{ pilot.primulNume }} {{ pilot.alDoileaNume }}
-          </h2>
-          <span class="text-sm text-gray-500">#{{ pilot.numar }}</span>
+          <h2 class="text-lg font-bold">{{ team.edit.name }}</h2>
         </div>
 
         <!-- Câmpuri editabile -->
         <div class="space-y-2">
           <div
-              v-for="(value, field) in pilot.edit"
+              v-for="(value, field) in team.edit"
               :key="field"
               class="flex justify-between items-center"
           >
             <label class="capitalize font-medium">{{ field }}:</label>
             <div class="flex items-center w-1/2">
               <input
-                  v-model="pilot.edit[field]"
+                  v-model="team.edit[field]"
                   class="border rounded p-1 text-sm w-full"
                   :placeholder="field"
+                  :type="numericFields.includes(field) ? 'number' : 'text'"
               />
+              <!-- Buton ștergere câmp doar dacă nu e în editableFields -->
               <button
-                  v-if="!editableFields.includes(field)"
-                  @click="removeField(pilot, field)"
+                  v-if="!editableFields.includes(field) && field !== '_id' && field !== '__v'"
+                  @click="removeField(team, field)"
                   title="Șterge câmp"
                   type="button"
                   class="ml-2 text-red-600 hover:text-red-800 font-bold"
@@ -52,21 +51,21 @@
           </div>
         </div>
 
-        <!-- Adăugare câmp nou -->
+        <!-- Adaugă câmp nou -->
         <div class="flex items-center gap-2 mt-4">
           <input
-              v-model="pilot.newFieldKey"
+              v-model="team.newFieldKey"
               class="border rounded p-1 text-sm w-1/3"
               placeholder="Nume câmp nou"
           />
           <input
-              v-model="pilot.newFieldValue"
+              v-model="team.newFieldValue"
               class="border rounded p-1 text-sm w-1/3"
               placeholder="Valoare"
           />
           <button
               class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-sm"
-              @click="() => addNewField(pilot)"
+              @click="() => addNewField(team)"
               type="button"
           >
             + Adaugă
@@ -77,40 +76,40 @@
         <div class="flex justify-between mt-4">
           <button
               class="px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-              @click="updatePilot(pilot)"
+              @click="updateTeam(team)"
           >
             Salvează
           </button>
           <button
               class="px-4 py-1 bg-red-600 text-white rounded hover:bg-red-700"
-              @click="deletePilot(pilot._id)"
+              @click="deleteTeam(team._id)"
           >
             Șterge
           </button>
         </div>
 
         <!-- Mesaje status -->
-        <div v-if="pilot.success" class="mt-2 text-green-600 text-sm">
+        <div v-if="team.success" class="mt-2 text-green-600 text-sm">
           Actualizat cu succes!
         </div>
-        <div v-if="pilot.error" class="mt-2 text-red-600 text-sm">
+        <div v-if="team.error" class="mt-2 text-red-600 text-sm">
           Eroare la actualizare!
         </div>
       </div>
     </div>
 
-    <!-- Formular pentru Adăugare -->
+    <!-- Formular adăugare echipă nouă -->
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-2xl font-bold mb-4">Adaugă un nou pilot</h2>
+      <h2 class="text-2xl font-bold mb-4">Adaugă o echipă nouă</h2>
       <form
-          @submit.prevent="addPilot"
+          @submit.prevent="addTeam"
           class="space-y-4 bg-white p-6 rounded-xl shadow border"
       >
         <!-- Câmpuri fixe -->
-        <div v-for="field in editableFields" :key="field">
+        <div v-for="field in editableFields" :key="field" v-if="field !== 'drivers'">
           <label class="block font-medium capitalize mb-1">{{ field }}:</label>
           <input
-              v-model="newPilot[field]"
+              v-model="newTeam[field]"
               :type="numericFields.includes(field) ? 'number' : 'text'"
               :placeholder="numericFields.includes(field) ? 'Introdu un număr' : field"
               class="w-full border rounded p-2 text-sm"
@@ -118,7 +117,25 @@
           />
         </div>
 
-        <!-- 2 câmpuri libere pentru key + value -->
+        <!-- Câmpuri pentru drivers (driver1 și driver2 IDs) -->
+        <div class="mb-4">
+          <label class="block font-medium mb-1">driver1 (ID):</label>
+          <input
+              v-model="newTeam.driver1"
+              type="text"
+              placeholder="ObjectId driver1"
+              class="w-full border rounded p-2 text-sm"
+          />
+          <label class="block font-medium mt-2 mb-1">driver2 (ID):</label>
+          <input
+              v-model="newTeam.driver2"
+              type="text"
+              placeholder="ObjectId driver2"
+              class="w-full border rounded p-2 text-sm"
+          />
+        </div>
+
+        <!-- 2 câmpuri libere pentru key + value câmpuri noi -->
         <div class="flex gap-4">
           <input
               v-model="newFieldKey"
@@ -133,16 +150,23 @@
           <button
               type="button"
               class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
-              @click="addNewFieldToNewPilot"
+              @click="addNewFieldToNewTeam"
           >
             + Adaugă câmp nou
           </button>
         </div>
 
         <!-- Afișare câmpuri noi adăugate -->
-        <div v-if="Object.keys(newPilotExtraFields).length" class="mt-4 border rounded p-4 bg-gray-50">
+        <div
+            v-if="Object.keys(newTeamExtraFields).length"
+            class="mt-4 border rounded p-4 bg-gray-50"
+        >
           <h3 class="font-semibold mb-2">Câmpuri noi adăugate:</h3>
-          <div v-for="(value, key) in newPilotExtraFields" :key="key" class="flex justify-between items-center mb-1">
+          <div
+              v-for="(value, key) in newTeamExtraFields"
+              :key="key"
+              class="flex justify-between items-center mb-1"
+          >
             <span class="capitalize">{{ key }}:</span>
             <span>{{ value }}</span>
           </div>
@@ -153,7 +177,7 @@
               type="submit"
               class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
           >
-            Adaugă Pilot
+            Adaugă Echipa
           </button>
           <button
               type="button"
@@ -186,219 +210,201 @@
 import { ref, onMounted } from "vue";
 import { authRequest } from "@/functions/authRequest";
 
-const pilots = ref([]);
-const filteredPilots = ref([]);
-const newPilot = ref({});
-const newPilotExtraFields = ref({}); // câmpuri noi adăugate din formular
+const teams = ref([]);
+const filteredTeams = ref([]);
+const newTeam = ref({});
+const newTeamExtraFields = ref({}); // câmpuri noi adăugate în formular
 const newFieldKey = ref("");
 const newFieldValue = ref("");
 
 const editableFields = [
+  "name",
+  "drivers", // aici gestionăm driver1 și driver2 separat în form
   "pozitie",
-  "puncte",
-  "primulNume",
-  "alDoileaNume",
-  "echipa",
-  "steag",
-  "poza",
-  "numar",
-  "culoare",
-  "driver_id",
+  "nrpuncte",
+  "culoareEchipa",
+  "logo",
+  "masinaPoza",
+  "pilot_1",
+  "pilot_2",
+  "link_echipa",
 ];
 
-const numericFields = ["pozitie", "puncte"];
+const numericFields = ["pozitie", "nrpuncte"];
 
 const successMessage = ref("");
 const errorMessage = ref("");
 
 const searchQuery = ref("");
 
-// Fetch piloți
-const fetchPilots = async () => {
+// Fetch echipe
+const fetchTeams = async () => {
   try {
-    const res = await authRequest("GET", `${import.meta.env.VITE_API_LINK}/drivers`);
-    pilots.value = res.map((p) => ({
-      ...p,
-      edit: { ...p },
+    const res = await authRequest("GET", `${import.meta.env.VITE_API_BASE_URL}/teams`);
+    teams.value = res.data.map((team) => ({
+      ...team,
+      edit: { ...team },
       newFieldKey: "",
       newFieldValue: "",
       success: false,
       error: false,
     }));
-    filteredPilots.value = [...pilots.value];
-  } catch (err) {
-    console.error("Eroare la fetch piloți:", err);
+    filteredTeams.value = [...teams.value];
+  } catch (e) {
+    console.error("Eroare la încărcarea echipelor", e);
   }
 };
 
-// Filtrare după căutare
-const filterPilots = () => {
+onMounted(fetchTeams);
+
+// Filtrare după nume
+const filterTeams = () => {
   const q = searchQuery.value.toLowerCase().trim();
   if (!q) {
-    filteredPilots.value = [...pilots.value];
+    filteredTeams.value = [...teams.value];
     return;
   }
-  filteredPilots.value = pilots.value.filter((p) => {
-    const fullName = (p.primulNume + " " + p.alDoileaNume).toLowerCase();
-    return fullName.includes(q);
-  });
+  filteredTeams.value = teams.value.filter((t) =>
+      (t.edit.name || "").toLowerCase().includes(q)
+  );
 };
 
-// Actualizare pilot
-const updatePilot = async (pilot) => {
+// Actualizare echipă
+const updateTeam = async (team) => {
   try {
-    const payload = {};
-    // conversie numeric fields + restul la string
-    for (const field in pilot.edit) {
-      if (numericFields.includes(field)) {
-        payload[field] = Number(pilot.edit[field]);
-      } else {
-        payload[field] = pilot.edit[field];
-      }
-    }
+    const payload = { ...team.edit };
+    // Drivers trimitem separat ca obiect în payload
+    if (payload.drivers) delete payload.drivers;
+    if (team.edit.driver1) payload.driver1 = team.edit.driver1;
+    if (team.edit.driver2) payload.driver2 = team.edit.driver2;
 
-    await authRequest("PUT", `${import.meta.env.VITE_API_LINK}/drivers/${pilot._id}/update`, payload);
+    await authRequest("PUT", `${import.meta.env.VITE_API_BASE_URL}/teams/${team._id}/update`, payload);
+    team.success = true;
+    team.error = false;
 
-    pilot.success = true;
-    pilot.error = false;
     setTimeout(() => {
-      pilot.success = false;
+      team.success = false;
     }, 3000);
-  } catch (err) {
-    console.error("Eroare update:", err);
-    pilot.success = false;
-    pilot.error = true;
-    setTimeout(() => {
-      pilot.error = false;
-    }, 3000);
+  } catch (e) {
+    team.error = true;
+    team.success = false;
+    console.error("Eroare la actualizarea echipei:", e);
   }
 };
 
-// Ștergere pilot
-const deletePilot = async (id) => {
-  if (!confirm("Ești sigur că vrei să ștergi acest pilot?")) return;
+// Ștergere echipă
+const deleteTeam = async (id) => {
+  if (!confirm("Ești sigur că vrei să ștergi această echipă?")) return;
   try {
-    await authRequest("DELETE", `${import.meta.env.VITE_API_LINK}/drivers/${id}/delete`);
-    pilots.value = pilots.value.filter((p) => p._id !== id);
-    filterPilots();
-  } catch (err) {
-    console.error("Eroare delete:", err);
-    alert("Eroare la ștergere pilot.");
+    await authRequest("DELETE", `${import.meta.env.VITE_API_BASE_URL}/teams/${id}/delete`);
+    teams.value = teams.value.filter((t) => t._id !== id);
+    filterTeams();
+  } catch (e) {
+    alert("Eroare la ștergerea echipei");
   }
 };
 
-// Resetare formular
-const resetForm = () => {
-  newPilot.value = {};
-  newPilotExtraFields.value = {};
-  newFieldKey.value = "";
-  newFieldValue.value = "";
-  successMessage.value = "";
-  errorMessage.value = "";
-};
-
-// Adăugare pilot nou
-const addPilot = async () => {
-  try {
-    const payload = {};
-
-    // Adaugă câmpurile fixe
-    for (const field of editableFields) {
-      if (newPilot.value[field] !== undefined) {
-        if (numericFields.includes(field)) {
-          payload[field] = convertValue(newPilot.value[field]);
-        } else {
-          payload[field] = newPilot.value[field];
-        }
-      }
-    }
-
-    // Adaugă câmpurile noi din formular
-    for (const [key, val] of Object.entries(newPilotExtraFields.value)) {
-      payload[key] = convertValue(val);
-    }
-
-    await authRequest("POST", `${import.meta.env.VITE_API_LINK}/drivers/add`, payload);
-
-    successMessage.value = "Pilot adăugat cu succes!";
-    errorMessage.value = "";
-    resetForm();
-    await fetchPilots();
-  } catch (err) {
-    console.error("Eroare la adăugare pilot:", err);
-    errorMessage.value = "Eroare la adăugare pilot.";
-    successMessage.value = "";
+// Adaugă câmp nou în echipa curentă (editabilă)
+const addNewField = (team) => {
+  const key = team.newFieldKey.trim();
+  const value = team.newFieldValue.trim();
+  if (!key) {
+    alert("Numele câmpului nou nu poate fi gol");
+    return;
   }
+  if (team.edit[key] !== undefined) {
+    alert("Acest câmp există deja");
+    return;
+  }
+  team.edit[key] = value;
+  team.newFieldKey = "";
+  team.newFieldValue = "";
 };
-
-// Adaugă câmp nou la pilot existent (edit)
-const addNewField = (pilot) => {
-  if (!pilot.newFieldKey.trim()) return;
-  pilot.edit = {
-    ...pilot.edit,
-    [pilot.newFieldKey.trim()]: pilot.newFieldValue.trim(),
-  };
-  pilot.newFieldKey = "";
-  pilot.newFieldValue = "";
-};
-
-// Șterge câmp nou la pilot existent (edit)
-const removeField = async (pilot, field) => {
-  if (!confirm(`Ștergi câmpul "${field}"?`)) return;
+const removeField = async (team, field) => {
+  if (!confirm(`Ești sigur că vrei să ștergi câmpul "${field}"?`)) return;
 
   try {
-    const payload = { removeField: field };
+    // Payload cu numele câmpului de șters
+    const payload = { field };
 
+    // Apelez endpoint-ul API de ștergere câmp
     await authRequest(
         "PUT",
-        `${import.meta.env.VITE_API_LINK}/drivers/${pilot._id}/remove-field`,
+        `${import.meta.env.VITE_API_BASE_URL}/teams/${team._id}/remove-field`,
         payload
     );
 
-    delete pilot.edit[field];
-  } catch (err) {
-    console.error("Eroare la ștergerea câmpului din DB:", err);
-    alert("Nu s-a putut șterge câmpul. Încearcă din nou.");
+    // Șterg local câmpul din obiectul editabil
+    delete team.edit[field];
+
+    // Reset mesaje de stare (dacă ai nevoie)
+    team.success = true;
+    team.error = false;
+
+    setTimeout(() => {
+      team.success = false;
+    }, 3000);
+
+  } catch (error) {
+    team.error = true;
+    team.success = false;
+    console.error("Eroare la ștergerea câmpului:", error);
   }
 };
 
-// Adaugă câmp nou în formularul de pilot nou
-const addNewFieldToNewPilot = () => {
-  if (!newFieldKey.value.trim()) return;
-  newPilotExtraFields.value = {
-    ...newPilotExtraFields.value,
-    [newFieldKey.value.trim()]: newFieldValue.value.trim(),
-  };
+// Adaugă câmp nou în formularul de adăugare echipă
+const addNewFieldToNewTeam = () => {
+  const key = newFieldKey.value.trim();
+  const value = newFieldValue.value.trim();
+  if (!key) {
+    alert("Numele câmpului nou nu poate fi gol");
+    return;
+  }
+  if (newTeam.value[key] !== undefined || newTeamExtraFields.value[key] !== undefined) {
+    alert("Acest câmp există deja");
+    return;
+  }
+  newTeamExtraFields.value[key] = value;
   newFieldKey.value = "";
   newFieldValue.value = "";
 };
 
-// Convertim valoarea introdusă în număr dacă e cazul,
-// dar respectăm și dacă user-ul vrea să o țină string, punând-o între ghilimele
-const convertValue = (val) => {
-  if (typeof val !== "string") return val;
+// Adaugă echipă nouă
+const addTeam = async () => {
+  try {
+    // Pregătim obiectul
+    const payload = { ...newTeam.value, ...newTeamExtraFields.value };
+    // Adăugăm driver1 și driver2 ca referințe
+    if (newTeam.value.driver1) payload.driver1 = newTeam.value.driver1;
+    if (newTeam.value.driver2) payload.driver2 = newTeam.value.driver2;
 
-  const trimmed = val.trim();
-  console.log(trimmed)
+    // Curățăm câmpuri goale
+    Object.keys(payload).forEach((k) => {
+      if (payload[k] === "") delete payload[k];
+    });
 
-  // 1. Dacă e între ghilimele → string fără ghilimele
-  if (
-      (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
-      (trimmed.startsWith("'") && trimmed.endsWith("'"))
-  ) {
-    console.log(trimmed.slice(1, -1))
-    return trimmed.slice(1, -1);
+    await authRequest("POST", `${import.meta.env.VITE_API_BASE_URL}/teams/add`, payload);
+    successMessage.value = "Echipa a fost adăugată cu succes!";
+    errorMessage.value = "";
+    // Resetare formular
+    resetForm();
+    fetchTeams();
+  } catch (e) {
+    errorMessage.value = "Eroare la adăugarea echipei.";
+    successMessage.value = "";
+    console.error(e);
   }
-
-  // 2. Altfel, dacă e număr valid → number
-  if (!isNaN(trimmed) && trimmed !== "") {
-    return Number(trimmed);
-  }
-
-  // 3. Altfel → string
-  return trimmed;
 };
 
-
-onMounted(fetchPilots);
+// Resetare formular nouă echipă
+const resetForm = () => {
+  newTeam.value = {};
+  newTeamExtraFields.value = {};
+  newFieldKey.value = "";
+  newFieldValue.value = "";
+};
 </script>
+
+<style scoped>
+/* Poți ajusta stiluri dacă dorești */
+</style>
