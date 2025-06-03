@@ -22,7 +22,7 @@
     <div class="flex justify-center mt-4" v-if="newsRF.length > displayLimitRF">
       <button
           @click="showAllRF = !showAllRF"
-          class="px-4 py-2 bg-black text-red-600 rounded hover:bg-gray-800 transition cursor-pointer font-bold"
+          class="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition cursor-pointer font-bold"
       >
         {{ showAllRF ? 'See less RaceFans news' : 'See more RaceFans news' }}
       </button>

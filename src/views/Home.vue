@@ -178,7 +178,8 @@ export default {
           this.top3Drivers.raceName = rundaActuala.raceName
           this.top3Drivers.linkCursaVeche = linkCursaVeche
           this.top3Teams = dataSessionComplet.topTeamResults
-          this.top5Overtakers = dataSessionComplet.nrOfOvertakes.top_5_drivers
+          this.top5Overtakers = dataSessionComplet.nrOfOvertakes.top_5_drivers.slice(0,3)
+          console.log(this.top5Overtakers)
         }
       } catch (err) {
         console.log("Eroare la checkIfShouldLoadLastRace:", err)
@@ -240,8 +241,8 @@ export default {
         <div v-if="top3Teams[1]" class="flex flex-col items-center w-72 md:w-56 transition-transform duration-200 hover:scale-105">
           <div class="bg-gray-500 text-white text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">2</div>
           <div class="bg-gray-100 w-full h-56 md:h-72 rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] border-black border-t-0 px-4">
-            <p class="font-semibold text-center text-base md:text-lg">{{ top3Teams[1].team }}</p>
-            <p class="text-base text-gray-800">{{ top3Teams[1].points }} pts</p>
+            <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[1].team }}</p>
+            <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[1].points }} pts</p>
           </div>
         </div>
 
@@ -249,8 +250,8 @@ export default {
         <div v-if="top3Teams[0]" class="flex flex-col items-center w-72 md:w-60 transition-transform duration-200 hover:scale-105">
           <div class="bg-yellow-400 text-black text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">1</div>
           <div class="bg-yellow-100 w-full h-64 md:h-80 rounded-b-xl flex flex-col justify-center items-center shadow-xl border-[6px] border-yellow-400 border-t-0 px-4">
-            <p class="font-bold text-center text-base md:text-lg">{{ top3Teams[0].team }}</p>
-            <p class="text-base font-semibold text-gray-900">{{ top3Teams[0].points }} pts</p>
+            <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[0].team }}</p>
+            <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[0].points }} pts</p>
           </div>
         </div>
 
@@ -258,8 +259,45 @@ export default {
         <div v-if="top3Teams[2]" class="flex flex-col items-center w-72 md:w-52 transition-transform duration-200 hover:scale-105">
           <div class="bg-orange-500 text-white text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">3</div>
           <div class="bg-orange-100 w-full h-52 md:h-64 rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] border-black border-t-0 px-4">
-            <p class="font-semibold text-center text-base md:text-lg">{{ top3Teams[2].team }}</p>
-            <p class="text-base text-gray-800">{{ top3Teams[2].points }} pts</p>
+            <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[2].team }}</p>
+            <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[2].points }} pts</p>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <div class="text-center mb-10" v-if="lastRaceData">
+        <h2 class="text-3xl md:text-4xl font-semibold source" v-if="lastRaceData">
+          Top 3 Overtakers
+        </h2>
+      </div>
+      <div class="flex flex-col md:flex-row justify-center items-center md:items-end gap-8 md:h-[24rem]" v-if="lastRaceData">
+        <!-- Locul 2 -->
+        <div v-if="top5Overtakers[1]" class="flex flex-col items-center w-72 md:w-56 transition-transform duration-200 hover:scale-105">
+          <div class="bg-gray-500 text-white text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">2</div>
+          <div class="bg-gray-100 w-full h-56 md:h-72 rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] border-black border-t-0 px-4">
+            <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[1].full_name }}</p>
+            <p class="text-center text-base md:text-lg">{{ top5Overtakers[1].team_name }}</p>
+            <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[1].overtakes }}</p>
+          </div>
+        </div>
+
+        <!-- Locul 1 -->
+        <div v-if="top5Overtakers[0]" class="flex flex-col items-center w-72 md:w-60 transition-transform duration-200 hover:scale-105">
+          <div class="bg-yellow-400 text-black text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">1</div>
+          <div class="bg-yellow-100 w-full h-64 md:h-80 rounded-b-xl flex flex-col justify-center items-center shadow-xl border-[6px] border-yellow-400 border-t-0 px-4">
+            <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].full_name }}</p>
+            <p class="text-center text-base md:text-lg">{{ top5Overtakers[0].team_name }}</p>
+            <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[0].overtakes }}</p>
+          </div>
+        </div>
+
+        <!-- Locul 3 -->
+        <div v-if="top5Overtakers[2]" class="flex flex-col items-center w-72 md:w-52 transition-transform duration-200 hover:scale-105">
+          <div class="bg-orange-500 text-white text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">3</div>
+          <div class="bg-orange-100 w-full h-52 md:h-64 rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] border-black border-t-0 px-4">
+            <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[2].full_name }}</p>
+            <p class="text-center text-base md:text-lg">{{ top5Overtakers[2].team_name }}</p>
+            <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[2].overtakes }}</p>
           </div>
         </div>
       </div>

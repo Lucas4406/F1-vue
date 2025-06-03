@@ -28,7 +28,10 @@
               <p class="lastname">{{ pilot.alDoileaNume }}</p>
             </div>
           </div>
-          <img :src="pilot.steag" class="img-steag" />
+          <p v-if="pilot.nr_fani > 0" class="text-sm text-gray-600 italic pl-1 source">
+            Liked by: {{ pilot.nr_fani }}
+          </p>
+          <img :src="pilot.steag" class="img-steag" alt="Driver flag" />
         </div>
         <div class="flex flex-row justify-between items-center">
           <p class="echipa">
