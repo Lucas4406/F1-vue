@@ -4,7 +4,7 @@
     <p class="piloti-text">Formula 1 Driver standings 2025</p>
     <br />
     <br />
-    <div class="piloti-grid">
+    <div class="piloti-grid mb-6">
       <router-link
         class="pilot-container"
         v-for="(pilot, index) in piloti"
@@ -44,6 +44,7 @@
         </div>
       </router-link>
     </div>
+    <p class="text-black font-4xl pb-4 pt-4 font-bold source">To also contribute to "Liked by" on each driver make an account and select your favourite driver</p>
   </div>
 </template>
 <script>
