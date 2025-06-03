@@ -128,6 +128,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/admin/test",
+      name: "TestPage",
+      component: () => import("../views/AdminPages/TestPage.vue"),
+      meta: {
+        Admin: true,
+      },
+    },
+    {
       path: "/admin/driver-editor",
       name: "DriverEditor",
       component: () => import("../views/AdminPages/DriverEditor.vue"),
