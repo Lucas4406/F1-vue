@@ -179,7 +179,6 @@ export default {
           this.top3Drivers.linkCursaVeche = linkCursaVeche
           this.top3Teams = dataSessionComplet.topTeamResults
           this.top5Overtakers = dataSessionComplet.nrOfOvertakes.top_5_drivers
-          console.log(this.top3Drivers)
         }
       } catch (err) {
         console.log("Eroare la checkIfShouldLoadLastRace:", err)
