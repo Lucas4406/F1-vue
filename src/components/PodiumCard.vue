@@ -5,8 +5,9 @@
       {{ position }}
     </div>
     <div :class="`${cardColor} w-full ${height} rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] ${borderColor} border-t-0 px-4`">
-      <p class="font-semibold text-center text-base md:text-lg">{{ driver.driverName }}</p>
-      <p class="text-base text-gray-800">{{ driver.points }} pts</p>
+      <p class="font-bold text-center text-lg md:text-2xl">{{ driver.driverName }}</p>
+      <p class="text-base text-gray-800">{{ driver.team }}</p>
+      <p class="text-base font-semibold text-gray-800">+{{ driver.points }} pts</p>
       <p class="text-sm text-gray-600">{{ driver.time }}</p>
     </div>
   </div>
