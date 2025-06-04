@@ -37,7 +37,7 @@
     </a>
 
     <p class="text-sm sm:text-base">
-      Site is not affiliated/related in any way with Formula 1 official website (Formula1.com)
+      GridFanHub is unofficial and is not associated in any way with Formula One companies, any specific Formula 1 team, or any Formula 1 driver. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V. All assets used, including logos, images, and other copyrighted materials, are owned by the respective teams, drivers, and other entities. GridFanHub is an independent entity and does not claim to have any official relationship or partnership with Formula One companies, any specific Formula 1 team, or any Formula 1 driver. Any references to Formula One, F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX, or related marks are made solely for editorial purposes and do not imply any endorsement, sponsorship, or affiliation by Formula One companies, any specific Formula 1 team, or any Formula 1 driver.
     </p>
 
     <p class="text-sm sm:text-base">Contact email: f1.vue.web@gmail.com</p>
@@ -45,5 +45,21 @@
 
 </template>
 <script setup>
-  document.title = "GridFanHub | Sources page"
+  import { useHead } from "@vueuse/head"
+  useHead({
+    title: "GridFanHub | Information page",
+    meta: [
+      {
+        name: "description",
+        content:
+            "More information about this website",
+      },
+    ],
+    link: [
+      {
+        rel: "canonical",
+        href: "https://gridfanhub.com/info",
+      },
+    ],
+  })
 </script>
