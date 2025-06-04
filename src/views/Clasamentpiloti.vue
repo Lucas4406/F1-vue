@@ -44,7 +44,7 @@
         </div>
       </router-link>
     </div>
-    <p class="text-black font-4xl pb-4 pt-4 font-bold source">To also contribute to "Liked by" on each driver make an account and select your favourite driver</p>
+    <p class="text-black font-4xl pb-4 pt-4 font-bold source">To be counted in the 'Liked by' section for a driver, make an account and choose your favourite driver.</p>
   </div>
 </template>
 <script>
