@@ -78,12 +78,6 @@ onMounted(() => {
   auth = getAuth()
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const current = {
-        User: user.email,
-        Username: user.displayName,
-        currentUser: user.uid,
-      }
-      localStorage.setItem("currentUser", JSON.stringify(current))
       Name.value = user.displayName
       Email.value = user.email
       if (user.photoURL != null) {
@@ -94,7 +88,7 @@ onMounted(() => {
       }
       isLoggedIn.value = true
     } else {
-      localStorage.setItem("currentUser", null)
+      localStorage.removeItem("currentUser")
       isLoggedIn.value = false
     }
   })
