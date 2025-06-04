@@ -37,7 +37,7 @@ export default {
     GreetingPageVue,
     darkModeBtn,
     CookieBanner
-  },
+},
   data() {
     return {
       loaded: false,

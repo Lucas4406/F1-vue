@@ -91,7 +91,7 @@
           </option>
         </select>
       </div>
-      <div alt="sofer" class="flex flex-row gap-2 items-center justify-center">
+      <div class="flex flex-row gap-2 items-center justify-center">
         <label class="text-label" for="soferPref">Favourite driver:</label>
         <select
             id="soferPref"
@@ -164,7 +164,6 @@ const hasFavDriver = ref(false)
 const showSelect = ref(false)
 
 const darkMode = ref(false)
-const currentEnc = JSON.parse(localStorage.getItem("currentUser"))
 
 const logout = () => {
   signOut(auth).then(() => window.location.replace("/"))
@@ -202,7 +201,7 @@ const loadFavDriver = async () => {
 }
 
 const updateDb = async () => {
-  const urlProfile = `${import.meta.env.VITE_API_LINK}/profile/change/team/${currentEnc.currentUser}`
+  const urlProfile = `${import.meta.env.VITE_API_LINK}/profile/change/team/${user.uid}`
   const urlFans = `${import.meta.env.VITE_API_LINK}/mongo/piloti/update-fans`
 
   try {

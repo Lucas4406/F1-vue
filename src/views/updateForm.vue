@@ -109,7 +109,13 @@
         <div v-if="isSubmitting" class="text-center text-indigo-700 font-medium mb-4">
           Please wait, saving profile...
         </div>
-        <div class="mb-6 flex justify-center items-center mt-6">
+        <div class="mb-6 flex justify-center items-center mt-6 gap-2">
+          <button
+              @click="goHome"
+              class="h-10 w-[40%] text-xl px-5 text-indigo-100 bg-indigo-700 rounded-lg transition-colors duration-150 focus:shadow-outline hover:bg-indigo-800 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Cancel
+          </button>
           <button
               type="submit"
               :disabled="isSubmitting"
@@ -126,6 +132,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue"
+import { useRouter } from 'vue-router'
 import { getAuth, updateProfile } from "firebase/auth"
 import { authRequest } from "@/functions/authRequest"
 
@@ -145,8 +152,14 @@ const isSubmitting = ref(false)
 
 const errors = ref({})
 const auth = getAuth()
-const curentEnc = JSON.parse(localStorage.getItem("currentUser"))
+const user = auth.currentUser
 
+const router = useRouter()
+const goHome = () => {
+  if (confirm("Changes will be lost. Are you sure you want to cancel?")) {
+    router.push('/profile')
+  }
+}
 function validate() {
   errors.value = {}
 
@@ -237,8 +250,6 @@ function handleFileUpload(event) {
 }
 
 async function getToken() {
-  const auth = getAuth()
-  const user = auth.currentUser
   if (!user) throw new Error("User is not authenticated")
   return await user.getIdToken()
 }
@@ -283,27 +294,33 @@ async function updateProfil() {
     // Verificăm dacă poza a fost schimbată
     const changedPhoto = initialPhotoUrl.value !== profilePhotoUrl
 
-    // Ștergem poza veche doar dacă a fost schimbată și există public_id vechi
+// Dacă poza s-a schimbat și avem `oldPhotoPublicId`, o ștergem:
     if (changedPhoto && oldPhotoPublicId.value) {
-      await authRequest("POST", `${import.meta.env.VITE_API_LINK}/upload/delete`, {
-        public_id: oldPhotoPublicId.value,
-      })
+      try {
+        await authRequest("POST", `${import.meta.env.VITE_API_LINK}/upload/delete`, {
+          public_id: oldPhotoPublicId.value,
+        })
+      } catch (e) {
+        console.warn("Eroare la ștergerea imaginii vechi:", e)
+      }
       oldPhotoPublicId.value = null
     }
 
-    initialPhotoUrl.value = profilePhotoUrl // actualizăm valoarea curentă
+// Setăm `photoPublicId` pentru salvare în baza de date:
+    const finalPhotoPublicId = changedPhoto ? photoPublicId : oldPhotoPublicId.value
 
-    await authRequest("POST", `${import.meta.env.VITE_API_LINK}/profile/change/${curentEnc.currentUser}`, {
+// Trimitere actualizare profil
+    await authRequest("POST", `${import.meta.env.VITE_API_LINK}/profile/change/${user.uid}`, {
       firstName: primul.value,
       lastName: doilea.value,
       displayName: nick.value,
       profilePhoto: profilePhotoUrl,
-      photoPublicId: photoPublicId,
+      photoPublicId: finalPhotoPublicId,
       country: tara.value,
     })
 
-    const loggedIn = await getDbData(curentEnc.currentUser)
-    await updateProfile(auth.currentUser, {
+    const loggedIn = await getDbData(user.uid)
+    await updateProfile(user, {
       displayName: loggedIn.displayName,
       photoURL: loggedIn.profilePhoto,
     })
@@ -311,6 +328,7 @@ async function updateProfil() {
     window.location.replace("/profile")
   } catch (err) {
     alert(err.message)
+  } finally {
     isSubmitting.value = false
   }
 }
@@ -319,8 +337,8 @@ async function updateProfil() {
 
 
 async function loadProfile() {
-  if (auth.currentUser && auth.currentUser.displayName != null) {
-    const response = await getDbData(curentEnc.currentUser)
+  if (user && user.displayName != null) {
+    const response = await getDbData(user.uid)
     if (primul.value === "") primul.value = response.firstName
     if (doilea.value === "") doilea.value = response.lastName
     if (nick.value === "") nick.value = response.displayName
