@@ -141,10 +141,8 @@
   padding-left: 0.5rem;
 }
 .linie2 {
-  display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
 }
 .linie3 {
   background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x1.png);

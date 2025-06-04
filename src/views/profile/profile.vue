@@ -242,5 +242,5 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-@import "../../assets/formSelect-curse.css"
+@import "../../assets/formSelect-curse.css";
 </style>
