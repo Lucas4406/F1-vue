@@ -165,7 +165,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/sources",
+      path: "/info",
       name: "Surse",
       component: () => import("../views/Surse-pagina.vue"),
     },
