@@ -122,7 +122,7 @@
         </div>
         <div class="flex justify-between">
           <div class="flex justify-between w-[50%]">
-            <p>Cursă</p>
+            <p>Race</p>
             <p>
               {{
                 this.formatDate(cursa.date)
@@ -145,11 +145,11 @@
 </template>
 
 <script>
-import axios from "axios"
 import getNext from "@/functions/getNext";
 import Calendar from "@/components/Calendar.vue"
 import {useHead} from "@vueuse/head";
 import ProgramHero from "@/components/ProgramHero.vue"
+import {makeRequest} from "@/functions/makeRequest";
 
 export default {
   name: "Program",
@@ -197,8 +197,8 @@ export default {
       const cursaActuala = res.meetingContext.nr_runda
 
       let link = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
-      const response = await axios.get(link)
-      const resData = response.data.MRData.RaceTable.Races
+      const response = await makeRequest(link)
+      const resData = response.MRData.RaceTable.Races
       this.curse = resData
       for (let i = 0; i < resData.length; i++) {
         if (Number(resData[i].round) === (cursaActuala + 1) ) {
