@@ -40,7 +40,12 @@
       >
         Update 6 știri
       </a>
-
+      <button
+          class="px-6 py-3 bg-red-600 text-white rounded-xl shadow hover:bg-red-700 transition cursor-pointer"
+          @click="updateTP"
+      >
+          Add/Update TP
+      </button>
       <button
           class="px-6 py-3 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition cursor-pointer"
       >
@@ -83,15 +88,29 @@ import { useCounterStore } from '@/stores.js'
 const counter = useCounterStore()
 import { getAuth } from "firebase/auth"
 import axios from "axios"
+import {authRequest} from "@/functions/authRequest";
 const store = inject("store")
 const isAdmin = ref(false)
 const profiles = ref([])
 const clasament_piloti_link = `${import.meta.env.VITE_API_LINK}/clasament-piloti`
 const echipe_link = `${import.meta.env.VITE_API_LINK}/echipe`
 const stiri_translate_link = `${import.meta.env.VITE_API_LINK}/stiri-translate`
+const tp_link = `${import.meta.env.VITE_API_LINK}/team-principals/add`
 if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
   isAdmin.value = true
 }
+
+async function updateTP () {
+  try {
+    const date = await authRequest("GET", tp_link);
+    console.log(date);
+    alert(date.message); // Afișează mesajul într-un alert
+  } catch (err) {
+    console.error(err);
+    alert("A apărut o eroare la actualizarea team principals.");
+  }
+}
+
 
 await getData()
 async function updateData() {
