@@ -217,7 +217,7 @@ const updateDb = async () => {
     store.user.favDriver = soferPref.value
 
     // Apelezi API-ul care updatează nr_fani pentru piloți
-    await axios.post(urlFans, {
+    await authRequest("POST" , urlFans, {
       newDriver: soferPref.value,
       oldDriver: oldDriver
     })
