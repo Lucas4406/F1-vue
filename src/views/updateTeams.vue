@@ -112,6 +112,7 @@
 import axios from "axios"
 import { makeRequest } from "../functions/makeRequest"
 import {useHead} from "@vueuse/head";
+import {authRequest} from "@/functions/authRequest";
 export default {
   name: "updateTeams",
   data() {
@@ -137,25 +138,18 @@ export default {
   },
   methods: {
     async updateTeam() {
-      await axios({
-        method: "POST",
-        url: `${import.meta.env.VITE_API_LINK}/mongo/teams/change/${
-          this.echipa.id
-        }/${this.echipa.driver1}/${this.echipa.driver2}`,
-      })
+      await authRequest("POST" , `${import.meta.env.VITE_API_LINK}/mongo/teams/change/${this.echipa.id}/${this.echipa.driver1}/${this.echipa.driver2}`)
       window.location.reload()
     },
     async getDriverList() {
-      const data = await makeRequest(
+      this.piloti = await makeRequest(
         `${import.meta.env.VITE_API_LINK}/mongo/piloti`
       )
-      this.piloti = data
     },
     async getTeams() {
-      const data = await makeRequest(
+      this.echipe = await makeRequest(
         `${import.meta.env.VITE_API_LINK}/mongo/teams/all`
       )
-      this.echipe = data
     },
   },
 }
