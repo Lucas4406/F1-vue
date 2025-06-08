@@ -1,5 +1,5 @@
 <template>
-  <div class="antialiased bg-gray-50 text-gray-800 piloti-dark">
+  <div class="antialiased  text-gray-800">
     <div class="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
 
       <div class="text-center mb-12">
