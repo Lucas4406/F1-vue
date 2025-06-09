@@ -19,7 +19,15 @@
           </div>
         </div>
         <div class="numee">
-          {{ echipa.name }}
+          <div class="team-name-main">{{ echipa.name }}</div>
+          <div class="team-extra-info">
+            <div v-if="echipa.curseCastigate !== null && echipa.curseCastigate !== undefined" class="races-won-info source">
+              Races won: {{ echipa.curseCastigate }}
+            </div>
+            <div v-if="echipa.liked_by > 0" class="liked-by-info source">
+              Liked by: {{ echipa.liked_by }}
+            </div>
+          </div>
         </div>
         <div class="points">
           <div class="points-number">
@@ -165,4 +173,47 @@ export default {
 
 <style scoped>
 @import "../assets/content-echipe.css";
+.numee {
+  /* display: flex; */ /* This should already be there from your original .numee */
+  flex-direction: column; /* This is key: stacks the name and extra info vertically */
+  /* justify-content: center; */ /* Should be there */
+  /* align-items: center; */   /* Should be there */
+  /* font-size: 2.5rem; */     /* Existing */
+  /* font-weight: 600; */    /* Existing */
+  text-align: center; /* Ensures all text lines within .numee are centered */
+}
+
+.team-name-main {
+  /* If you need to adjust the main team name specifically, style this class. */
+  /* Otherwise, it will inherit/use .numee's font styles. */
+}
+
+.team-extra-info {
+  margin-top: 0.3rem; /* Adds a small space below the team name */
+  font-size: 0.9rem;  /* Smaller font size for the stats to make them subordinate */
+  font-weight: 400;   /* Normal font weight, less than the team name */
+  line-height: 1.4;   /* Adjust for readability if both stats appear */
+  color: #333333;     /* Slightly less prominent color, adjust to your theme */
+}
+
+.races-won-info,
+.liked-by-info {
+  /* If they both appear, they will stack vertically due to being divs. */
+  /* You can add a little margin between them if needed: */
+  /* For example, if .races-won-info is followed by .liked-by-info */
+}
+
+.races-won-info + .liked-by-info {
+  margin-top: 0.2rem; /* Small space between "Races won" and "Liked by" if both are shown */
+}
+
+/* Adjustments for smaller screens if needed, within your existing @media query */
+@media (max-width: 1200px) {
+  .numee {
+    /* font-size: 3rem; /* Existing */
+  }
+  .team-extra-info {
+    font-size: 1rem; /* Slightly larger on smaller screens if desired, or keep as is */
+  }
+}
 </style>

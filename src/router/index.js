@@ -128,6 +128,30 @@ const router = createRouter({
       },
     },
     {
+      path: "/admin/test",
+      name: "TestPage",
+      component: () => import("../views/AdminPages/TestPage.vue"),
+      meta: {
+        Admin: true,
+      },
+    },
+    {
+      path: "/admin/driver-editor",
+      name: "DriverEditor",
+      component: () => import("../views/AdminPages/DriverEditor.vue"),
+      meta: {
+        Admin: true,
+      },
+    },
+    {
+      path: "/admin/team-editor",
+      name: "TeamEditor",
+      component: () => import("../views/AdminPages/TeamEditor.vue"),
+      meta: {
+        Admin: true,
+      },
+    },
+    {
       path: "/login",
       name: "Login",
       component: () => import("../views/login.vue"),
@@ -141,7 +165,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/sources",
+      path: "/info",
       name: "Surse",
       component: () => import("../views/Surse-pagina.vue"),
     },

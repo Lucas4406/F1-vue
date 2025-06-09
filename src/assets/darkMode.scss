@@ -2,6 +2,14 @@ html.darkmode {
   .source{
     color: white;
   }
+  .piloti-dark{
+    background-color: black;
+    color: white;
+  }
+  .pilot-card{
+    color: white;
+    background-color: #333;
+  }
   .racefansgrid{
     color: white;
     background-color: #333;
@@ -44,10 +52,6 @@ html.darkmode {
   .poza2 {
     display: block;
   }
-  .poza1 {
-    display: none;
-  }
-
   /* Curse */
   .titlu-pagina-curse {
     color: white;
