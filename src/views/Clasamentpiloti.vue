@@ -15,6 +15,7 @@
             :key="pilot.pozitie || pilot.alDoileaNume"
             :to="{ name: 'Pilotdetails', params: { id: pilot.alDoileaNume.slice(0, 3).toUpperCase() } }"
             class="pilot-card group"
+            :title="`View details for ${pilot.primulNume} ${pilot.alDoileaNume}`"
         >
           <div class="h-2 w-full" :style="{ backgroundColor: pilot.culoare }"></div>
 
@@ -23,9 +24,19 @@
               <p class="text-6xl font-black text-gray-400  leading-none">
                 {{ pilot.pozitie }}
               </p>
-              <div class="flex items-center bg-gray-900 text-white rounded-full px-3 py-1 shadow-sm">
-                <span class="font-bold text-base tracking-tight">{{ pilot.puncte }}</span>
-                <span class="text-xs font-semibold ml-1.5 mt-px">PTS</span>
+              <div class="flex items-center space-x-2" v-if="!dontShow">
+                <div class="flex items-center bg-gray-900 text-white rounded-full px-3 py-1 shadow-sm">
+                  <span class="font-bold text-base tracking-tight">{{ pilot.puncte }}</span>
+                  <span class="text-xs font-semibold ml-1.5 mt-px">PTS</span>
+                </div>
+                <div v-if="pilot.nr_fani > 0" class="flex items-center text-red-500 space-x-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                          clip-rule="evenodd" />
+                  </svg>
+                  <span class="font-bold text-sm">{{ pilot.nr_fani }}</span>
+                </div>
               </div>
             </div>
 
@@ -45,12 +56,7 @@
                 <p v-if="pilot.gapDelta && !dontShow" class="bg-gray-100  rounded-md px-2 py-1">
                   {{ pilot.gapDelta }}
                 </p>
-                <p v-else class="flex-grow"></p> <p v-if="pilot.nr_fani > 0" class="flex items-center space-x-1.5 text-red-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-                </svg>
-                <span class="font-bold text-sm">{{ pilot.nr_fani }}</span>
-              </p>
+                <p v-else class="flex-grow"></p>
               </div>
             </div>
           </div>
