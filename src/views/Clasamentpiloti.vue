@@ -25,10 +25,6 @@
                 {{ pilot.pozitie }}
               </p>
               <div class="flex items-center space-x-2" v-if="!dontShow">
-                <div class="flex items-center bg-gray-900 text-white rounded-full px-3 py-1 shadow-sm">
-                  <span class="font-bold text-base tracking-tight">{{ pilot.puncte }}</span>
-                  <span class="text-xs font-semibold ml-1.5 mt-px">PTS</span>
-                </div>
                 <div v-if="pilot.nr_fani > 0" class="flex items-center text-red-500 space-x-1">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
@@ -36,6 +32,10 @@
                           clip-rule="evenodd" />
                   </svg>
                   <span class="font-bold text-sm">{{ pilot.nr_fani }}</span>
+                </div>
+                <div class="flex items-center bg-gray-900 text-white rounded-full px-3 py-1 shadow-sm">
+                  <span class="font-bold text-base tracking-tight">{{ pilot.puncte }}</span>
+                  <span class="text-xs font-semibold ml-1.5 mt-px">PTS</span>
                 </div>
               </div>
             </div>
