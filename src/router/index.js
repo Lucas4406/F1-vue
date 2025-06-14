@@ -256,7 +256,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     } else {
       alert("Don't have the right role for this page")
-      next("/login")
+      next("/")
     }
   } else {
     next()
