@@ -1,4 +1,8 @@
-# F1-vue
+# GridFanHub
+
+Formula 1 like website with news, data and standings built with Vue 3.
+
+Link: https://gridfanhub.com
 
 This template should help get you started developing with Vue 3 in Vite.
 
