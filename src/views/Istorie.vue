@@ -69,7 +69,7 @@
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/benetton.jpg" class="poza-istorie" />
-        <p class="subtitlu">Benetton Renault worl champions in 1995</p>
+        <p class="subtitlu">Benetton Renault world champions in 1995</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/michael.jpg" class="poza-istorie" />
