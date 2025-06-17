@@ -3,7 +3,7 @@
     <div class="login-box">
       <h2>Thanks for signing up!</h2>
       <p class="message-text">
-        Please check your email and click on the confirmation link to continue setting up your account.
+        Please check your email and click on the confirmation link to continue setting up your account. If you don't see the email in the primary folder check your Spam folder.
       </p>
     </div>
   </div>
