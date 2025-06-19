@@ -27,7 +27,7 @@
           target="_blank"
           rel="noopener noreferrer"
       >
-        Ergast Data API
+        Jolpica F1 API
       </a>
       <a
           class="text-lg underline hover:text-blue-600 transition"

@@ -1,6 +1,6 @@
 <template>
   <div class="antialiased  text-gray-800">
-    <div class="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto pb-10 px-4 sm:px-6 lg:px-8">
 
       <div class="text-center mb-12">
         <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight source text-black">
@@ -45,8 +45,8 @@
               <p class="text-3xl font-extrabold text-gray-900  -mt-1.5 tracking-tight source">
                 {{ pilot.alDoileaNume }}
               </p>
-              <div class="flex justify-between items-center mt-3">
-                <p class="text-base font-semibold text-gray-600  source">{{ pilot.echipa }}</p>
+              <div class="flex-column items-center mt-3">
+                <p class="text-base font-semibold text-gray-600  source mb-1">{{ pilot.echipa }}</p>
                 <img :src="pilot.steag" class="h-6 w-auto rounded-sm border border-gray-200 " alt="Driver flag" />
               </div>
             </div>
@@ -72,7 +72,7 @@
       </div>
 
       <p class="text-center font-bold text-gray-600  max-w-md mx-auto mt-16 source">
-        To be counted in the 'Liked by' section, make an account and choose your favourite driver.
+        Sign up to pick your favourite driver and show your support with a heart
       </p>
     </div>
   </div>
