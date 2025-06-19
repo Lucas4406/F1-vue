@@ -8,7 +8,7 @@
     <!-- Left: Circuit Image -->
     <div class="w-full md:w-1/3 aspect-[3/2] bg-zinc-800 rounded-lg overflow-hidden">
       <img
-          :src="heroData.circuitSmallImage.url"
+          :src="proxyUrl + heroData.circuitSmallImage.url"
           :alt="`Poza circuit ${heroData.race.meetingCountryName}`"
           class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 max-w-full"
       />
@@ -61,6 +61,7 @@ export default {
       nextSession: null,
       countdown: "",
       countdownInterval: null,
+      proxyUrl: import.meta.env.VITE_API_PROXY,
     };
   },
   computed: {
