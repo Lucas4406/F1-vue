@@ -41,6 +41,7 @@ import StireF1Card from "@/components/StireF1Card.vue"
 import StireRaceFansCard from "@/components/StireRaceFansCard.vue"
 
 import { ref, onMounted } from "vue"
+import {makeRequest} from "@/functions/makeRequest";
 
 const news = ref([])
 const newsRF = ref([])
@@ -52,10 +53,9 @@ const displayLimitRF = 2
 onMounted(async () => {
   try {
     const [f1, rf] = await Promise.all([
-      fetchWithCache("news", `${import.meta.env.VITE_API_LINK}/mongo/stiri/6`),
+      fetchWithCache("news", `${import.meta.env.VITE_API_LINK}/api-news-f/view?limit=6`),
       fetchWithCache("news_rf", `${import.meta.env.VITE_API_LINK}/mongo/stiri-rf/all`)
     ])
-
     news.value = f1
     newsRF.value = rf
     lastUpdate.value = new Date()
