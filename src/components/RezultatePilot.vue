@@ -39,7 +39,7 @@
               <p class="status-status">{{ pilot.status }}</p>
             </div>
             <div class="fastest-lap">
-              <p class="fastest-text">Cel mai rapid tur</p>
+              <p class="fastest-text">Fastest lap</p>
               <p class="fastet-lap">
                 {{ pilot.FastestLap }} {{ pilot.FastestLap.rank }}
               </p>

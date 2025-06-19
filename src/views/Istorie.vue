@@ -2,255 +2,52 @@
   <div class="content" v-once>
     <div class="text">
       <p class="multscris">
-        În perioada interbelică curse de Mare Premiu se organizau pe toate
-        continentele, astfel că devenea din ce in ce mai evident că aceste
-        întreceri ar trebui reunite sub egida unui campionat mondial. Planurile
-        au fost oprite de către al doilea război mondial, dar în 1946 FIA a
-        decis înființarea unui astfel de campionat mondial. Din cele 25 Mari
-        Premii organizate în 1949 au fost selectate șapte - etapele primului
-        Campionat Mondial de Formula 1, organizat in 1950. Acestea au fost:
-        Marele Premiu al Marii Britanii, Marele Premiu de la Monaco, Marele
-        Premiu al Statelor Unite ale Americii, Marele Premiu al Elveției, Marele
-        Premiu al Belgiei, Marele Premiu al Franței și Marele Premiu al Italiei.
+        In the interwar period, Grand Prix races were organized on all continents, making it increasingly evident that these competitions should be united under the umbrella of a world championship. These plans were halted by the Second World War, but in 1946, the FIA decided to establish such a world championship. From the 25 Grand Prix races organized in 1949, seven were selected to be the inaugural stages of the first Formula 1 World Championship, organized in 1950. These were: the British Grand Prix, the Monaco Grand Prix, the United States Grand Prix, the Swiss Grand Prix, the Belgian Grand Prix, the French Grand Prix, and the Italian Grand Prix.
       </p>
       <p class="multscris">
-        Startul Campionatului Mondial de Formula 1 s-a dat în ziua de 13 mai
-        1950 când la Silverstone s-a organizat Marele Premiu al Marii Britanii
-        pe un circuit improvizat pe un fost aeroport militar folosit în timpul
-        războiului. Atunci a fost și singura cursă de Formula 1 care a avut loc
-        într-o zi de sâmbată, restul având loc duminica. Motivul a fost faptul
-        că în acea perioadă în Marea Britanie competițiile sportive erau
-        interzise în zilele de duminică.
+        The Formula 1 World Championship began on May 13, 1950, when the British Grand Prix was held at Silverstone, on a circuit improvised on a former military airport used during the war. This was also the only Formula 1 race to take place on a Saturday, with all subsequent races being held on Sundays. The reason was that, at the time, sports competitions were prohibited on Sundays in Great Britain.
       </p>
       <p class="multscris">
-        În 1954 FIA a ridicat interdicția de participare a echipelor germane,
-        astfel că Mercedes Benz și-a făcut debutul în campionat în Marele Premiu
-        al Franței, cooptându-l în echipă pe Juan Manuel Fangio, liderul din
-        acel moment al campionatului cu Maserati-ul propriu. Dominarea Mercedes
-        Benz a fost la fel de categorică precum dominarea Ferrari din anii
-        precedenți, germanii câștigând nouă din cele douăsprezece curse în care
-        au luat startul. Fără Mercedes Benz, Formula 1 a revenit o afacere
-        semnată Scuderia Ferrari care l-a înregimentat în rândurile sale pe Juan
-        Manuel Fangio, campionul mondial din 1954 si 1955. Pentru a putea însă
-        domina întecerea, Scuderia Ferrari a cumpărat și folosit mașinile
-        echipei Lancia, singura care a putut să țină piept celor de la Mercedes
-        Benz, dar care se desființase din motive financiare.
+        In 1954, the FIA lifted the ban on German teams participating, allowing Mercedes-Benz to debut in the championship at the French Grand Prix. They recruited Juan Manuel Fangio, who was then leading the championship with his own Maserati. Mercedes-Benz's dominance was as absolute as Ferrari's in previous years, with the Germans winning nine of the twelve races they entered. Without Mercedes-Benz, Formula 1 became a Ferrari affair, as Scuderia Ferrari enlisted Juan Manuel Fangio, the 1954 and 1955 world champion. To dominate the competition, Scuderia Ferrari also bought and used the cars of the Lancia team, the only one that could challenge Mercedes-Benz, but which had disbanded due to financial reasons.
       </p>
       <p class="multscris">
-        În vara lui 1955 avea să se producă cel mai tragic accident din întreaga
-        istorie a curselor auto când, la Le Mans, automobilul Mercedes Benz
-        pilotat de francezul Pierre Levegh a provocat un accident care a ucis 77
-        de oameni, inclusiv pilotul, rănind alți 77. Imediat după accident
-        conducerea Mercedes Benz a decis retragerea echipei de curse din orice
-        competiție, inclusiv din Formula 1, la finalul sezonului. Accidentul a
-        dus la interzicerea oricărei competiții auto din Elveția, inclusiv
-        Marele Premiu al Elveției.
+        In the summer of 1955, the most tragic accident in the history of motor racing occurred at Le Mans, when the Mercedes-Benz car driven by Frenchman Pierre Levegh caused an accident that killed 77 people, including the driver, and injured another 77. Immediately after the accident, Mercedes-Benz management decided to withdraw their racing team from all competitions, including Formula 1, at the end of the season. The accident led to the prohibition of all motor racing in Switzerland, including the Swiss Grand Prix.
       </p>
       <p class="multscris">
-        În 1968 Matra, Ken Tyrrell și Jackie Stewart au reușit să câștige trei
-        curse, dar în 1969 au dominat cu autoritate sezonul, câștigând la final
-        ambele titluri mondiale. Un accident produs la Monaco în 1969 a dus la
-        interzicerea aripii spate și a celor din față, însă acestea aveau să fie
-        reintroduse un an mai târziu, de această dată reglementate de federație.
-        Anul 1968 va rămâne în istoria Formulei 1 nu doar ca fiind anul în care
-        a decedat Jim Clark ci și pentru alte două aspecte, fară de care Formula
-        1 de astăzi ar fi fost alta. Primul a avut valoare comercială: în 1968
-        sponsorii comerciali au fost acceptați în Formula 1. Până atunci doar
-        companiile care aveau legătură directă cu automobilele - producători de
-        uleiuri, benzină, pneuri - aveau dreptul să sponsorizeze echipele și
-        cursele. Lotus a fost prima echipă care a semnat un astfel de acord
-        comercial, cu Imperial Tobacco, promovând marca Gold Leaf. Al doilea a
-        avut valoare tehnică: aripa spate și aripile față au fost folosite
-        pentru prima dată in Formula 1, ridicând semnificativ importanța
-        aerodinamicii în construcția de monoposturi de Formula 1.
+        In 1968, Matra, Ken Tyrrell, and Jackie Stewart managed to win three races, but in 1969, they dominated the season decisively, winning both world titles. An accident at Monaco in 1969 led to the banning of front and rear wings, but these were reintroduced a year later, this time regulated by the federation. The year 1968 will remain in Formula 1 history not only as the year Jim Clark died but also for two other aspects, without which Formula 1 today would be different. The first had commercial value: in 1968, commercial sponsors were accepted into Formula 1. Until then, only companies directly related to automobiles — oil, fuel, and tire manufacturers — were allowed to sponsor teams and races. Lotus was the first team to sign such a commercial agreement, with Imperial Tobacco, promoting the Gold Leaf brand. The second had technical value: front and rear wings were used for the first time in Formula 1, significantly increasing the importance of aerodynamics in the construction of Formula 1 single-seaters.
       </p>
       <p class="multscris">
-        După ce în 1974 Ferrari a reușit să reînoade șirul victoriilor, în 1975
-        s-a impus cu ușurință în lupta pentru cele două titluri mondiale,
-        începând o dominare care avea să țină timp de trei sezoane și care avea
-        să cuprindă cinci titluri mondiale. Doar campionatul piloților din 1976
-        nu a fost câștigat de Ferrari însă aceasta numai după doua evenimente pe
-        care nu le-a putut controla: mai întâi Niki Lauda a suferit un accident
-        in timpul Marelui Premiu al Germaniei din acel an de la Nürburgring care
-        îl va ține departe de curse pentru câteva săptămâni, iar mai apoi
-        acelasi austriac a refuzat să concureze in Marele Premiu al Japoniei de
-        la Mount Fuji, cedând astfel titlul lui James Hunt, înlocuitorul lui
-        Emerson Fittipaldi de la McLaren, bunul său prieten. Atitudinea lui
-        Lauda de la Mount Fuji nu a fost deloc gustată de conducerea echipei
-        sale, astfel că imediat ce austriacul a câștigat titlul mondial din 1977
-        a fost concediat.
+        After Ferrari managed to resume their winning streak in 1974, they easily won both world titles in 1975, beginning a dominance that would last for three seasons and include five world titles. Only the 1976 drivers' championship was not won by Ferrari, but this was only after two events they could not control: first, Niki Lauda suffered an accident during that year's German Grand Prix at Nürburgring, which kept him out of racing for several weeks, and then the same Austrian refused to compete in the Japanese Grand Prix at Mount Fuji, thus ceding the title to James Hunt, Emerson Fittipaldi's replacement at McLaren and his good friend. Lauda's attitude at Mount Fuji was not at all appreciated by his team's management, so as soon as the Austrian won the 1977 world title, he was fired.
       </p>
       <p class="multscris">
-        Formula 1 ajunsese deja unul dintre cele mai urmărite sporturi din lume,
-        cursele fiind televizate în direct pe întreg mapamondul. Acest fapt a
-        atras în campionat o serie de sponsori puternici, ceea ce a făcut ca
-        pretențiile echipelor să crească. Pe de altă parte noul regulament
-        promulgat de FISA avantaja constructorii de automobile prezenți cu
-        echipele proprii în Formula 1, aceștia din urmă având posibilitați
-        financiare mai mari decât echipele private, astfel că bătălia se ducea
-        pe două fronturi - cel al drepturilor comerciale și cel al
-        regulamentului tehnic.
+        Formula 1 had already become one of the most-watched sports in the world, with races televised live across the globe. This attracted a series of powerful sponsors to the championship, which led to increased demands from the teams. On the other hand, the new regulations promulgated by FISA favored automobile manufacturers with their own teams in Formula 1, as these had greater financial possibilities than private teams, so the battle was fought on two fronts — commercial rights and technical regulations.
       </p>
       <p class="multscris">
-        Deși Frank Williams beneficia de o relație foarte bună cu Honda, aceasta
-        s-a rupt în momentul în care britanicul a refuzat să coopteze în echipă
-        pe Satoru Nakajima, un pilot japonez de casă a companiei Honda.
-        Pretextul ruperii contractului a fost însă accidentul suferit de Frank
-        Williams în 1986, un accident care l-a lăsat semiparalizat, într-un
-        scaun cu rotile. Atunci Honda a fost de părere că Williams nu își mai
-        poate conduce echipa așa cum o făcuse până atunci și a anunțat ca nu va
-        mai reînnoi contractul scadent în 1987. Migrați la McLaren, cei de la
-        Honda l-au adus cu ei și pe Ayrton Senna, un tânăr pilot brazilian care
-        folosise deja motoare Honda la Lotus. Ayrton Senna a câștigat titlul
-        mondial în 1988 și a fost câștigatorul moral al celui din 1989. În
-        primul an împreună, în 1988, McLaren și Honda au câștigat 15 curse din
-        totalul de 16, acumulând 199 puncte. Ar fi câștigat-o cu ușurință și pe
-        a șaisprezecea, dar aceasta a fost făcută cadou celor de la Scuderia
-        Ferrari drept omagiu pentru decesul lui Enzo Ferrari in august 1988.
+        Although Frank Williams enjoyed a very good relationship with Honda, it broke down when the Briton refused to include Satoru Nakajima, a Japanese Honda factory driver, in the team. The pretext for the contract termination, however, was the accident suffered by Frank Williams in 1986, an accident that left him semi-paralyzed, in a wheelchair. At that time, Honda believed that Williams could no longer manage his team as he had before and announced that they would not renew the contract expiring in 1987. Migrating to McLaren, Honda also brought Ayrton Senna with them, a young Brazilian driver who had already used Honda engines at Lotus. Ayrton Senna won the world title in 1988 and was the moral winner of the 1989 championship. In their first year together, in 1988, McLaren and Honda won 15 out of 16 races, accumulating 199 points. They would have easily won the sixteenth as well, but it was given as a gift to Scuderia Ferrari as a tribute to Enzo Ferrari's death in August 1988.
       </p>
       <p class="multscris">
-        După ce a câștigat tilul mondial în 1994, e drept la mare luptă cu Damon
-        Hill de la Williams, nimeni altul decât fiul lui Graham Hill, fostul
-        campion mondial din 1962 și 1968, Michael Schumacher a repetat
-        performanța și în 1995, când însă întreg sezonul a fost un galop de
-        sănătate. În acel an Benetton a câștigat primul și singurul titlu
-        mondial în campionatul constructorilor. După mulți ani, în 1997 Ferrari
-        construise o mașină cu potențial în lupta pentru titlu, iar evoluția
-        luiMichael Schumacher nu avea cum să dezamăgească, germanul aflâdu-se
-        până în ultima etapă în lupta pentru coroana supremă. În cele din urmă a
-        pierdut, în detrimentul lui Jacques Villeneuve, cel care preluase postul
-        de prim pilot la Williams de la Damon Hill. Williams s-a impus și la
-        constructori.
+        After winning the world title in 1994, albeit after a tough fight with Damon Hill of Williams, none other than the son of Graham Hill, the former world champion of 1962 and 1968, Michael Schumacher repeated the performance in 1995, when the entire season was a stroll in the park. That year, Benetton won their first and only world title in the constructors' championship. After many years, in 1997, Ferrari built a car with title-contending potential, and Michael Schumacher's performance could not disappoint, with the German battling for the ultimate crown until the final round. He ultimately lost to Jacques Villeneuve, who had taken over the lead driver position at Williams from Damon Hill. Williams also won the constructors' championship.
       </p>
       <p class="multscris">
-        Titlul cucerit de Scuderia Ferrari în 1999 nu a fost decât începutul
-        unei perioade de dominare categorică care s-a extins până în 2004,
-        italienii câștigând șase titluri mondiale consecutive la constructori,
-        dacă îl adaugăm și pe cel din 1999, și cinci titluri mondiale
-        consecutive la piloți, toate prin Michael Schumacher. În 2000 Michael
-        Schumacher a avut un start de sezon foarte bun, când a luat un avans
-        considerabil în campionat, însă și o perioadă mai slabă în lunile de
-        vară, permițându-i lui Mika Hakkinen să revină și chiar să îl depășeasca
-        pe german. Dar Schumacher a teminat sezonul en-fanfare, cu patru
-        victorii în ultimele tot atâtea curse, iar la final a câștigat al
-        treilea său titlu mondial și primul la piloți pentru Scuderia Ferrari
-        după mai bine de două decenii. Același Michael Schumacher s-a impus și
-        în 2001 și 2002, de această dată fără prea multe eforturi.
+        The title won by Scuderia Ferrari in 1999 was just the beginning of a period of categorical dominance that extended until 2004, with the Italians winning six consecutive constructors' world titles, if we include the 1999 one, and five consecutive drivers' world titles, all through Michael Schumacher. In 2000, Michael Schumacher had a very strong start to the season, taking a considerable lead in the championship, but also a weaker period in the summer months, allowing Mika Hakkinen to catch up and even overtake the German. But Schumacher finished the season in style, with four victories in the last four races, and ultimately won his third world title and the first drivers' title for Scuderia Ferrari in over two decades. The same Michael Schumacher also won in 2001 and 2002, this time with less effort.
       </p>
       <p class="multscris">
-        Cu Ferrari dispărută din lupta pentru titlul mondial în 2005, Fernando
-        Alonso și Kimi Räikkönen s-au duelat pentru titlu. În cele din urmă s-a
-        impus primul, însă și datorită faptului ca motoarele Mercedes folosite
-        de McLaren-ul lui Räikkönen au fost deosebit de slabe, explodând foarte
-        des. Tot Fernando Alonso și Renault s-au impus în 2006 în lupta pentru
-        cele două titluri mondiale, însă după o luptă la cuțite cu Michael
-        Schumacher și Scuderia Ferrari, reveniți după un an de absență în lupta
-        de la vârf. Pentru McLaren, mai rea a fost problema „Spygate” în care
-        inginerul Ferrari, Nigel Stepney, a transmis un dosar cu secrete tehnice
-        lui Mike Coughlan, designerul șef de la McLaren. Aceasta a dus la o
-        amendă record de 100 de milioane de dolari de la FIA, iar McLaren a fost
-        exclusă din campionat. În sezonul 2008 lucrurile au continuat pe aceeași
-        direcție. Lewis Hamilton a reușit să câștige titlul în fața lui Felipe
-        Massa printr-o manieră de neuitat. În ultima cursă de la Brazilia, Massa
-        a reușit să câștige cursa de acasă și era campion. Însă visul său
-        împlinit a fost de scurtă durată deoarece Hamilton care se menținea pe
-        locul 6 avea nevoie cel puțin de locul 5 și astfel în ultimul tur, la
-        penultimul viraj, Hamilton îl depășește pe Timo Glock și trece pe locul
-        ce îi asigura Campionatul Mondial cu un punct peste Massa.
+        With Ferrari out of the title fight in 2005, Fernando Alonso and Kimi Räikkönen battled for the title. Ultimately, the former prevailed, also due to the fact that the Mercedes engines used by Räikkönen's McLaren were particularly weak, often exploding. Fernando Alonso and Renault also triumphed in 2006 in the battle for both world titles, but after a knife-edge fight with Michael Schumacher and Scuderia Ferrari, who returned after a year's absence from the top fight. For McLaren, the "Spygate" issue was worse, in which Ferrari engineer Nigel Stepney transmitted a dossier of technical secrets to Mike Coughlan, McLaren's chief designer. This led to a record fine of $100 million from the FIA, and McLaren was excluded from the championship. In the 2008 season, things continued in the same direction. Lewis Hamilton managed to win the title against Felipe Massa in an unforgettable manner. In the last race in Brazil, Massa managed to win his home race and was champion. However, his fulfilled dream was short-lived because Hamilton, who was in 6th place, needed at least 5th place, and so in the last lap, at the penultimate corner, Hamilton overtook Timo Glock and moved into the position that secured him the World Championship by one point over Massa.
       </p>
       <p class="multscris">
-        2010 a înregistrat mai multe schimbări în modul de reglementare. KERS și
-        difuzoarele duble au fost interzise pentru sezonul 2010, dar au fost
-        introduse noi funcții inovatoare pentru mașini, cum ar fi F-duct. Un
-        număr de opt motoare alocate, pe pilot, pentru întregul sezon a fost, de
-        asemenea, introdus ca parte a mai multor metode de reducere a
-        costurilor. Cea mai mare schimbare în sistemul de notare a punctelor din
-        istoria F1 s-a produs între 2009 și 2010. Sistemul de puncte
-        10–8–6–5–4–3–2–1 pentru primii opt piloți (care funcționează din 2003),
-        a fost înlocuit cu unul drastic diferit 25–18–15–12–10–8–6–4–2–1 pentru
-        primii 10 piloți.
+        2010 saw several changes in regulations. KERS and double diffusers were banned for the 2010 season, but innovative new car features, such as F-duct, were introduced. An allocation of eight engines per driver for the entire season was also introduced as part of more cost-cutting methods. The biggest change in the F1 scoring system in history occurred between 2009 and 2010. The 10–8–6–5–4–3–2–1 point system for the top eight drivers (in operation since 2003) was replaced by a drastically different 25–18–15–12–10–8–6–4–2–1 system for the top 10 drivers.
       </p>
       <p class="multscris">
-        Sezonul din 2010 a fost o campanie clasică, care a ajuns la o bătălie în
-        patru pentru titlul din runda finală de la Abu Dhabi. Red Bull RB6 a
-        fost clasa terenului, iar Vettel a fost un campion demn - 10 pole
-        position și cinci victorii (inclusiv câștigarea ultimelor două runde) au
-        fost suficiente pentru a încununa cel mai tânăr campion până în prezent.
-        După dominația din 2011, Red Bull a început sezonul 2012 încet. Cu toate
-        acestea, Adrian Newey și echipa sa au dezvoltat RB8, astfel încât Vettel
-        a câștigat de cinci ori și colegul de echipă, Mark Webber, de două ori.
-        De asemenea, și Fernando Alonso a câștigat două curse, într-o mașină
-        care nu a se apropia de RB8. Sebastian Vettel a păstrat Campionatul
-        Mondial în stilul cel mai dramatic. Fiind în fața lui Alonso și Ferrari
-        în ultima cursă din Brazilia, Vettel s-a ciocnit cu Bruno Senna în turul
-        de deschidere. A reușit apoi un condus de excepție pentru a termina al
-        șaselea. Cu Jenson Button pe primul loc ținându-l pe Alonso în spatele
-        său, germanul a cucerit titlul cu trei puncte peste spaniol.
+        The 2010 season was a classic campaign, culminating in a four-way battle for the title in the final round in Abu Dhabi. The Red Bull RB6 was the class of the field, and Vettel was a worthy champion – 10 pole positions and five victories (including winning the last two rounds) were enough to crown the youngest champion to date. After their dominance in 2011, Red Bull started the 2012 season slowly. However, Adrian Newey and his team developed the RB8, so Vettel won five times and teammate Mark Webber twice. Fernando Alonso also won two races, in a car that did not come close to the RB8. Sebastian Vettel kept the World Championship in the most dramatic style. Leading Alonso and Ferrari in the last race in Brazil, Vettel collided with Bruno Senna on the opening lap. He then managed an exceptional drive to finish sixth. With Jenson Button in first place holding Alonso behind him, the German won the title by three points over the Spaniard.
       </p>
       <p class="multscris">
-        Patru ani de dominare Red Bull s-au încheiat în cele din urmă prin noile
-        reguli de motor pe care Mercedes-Benz le-a exploatat până la
-        perfecțiune. FIA a specificat motoare hibride de 1,6 litri
-        turbocompresate pentru 2014, completate cu sisteme complicate de
-        recuperare a energiei. Mercedes a fost echipa care a bătut, și cu o
-        marjă mai mare decât era de așteptat înainte de sezon. Lewis Hamilton și
-        Nico Rosberg au câștigat toate în afară de trei curse, dar decizia
-        conducerii superioare de a nu impune comenzi piloților a creat o bătălie
-        clasică. Ambii au intrat în cursa finală la Abu Dhabi cu șanse la titlu,
-        dar Hamilton a fost cel care a câștigat pentru a 11-a oară și a obținut
-        cel de-al doilea titlu mondial. Orice gând că Mercedes va avea o
-        contracandidată pentru Sezonul de Formula 1 din 2015 a fost eliminat din
-        prima cursă a sezonului. Lewis Hamilton și Nico Rosberg s-au calificat
-        în primul rând în 15 din cele 19 curse și au terminat 1-2 în 12 ocazii.
-        Hamilton a câștigat din nou titlul pentru a treia oară în carieră.
-        Mercedes a câștigat Campionatul Mondial de Formula 1 din 2016 pentru al
-        treilea an consecutiv, dar a existat o competiție mai acerbă între cei
-        doi piloți ai săi. Anul acesta a fost Nico Rosberg cel care a ieșit din
-        tensionatul final al sezonului din Abu Dhabi în calitate de campion, cu
-        cinci puncte peste Hamilton. La cinci zile după ce și-a împlinit visul
-        din copilărie, Nico Rosberg a uimit sportul anunțând retragerea sa
-        imediată din sport.
+        Four years of Red Bull dominance finally ended with new engine regulations that Mercedes-Benz exploited to perfection. The FIA specified 1.6-liter turbocharged hybrid engines for 2014, complete with complicated energy recovery systems. Mercedes was the team to beat, and by a larger margin than expected before the season. Lewis Hamilton and Nico Rosberg won all but three races, but the higher management's decision not to impose team orders on the drivers created a classic battle. Both entered the final race in Abu Dhabi with title chances, but Hamilton was the one who won for the 11th time and secured his second world title. Any thought that Mercedes would have a challenger for the 2015 Formula 1 Season was eliminated from the first race of the season. Lewis Hamilton and Nico Rosberg qualified on the front row in 15 of the 19 races and finished 1-2 on 12 occasions. Hamilton won the title again for the third time in his career. Mercedes won the 2016 Formula 1 World Championship for the third consecutive year, but there was fiercer competition between its two drivers. This year it was Nico Rosberg who emerged from the tense season finale in Abu Dhabi as champion, five points ahead of Hamilton. Five days after achieving his childhood dream, Nico Rosberg stunned the sport by announcing his immediate retirement from the sport.
       </p>
       <p class="multscris">
-        Odată cu noile reglementări la aerodinamică, Mercedes era amenințată de
-        competitori. În 2017, constructorul german a avut o competiție mai
-        strânsă pentru titlul, cu Ferrari producând o mașină mai avansată pentru
-        Sebastian Vettel. Deși Vettel a condus campionatul la pauza de vară, în
-        a doua parte a sezonul Hamilton și Mercedes au contracarat iar englezul
-        a câștigat 5 curse din 9 rămase pentru a cuceri al patrulea titlul și
-        a-l egala pe rivalul său. 2018 a continuat în aceeași notă cu Hamilton
-        și Vettel urmărind să câștige cel de-al cincilea titlul pentru fiecare.
-        Vettel a început sezonul câștigând cele două curse de deschidere, iar
-        Ferrari a fost cea mai rapidă mașină pentru o mare parte a anului, dar
-        Hamilton și Mercedes au dominat încă o dată. Englezul a combinat
-        calificările excelente, cu viteza și consistența neobosită din cursă. În
-        schimb, Vettel a făcut prea multe greșeli, inclusiv accidentul neforțat
-        din fruntea cursei în Germania. Victoria lui Vettel în Belgia a părut să
-        restabilească ritmul campionatului, dar nu a mai câștigat.
+        With new aerodynamic regulations, Mercedes was threatened by competitors. In 2017, the German constructor had tighter competition for the title, with Ferrari producing a more advanced car for Sebastian Vettel. Although Vettel led the championship at the summer break, in the second half of the season Hamilton and Mercedes countered, and the Englishman won 5 out of the remaining 9 races to secure his fourth title and equal his rival. 2018 continued in the same vein with Hamilton and Vettel aiming to win their fifth title each. Vettel started the season by winning the opening two races, and Ferrari was the fastest car for much of the year, but Hamilton and Mercedes dominated once again. The Englishman combined excellent qualifying with tireless speed and consistency in the race. In contrast, Vettel made too many mistakes, including the unforced accident while leading the race in Germany. Vettel's victory in Belgium seemed to restore the championship's rhythm, but he did not win again.
       </p>
       <p class="multscris">
-        Mercedes a trecut cu bine peste cele două sezoane în care a fost
-        amenințată, iar în 2019 nu a mai avut niciun rival. Hamilton a câștigat
-        cel de-al șaselea său titlu din carieră cu 3 curse înainte de final, iar
-        Mercedes a dominat din nou campionatul la constructori reușind să
-        câștige cel de-al șaselea Campionat Mondial consecutiv. Sezonul 2020
-        avea să fie unul inedit. Din cauza pandemiei de COVID-19, care a
-        cutremurat lumea întreagă, startul sezonul a fost amânat. În cele din
-        urmă, sezonul a început în iulie (lucru care nu s-a mai întâmplat
-        niciodată în istorie), cu Marele Premiu al Austriei. După cum era de
-        aștepat, sezonul a fost unul haotic, însă singurul lucru care nu s-a
-        schimbat a fost liderul. Deși echipele au fost încurcate de situația
-        pandemică, ele nereușind să aibă multe zile de teste, Mercedes a rămas
-        din nou cea mai bună de pe grilă. Lewis Hamilton a câștigat 11 din cele
-        17 curse din sezon și și-a adjudecat cel de-al șaptelea titlu din
-        palmares, performanță care îl plasează alături de Michael Schumacher
-        pentru cele mai multe titluri câștigate. De asemenea, Mercedes a reușit
-        să câștige din nou titlul la constructori fără probleme, fiind cel de-al
-        șaptelea titlu consecutiv și din palmares. Prin acest lucru, Mercedes a
-        doborât recordul de cele mai multe titluri consecutive câștigate de un
-        constructor (7), adjudecându-și titlurile din perioada 2014-2020.
-        Precedentul record a fost deținut de Ferrari care câștigase șase titluri
-        între sezoanele 1999 și 2004.
+        Mercedes successfully navigated the two seasons in which it was threatened, and in 2019, it had no rivals. Hamilton won his sixth career title with 3 races to spare, and Mercedes once again dominated the constructors' championship, winning their sixth consecutive World Championship. The 2020 season was to be an unprecedented one. Due to the COVID-19 pandemic, which shook the entire world, the start of the season was delayed. Ultimately, the season began in July (something that had never happened before in history), with the Austrian Grand Prix. As expected, the season was chaotic, but the only thing that didn't change was the leader. Although the teams were hampered by the pandemic situation, failing to have many testing days, Mercedes remained the best on the grid once again. Lewis Hamilton won 11 of the 17 races in the season and secured his seventh title, a performance that places him alongside Michael Schumacher for the most titles won. Mercedes also managed to win the constructors' title again without problems, being their seventh consecutive title and in their overall record. Through this, Mercedes broke the record for most consecutive titles won by a constructor (7), securing the titles from 2014-2020. The previous record was held by Ferrari, which had won six titles between the 1999 and 2004 seasons.
       </p>
     </div>
     <div class="imagini">
@@ -260,28 +57,28 @@
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/jackie.jpg" class="poza-istorie" />
-        <p class="subtitlu">Jackie Stewart conducând o Matra Ford în 1969</p>
+        <p class="subtitlu">Jackie Stewart driving Matra Ford in 1969</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/niki.jpg" class="poza-istorie" />
-        <p class="subtitlu">Niki Lauda la Nürburgring în 1976</p>
+        <p class="subtitlu">Niki Lauda at Nürburgring in 1976</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/nelson.jpg" class="poza-istorie" />
-        <p class="subtitlu">Nelson Piquet în 1985</p>
+        <p class="subtitlu">Nelson Piquet in 1985</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/benetton.jpg" class="poza-istorie" />
-        <p class="subtitlu">Benetton Renault campionă mondială în 1995</p>
+        <p class="subtitlu">Benetton Renault world champions in 1995</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/michael.jpg" class="poza-istorie" />
-        <p class="subtitlu">Michael Schumacher la volanul unui Ferrari</p>
+        <p class="subtitlu">Michael Schumacher driving a Ferrari</p>
       </div>
       <div class="box-istorie">
         <img src="../assets/Poze/Istorie/fernando.jpg" class="poza-istorie" />
         <p class="subtitlu">
-          Fernando Alonso cu Renault, campioni mondiali în 2005 şi 2006
+          Fernando Alonso with Renault, world champion in 2005 and 2006
         </p>
       </div>
       <div class="box-istorie">
