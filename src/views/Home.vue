@@ -172,7 +172,7 @@ export default {
           this.lastRaceDateText = `${day}-${month}-${year}`
           const dataApi = await makeRequest(`https://api.jolpi.ca/ergast/f1/${dateGetLast.meetingContext.season}.json?limit=100`)
           const rundaActuala = dataApi.MRData.RaceTable.Races[dateGetLast.meetingContext.nr_runda]
-          const rundaLink = rundaActuala.raceName.replace(/\s+/g, '_');
+          const rundaLink = rundaActuala.raceName.replace(/\s+/g, '-').toLowerCase();
           const linkCursaVeche = `/schedule/${date.meetingContext.season}/${rundaLink}`
           this.top3Drivers = dataSessionComplet.topDriverResults
           this.top3Drivers.raceName = rundaActuala.raceName
