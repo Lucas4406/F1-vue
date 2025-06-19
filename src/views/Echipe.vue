@@ -1,13 +1,13 @@
 <template>
   <div class="content-echipe" id="echipeCont">
     <div
-      class="box"
-      :class="[
+        class="box"
+        :class="[
         echipa.name.replace(/\s+/g, ''),
         { echipaFavorita: ok === index },
       ]"
-      v-for="(echipa, index) in echipe"
-      :key="index"
+        v-for="(echipa, index) in echipe"
+        :key="index"
     >
       <div class="linie1">
         <div class="linie flex flex-row items-center gap-2" id="numar">
@@ -48,7 +48,7 @@
           }}
         </div>
         <div class="pozae">
-          <img :src="proxyUrl + echipa.logo" class="poza1" :alt="`Logo ${echipa.name}`" />
+          <img :src="echipa.logo" class="poza1" :alt="`Logo ${echipa.name}`" />
         </div>
       </div>
       <div class="linie3">
@@ -60,7 +60,7 @@
 <script>
 import { onMounted, ref, inject } from "vue"
 import { useHead } from "@vueuse/head"
-import { makeRequest } from "../functions/makeRequest"
+import { makeRequest } from "@/functions/makeRequest"
 
 export default {
   name: "Echipe",
@@ -70,7 +70,7 @@ export default {
     const ok = ref("")
     const puncteNull = ref(false)
     const store = inject("store")
-    const proxyUrl = ref(import.meta.env.VITE_API_PROXY)
+
     const setHead = (year) => {
       useHead({
         title: `GridFanHub | Formula 1 Teams ${year}`,
@@ -166,7 +166,6 @@ export default {
       echipaFav,
       ok,
       puncteNull,
-      proxyUrl,
     }
   },
 }
