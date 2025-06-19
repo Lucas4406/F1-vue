@@ -47,7 +47,7 @@
               </p>
               <div class="flex justify-between items-center mt-3">
                 <p class="text-base font-semibold text-gray-600  source">{{ pilot.echipa }}</p>
-                <img :src="pilot.steag" class="h-6 w-auto rounded-sm border border-gray-200 " alt="Driver flag" />
+                <img :src="proxyUrl + pilot.steag" class="h-6 w-auto rounded-sm border border-gray-200 " alt="Driver flag" />
               </div>
             </div>
 
@@ -63,7 +63,7 @@
 
           <div class="absolute bottom-0 right-0 w-8/12 h-full pointer-events-none z-0">
             <img
-                :src="pilot.poza"
+                :src="proxyUrl + pilot.poza"
                 :alt="'Photo of ' + pilot.primulNume + ' ' + pilot.alDoileaNume"
                 class="w-full h-full object-contain object-bottom drop-shadow-xl transition-transform duration-300 ease-in-out group-hover:scale-105"
             />
@@ -88,6 +88,7 @@ export default {
     return {
       piloti: [],
       dontShow: false,
+      proxyUrl: import.meta.env.VITE_API_PROXY
     }
   },
   mounted() {

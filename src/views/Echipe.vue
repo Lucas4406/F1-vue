@@ -48,7 +48,7 @@
           }}
         </div>
         <div class="pozae">
-          <img :src="echipa.logo" class="poza1" :alt="`Logo ${echipa.name}`" />
+          <img :src="proxyUrl + echipa.logo" class="poza1" :alt="`Logo ${echipa.name}`" />
         </div>
       </div>
       <div class="linie3">
@@ -70,7 +70,7 @@ export default {
     const ok = ref("")
     const puncteNull = ref(false)
     const store = inject("store")
-
+    const proxyUrl = ref(import.meta.env.VITE_API_PROXY)
     const setHead = (year) => {
       useHead({
         title: `GridFanHub | Formula 1 Teams ${year}`,
@@ -166,6 +166,7 @@ export default {
       echipaFav,
       ok,
       puncteNull,
+      proxyUrl,
     }
   },
 }
