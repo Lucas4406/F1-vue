@@ -4,9 +4,8 @@ import axios from "axios"
 import tabelcursa from "@/components/tabelcursa.vue"
 import tabelcali from "@/components/tabelcali.vue"
 import Tabelsprint from "@/components/tabelsprint.vue"
-import {useHead} from "@vueuse/head"
-import { useRoute } from 'vue-router'
-import getNext from "@/functions/getNext";
+import { useHead } from "@vueuse/head"
+import getNext from "@/functions/getNext"
 
 export default {
   name: "Meeting",
@@ -32,18 +31,29 @@ export default {
       sesiuniOrdinate: [],
     }
   },
+  computed: {
+    meetingNameFormatted() {
+      return this.formatMeetingName(this.meetingName)
+    }
+  },
   methods: {
+    formatMeetingName(slug) {
+      return slug
+          .split('-')
+          .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(' ')
+    },
     async fetchData(link) {
       const res = await axios.get(link)
       return res.data
     },
     async getData() {
-      const meetingNameSpace = this.meetingName.replaceAll("_", " ")
+      const meetingNameSpace = this.meetingName.replaceAll("-", " ")
       const res = await this.fetchData(`https://api.jolpi.ca/ergast/f1/${this.an}.json?limit=100`)
       this.curse = res.MRData.RaceTable.Races
 
       for (let i = 0; i < this.curse.length; i++) {
-        if (meetingNameSpace === this.curse[i].raceName) {
+        if (meetingNameSpace === this.curse[i].raceName.toLowerCase()) {
           this.nrCursa = i
           break
         }
@@ -64,47 +74,42 @@ export default {
       const raceData = await this.fetchData(linkBase + "/results" + terminare)
       const race = raceData.MRData.RaceTable.Races[0]
       if (race?.Results) {
-        race.Results.forEach(r => r.FastestLap = r.FastestLap?.Time?.time || "-")
+        race.Results.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"))
         this.cursaData = race
       }
 
       if (this.curse[this.nrCursa]?.Sprint) {
         const sprintData = await this.fetchData(linkBase + "/sprint" + terminare)
         const sprint = sprintData.MRData.RaceTable.Races[0]
-        sprint.SprintResults.forEach(r => r.FastestLap = r.FastestLap?.Time?.time || "-")
+        sprint.SprintResults.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"))
         this.sprintData = sprint
       }
     },
     async getToateSesiunile() {
-      const sesiuni = await this.fetchData(`https://api.openf1.org/v1/sessions?year=${this.an}&meeting_key=${this.sessionKey}`)
+      const sesiuni = await this.fetchData(
+          `https://api.openf1.org/v1/sessions?year=${this.an}&meeting_key=${this.sessionKey}`
+      )
       this.sesiuniOrdinate = sesiuni.sort((a, b) => b.session_key - a.session_key)
     }
   },
-  computed: {
-    meetingNameFormatted() {
-      return this.meetingName.replaceAll('_', ' ')
-    }
-  },
   async mounted() {
-    document.title = this.meetingName.replaceAll("_", " ") + " " + this.an + " results"
     await this.getData()
     await this.getToateSesiunile()
-  },
-  setup(){
-    const route = useRoute()
-    const an = route.params.an
-    const meetingName = route.params.meeting_name
-    const meetingNameFormatted = meetingName.replaceAll('_', ' ')
+
+    // Setare document title
+    document.title = this.meetingNameFormatted + " " + this.an + " results"
+
+    // Setare meta tags cu useHead
     useHead({
-      title: `GridFanHub | ${meetingNameFormatted} ${an} Results`,
+      title: `GridFanHub | ${this.meetingNameFormatted} ${this.an} Results`,
       meta: [
         {
           name: "description",
-          content: `See all results from the ${meetingNameFormatted} ${an} Formula 1 weekend: race, qualifying, sprint and race control messages on GridFanHub.`,
+          content: `See all results from the ${this.meetingNameFormatted} ${this.an} Formula 1 weekend: race, qualifying, sprint and race control messages on GridFanHub.`,
         },
         {
           name: "keywords",
-          content: `${meetingNameFormatted} ${an} F1, GridFanHub, F1 race control, formula1, f1, finishing order, Formula 1 ${an} ${meetingNameFormatted} results, F1 qualifying, F1 sprint results, ${an} F1 race outcome, race control messages, race control`,
+          content: `${this.meetingNameFormatted} ${this.an} F1, GridFanHub, F1 race control, formula1, f1, finishing order, Formula 1 ${this.an} ${this.meetingNameFormatted} results, F1 qualifying, F1 sprint results, ${this.an} F1 race outcome, race control messages, race control`,
         },
         {
           name: "robots",
@@ -112,11 +117,11 @@ export default {
         },
         {
           property: "og:title",
-          content: `GridFanHub | ${meetingNameFormatted} ${an} Results`,
+          content: `GridFanHub | ${this.meetingNameFormatted} ${this.an} Results`,
         },
         {
           property: "og:description",
-          content: `Catch up on all sessions from ${meetingNameFormatted} ${an}. View race, qualifying, and sprint results and race control messages.`,
+          content: `Catch up on all sessions from ${this.meetingNameFormatted} ${this.an}. View race, qualifying, and sprint results and race control messages.`,
         },
         {
           property: "og:type",
@@ -124,11 +129,11 @@ export default {
         },
         {
           property: "og:url",
-          content: `https://gridfanhub.com/schedule/${an}/${meetingName}`,
+          content: `https://gridfanhub.com/schedule/${this.an}/${this.meetingName}`,
         },
         {
           property: "og:image",
-          content: "https://gridfanhub.com/favicon.ico", // ← înlocuiește cu imaginea OG reală
+          content: "https://gridfanhub.com/favicon.ico",
         },
         {
           name: "twitter:card",
@@ -136,21 +141,21 @@ export default {
         },
         {
           name: "twitter:title",
-          content: `GridFanHub | ${meetingNameFormatted} ${an} Results`,
+          content: `GridFanHub | ${this.meetingNameFormatted} ${this.an} Results`,
         },
         {
           name: "twitter:description",
-          content: `Results from ${meetingNameFormatted} ${an} — check out qualifying, sprint, race results and race control messages in one place.`,
+          content: `Results from ${this.meetingNameFormatted} ${this.an} — check out qualifying, sprint, race results and race control messages in one place.`,
         },
         {
           name: "twitter:image",
-          content: "https://gridfanhub.com/favicon.ico", // ← imagine reală
+          content: "https://gridfanhub.com/favicon.ico",
         },
       ],
       link: [
         {
           rel: "canonical",
-          href: `https://gridfanhub.com/schedule/${an}/${meetingName}`,
+          href: `https://gridfanhub.com/schedule/${this.an}/${this.meetingName}`,
         },
       ],
     })
@@ -158,10 +163,11 @@ export default {
 }
 </script>
 
+
 <template>
   <div class="container-curse">
     <br />
-    <p class="titlu-pagina-curse">{{ meetingName.replaceAll("_", " ") + " " + an + " results" }}</p>
+    <p class="titlu-pagina-curse">{{ meetingNameFormatted + " " + an + " results" }}</p>
 
     <p v-if="!cursaData && !qualiData && !sprintData" class="titlu-pagina-curse">
       Results will appear after the session has ended

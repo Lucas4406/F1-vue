@@ -8,7 +8,7 @@ async function getDynamicRoutes() {
 
     return data.MRData.RaceTable.Races.map(race => {
         const year = race.season
-        const name = race.raceName.replaceAll(' ', '_')
+        const name = race.raceName.replaceAll(' ', '-').toLowerCase()
         return `/schedule/${year}/${name}`
     })
 }
@@ -43,7 +43,7 @@ async function generateSitemap() {
     })), ...dynamicRoutes.map(route => ({
         loc: `${baseUrl}${route}`,
         lastmod: new Date().toISOString().split('T')[0], // Sau data cursei din API dacă ai
-        priority: 0.7
+        priority: 0.8
     }))]
 
     const xmlUrls = urls.map(url => `

@@ -18,7 +18,7 @@
       :key="index"
       :id="cursa.Circuit.circuitId.replace(/_/g, '')"
       :class="{ cursaCurenta: idCurent === index }"
-      :to="{ name: 'Meeting', params: {an: cursa.season ,  meeting_name: cursa.raceName.replace(/\s+/g, '_') } }"
+      :to="{ name: 'Meeting', params: {an: cursa.season ,  meeting_name: cursa.raceName.replace(/\s+/g, '-').toLowerCase() } }"
     >
       <div class="flex justify-between text-2xl mb-4 font-bold">
         <p >{{ cursa.round }}. {{ cursa.raceName }}</p>

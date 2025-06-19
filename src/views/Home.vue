@@ -124,7 +124,7 @@ export default {
         const roundNum = date.meetingContext.nr_runda
         const dataApi = await makeRequest(`https://api.jolpi.ca/ergast/f1/${date.meetingContext.season}.json?limit=100`)
         const rundaActuala = dataApi.MRData.RaceTable.Races[roundNum]
-        const rundaLink = rundaActuala.raceName.replace(/\s+/g, '_');
+        const rundaLink = rundaActuala.raceName.replace(/\s+/g, '-').toLowerCase();
         this.linkCursa = `/schedule/${date.meetingContext.season}/${rundaLink}`
         this.heroData = date
         this.Hero = true
