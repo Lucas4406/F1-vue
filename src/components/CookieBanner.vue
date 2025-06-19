@@ -14,7 +14,7 @@
       </button>
       <!-- Cardul -->
       <div class="p-4 bg-white shadow-lg rounded-md text-base border border-gray-300 calendar-schedule">
-        <p class="text-gray-800 source sm:text-lg md:text-base">
+        <p class="text-gray-800 source sm:text-xl md:text-base">
           This website uses photos from the official F1 website that may have cookies attached to them.
           If you wish to not be tracked, head over to www.formula1.com and decline all cookies.
           This website doesn't use other cookies.
