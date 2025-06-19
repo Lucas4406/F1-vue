@@ -1,20 +1,26 @@
 <template>
   <div
       v-if="show"
-      class="fixed bottom-4 left-4 max-w-sm w-full p-4 bg-white shadow-lg rounded-md text-base border border-gray-300 z-50 calendar-schedule"
+      class="fixed bottom-4 left-4 z-50"
   >
-    <button
-        @click="close"
-        class="absolute top-2 right-2 text-black text-xs calendar-schedule border-0 cursor-pointer"
-        aria-label="Close"
-    >
-      ✕
-    </button>
-    <p class="text-gray-800 source">
-      This website uses cookies to understand how you use our site and give you a better experience.
-      By continuing to browse or by closing this banner, you consent to the use of cookies.
-      If you wish to change your cookies options, you can manage this in your browser settings.
-    </p>
+    <div class="relative max-w-sm w-full">
+      <!-- Butonul de închidere, poziționat în afara colțului cardului -->
+      <button
+          @click="close"
+          class="absolute -top-3 -right-3 bg-white border border-gray-300 rounded-full px-2 py-1 text-xs shadow hover:bg-gray-100 cursor-pointer"
+          aria-label="Close"
+      >
+        ✕
+      </button>
+      <!-- Cardul -->
+      <div class="p-4 bg-white shadow-lg rounded-md text-base border border-gray-300 calendar-schedule">
+        <p class="text-gray-800 source sm:text-lg md:text-base">
+          This website uses photos from the official F1 website that may have cookies attached to them.
+          If you wish to not be tracked, head over to www.formula1.com and decline all cookies.
+          This website doesn't use other cookies.
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
