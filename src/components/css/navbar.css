@@ -47,6 +47,7 @@
   justify-content: space-between;
   transform: translateY(0);
   transition: transform 150ms ease-in-out;
+  padding: 10px;
 }
 .header {
   position: fixed;
@@ -79,6 +80,7 @@
   transform: translateY(0);
   transition: transform 150ms ease-in-out;
   z-index: -1;
+  padding: 10px;
 }
 .dropdown-menu {
   position: absolute;

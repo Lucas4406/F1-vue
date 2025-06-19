@@ -9,8 +9,6 @@
 }
 
 body {
-  margin-left: 0;
-  margin-right: 0;
   font-family: "Roboto", sans-serif;
   padding-top: calc(var(--one1rem) * 8);
   margin: 0;
@@ -49,6 +47,7 @@ h1 {
 }
 #main-content {
   min-height: 100vh;
+  margin-top: 5rem;
 }
 a {
   text-decoration: none;

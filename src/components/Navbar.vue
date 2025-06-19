@@ -18,23 +18,33 @@
         <router-link to="/teams" class="link-router">Teams</router-link>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
-        <p style="color: red; margin: 0" data-dropdown-button>Standings</p>
+        <p class="dropdown-label" data-dropdown-button>
+          Standings
+          <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M7 10l5 5 5-5H7z"/>
+          </svg>
+        </p>
         <div class="dropdown-menu">
-          <router-link to="/team-standings" class="text-dropdown"
+          <router-link to="/team-standings" class="text-dropdown" @click="closeAllDropdowns"
             >Teams</router-link
           >
-          <router-link to="/drivers" class="text-dropdown"
+          <router-link to="/drivers" class="text-dropdown" @click="closeAllDropdowns"
             >Drivers</router-link
           >
         </div>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
-        <p style="color: red; margin: 0" data-dropdown-button>Results</p>
+        <p class="dropdown-label" data-dropdown-button>
+          Results
+          <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M7 10l5 5 5-5H7z"/>
+          </svg>
+        </p>
         <div class="dropdown-menu">
-          <router-link to="/race-results/2025" class="text-dropdown"
+          <router-link to="/race-results/2025" class="text-dropdown" @click="closeAllDropdowns"
             >Races</router-link
           >
-          <router-link to="/qualifying-results/2025" class="text-dropdown"
+          <router-link to="/qualifying-results/2025" class="text-dropdown" @click="closeAllDropdowns"
             >Qualifying</router-link
           >
         </div>
@@ -47,11 +57,12 @@
           alt="icon hamburger meniu"
         />
         <div class="dropdown-menu">
-          <router-link to="/reaction-game" class="text-dropdown-right">Game</router-link>
+          <router-link to="/reaction-game" class="text-dropdown-right" @click="closeAllDropdowns">Game</router-link>
           <router-link
             to="/f1-history"
             class="text-dropdown-right"
             :class="{ logat: isLogged }"
+            @click="closeAllDropdowns"
             >History</router-link
           >
           <router-link
@@ -59,6 +70,7 @@
             class="text-dropdown-right"
             :class="{ logat: isLogged }"
             v-if="!isLogged"
+            @click="closeAllDropdowns"
             >Login</router-link
           >
         </div>
@@ -92,6 +104,12 @@ document.querySelectorAll("[data-dropdown].active").forEach((dropdown) => {
   dropdown.classList.remove("active")
 })
 
+function closeAllDropdowns() {
+  document.querySelectorAll("[data-dropdown].active").forEach((dropdown) => {
+    dropdown.classList.remove("active")
+  })
+}
+
 onMounted(async () => {
   window.addEventListener("scroll", () => {
     const header = document.getElementById("header")
@@ -105,4 +123,22 @@ onMounted(async () => {
 .peste {
   z-index: 999;
 }
+.dropdown-label {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: red;
+  cursor: pointer;
+  margin: 0;
+}
+
+.dropdown-arrow {
+  transition: transform 0.2s ease;
+}
+
+/* Rotește săgeata când dropdown-ul e deschis */
+.buton.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
 </style>

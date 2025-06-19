@@ -37,7 +37,7 @@
     <button
         v-if="top3?.linkCursaVeche"
         @click="$router.push(top3.linkCursaVeche)"
-        class="mt-4 px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-700 transition cursor-pointer"
+        class="mt-4 px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-700 transition cursor-pointer text-base"
     >
       See more
     </button>
