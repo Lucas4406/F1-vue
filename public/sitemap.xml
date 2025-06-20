@@ -281,4 +281,19 @@
     <lastmod>2025-06-19</lastmod>
     <priority>0.8</priority>
   </url>
+
+
+  <url>
+    <loc>https://gridfanhub.com/privacy-policy</loc>
+    <lastmod>2025-06-20</lastmod>
+    <priority>0.6</priority>
+  </url>
+
+
+
+  <url>
+    <loc>https://gridfanhub.com/terms-of-service</loc>
+    <lastmod>2025-06-20</lastmod>
+    <priority>0.6</priority>
+  </url>
 </urlset>
