@@ -44,7 +44,7 @@
         <p class="text-white text-sm sm:text-base">© 2025 GridFanHub | F1 news & data</p>
         <div class="flex gap-4 text-white text-sm sm:text-base underline">
           <router-link to="/info" class="text-white">More info</router-link>
-          <a href="https://www.privacypolicies.com/live/c7de1b24-3f41-4ea2-a495-0216f2d3c0a4" class="text-white" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <router-link to="/privacy-policy" class="text-white">Privacy Policy</router-link>
         </div>
         <!-- Dark Mode Toggle -->
         <button
