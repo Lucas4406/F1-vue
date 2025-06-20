@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center min-h-screen bg-[#1f1f1f] text-white">
+  <div class="flex justify-center items-center min-h-screen text-white ">
     <div class="w-full max-w-md p-8 border border-gray-700 rounded-xl shadow-lg bg-[#2c2c2c]">
       <!-- Confirmare email + login -->
       <div v-if="mode === 'verifyEmail' && verified" class="w-full">
@@ -14,7 +14,7 @@
             <input type="password" v-model="pass" required />
             <label>Password</label>
           </div>
-          <p class="text-red-400 text-sm text-center">{{ errMsg }}</p>
+          <p v-if="errMsg" class="text-red-400 text-sm text-center min-h-[1.5rem]">{{ errMsg }}</p>
           <button type="submit" class="login-button">
             <span></span><span></span><span></span><span></span>
             Log in
@@ -34,7 +34,7 @@
             <input type="password" v-model="confirmPass" required />
             <label>Confirm Password</label>
           </div>
-          <p class="text-red-400 text-sm text-center">{{ errMsg }}</p>
+          <p v-if="errMsg" class="text-red-400 text-sm text-center min-h-[1.5rem]">{{ errMsg }}</p>
           <button type="submit" class="login-button">
             <span></span><span></span><span></span><span></span>
             Reset Password
@@ -139,7 +139,10 @@ async function resetPassword() {
 
 .user-box input {
   width: 100%;
-  padding: 10px 10px 10px 5px;
+  max-width: 320px;
+  margin: 0 auto;
+  display: block;
+  padding: 10px;
   background: transparent;
   border: none;
   border-bottom: 1px solid #fff;
