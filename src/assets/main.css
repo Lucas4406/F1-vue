@@ -10,7 +10,6 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  padding-top: calc(var(--one1rem) * 8);
   margin: 0;
   overflow-x: hidden;
   transition: background-color 200ms ease-in-out;
@@ -25,6 +24,10 @@ h1 {
 #nav {
   position: relative;
   bottom: 0;
+}
+
+#app{
+  height: 100%;
 }
 .container {
   display: flex;
@@ -46,8 +49,8 @@ h1 {
   color: red;
 }
 #main-content {
+  padding-top: calc(var(--one1rem) * 8 + 5rem);
   min-height: 100vh;
-  margin-top: 5rem;
 }
 a {
   text-decoration: none;

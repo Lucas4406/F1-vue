@@ -4,66 +4,90 @@
       <h2>Log in</h2>
       <form @submit.prevent="login">
         <div class="user-box">
-          <input type="email" name="" required="" v-model="email" />
+          <input type="email" required v-model="email" />
           <label>Email</label>
         </div>
         <div class="user-box">
-          <input type="password" name="" required="" v-model="pass" />
+          <input type="password" required v-model="pass" />
           <label>Password</label>
         </div>
         <p class="m-0 p-0 w-full text-center text-white">{{ errMsg }}</p>
         <h3 class="text-white">
           No account?
-          <span class="clear"
-            ><RouterLink to="/signup" class="text-[#03e9f4]"
-              >Sign up</RouterLink
-            ></span
-          >
+          <span class="clear">
+            <RouterLink to="/signup" class="text-[#03e9f4]">Sign up</RouterLink>
+          </span>
         </h3>
         <h3 class="text-white">
           Forgot password?
-          <span class="clear"
-          ><RouterLink to="/forgot-password" class="text-[#03e9f4]"
-          >Click here</RouterLink
-          ></span
-          >
+          <span class="clear">
+            <RouterLink to="/forgot-password" class="text-[#03e9f4]">Click here</RouterLink>
+          </span>
         </h3>
         <button type="submit" class="login-button">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span><span></span>
           Log in
         </button>
         <input type="submit" hidden />
       </form>
+      <!-- Butoane OAuth -->
+      <div class="flex flex-col space-y-3 mt-6">
+        <button
+            @click.prevent="oauthLogin('google')"
+            class="oauth-btn flex items-center justify-center bg-white text-black hover:bg-gray-100 border border-gray-300"
+        >
+          <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google logo"
+              class="w-5 h-5 mr-2"
+          />
+          Log in with Google
+        </button>
+
+        <button
+            @click.prevent="oauthLogin('github')"
+            class="oauth-btn flex items-center justify-center bg-black text-white hover:bg-gray-800"
+        >
+          <svg class="w-5 h-5 mr-2" fill="white" viewBox="0 0 24 24">
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.01 10.94c.59.11.8-.26.8-.58v-2.02c-3.26.71-3.95-1.57-3.95-1.57-.54-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.83 1.23 1.83 1.23 1.07 1.84 2.8 1.31 3.48 1 .11-.77.42-1.31.76-1.61-2.6-.3-5.34-1.3-5.34-5.77 0-1.28.47-2.33 1.23-3.15-.12-.3-.53-1.52.12-3.16 0 0 1-.32 3.3 1.2a11.46 11.46 0 016 0c2.28-1.52 3.28-1.2 3.28-1.2.65 1.64.24 2.86.12 3.16.77.82 1.23 1.87 1.23 3.15 0 4.49-2.75 5.46-5.37 5.75.43.37.81 1.1.81 2.23v3.3c0 .32.2.7.81.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"
+            />
+          </svg>
+          Log in with GitHub
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { getAuth, signInWithEmailAndPassword , signOut } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { loginWithGoogle, loginWithGitHub } from "@/firebase/authProviders"
 import { ref } from "vue"
 import { useRouter } from "vue-router"
-const pass = ref("")
+import {authRequest} from "@/functions/authRequest";
+
 const email = ref("")
+const pass = ref("")
 const errMsg = ref("")
+const router = useRouter()
 
 document.title = "GridFanHub | Login"
+
 function login() {
   const auth = getAuth()
-  errMsg.value = ""  // curățăm mesajul de eroare
+  errMsg.value = ""
 
   signInWithEmailAndPassword(auth, email.value, pass.value)
       .then((userCredential) => {
         const user = userCredential.user
         if (user.emailVerified) {
-          // email confirmat
           window.location.replace("/")
         } else {
-          // email neconfirmat
           errMsg.value = "Please verify your email address before logging in."
-          signOut(auth)  // facem logout pentru că email-ul nu e confirmat
+          signOut(auth)
         }
       })
       .catch((error) => {
@@ -83,9 +107,67 @@ function login() {
         }
       })
 }
+
+async function oauthLogin(provider) {
+  try {
+    let userCredential
+    if (provider === "google") {
+      userCredential = await loginWithGoogle()
+    } else if (provider === "github") {
+      userCredential = await loginWithGitHub()
+    }
+    const user = userCredential.user
+    try {
+      await authRequest("GET", `${import.meta.env.VITE_API_LINK}/profile/${user.uid}`)
+      // Dacă aici nu aruncă eroare, înseamnă că user există
+      window.location.replace("/")  // user existent, du-l pe homepage
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        await createDbUser(user)
+        router.push("/update-profile")
+      } else {
+        // altă eroare
+        console.error("Error getting profile:", err)
+        window.location.replace("/") // fallback - du-l tot pe homepage
+      }
+    }
+
+    // Optional: creează profil în DB dacă dorești să faci upsert automat
+    // await createDbUser(user)
+
+  } catch (err) {
+    errMsg.value = "Login failed: " + err.message
+  }
+}
+
+async function createDbUser(user) {
+  if (!user) return
+  try {
+    await authRequest("POST" ,
+        `${import.meta.env.VITE_API_LINK}/profile`,
+        {
+          displayName: user.displayName,
+          profileId: user.uid,
+          email: user.email,
+        })
+  } catch (error) {
+    // Nu bloca login-ul dacă e eroare aici, doar loghează
+    console.error("Eroare la crearea profilului în DB: ", error.message)
+  }
+}
 </script>
 
 <style scoped>
+.oauth-btn {
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.oauth-btn:focus {
+  outline: white;
+}
 html {
   height: 100%;
 }
@@ -99,12 +181,9 @@ body {
   cursor: pointer;
 }
 .login-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
+  width: 80%;
+  max-width: 600px;
   padding: 40px;
-  transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);

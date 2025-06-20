@@ -139,10 +139,7 @@ async function resetPassword() {
 
 .user-box input {
   width: 100%;
-  max-width: 320px;
-  margin: 0 auto;
-  display: block;
-  padding: 10px;
+  padding: 10px 10px 10px 5px;
   background: transparent;
   border: none;
   border-bottom: 1px solid #fff;

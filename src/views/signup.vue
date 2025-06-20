@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen flex justify-center items-center min-h-screen flex-col">
+  <div class="w-screen flex justify-center items-center min-h-screen flex-col pt-4">
     <div class="login-box">
       <h2>Sign up</h2>
       <form @submit.prevent="register">
@@ -26,15 +26,43 @@
           Sign up
         </button>
       </form>
+      <div class="flex flex-col space-y-3 mt-6">
+        <button
+            @click.prevent="oauthLogin('google')"
+            class="oauth-btn flex items-center justify-center bg-white text-black hover:bg-gray-100 border border-gray-300"
+        >
+          <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google logo"
+              class="w-5 h-5 mr-2"
+          />
+          Sign up with Google
+        </button>
+
+        <button
+            @click.prevent="oauthLogin('github')"
+            class="oauth-btn flex items-center justify-center bg-black text-white hover:bg-gray-800"
+        >
+          <svg class="w-5 h-5 mr-2" fill="white" viewBox="0 0 24 24">
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.01 10.94c.59.11.8-.26.8-.58v-2.02c-3.26.71-3.95-1.57-3.95-1.57-.54-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.83 1.23 1.83 1.23 1.07 1.84 2.8 1.31 3.48 1 .11-.77.42-1.31.76-1.61-2.6-.3-5.34-1.3-5.34-5.77 0-1.28.47-2.33 1.23-3.15-.12-.3-.53-1.52.12-3.16 0 0 1-.32 3.3 1.2a11.46 11.46 0 016 0c2.28-1.52 3.28-1.2 3.28-1.2.65 1.64.24 2.86.12 3.16.77.82 1.23 1.87 1.23 3.15 0 4.49-2.75 5.46-5.37 5.75.43.37.81 1.1.81 2.23v3.3c0 .32.2.7.81.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"
+            />
+          </svg>
+          Sign up with GitHub
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth"
+import { loginWithGoogle, loginWithGitHub } from "@/firebase/authProviders"
 import { ref } from "vue"
 import { useRouter } from "vue-router"
-import axios from "axios"
+import {authRequest} from "@/functions/authRequest";
 
 const email = ref("")
 const pass = ref("")
@@ -42,6 +70,7 @@ const passConfirm = ref("")
 const router = useRouter()
 
 document.title = "GridFanHub | Sign-up"
+
 
 async function register() {
   if (pass.value !== passConfirm.value) {
@@ -65,24 +94,35 @@ async function register() {
     alert(error.message)
   }
 }
+async function oauthLogin(provider) {
+  try {
+    let userCredential
+    if (provider === "google") {
+      userCredential = await loginWithGoogle()
+    } else if (provider === "github") {
+      userCredential = await loginWithGitHub()
+    }
+    const user = userCredential.user
+
+    // Creează user în baza ta dacă e nou
+    await createDbUser(user)
+
+    router.push("/update-profile") // sau direct în dashboard, cum preferi
+  } catch (err) {
+    alert("Login failed: " + err.message)
+  }
+}
 
 async function createDbUser(user) {
   if (!user) return
-  const token = await user.getIdToken(/* forceRefresh */ true)
   try {
-    await axios.post(
+    await authRequest("POST",
         `${import.meta.env.VITE_API_LINK}/profile`,
         {
           displayName: user.displayName,
           profileId: user.uid,
           email: user.email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-    )
+        })
   } catch (error) {
     alert("Eroare la crearea profilului în baza de date: " + error.message)
   }
@@ -90,6 +130,13 @@ async function createDbUser(user) {
 </script>
 
 <style scoped>
+.oauth-btn {
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
 html {
   height: 100%;
 }
@@ -103,15 +150,12 @@ body {
   cursor: pointer;
 }
 .login-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
+  width: 80%;
+  max-width: 600px;
   padding: 40px;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.6);
   border-radius: 10px;
 }
 
