@@ -181,22 +181,31 @@ const getAllDrivers = async () => {
 }
 
 const loadFavTeam = async () => {
+  if (!echipaPref.value || echipaPref.value.length < 2) return
+
   const teams = await getAllTeams()
   const shortName = echipaPref.value?.substring(0, 4)
   const { data } = await axios.get("https://api.jolpi.ca/ergast/f1/current/constructorstandings.json")
   const standings = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+
   const teamData = teams.find(t => t.name.includes(shortName))
   if (teamData) {
     favTeamData.value = standings.find(s => s.Constructor.name.includes(shortName))
-    hasFavTeam.value = true
+    hasFavTeam.value = !!favTeamData.value
   }
 }
 
 const loadFavDriver = async () => {
-  const { data } = await axios.get(`${import.meta.env.VITE_API_LINK}/mongo/piloti/${soferPref.value}`)
-  if (data?.[0]) {
-    favDriverData.value = data[0]
-    hasFavDriver.value = true
+  if (!soferPref.value || soferPref.value.length < 2) return
+
+  try {
+    const { data } = await axios.get(`${import.meta.env.VITE_API_LINK}/mongo/piloti/${soferPref.value}`)
+    if (data?.[0]) {
+      favDriverData.value = data[0]
+      hasFavDriver.value = true
+    }
+  } catch (error) {
+    console.warn("Driver not found or invalid:", soferPref.value)
   }
 }
 
@@ -207,8 +216,8 @@ const updateDb = async () => {
   try {
     // Salvezi preferințele în profil
     await authRequest("POST", urlProfile, {
-      favTeam: echipaPref.value,
-      favDriver: soferPref.value
+      favTeam: echipaPref.value || null,
+      favDriver: soferPref.value || null
     })
 
     // Actualizezi store local
@@ -233,10 +242,19 @@ const updateDb = async () => {
 onMounted(async () => {
   document.title = `Profile - ${store.user.displayName}`
   router.push({ query: { user: store.user.displayName } })
+
   await Promise.all([getAllDrivers(), getAllTeams()])
   showSelect.value = true
-  if (store.user.favTeam) await loadFavTeam()
-  if (store.user.favDriver) await loadFavDriver()
+
+  if (store.user.favTeam && store.user.favTeam.length > 1) {
+    echipaPref.value = store.user.favTeam
+    await loadFavTeam()
+  }
+
+  if (store.user.favDriver && store.user.favDriver.length > 1) {
+    soferPref.value = store.user.favDriver
+    await loadFavDriver()
+  }
 })
 </script>
 
