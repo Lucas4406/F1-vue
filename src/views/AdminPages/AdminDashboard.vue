@@ -1,7 +1,6 @@
 <template>
   <div
       class="flex flex-col gap-6 w-full justify-center items-center min-h-screen p-6 bg-gray-50"
-      v-if="isAdmin"
   >
     <div class="flex flex-wrap justify-center gap-4">
       <router-link
@@ -82,23 +81,14 @@
 
 
 <script setup>
-import { ref, inject } from "vue"
+import { ref } from "vue"
 import ProfileCard from "../../components/ProfileCard.vue"
-import { useCounterStore } from '@/stores.js'
-const counter = useCounterStore()
-import { getAuth } from "firebase/auth"
-import axios from "axios"
 import {authRequest} from "@/functions/authRequest";
-const store = inject("store")
-const isAdmin = ref(false)
 const profiles = ref([])
 const clasament_piloti_link = `${import.meta.env.VITE_API_LINK}/clasament-piloti`
 const echipe_link = `${import.meta.env.VITE_API_LINK}/echipe`
 const stiri_translate_link = `${import.meta.env.VITE_API_LINK}/stiri-translate`
 const tp_link = `${import.meta.env.VITE_API_LINK}/team-principals/add`
-if (store.user.profileId === import.meta.env.VITE_ADMIN_UID) {
-  isAdmin.value = true
-}
 
 async function updateTP () {
   try {
@@ -118,22 +108,8 @@ async function updateData() {
 }
 
 async function getData() {
-  const auth = getAuth()
-  const user = auth.currentUser
-  if (!user) {
-    alert("Nu ești autentificat")
-    return
-  }
-
-  const token = await user.getIdToken()
-
   try {
-    const response = await axios.get(`${import.meta.env.VITE_API_LINK}/profile`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    profiles.value = response.data
+    profiles.value = await authRequest("GET" ,`${import.meta.env.VITE_API_LINK}/profile`)
   } catch (error) {
     console.error(error)
     alert("Eroare la preluarea datelor: " + error.message)

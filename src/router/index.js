@@ -7,6 +7,7 @@ import Clasamentpiloti from "../views/Clasamentpiloti.vue"
 import Calificari from "../views/Calificari.vue"
 import Curse from "../views/Curse.vue"
 import Program from "../views/Program.vue"
+import {authRequest} from "@/functions/authRequest";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -221,46 +222,44 @@ function getCurrentUser() {
 }
 
 router.beforeEach(async (to, from, next) => {
-  if (to.matched.some((record) => record.meta.isAuth)) {
-    if (await getCurrentUser()) {
-      alert("Can't access this page")
-      next("/")
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+  const user = await getCurrentUser();
+  const isLoggedIn = !!user;
 
-router.beforeEach(async (to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (await getCurrentUser()) {
-      next()
-    } else {
-      alert("Can't access this page")
-      next("/")
-    }
-  } else {
-    next()
+  // Redirect dacă e deja logat și accesează /signup
+  if (to.meta.isAuth && isLoggedIn) {
+    alert("Already logged in!");
+    return next("/");
   }
-})
 
-router.beforeEach(async (to, from, next) => {
-  if (to.matched.some((record) => record.meta.Admin)) {
-    const user = getAuth()
-    if (
-      (await getCurrentUser()) &&
-      user.currentUser.uid === import.meta.env.VITE_ADMIN_UID
-    ) {
-      next()
-    } else {
-      alert("Don't have the right role for this page")
-      next("/")
-    }
-  } else {
-    next()
+  // Pagini protejate - doar useri logați
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    alert("You have to log in to view this page!");
+    return next("/login");
   }
-})
+
+  // Pagini doar pentru Admin
+  if (to.meta.Admin) {
+    if (!isLoggedIn) {
+      alert("Log in to admin account first!");
+      return next("/login");
+    }
+
+    try {
+      await authRequest("GET", `${import.meta.env.VITE_API_LINK}/check-admin`);
+      return next();
+    } catch (err) {
+      if (err.response?.status === 403) {
+        alert("You are not the admin");
+      } else if (err.response?.status === 401) {
+        alert("Invalid or expired token. Please log in again.");
+      } else {
+        alert("Server error during admin check");
+      }
+      return next("/");
+    }
+  }
+
+  next();
+});
 
 export default router
