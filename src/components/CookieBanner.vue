@@ -17,7 +17,7 @@
         <p class="text-gray-800 source sm:text-xl md:text-base">
           This website uses photos from the official F1 website that may have cookies attached to them.
           If you wish to not be tracked, head over to www.formula1.com and decline all cookies.
-          This website doesn't use other cookies.
+          If you create an account using Google or Github they may use cookies.
         </p>
       </div>
     </div>
