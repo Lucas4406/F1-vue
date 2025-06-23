@@ -4,8 +4,8 @@
 
       <!-- LOGIN / PROFIL -->
       <div v-if="!isLoggedIn" class="flex gap-4">
-        <router-link to="/login" class="bg-red-500 text-black px-4 py-2 rounded hover:bg-red-400 transition">Log In</router-link>
-        <router-link to="/signup" class="bg-red-500 text-black px-4 py-2 rounded hover:bg-red-400 transition">Sign Up</router-link>
+        <router-link to="/login" class="bg-red-500 text-black px-4 py-2 rounded hover:bg-red-400 transition text-lg lg:text-base">Log In</router-link>
+        <router-link to="/signup" class="bg-red-500 text-black px-4 py-2 rounded hover:bg-red-400 transition text-lg lg:text-base">Sign Up</router-link>
       </div>
 
       <div v-else class="flex items-center gap-4 bg-white text-gray-700 px-4 py-3 rounded-lg shadow">
@@ -41,8 +41,8 @@
 
       <!-- INFO LEGAL & COPYRIGHT -->
       <div class="flex flex-col items-center lg:items-end text-center lg:text-right gap-2">
-        <p class="text-white text-sm sm:text-base">© 2025 GridFanHub | F1 news & data</p>
-        <div class="flex gap-4 text-white text-sm sm:text-base underline">
+        <p class="text-white text-xl lg:text-lg">© 2025 GridFanHub | F1 news & data</p>
+        <div class="flex gap-4 text-white text-lg lg:text-base underline">
           <router-link to="/info" class="text-white">More info</router-link>
           <router-link to="/privacy-policy" class="text-white">Privacy Policy</router-link>
         </div>
@@ -57,9 +57,9 @@
           <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.293 14.707A8 8 0 019.293 6.707 8 8 0 0012 20a8 8 0 005.293-5.293z" />
           </svg>
-          <span class="text-sm hidden sm:inline">{{ isDark ? 'Dark Mode' : 'Light Mode' }}</span>
+          <span class="text-base lg:text-sm hidden sm:inline">{{ isDark ? 'Dark Mode' : 'Light Mode' }}</span>
         </button>
-        <p class="text-white text-xs sm:text-sm mt-6 max-w-3xl text-center lg:text-right">
+        <p class="text-white text-sm lg:text-sm mt-6 max-w-3xl text-center lg:text-right">
           This website is unofficial and is not associated in any way with the Formula 1 companies.
           <br class="hidden sm:block" />
           F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks
