@@ -120,7 +120,6 @@ export default {
           }
         }
         this.piloti = data
-        console.log(this.piloti)
       }catch (err){
         console.log(err)
       }
