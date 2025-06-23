@@ -101,12 +101,12 @@
             v-model="soferPref"
         >
           <option
-              :value="sofer"
+              :value="sofer.fullName"
               class="optiune"
-              v-for="sofer in soferiArray"
-              :key="sofer.id"
+              v-for="sofer in fireStoreArray"
+              :key="sofer.fullName"
           >
-            {{ sofer }}
+            {{ sofer.fullName }}
           </option>
         </select>
         <button
@@ -136,7 +136,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, inject, watchEffect } from "vue"
+import { ref, onMounted, inject } from "vue"
 import { useRouter } from "vue-router"
 import { getAuth, signOut } from "firebase/auth"
 import axios from "axios"
@@ -153,9 +153,9 @@ const store = inject("store")
 
 const echipaPref = ref(store.user.favTeam)
 const soferPref = ref(store.user.favDriver)
+const fireStoreArray = ref([])
 
 const echipeArray = ref([])
-const soferiArray = ref([])
 
 const favTeamData = ref(null)
 const favDriverData = ref(null)
@@ -176,10 +176,13 @@ const getAllTeams = async () => {
   return data
 }
 
-const getAllDrivers = async () => {
-  const { data } = await axios.get(`${import.meta.env.VITE_API_LINK}/mongo/piloti?order=asc`)
-  soferiArray.value = data.map(item => `${item.primulNume} ${item.alDoileaNume}`)
-}
+const loadFirestoreDrivers = async () => {
+  try {
+    fireStoreArray.value = await makeRequest(`${import.meta.env.VITE_API_LINK}/api-drivers-f/view/favourite`); // [{ fullName, driverKey, mongoDriverId }]
+  } catch (err) {
+    console.error("Failed to load Firestore drivers:", err);
+  }
+};
 
 const loadFavTeam = async () => {
   if (!echipaPref.value || echipaPref.value.length < 2) return
@@ -211,52 +214,74 @@ const loadFavDriver = async () => {
 }
 
 const updateDb = async () => {
+  const selectedDriverKey = soferPref.value;
+  const oldDriverKey = store.user.favDriver;
+  const selectedTeam = echipaPref.value;
+  const oldTeam = store.user.favTeam;
+
   const urlProfile = `${import.meta.env.VITE_API_LINK}/profile/change/team/${user.uid}`
-  const urlFans = `${import.meta.env.VITE_API_LINK}/mongo/piloti/update-fans`
+
+  const selectedDriver = fireStoreArray.value.find(d => d.fullName === selectedDriverKey);
 
   try {
-    // Salvezi preferințele în profil
-    await authRequest("POST", urlProfile, {
-      favTeam: echipaPref.value || null,
-      favDriver: soferPref.value || null
-    })
+    // Dacă s-a schimbat doar pilotul
+    if (selectedDriverKey !== oldDriverKey && selectedDriver) {
+      await authRequest("POST", `${import.meta.env.VITE_API_LINK}/favourite/driver`, {
+        pilotMongoId: selectedDriver.mongoDriverId,
+        pilotFirestoreId: selectedDriver.driverKey
+      });
+    }
 
-    // Actualizezi store local
-    const oldDriver = store.user.favDriver
-    store.user.favTeam = echipaPref.value
-    store.user.favDriver = soferPref.value
+    // Dacă s-a schimbat echipa sau pilotul – actualizează profilul
+    if (selectedTeam !== oldTeam || selectedDriverKey !== oldDriverKey) {
+      await authRequest("POST", urlProfile, {
+        favTeam: selectedTeam || null,
+        favDriver: selectedDriverKey || null
+      });
 
-    // Apelezi API-ul care updatează nr_fani pentru piloți
-    await authRequest("POST" , urlFans, {
-      newDriver: soferPref.value,
-      oldDriver: oldDriver
-    })
+      // Actualizează local store-ul
+      store.user.favTeam = selectedTeam;
+      store.user.favDriver = selectedDriverKey;
 
-    // Reîncarci datele pentru a reflecta schimbările
-    await Promise.all([loadFavTeam(), loadFavDriver()])
+      if (selectedDriver) await loadFavDriver();
+      if (selectedTeam) await loadFavTeam();
+    } else {
+      console.log("No changes detected.");
+    }
+
   } catch (err) {
-    console.error("Failed to update profile:", err)
+    console.error("Failed to update favourites:", err);
   }
-}
+};
 
 
 onMounted(async () => {
-  document.title = `Profile - ${store.user.displayName}`
-  router.push({ query: { user: store.user.displayName } })
+  document.title = `Profile - ${store.user.displayName}`;
+  router.push({ query: { user: store.user.displayName } });
 
-  await Promise.all([getAllDrivers(), getAllTeams()])
-  showSelect.value = true
+  await Promise.all([
+    loadFirestoreDrivers(), // 🔁
+    getAllTeams()
+  ]);
 
-  if (store.user.favTeam && store.user.favTeam.length > 1) {
-    echipaPref.value = store.user.favTeam
-    await loadFavTeam()
+
+  // Setează valori din store la select
+  const matchedDriver = fireStoreArray.value.find(d => d.fullName === store.user.favDriver);
+  if (matchedDriver) {
+    soferPref.value = matchedDriver.fullName;
+    await loadFavDriver();
   }
 
-  if (store.user.favDriver && store.user.favDriver.length > 1) {
-    soferPref.value = store.user.favDriver
-    await loadFavDriver()
+  if (store.user.favTeam) {
+    echipaPref.value = store.user.favTeam;
+    await loadFavTeam();
   }
-})
+  showSelect.value = true;
+
+
+  if (soferPref.value) await loadFavDriver();
+  if (echipaPref.value) await loadFavTeam();
+});
 </script>
 
 <style scoped>

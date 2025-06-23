@@ -25,13 +25,13 @@
                 {{ pilot.pozitie }}
               </p>
               <div class="flex items-center space-x-2" v-if="!dontShow">
-                <div v-if="pilot.nr_fani > 0" class="flex items-center text-red-500 space-x-1">
+                <div v-if="pilot.nrFani > 0" class="flex items-center text-red-500 space-x-1">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                           d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
                           clip-rule="evenodd" />
                   </svg>
-                  <span class="font-bold text-lg lg:text-base">{{ pilot.nr_fani }}</span>
+                  <span class="font-bold text-lg lg:text-base">{{ pilot.nrFani }}</span>
                 </div>
                 <div class="flex items-center bg-gray-900 text-white rounded-full px-3 py-1 shadow-sm">
                   <span class="font-bold text-lg lg:text-base tracking-tight">{{ pilot.puncte }}</span>
@@ -80,40 +80,54 @@
 
 <script>
 import {useHead} from "@vueuse/head";
+import {makeRequest} from "@/functions/makeRequest";
 
 export default {
   name: "CLasamentpiloti",
-  inject: ["store"],
   data() {
     return {
       piloti: [],
       dontShow: false,
     }
   },
-  mounted() {
-    fetch(`${import.meta.env.VITE_API_LINK}/mongo/piloti?order=asc`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.length === 0) return;
-          var first = data[0].puncte
-          var firstThree = data[0].alDoileaNume.substring(0, 3).toUpperCase()
-          data[0].gapDelta = ""
-          for (var i = 1; i < data.length; i++) {
-            var delta = first - data[i].puncte
-            if (delta < 300) { // Assuming you want to show a gap only within a certain range
-              data[i].gapDelta = `Gap to ${firstThree}: ` + JSON.stringify(-delta)
-            } else {
-              data[i].gapDelta = ""
-            }
+  methods:{
+    async getAllDriverData () {
+      try{
+        const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/piloti?order=asc`)
+        if (data.length === 0) return;
 
-            if (data[i].pozitie === null || data[i].puncte === null) {
-              this.dontShow = true
-            }
-          }
-          this.piloti = data
+        const favouriteArray = await makeRequest(`${import.meta.env.VITE_API_LINK}/favourite/drivers/fans`)
+
+        // Adaugă nr_fani fiecărui pilot după potrivirea id-urilor
+        data.forEach(pilot => {
+          const fanData = favouriteArray.find(f => f.driverId === String(pilot._id))
+          pilot.nrFani = fanData ? fanData.fans : 0
         })
-        .catch((err) => console.log(err))
 
+        var first = data[0].puncte
+        var firstThree = data[0].alDoileaNume.substring(0, 3).toUpperCase()
+        data[0].gapDelta = ""
+
+        for (var i = 1; i < data.length; i++) {
+          var delta = first - data[i].puncte
+          if (delta < 300) {
+            data[i].gapDelta = `Gap to ${firstThree}: ` + JSON.stringify(-delta)
+          } else {
+            data[i].gapDelta = ""
+          }
+          if (data[i].pozitie === null || data[i].puncte === null) {
+            this.dontShow = true
+          }
+        }
+        this.piloti = data
+        console.log(this.piloti)
+      }catch (err){
+        console.log(err)
+      }
+    }
+  },
+  async mounted() {
+    await this.getAllDriverData()
     // Your useHead metadata remains unchanged
     useHead({
       title: "GridFanHub | Formula 1 Drivers 2025",
