@@ -1,5 +1,11 @@
 <template>
-  <div class="content-echipe" id="echipeCont">
+  <div class="text-center mb-12">
+    <h1 class="text-6xl lg:text-5xl font-extrabold tracking-tight source text-black">
+      Formula 1 Team Standings
+    </h1>
+    <p class="mt-2 text-xl lg:text-lg text-gray-500 ">2025 Season</p>
+  </div>
+  <div class="content-echipe mb-8" id="echipeCont">
     <div
         class="box"
         :class="[

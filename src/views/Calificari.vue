@@ -14,10 +14,11 @@
         </option>
       </select>
     </div>
-    <div class="text-wrap">
-      <p class="text-titlu" ref="titlul">
-        {{ "Qualifying results " + titlu }}
-      </p>
+    <div class="text-center mb-12">
+      <h1 class="text-6xl lg:text-5xl font-extrabold tracking-tight source text-black">
+        Formula 1 Qualifying results
+      </h1>
+      <p class="mt-2 text-xl lg:text-lg text-gray-500 ">{{titlu}} Season</p>
     </div>
 <!--    <div class="search-wrapper">-->
 <!--      <input-->

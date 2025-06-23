@@ -20,7 +20,6 @@
   column-gap: 6.25rem;
   row-gap: 1.875rem;
   justify-content: center;
-  margin-top: 2%;
 }
 .linie1 {
   display: grid;
@@ -97,9 +96,6 @@
 .content > a {
   text-decoration: none;
   color: black;
-}
-.content-echipe {
-  margin-bottom: 1rem;
 }
 .content > a:nth-child(10) {
   margin-bottom: 2rem;
