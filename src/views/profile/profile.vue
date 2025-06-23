@@ -3,6 +3,7 @@
     <!-- Profile-box -->
     <div
         class="relative max-w-md mx-auto md:max-w-2xl min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16"
+        v-once
     >
       <div class="px-6">
         <div class="flex flex-wrap justify-center">
@@ -73,7 +74,7 @@
         class="text-xl flex flex-row gap-2 items-center justify-center"
         v-if="showSelect"
     >
-      <div alt="echipa" class="flex flex-row gap-2 items-center justify-center">
+      <div class="flex flex-row gap-2 items-center justify-center">
         <label class="text-label" for="echipaPref">Favourite team:</label>
         <select
             id="echipaPref"

@@ -14,8 +14,8 @@
       <div class="buton">
         <router-link to="/schedule" class="link-router">Schedule</router-link>
       </div>
-      <div class="buton">
-        <router-link to="/teams" class="link-router">Teams</router-link>
+      <div class="buton" v-if="meetingButtonPath">
+        <router-link :to="meetingButtonPath" class="link-router">{{meetingButtonTitle}}</router-link>
       </div>
       <div class="buton" id="buton-dpd" data-dropdown>
         <p class="dropdown-label" data-dropdown-button>
@@ -25,7 +25,7 @@
           </svg>
         </p>
         <div class="dropdown-menu">
-          <router-link to="/team-standings" class="text-dropdown" @click="closeAllDropdowns"
+          <router-link to="/teams" class="text-dropdown" @click="closeAllDropdowns"
             >Teams</router-link
           >
           <router-link to="/drivers" class="text-dropdown" @click="closeAllDropdowns"
@@ -83,7 +83,12 @@
 import { onMounted, ref } from "vue"
 import store from "../store"
 import profileBadge from "./profile-badge.vue"
+import {makeRequest} from "@/functions/makeRequest";
+import getNext from "@/functions/getNext.js"
 const isLogged = ref(false)
+const isNext = ref(false)
+const meetingButtonTitle = ref(null)
+const meetingButtonPath = ref(null)
 if (store.user != null) {
   isLogged.value = true
 }
@@ -109,8 +114,31 @@ function closeAllDropdowns() {
     dropdown.classList.remove("active")
   })
 }
+async function checkIfShouldLoadLastRace() {
+  try {
+    const date = await getNext
+    const now = new Date()
+    const start = new Date(date.race.meetingStartDate)
+    const diffMs = start - now
+    const diffDays = diffMs / (1000 * 60 * 60 * 24)
+
+    if (diffDays > 1) {
+      const dateGetLast = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`)// presupune un helper `getLast.js` care face request la /get-last
+      isNext.value = false
+      meetingButtonTitle.value = "Last meeting"
+      meetingButtonPath.value = `/schedule/${dateGetLast.meetingContext.season}/${dateGetLast.race.meetingName.toLowerCase().replaceAll(" ", "-")}`
+    }else{
+      isNext.value = true
+      meetingButtonTitle.value = "Current meeting"
+      meetingButtonPath.value = `/schedule/${date.meetingContext.season}/${date.race.meetingName.toLowerCase().replaceAll(" ", "-")}`
+    }
+  } catch (err) {
+    console.log("Eroare la checkIfShouldLoadLastRace:", err)
+  }
+}
 
 onMounted(async () => {
+  await checkIfShouldLoadLastRace()
   window.addEventListener("scroll", () => {
     const header = document.getElementById("header")
     header.classList.toggle("scrolled", window.scrollY > 30)

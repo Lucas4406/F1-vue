@@ -4,17 +4,19 @@ import ConstructorCard from "@/components/ConstructorCard.vue";
 import PilotCard from "@/components/PilotCard.vue";
 import herocursa from "@/components/herocursa.vue";
 import {makeRequest} from "@/functions/makeRequest";
-import Podium from "@/components/Podium.vue"
 import Stiricomp from "@/components/stiricomp.vue";
 import {useHead} from "@vueuse/head";
 import AccountCard from "@/components/AccountCard.vue";
+import ReusablePodium from "@/components/ReusablePodium.vue";
+import ReusableButton from "@/components/ReusableButton.vue";
 
 export default {
   name: "Home",
   components: {
+    ReusableButton,
+    ReusablePodium,
     AccountCard,
     Stiricomp,
-    Podium,
     herocursa,
     PilotCard,
     ConstructorCard,
@@ -41,6 +43,7 @@ export default {
       top5Overtakers: [],
       lastRaceDateText: null,
       linkCursaVeche: null,
+      showAllPodiums: false,
     }
   },
   async mounted() {
@@ -156,7 +159,7 @@ export default {
         const diffMs = start - now
         const diffDays = diffMs / (1000 * 60 * 60 * 24)
 
-        if (diffDays > 2) {
+        if (diffDays > 1) {
           const dateGetLast = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`)// presupune un helper `getLast.js` care face request la /get-last
           this.lastRaceData = dateGetLast
           const lastMeetingKey = dateGetLast.fomRaceId
@@ -184,6 +187,9 @@ export default {
         console.log("Eroare la checkIfShouldLoadLastRace:", err)
       }
     },
+    viewAllPodium() {
+      this.showAllPodiums = !this.showAllPodiums;
+    }
   },
 }
 
@@ -191,7 +197,6 @@ export default {
 
 <template>
   <div class="site-wrapper mb-2" :class="{ loggedin: store.user != null }">
-    <br />
     <div class="top-hero">
       <transition name="scale-fade" appear>
         <div v-if="Hero && heroData">
@@ -202,6 +207,7 @@ export default {
     <br />
     <div
         v-if="store.user != null"
+        class="h-[20rem]"
     >
       <div
           class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
@@ -222,84 +228,79 @@ export default {
       </div>
     </div>
     <div class="stiri-grid">
-      <div class="text-center mb-10" v-if="lastRaceData">
-        <h2 class="text-4xl md:text-5xl font-extrabold source">
-          🏆 Last race results
-        </h2>
-        <p v-if="lastRaceDateText" class="text-3xl text-gray-600 mt-2 font-bold source">
-          {{ top3Drivers.raceName }}
-        </p>
-        <p v-if="lastRaceDateText" class="text-xl text-gray-600 mt-2 source">
-          {{ lastRaceDateText }}
-        </p>
-      </div>
-      <Podium :top3="top3Drivers" v-if="top3Drivers.linkCursaVeche"/>
-      <br />
-      <div class="flex flex-col md:flex-row justify-center items-center md:items-end gap-8 md:h-[24rem]" v-if="lastRaceData">
-        <!-- Locul 2 -->
-        <div v-if="top3Teams[1]" class="flex flex-col items-center w-72 md:w-56 transition-transform duration-200 hover:scale-105">
-          <div class="bg-gray-500 text-white text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">2</div>
-          <div class="bg-gray-100 w-full h-56 md:h-72 rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] border-black border-t-0 px-4">
-            <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[1].team }}</p>
-            <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[1].points }} pts</p>
+      <div v-if="lastRaceData">
+          <div class="text-center mb-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold source">
+              🏆 Last race results
+            </h2>
+            <p v-if="lastRaceDateText" class="text-3xl text-gray-600 mt-2 font-bold source">
+              {{ top3Drivers.raceName }}
+            </p>
+            <p v-if="lastRaceDateText" class="text-xl text-gray-600 mt-2 source">
+              {{ lastRaceDateText }}
+            </p>
+          </div>
+          <ReusablePodium :top3="top3Drivers">
+            <template #firstPodiumSlot>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[0].driverName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[0].team }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[0].points }} pts</p>
+              <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[0].time }}</p>
+            </template>
+            <template #secondPodiumSlot>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[1].driverName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[1].team }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[1].points }} pts</p>
+              <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[1].time }}</p>
+            </template>
+            <template #thirdPodiumSlot>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[2].driverName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[2].team }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[2].points }} pts</p>
+              <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[2].time }}</p>
+            </template>
+          </ReusablePodium>
+          <template v-if="showAllPodiums">
+            <br />
+            <ReusablePodium :top3="top3Teams" v-once>
+              <template #firstPodiumSlot>
+                <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[0].team }}</p>
+                <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[0].points }} pts</p>
+              </template>
+              <template #secondPodiumSlot>
+                <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[1].team }}</p>
+                <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[1].points }} pts</p>
+              </template>
+              <template #thirdPodiumSlot>
+                <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[2].team }}</p>
+                <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[2].points }} pts</p>
+              </template>
+            </ReusablePodium>
+            <br/>
+            <ReusablePodium :top3="top5Overtakers" title="Top 3 Overtakers" v-once>
+              <template #firstPodiumSlot>
+                <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].full_name }}</p>
+                <p class="text-center text-base md:text-lg">{{ top5Overtakers[0].team_name }}</p>
+                <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[0].overtakes }}</p>
+              </template>
+              <template #secondPodiumSlot>
+                <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[1].full_name }}</p>
+                <p class="text-center text-base md:text-lg">{{ top5Overtakers[1].team_name }}</p>
+                <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[1].overtakes }}</p>
+              </template>
+              <template #thirdPodiumSlot>
+                <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[2].full_name }}</p>
+                <p class="text-center text-base md:text-lg">{{ top5Overtakers[2].team_name }}</p>
+                <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[2].overtakes }}</p>
+              </template>
+            </ReusablePodium>
+          </template>
+          <div class="w-full flex justify-center align-center mt-8">
+            <ReusableButton @click="viewAllPodium">
+              {{ showAllPodiums ? 'View less results' : 'View more results' }}
+            </ReusableButton>
           </div>
         </div>
-
-        <!-- Locul 1 -->
-        <div v-if="top3Teams[0]" class="flex flex-col items-center w-72 md:w-60 transition-transform duration-200 hover:scale-105">
-          <div class="bg-yellow-400 text-black text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">1</div>
-          <div class="bg-yellow-100 w-full h-64 md:h-80 rounded-b-xl flex flex-col justify-center items-center shadow-xl border-[6px] border-yellow-400 border-t-0 px-4">
-            <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[0].team }}</p>
-            <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[0].points }} pts</p>
-          </div>
-        </div>
-
-        <!-- Locul 3 -->
-        <div v-if="top3Teams[2]" class="flex flex-col items-center w-72 md:w-52 transition-transform duration-200 hover:scale-105">
-          <div class="bg-orange-500 text-white text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">3</div>
-          <div class="bg-orange-100 w-full h-52 md:h-64 rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] border-black border-t-0 px-4">
-            <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[2].team }}</p>
-            <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[2].points }} pts</p>
-          </div>
-        </div>
-      </div>
-      <br/>
-      <div class="text-center mb-10" v-if="lastRaceData">
-        <h2 class="text-3xl md:text-4xl font-semibold source" v-if="lastRaceData">
-          Top 3 Overtakers
-        </h2>
-      </div>
-      <div class="flex flex-col md:flex-row justify-center items-center md:items-end gap-8 md:h-[24rem]" v-if="lastRaceData">
-        <!-- Locul 2 -->
-        <div v-if="top5Overtakers[1]" class="flex flex-col items-center w-72 md:w-56 transition-transform duration-200 hover:scale-105">
-          <div class="bg-gray-500 text-white text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">2</div>
-          <div class="bg-gray-100 w-full h-56 md:h-72 rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] border-black border-t-0 px-4">
-            <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[1].full_name }}</p>
-            <p class="text-center text-base md:text-lg">{{ top5Overtakers[1].team_name }}</p>
-            <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[1].overtakes }}</p>
-          </div>
-        </div>
-
-        <!-- Locul 1 -->
-        <div v-if="top5Overtakers[0]" class="flex flex-col items-center w-72 md:w-60 transition-transform duration-200 hover:scale-105">
-          <div class="bg-yellow-400 text-black text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">1</div>
-          <div class="bg-yellow-100 w-full h-64 md:h-80 rounded-b-xl flex flex-col justify-center items-center shadow-xl border-[6px] border-yellow-400 border-t-0 px-4">
-            <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].full_name }}</p>
-            <p class="text-center text-base md:text-lg">{{ top5Overtakers[0].team_name }}</p>
-            <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[0].overtakes }}</p>
-          </div>
-        </div>
-
-        <!-- Locul 3 -->
-        <div v-if="top5Overtakers[2]" class="flex flex-col items-center w-72 md:w-52 transition-transform duration-200 hover:scale-105">
-          <div class="bg-orange-500 text-white text-lg md:text-xl px-5 py-2 rounded-t-xl shadow font-bold">3</div>
-          <div class="bg-orange-100 w-full h-52 md:h-64 rounded-b-xl flex flex-col justify-center items-center shadow-md border-[6px] border-black border-t-0 px-4">
-            <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[2].full_name }}</p>
-            <p class="text-center text-base md:text-lg">{{ top5Overtakers[2].team_name }}</p>
-            <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[2].overtakes }}</p>
-          </div>
-        </div>
-      </div>
       <Stiricomp />
     </div>
     <AccountCard v-if="store.user == null" />
