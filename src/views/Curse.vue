@@ -23,14 +23,14 @@
 <!--      </button>-->
     </div>
     <p class="titlu-pagina-curse">{{ "Race results " + titlu }}</p>
-    <div class="search-wrapper">
-      <input
-        type="text"
-        v-model="search"
-        placeholder="Use only after loading"
-        class="search-bar"
-      />
-    </div>
+<!--    <div class="search-wrapper">-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        v-model="search"-->
+<!--        placeholder="Use only after loading"-->
+<!--        class="search-bar"-->
+<!--      />-->
+<!--    </div>-->
     <tabelcursa v-for="cursa in filterCurse" :key="cursa.id" :cursa="cursa" />
     <div ref="sentinel" class="loading" v-if="this.currentRaceRound > 0">
       <p v-if="loading">Loading...</p>

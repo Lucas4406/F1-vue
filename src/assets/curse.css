@@ -61,7 +61,6 @@ html {
 }
 .pilot-container-curse:hover {
   transform: scale(1.02);
-  box-shadow: 10px 10px 10px black;
 }
 .tabel-body-curse {
   display: grid;

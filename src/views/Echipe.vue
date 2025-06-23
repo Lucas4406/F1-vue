@@ -8,9 +8,12 @@
       ]"
         v-for="(echipa, index) in echipe"
         :key="index"
+        @mouseover="hoveredIndex = index"
+        @mouseleave="hoveredIndex = null"
+        :style="hoveredIndex === index ? getBoxStyle(echipa.culoareEchipa) : {}"
     >
       <div class="linie1">
-        <div class="linie flex flex-row items-center gap-2" id="numar">
+        <div class="linie flex flex-row items-center gap-2" id="numar" :style="hoveredIndex === index ? { color: echipa.culoareEchipa } : {}">
           <div class="">
             {{ echipa.pozitie }}
           </div>
@@ -70,6 +73,7 @@ export default {
     const ok = ref("")
     const puncteNull = ref(false)
     const store = inject("store")
+    const hoveredIndex = ref(null)
 
     const setHead = (year) => {
       useHead({
@@ -133,7 +137,13 @@ export default {
         ],
       });
     }
-
+    const getBoxStyle = (culoare) => {
+      return {
+        border: `3px solid ${culoare}`,
+        borderLeft: '0',
+        borderBottom: '0'
+      }
+    }
     const getTeams = async () => {
       const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)
       echipe.value = data
@@ -166,6 +176,8 @@ export default {
       echipaFav,
       ok,
       puncteNull,
+      hoveredIndex,
+      getBoxStyle
     }
   },
 }

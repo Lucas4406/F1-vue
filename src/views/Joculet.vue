@@ -21,7 +21,7 @@
         1. Press the  <span style="color: red">"Start"</span> button
       </p>
       <p class="instructiune">2. Wait a few seconds (random)</p>
-      <p class="instructiune">3. Click on the box that appeares as fast as you can</p>
+      <p class="instructiune">3. Click on the circle that appeares as fast as you can</p>
       <p class="instructiune">4. Check your score</p>
     </div>
     <div class="result-box" v-if="showResult">

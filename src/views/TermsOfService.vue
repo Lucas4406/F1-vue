@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-5xl mx-auto px-6 py-10 text-gray-800 leading-relaxed source">
+  <div class="max-w-5xl mx-auto px-6 py-10 text-gray-800 leading-relaxed source" v-once>
     <h1 class="text-3xl font-bold mb-2 source">Terms of Service for GridFanHub</h1>
     <p class="text-sm text-gray-500 mb-8">Last updated: May 27, 2025</p>
 

@@ -1,6 +1,7 @@
 <template>
   <div
       class="flex flex-col items-center justify-center min-h-screen w-full px-4 py-8 text-center text-gray-800 surse-text"
+      v-once
   >
     <p class="text-5xl font-bold mb-8">Sources used:</p>
 

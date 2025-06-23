@@ -68,11 +68,12 @@ export default {
       const linkBase = `https://api.jolpi.ca/ergast/f1/${this.an}/${this.nrCursa + 1}`
       const terminare = ".json?limit=100"
 
+      const raceData = await this.fetchData(linkBase + "/results" + terminare)
+      const race = raceData.MRData.RaceTable.Races[0]
+
       const qualiData = await this.fetchData(linkBase + "/qualifying" + terminare)
       this.qualiData = qualiData.MRData.RaceTable.Races[0]
 
-      const raceData = await this.fetchData(linkBase + "/results" + terminare)
-      const race = raceData.MRData.RaceTable.Races[0]
       if (race?.Results) {
         race.Results.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"))
         this.cursaData = race

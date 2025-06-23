@@ -59,6 +59,12 @@
           </svg>
           <span class="text-sm hidden sm:inline">{{ isDark ? 'Dark Mode' : 'Light Mode' }}</span>
         </button>
+        <p class="text-white text-xs sm:text-sm mt-6 max-w-3xl text-center lg:text-right">
+          This website is unofficial and is not associated in any way with the Formula 1 companies.
+          <br class="hidden sm:block" />
+          F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks
+          are trade marks of Formula One Licensing B.V.
+        </p>
       </div>
     </div>
   </div>

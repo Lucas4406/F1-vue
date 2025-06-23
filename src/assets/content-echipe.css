@@ -6,101 +6,10 @@
   border-left: 0;
   border-bottom: 0;
   border-radius: 12px;
-  transition: 0.2s;
   transition: transform 250ms ease-in-out;
 }
 .box:hover {
   transform: scale(1.02);
-}
-.box.Ferrari:hover {
-  box-shadow: 15px 15px 15px #f91536;
-  border: 3px solid #f91536;
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.Ferrari:hover .linie {
-  color: #f91536;
-}
-.box.Mercedes:hover {
-  box-shadow: 15px 15px 15px #6cd3bf;
-  border: 3px solid #6cd3bf;
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.Mercedes:hover .linie {
-  color: #6cd3bf;
-}
-.box.RedBullRacing:hover {
-  box-shadow: 15px 15px 15px #3671c6;
-  border: 3px solid #3671c6;
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.RedBullRacing:hover .linie {
-  color: #3671c6;
-}
-.box.McLaren:hover {
-  box-shadow: 15px 15px 15px #f58020;
-  border: 3px solid #f58020;
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.McLaren:hover .linie {
-  color: #f58020;
-}
-.box.Alpine:hover {
-  box-shadow: 15px 15px 15px #2293d1;
-  border: 3px solid #2293d1;
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.Alpine:hover .linie {
-  color: #2293d1;
-}
-.box.KickSauber:hover {
-  box-shadow: 15px 15px 15px rgb(82, 226, 82);
-  border: 3px solid rgb(82, 226, 82);
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.KickSauber:hover .linie {
-  color: rgb(82, 226, 82);
-}
-.box.Haas:hover {
-  box-shadow: 15px 15px 15px #b6babd;
-  border: 3px solid #b6babd;
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.Haas:hover .linie {
-  color: #b6babd;
-}
-.box.RacingBulls:hover {
-  box-shadow: 15px 15px 15px rgb(102, 146, 255);
-  border: 3px solid rgb(102, 146, 255);
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.RacingBulls:hover .linie {
-  color: rgb(102, 146, 255);
-}
-.box.Williams:hover {
-  box-shadow: 15px 15px 15px #37bedd;
-  border: 3px solid #37bedd;
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.Williams:hover .linie {
-  color: #37bedd;
-}
-.box.AstonMartin:hover {
-  box-shadow: 15px 15px 15px #358c75;
-  border: 3px solid #358c75;
-  border-left: 0;
-  border-bottom: 0;
-}
-.box.AstonMartin:hover .linie {
-  color: #358c75;
 }
 .box.AstonMartin {
   margin-bottom: 1rem;
@@ -149,6 +58,9 @@
   background-repeat: repeat;
   background-size: 8px;
   border-radius: 0 0 12px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .points {
   display: flex;
@@ -176,7 +88,7 @@
   align-items: center;
 }
 .poza {
-  width: 100%;
+  width: 98%;
   transition: transform 250ms ease-in-out;
 }
 .box:hover > .linie3 > .poza {

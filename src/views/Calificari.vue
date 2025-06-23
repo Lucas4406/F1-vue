@@ -19,19 +19,20 @@
         {{ "Qualifying results " + titlu }}
       </p>
     </div>
-    <div class="search-wrapper">
-      <input
-        type="text"
-        placeholder="Use only after loading"
-        class="search-bar"
-        v-model="search"
+<!--    <div class="search-wrapper">-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        placeholder="Use only after loading"-->
+<!--        class="search-bar"-->
+<!--        v-model="search"-->
+<!--      />-->
+<!--    </div>-->
+
+      <tabelcali
+        v-for="tabel in filterCurse"
+        :key="tabel.id"
+        :qualiData="tabel"
       />
-    </div>
-    <tabelcali
-      v-for="tabel in filterCurse"
-      :key="tabel.id"
-      :qualiData="tabel"
-    />
     <div ref="sentinel" class="loading" v-if="this.currentRaceRound > 0">
       <p v-if="loading">Loading...</p>
       <p v-else>Scroll for more results</p>
@@ -245,4 +246,15 @@ export default {
 @import "../assets/calificari.css";
 @import "../assets/searchbar.css";
 @import "../assets/formSelect-curse.css";
+.fade-enter-active {
+  transition: all 0.5s ease;
+}
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.fade-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>

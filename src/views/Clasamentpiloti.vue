@@ -3,10 +3,10 @@
     <div class="container mx-auto pb-10 px-4 sm:px-6 lg:px-8">
 
       <div class="text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight source text-black">
+        <h1 class="text-6xl lg:text-5xl font-extrabold tracking-tight source text-black">
           Formula 1 Driver Standings
         </h1>
-        <p class="mt-2 text-lg text-gray-500 ">2025 Season</p>
+        <p class="mt-2 text-xl lg:text-lg text-gray-500 ">2025 Season</p>
       </div>
 
       <div class="piloti-grid">
@@ -31,22 +31,22 @@
                           d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
                           clip-rule="evenodd" />
                   </svg>
-                  <span class="font-bold text-sm">{{ pilot.nr_fani }}</span>
+                  <span class="font-bold text-lg lg:text-base">{{ pilot.nr_fani }}</span>
                 </div>
                 <div class="flex items-center bg-gray-900 text-white rounded-full px-3 py-1 shadow-sm">
-                  <span class="font-bold text-base tracking-tight">{{ pilot.puncte }}</span>
-                  <span class="text-xs font-semibold ml-1.5 mt-px">PTS</span>
+                  <span class="font-bold text-lg lg:text-base tracking-tight">{{ pilot.puncte }}</span>
+                  <span class="text-sm lg:text-xs font-semibold ml-1.5 mt-px">PTS</span>
                 </div>
               </div>
             </div>
 
             <div class="flex-grow">
-              <p class="text-lg font-light text-gray-500  source">{{ pilot.primulNume }}</p>
+              <p class="text-xl lg:text-lg font-light text-gray-500  source">{{ pilot.primulNume }}</p>
               <p class="text-3xl font-extrabold text-gray-900  -mt-1.5 tracking-tight source">
                 {{ pilot.alDoileaNume }}
               </p>
               <div class="flex-column items-center mt-3">
-                <p class="text-base font-semibold text-gray-600  source mb-1">{{ pilot.echipa }}</p>
+                <p class="text-lg lg:text-base font-semibold text-gray-600  source mb-1">{{ pilot.echipa }}</p>
                 <img :src="pilot.steag" class="h-6 w-auto rounded-sm border border-gray-200 " alt="Driver flag" />
               </div>
             </div>
@@ -71,7 +71,7 @@
         </router-link>
       </div>
 
-      <p class="text-center font-bold text-gray-600  max-w-md mx-auto mt-16 source">
+      <p class="text-center text-2xl lg:text-xl font-bold text-gray-600  max-w-md mx-auto mt-16 source">
         Sign up to pick your favourite driver and show your support with a heart
       </p>
     </div>
