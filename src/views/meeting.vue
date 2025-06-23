@@ -166,33 +166,37 @@ export default {
 
 
 <template>
-  <div class="container-curse">
-    <br />
-    <p class="titlu-pagina-curse">{{ meetingNameFormatted + " " + an + " results" }}</p>
+  <div class="container-curse pt-2">
+    <div class="text-center mb-12">
+      <h1 class="text-6xl lg:text-5xl font-bold tracking-tight source text-black">
+        {{ meetingNameFormatted + " results" }}
+      </h1>
+      <p class="mt-2 text-xl lg:text-lg text-gray-500 ">{{an}} Season</p>
+    </div>
 
     <p v-if="!cursaData && !qualiData && !sprintData" class="titlu-pagina-curse">
       Results will appear after the session has ended
     </p>
 
     <template v-if="cursaData">
-      <p class="titlu-pagina-curse">Race results</p>
+      <h2 class="titlu-pagina-curse">Race results</h2>
       <tabelcursa :cursa="cursaData" />
       <br />
     </template>
 
     <template v-if="qualiData">
-      <p class="titlu-pagina-curse">Qualifying results</p>
+      <h2 class="titlu-pagina-curse">Qualifying results</h2>
       <tabelcali :qualiData="qualiData" />
       <br />
     </template>
 
     <template v-if="sprintData">
-      <p class="titlu-pagina-curse">Sprint results</p>
+      <h2 class="titlu-pagina-curse">Sprint results</h2>
       <Tabelsprint :cursa="sprintData" />
       <br />
     </template>
 
-    <p class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Race Control messages</p>
+    <h2 class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Race Control messages</h2>
     <Suspense>
       <template #default>
         <AccordionMesaje
