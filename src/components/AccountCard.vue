@@ -120,10 +120,10 @@
             </div>
           </div>
           <router-link
-              to="/sources"
+              to="/info"
               class="flex items-center justify-center bg-red-800 hover:bg-red-700 p-8 text-md font-semibold text-gray-300 uppercase mt-8"
           >
-            <span>Sources</span>
+            <span>More info</span>
             <span class="font-medium text-gray-300 ml-2">➔</span>
           </router-link>
         </div>
@@ -132,3 +132,7 @@
   </div>
 </template>
 
+
+<script>
+
+</script>
