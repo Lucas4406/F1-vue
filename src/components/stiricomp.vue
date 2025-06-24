@@ -81,10 +81,16 @@ async function fetchWithCache(key, url) {
 </script>
 
 <style>
-.racefansgrid {
-  transition: transform 0.2s ease-in-out;
+.racefansgrid .img-wrapper {
+  overflow: hidden;
 }
-.racefansgrid:hover {
-  transform: scale(1.02) translateY(-5px);
+
+.racefansgrid .img-wrapper img {
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+}
+
+.racefansgrid:hover .img-wrapper img {
+  transform: scale(1.03);
 }
 </style>

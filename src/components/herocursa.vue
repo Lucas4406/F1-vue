@@ -52,7 +52,6 @@
 
 
 <script>
-import {makeRequest} from "@/functions/makeRequest";
 
 export default {
   props: ["heroData" , "link"],

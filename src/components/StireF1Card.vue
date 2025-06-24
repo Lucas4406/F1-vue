@@ -5,7 +5,14 @@
       rel="noopener noreferrer"
       class="bg-white rounded-2xl shadow-lg hover:shadow-xl border border-gray-300 overflow-hidden flex flex-col md:w-10/12 md:mx-auto md:min-h-[600px] lg:w-full lg:min-h-[500px] racefansgrid"
   >
-    <img :src="stire.thumbnail.image.new_path" :alt="stire.title" loading="lazy" class="w-full h-80 lg:h-72 object-cover" />
+    <div class="img-wrapper">
+      <img
+          :src="stire.thumbnail.image.new_path"
+          :alt="stire.title"
+          loading="lazy"
+          class="w-full h-80 lg:h-72 object-cover imagine-stire"
+      />
+    </div>
     <div class="p-6 flex flex-col justify-between flex-1">
       <h3 class="text-3xl lg:text-xl font-semibold text-gray-800 mb-3 leading-snug">
         {{ stire.title }}
