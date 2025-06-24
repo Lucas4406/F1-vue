@@ -6,6 +6,10 @@
   --percent100: 100%;
   --one1rem: 1rem;
   --w100px: 100px;
+  --light-text: #fff;
+  --dark-text: black;
+  --bg-body-dark-mode: #121212;
+  --bg-component-dark-mode: #333;
 }
 
 body {
@@ -16,10 +20,10 @@ body {
   scroll-behavior: smooth;
 }
 html.darkmode > body {
-  background-color: #121212;
+  background-color: var(--bg-body-dark-mode);
 }
 h1 {
-  color: black;
+  color: var(--dark-text);
 }
 #nav {
   position: relative;
@@ -46,7 +50,7 @@ h1 {
 }
 .link-router {
   text-decoration: none;
-  color: #dcd3d3;
+  color: var(--light-text);
   display: inline-block; /* sau block dacă preferi */
 }
 #main-content {
