@@ -29,7 +29,7 @@ export default {
       Hero: false,
       heroError: false,
       componentKey: 0,
-      favArr: [],
+      favouriteTeam: [],
       favDriv: [],
       bla: false,
       driverOk: false,
@@ -103,8 +103,8 @@ export default {
         const date = await getNext
         const dataInc = new Date(date.race.meetingStartDate)
         const dataSf = new Date(date.race.meetingEndDate)
-        var dataI = dataInc.getDate()
-        var dataS = dataSf.getDate()
+        let dataI = dataInc.getDate()
+        let dataS = dataSf.getDate()
         function padWithLeadingZeros(num, totalLength) {
           return String(num).padStart(totalLength, "0")
         }
@@ -136,14 +136,11 @@ export default {
       }
     },
     async favoriteTeam() {
-      const fav = this.store.user.favTeam.substring(0, 4)
+      const fav = this.store.user.favTeam
       const date = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)
-      const echipe = await makeRequest("https://api.jolpi.ca/ergast/f1/current/constructorstandings.json")
-      const arr =
-          echipe.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
-      for (var i = 0; i < arr.length; i++) {
-        if (date[i].name.includes(fav)) {
-          this.favArr = arr[i]
+      for (let i = 0; i < date.length; i++) {
+        if (date[i].name === fav) {
+          this.favouriteTeam = date[i]
         }
       }
     },
@@ -214,7 +211,7 @@ export default {
           v-if="bla === true && driverOk === true"
       >
         <ConstructorCard
-            :team="favArr"
+            :team="favouriteTeam"
             :darkMode="darkMode"
             class="sm:w-[20rem]"
             v-if="bla"

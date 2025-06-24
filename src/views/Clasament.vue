@@ -100,6 +100,6 @@ export default {
 }
 </script>
 
-<style>
-@import "../assets/clasament.css";
-</style>
+<!--<style>-->
+<!--@import "../assets/clasament.css";-->
+<!--</style>-->

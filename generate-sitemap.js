@@ -15,41 +15,45 @@ async function getDynamicRoutes() {
 
 async function generateSitemap() {
     const baseUrl = 'https://gridfanhub.com'
-    const staticRoutes = [
-        '/',
-        '/team-standings',
-        '/profile',
-        '/update-profile',
-        '/race-results/2025',
-        '/qualifying-results/2025',
-        '/reaction-game',
-        '/f1-history',
-        '/drivers',
-        '/teams',
-        '/schedule',
-        '/login',
-        '/signup',
-        '/sources',
-        '/change-password',
-        '/forgot-password',
-    ]
+    const staticRoutesWithPriority = {
+        '/': 1.0,
+        '/schedule': 0.9,
+        '/drivers': 0.9,
+        '/teams': 0.9,
+        '/race-results/2025': 0.9,
+        '/qualifying-results/2025': 0.9,
+        '/reaction-game': 0.8,
+        '/f1-history': 0.7,
+        "/privacy-policy": 0.6,
+        '/profile': 0.5,
+        '/update-profile': 0.5,
+        '/login': 0.5,
+        '/signup': 0.5,
+        '/change-password': 0.5,
+        '/forgot-password': 0.5,
+        '/info': 0.2,
+    }
 
     const dynamicRoutes = await getDynamicRoutes()
 
-    const urls = [...staticRoutes.map(route => ({
-        loc: `${baseUrl}${route}`,
-        lastmod: new Date().toISOString().split('T')[0],
-        priority: route === '/' ? 1.0 : 0.8
-    })), ...dynamicRoutes.map(route => ({
-        loc: `${baseUrl}${route}`,
-        lastmod: new Date().toISOString().split('T')[0], // Sau data cursei din API dacă ai
-        priority: 0.8
-    }))]
+    const urls = [
+        ...Object.entries(staticRoutesWithPriority).map(([route, priority]) => ({
+            loc: `${baseUrl}${route}`,
+            lastmod: new Date().toISOString().split('T')[0],
+            priority
+        })),
+        ...dynamicRoutes.map(route => ({
+            loc: `${baseUrl}${route}`,
+            lastmod: new Date().toISOString().split('T')[0], // Sau race.date
+            priority: 0.7 // sau poți seta altă logică (ex: 0.9 pentru Monaco etc.)
+        }))
+    ]
 
     const xmlUrls = urls.map(url => `
   <url>
     <loc>${url.loc}</loc>
     <lastmod>${url.lastmod}</lastmod>
+    <changefreq>daily</changefreq>
     <priority>${url.priority}</priority>
   </url>
 `).join('\n')

@@ -83,12 +83,12 @@
             v-model="echipaPref"
         >
           <option
-              :value="echipa"
+              :value="echipa.teamName"
               class="optiune"
-              v-for="echipa in echipeArray"
-              :key="echipa.id"
+              v-for="echipa in firestoreTeamsArray"
+              :key="echipa.teamName"
           >
-            {{ echipa }}
+            {{ echipa.teamName }}
           </option>
         </select>
       </div>
@@ -154,6 +154,7 @@ const store = inject("store")
 const echipaPref = ref(store.user.favTeam)
 const soferPref = ref(store.user.favDriver)
 const fireStoreArray = ref([])
+const firestoreTeamsArray = ref([])
 
 const echipeArray = ref([])
 
@@ -184,18 +185,29 @@ const loadFirestoreDrivers = async () => {
   }
 };
 
+const loadFirestoreTeams = async () => {
+  try {
+    firestoreTeamsArray.value = await makeRequest(`${import.meta.env.VITE_API_LINK}/api-teams-f/view/favourite`); // [{ fullName, driverKey, mongoDriverId }]
+  } catch (err) {
+    console.error("Failed to load Firestore teams:", err);
+  }
+};
+
 const loadFavTeam = async () => {
   if (!echipaPref.value || echipaPref.value.length < 2) return
-
-  const teams = await getAllTeams()
-  const shortName = echipaPref.value?.substring(0, 4)
-  const { data } = await axios.get("https://api.jolpi.ca/ergast/f1/current/constructorstandings.json")
-  const standings = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
-
-  const teamData = teams.find(t => t.name.includes(shortName))
-  if (teamData) {
-    favTeamData.value = standings.find(s => s.Constructor.name.includes(shortName))
-    hasFavTeam.value = !!favTeamData.value
+  try {
+    const teams = await getAllTeams()
+    if (teams) {
+      const teamDetails = teams.find(t => t.name === echipaPref.value)
+      if (teamDetails) {
+        favTeamData.value = teamDetails
+        hasFavTeam.value = true
+      } else {
+        hasFavTeam.value = false
+      }
+    }
+  } catch (error) {
+    console.warn("Team not found or invalid:", echipaPref.value)
   }
 }
 
@@ -222,6 +234,7 @@ const updateDb = async () => {
   const urlProfile = `${import.meta.env.VITE_API_LINK}/profile/change/team/${user.uid}`
 
   const selectedDriver = fireStoreArray.value.find(d => d.fullName === selectedDriverKey);
+  const selectedTeamBun = firestoreTeamsArray.value.find(d => d.teamName === selectedTeam);
 
   try {
     // Dacă s-a schimbat doar pilotul
@@ -229,6 +242,13 @@ const updateDb = async () => {
       await authRequest("POST", `${import.meta.env.VITE_API_LINK}/favourite/driver`, {
         pilotMongoId: selectedDriver.mongoDriverId,
         pilotFirestoreId: selectedDriver.driverKey
+      });
+    }
+
+    if (selectedTeam !== oldTeam) {
+      await authRequest("POST", `${import.meta.env.VITE_API_LINK}/favourite/team`, {
+        echipaMongoId: selectedTeamBun.mongoTeamId,
+        echipaFirestoreId: selectedTeamBun.teamKey
       });
     }
 
@@ -260,8 +280,8 @@ onMounted(async () => {
   router.push({ query: { user: store.user.displayName } });
 
   await Promise.all([
-    loadFirestoreDrivers(), // 🔁
-    getAllTeams()
+    loadFirestoreDrivers(),
+    loadFirestoreTeams(),// 🔁
   ]);
 
 
@@ -272,8 +292,9 @@ onMounted(async () => {
     await loadFavDriver();
   }
 
-  if (store.user.favTeam) {
-    echipaPref.value = store.user.favTeam;
+  const matchedTeam = firestoreTeamsArray.value.find(d => d.teamName === store.user.favTeam);
+  if (matchedTeam) {
+    echipaPref.value = matchedTeam.teamName;
     await loadFavTeam();
   }
   showSelect.value = true;
