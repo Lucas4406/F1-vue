@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite --port 5178",
     "build": "vite build",
-    "preview": "vite preview --port 5178"
+    "preview": "vite preview --port 5178",
+    "postbuild": "node generate-sitemap.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
