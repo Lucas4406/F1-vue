@@ -204,11 +204,10 @@ export default {
     <br />
     <div
         v-if="store.user != null"
-        class="h-[20rem]"
     >
       <div
           class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
-          v-if="bla === true && driverOk === true"
+          v-if="bla === true || driverOk === true"
       >
         <ConstructorCard
             :team="favouriteTeam"
