@@ -46,10 +46,11 @@ h1 {
 }
 .link-router {
   text-decoration: none;
-  color: red;
+  color: #dcd3d3;
+  display: inline-block; /* sau block dacă preferi */
 }
 #main-content {
-  padding-top: calc(var(--one1rem) * 9.5 + 2rem);
+  padding-top: calc(var(--one1rem) * 6 + 2rem);
   min-height: 100vh;
 }
 a {

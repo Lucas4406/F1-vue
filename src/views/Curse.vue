@@ -1,5 +1,4 @@
 <template>
-  <br />
   <div class="container-curse">
     <div class="form-select">
       <label for="ancurse">Choose year:</label>
