@@ -19,6 +19,9 @@ export default {
     linkDelete() {
       return `${import.meta.env.VITE_API_LINK}/profile/delete/${this.profileInfo._id}`
     },
+    linkDeleteFavourites() {
+      return `${import.meta.env.VITE_API_LINK}/favourite/user/delete-favourites/${this.profileInfo.profileId}`
+    },
     linkRole() {
       return `${import.meta.env.VITE_API_LINK}/profile/${this.profileInfo._id}/role`
     },
@@ -27,6 +30,7 @@ export default {
     async deleteUser() {
       try {
         await authRequest("DELETE", this.linkDelete)
+        await authRequest("DELETE", this.linkDeleteFavourites)
         this.$emit("refresh-data")
       } catch (error) {
         console.error("Delete failed:", error)
