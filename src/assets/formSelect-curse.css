@@ -1,6 +1,6 @@
 .form-select {
   right: 0.5rem;
-  top: 14rem;
+  top: 8rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -20,6 +20,6 @@
 @media (max-width: 1000px) {
   .form-select {
     position: absolute;
-    top: 20rem;
+    top: 16rem;
   }
 }

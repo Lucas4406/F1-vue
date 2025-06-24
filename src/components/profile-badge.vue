@@ -1,11 +1,11 @@
 <template>
-  <Menu as="div" class="relative ml-3 cursor-pointer">
+  <Menu as="div" class="relative cursor-pointer">
     <div>
       <MenuButton
         class="flex rounded-full bg-transparent border-none text-md cursor-pointer menub"
       >
         <img
-          class="h-14 w-14 rounded-full profimage object-cover"
+          class="h-16 w-16 rounded-full profimage object-cover"
           :src="store.user.profilePhoto"
           :alt="`Profile photo ${store.user.displayName}`"
         />
