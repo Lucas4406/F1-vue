@@ -151,7 +151,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   font-weight: bold;
-  color: #dcd3d3;
+  color: var(--light-text);
   cursor: pointer;
   margin: 0;
 }

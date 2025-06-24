@@ -4,7 +4,7 @@
   font-size: var(--nav-font-size);
   font-weight: 700;
   transition: 0.15s;
-  color: #dcd3d3;
+  color: var(--light-text);
   display: flex;
   align-items: center;
   padding-left: var(--point3rem);
@@ -136,7 +136,7 @@
 .text-dropdown {
   margin: 0;
   text-decoration: none;
-  color: #dcd3d3;
+  color: var(--light-text);
   width: var(--percent100);
   display: flex;
   align-items: center;
@@ -146,7 +146,7 @@
 .text-dropdown-right {
   margin: 0;
   text-decoration: none;
-  color: #dcd3d3;
+  color: var(--light-text);
   width: var(--percent100);
   display: flex;
   align-items: center;

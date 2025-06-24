@@ -3,20 +3,20 @@ html.darkmode {
     color: white;
   }
   .piloti-dark{
-    background-color: black;
+    background-color: var(--bg-body-dark-mode);
     color: white;
   }
   .pilot-card{
     color: white;
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
   }
   .racefansgrid{
     color: white;
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
   }
   .calendar-schedule{
     color: white;
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
   }
   .racefansgrid h3,
   .racefansgrid p,
@@ -57,7 +57,7 @@ html.darkmode {
     color: white;
   }
   .tabel-cursa {
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
     color: white;
     border-color: white;
   }
@@ -75,7 +75,7 @@ html.darkmode {
   }
   .tabel-container {
     border-color: white;
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
     color: white;
   }
   .tabel-container > .tabel > .piloti-container > .pilot > .parte-stanga {
@@ -86,7 +86,7 @@ html.darkmode {
   }
   /* Clasament - ergast */
   .card-const {
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
     border-color: white;
     color: white;
   }
@@ -102,7 +102,7 @@ html.darkmode {
   /* Echipe - mongo */
   .box {
     border-color: white;
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
     color: white;
   }
   .box > .linie3 {
@@ -169,7 +169,7 @@ html.darkmode {
   /* Searchbar */
   .search-bar {
     color: white;
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
     border: 2px solid white;
   }
   .search-bar:focus {
@@ -181,8 +181,6 @@ html.darkmode {
     p {
       color: white;
     }
-    background-color: #333;
+    background-color: var(--bg-component-dark-mode);
   }
-
-  /* Profile-badge */
 }
