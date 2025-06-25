@@ -45,9 +45,9 @@ const router = createRouter({
       component: () => import("../views/meeting.vue"),
     },
     {
-      path: "/team-standings",
-      name: "Clasament",
-      component: Clasament,
+      path: "/vote/:an/:meeting_name",
+      name: "MeetingVote",
+      component: () => import("../views/VotingPage/MeetingVote.vue"),
     },
     {
       path: "/qualifying-results/:an?",
