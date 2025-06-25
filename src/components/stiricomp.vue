@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 py-8 space-y-12">
     <div class="flex flex-col items-center gap-2">
-      <h2 class="text-4xl font-bold text-center text-black source">
+      <h2 class="text-5xl lg:text-4xl font-bold text-center text-black source">
         🏁 Latest News 🏁
       </h2>
     </div>

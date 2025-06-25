@@ -16,13 +16,13 @@
 
       <!-- Right: Info -->
       <div class="w-full flex-1 space-y-3 text-center md:text-left flex flex-col justify-center overflow-hidden">
-        <p class="text-red-500 text-base md:text-sm font-semibold uppercase tracking-wide">
+        <p class="text-red-500 text-lg lg:text-base font-semibold uppercase tracking-wide">
           {{ heroData.meetingContext.status }}
         </p>
-        <p class="text-3xl md:text-2xl font-bold">
+        <p class="text-3xl lg:text-2xl font-bold">
           {{ heroData.race.meetingCountryName }}
         </p>
-        <p class="text-gray-300 text-base md:text-sm">
+        <p class="text-gray-300 text-lg lg:text-base">
           {{ heroData.inceput }} – {{ heroData.sfarsit }} {{ heroData.lunaCursaText }}
         </p>
       </div>
@@ -32,11 +32,11 @@
           v-if="nextSession"
           class="w-full flex-1 space-y-2 text-center md:text-left bg-zinc-800 rounded-lg p-4 flex flex-col justify-center overflow-hidden"
       >
-        <p class="text-yellow-400 font-semibold uppercase text-sm">
+        <p class="text-yellow-400 font-semibold uppercase text-lg lg:text-base">
           {{ sessionStatusText }}
         </p>
-        <p class="text-xl md:text-lg font-bold">{{ nextSession.description }}</p>
-        <p class="text-gray-300 text-base md:text-sm">
+        <p class="text-2xl lg:text-xl font-bold">{{ nextSession.description }}</p>
+        <p class="text-gray-300 text-lg lg:text-base">
           {{ formatDate(nextSession.startTime, nextSession) }} - {{ formatTime(nextSession.startTime, nextSession) }}
         </p>
         <p

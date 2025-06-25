@@ -7,7 +7,7 @@
       <!-- Butonul de închidere, poziționat în afara colțului cardului -->
       <button
           @click="close"
-          class="absolute -top-3 -right-3 bg-white border border-gray-300 rounded-full px-2 py-1 text-xs shadow hover:bg-gray-100 cursor-pointer"
+          class="absolute -top-3 -right-3 bg-white border border-gray-300 rounded-full px-2 py-1 text-lg lg:text-sm shadow hover:bg-gray-100 cursor-pointer"
           aria-label="Close"
       >
         ✕

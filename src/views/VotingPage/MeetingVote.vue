@@ -91,12 +91,12 @@
     <!-- Submit button -->
     <button
         @click="submitVote"
-        class="text-xl lg:text-lg w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition cursor-pointer"
+        class="text-2xl lg:text-lg w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition cursor-pointer"
         :class="{'opacity-50 cursor-not-allowed': !canSubmit}"
     >
       Submit Vote
     </button>
-    <p v-if="!canSubmit" class="text-lg lg:text-base text-red-600 mt-2">Each category must be selected.</p>
+    <p v-if="!canSubmit" class="text-xl lg:text-base text-red-600 mt-2">Each category must be selected.</p>
   </div>
   <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="alreadyVoted && dataLoaded">
     <!-- Header -->
