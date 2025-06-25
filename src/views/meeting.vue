@@ -59,7 +59,7 @@ export default {
         }
       }
 
-      const raceRes = await this.fetchData(`${import.meta.env.VITE_API_LINK}/mongo/RaceData/all`)
+      const raceRes = await this.fetchData(`${import.meta.env.VITE_API_LINK}/mongo/race-data/all`)
       this.sessionKey = raceRes[this.nrCursa].fomRaceId
 
       const runda = await getNext
