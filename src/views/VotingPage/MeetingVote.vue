@@ -91,8 +91,8 @@
     <!-- Submit button -->
     <button
         @click="submitVote"
-        class="text-2xl lg:text-lg w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition cursor-pointer"
-        :class="{'opacity-50 cursor-not-allowed': !canSubmit}"
+        :disabled="!canSubmit || isSubmitting"
+        class="text-2xl lg:text-lg w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
     >
       Submit Vote
     </button>
@@ -139,6 +139,7 @@ const selectedTeam = ref(null)
 const alreadyVoted = ref(false) // To track if the user has already voted
 const dataLoaded = ref(false)
 const meetingId = ref(null)
+const isSubmitting = ref(false)
 
 const route = useRoute()
 const an = route.params.an
@@ -257,57 +258,63 @@ const canSubmit = computed(() =>
 )
 
 async function submitVote() {
-  const scorer = selectedScorer.value
-  const bestoftherest = selectedOvertaker.value
-  const team = selectedTeam.value
-  const meeting_id = meetingId.value
-  const votingUrl = `${import.meta.env.VITE_API_LINK}/vote`
-  const userID = store?.user?.profileId || null
-  const visitor = localStorage.getItem('visitorId') || null
-
   if (!canSubmit.value) {
-    alert("Please make all selections before submitting your vote.")
-    return
+    alert("Please make all selections before submitting your vote.");
+    return;
   }
 
-  const payload = {
-    userId: userID,                         // poate fi null
-    visitorId: userID ? null : visitor,     // trimite doar dacă nu e logat
-    meetingKey: meeting_id,
-    bestTopTenDriverId: String(scorer.id),
-    bestTopTenTeamKey: scorer.teamKey,
-    bestOfTheRestDriverId: String(bestoftherest.id),
-    bestOfTheRestTeamKey: bestoftherest.teamKey,
-    bestTeamKey: team,
-  }
+  if (isSubmitting.value) return; // dacă e deja în curs, nu face nimic
+
+  isSubmitting.value = true;
 
   try {
+    const scorer = selectedScorer.value;
+    const bestoftherest = selectedOvertaker.value;
+    const team = selectedTeam.value;
+    const meeting_id = meetingId.value;
+    const votingUrl = `${import.meta.env.VITE_API_LINK}/vote`;
+    const userID = store?.user?.profileId || null;
+    const visitor = localStorage.getItem('visitorId') || null;
+
+    const payload = {
+      userId: userID,
+      visitorId: userID ? null : visitor,
+      meetingKey: meeting_id,
+      bestTopTenDriverId: String(scorer.id),
+      bestTopTenTeamKey: scorer.teamKey,
+      bestOfTheRestDriverId: String(bestoftherest.id),
+      bestOfTheRestTeamKey: bestoftherest.teamKey,
+      bestTeamKey: team,
+    };
+
     const response = await axios.post(votingUrl, payload, {
       headers: {
         'x-api-key': import.meta.env.VITE_VOTE_API_KEY
       }
-    })
+    });
 
     if (response.status === 200) {
-      saveVoteToLocal(meetingName.value, meetingId.value)
-      alreadyVoted.value = true
-
-      alert(`Vote submitted successfully for ${meetingName.value}!`)
+      saveVoteToLocal(meetingName.value, meetingId.value);
+      alreadyVoted.value = true;
+      alert(`Vote submitted successfully for ${meetingName.value}!`);
     } else {
-      alert("Something went wrong. Please try again.")
+      alert("Something went wrong. Please try again.");
     }
   } catch (error) {
     if (error.response && error.response.data?.error === "Already voted.") {
-      alert("You have already voted for this meeting.")
-      alreadyVoted.value = true
+      alert("You have already voted for this meeting.");
+      alreadyVoted.value = true;
     } else if (error.response?.data?.errors) {
-      const validationErrors = error.response.data.errors.map(e => `${e.field}: ${e.message}`).join('\n')
-      alert("Validation error:\n" + validationErrors)
+      const validationErrors = error.response.data.errors.map(e => `${e.field}: ${e.message}`).join('\n');
+      alert("Validation error:\n" + validationErrors);
     } else {
-      console.error("Unexpected error:", error)
-      alert("An unexpected error occurred while submitting your vote.")
+      console.error("Unexpected error:", error);
+      alert("An unexpected error occurred while submitting your vote.");
     }
+  } finally {
+    isSubmitting.value = false;
   }
 }
+
 
 </script>
