@@ -86,16 +86,16 @@ export default {
         this.sprintData = sprint
       }
     },
-    async getToateSesiunile() {
-      const sesiuni = await this.fetchData(
-          `https://api.openf1.org/v1/sessions?year=${this.an}&meeting_key=${this.sessionKey}`
-      )
-      this.sesiuniOrdinate = sesiuni.sort((a, b) => b.session_key - a.session_key)
-    }
+    // async getToateSesiunile() {
+    //   const sesiuni = await this.fetchData(
+    //       `https://api.openf1.org/v1/sessions?year=${this.an}&meeting_key=${this.sessionKey}`
+    //   )
+    //   this.sesiuniOrdinate = sesiuni.sort((a, b) => b.session_key - a.session_key)
+    // }
   },
   async mounted() {
     await this.getData()
-    await this.getToateSesiunile()
+    // await this.getToateSesiunile()
 
     // Setare document title
     document.title = this.meetingNameFormatted + " " + this.an + " results"
@@ -196,23 +196,23 @@ export default {
       <br />
     </template>
 
-    <h2 class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Race Control messages</h2>
-    <Suspense>
-      <template #default>
-        <AccordionMesaje
-            v-for="(sesiune, index) in sesiuniOrdinate"
-            :key="sesiune.session_key"
-            :title="'Session messages: ' + sesiune.session_name"
-            :sessionKey="sesiune.session_key"
-            :meetingKey="sessionKey"
-            :esteUltimul="index === 0"
-            :meetingName="meetingNameFormatted"
-        />
-      </template>
-      <template #fallback>
-        <p class="text-sm text-gray-500">Loading</p>
-      </template>
-    </Suspense>
+<!--    <h2 class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Race Control messages</h2>-->
+<!--    <Suspense>-->
+<!--      <template #default>-->
+<!--        <AccordionMesaje-->
+<!--            v-for="(sesiune, index) in sesiuniOrdinate"-->
+<!--            :key="sesiune.session_key"-->
+<!--            :title="'Session messages: ' + sesiune.session_name"-->
+<!--            :sessionKey="sesiune.session_key"-->
+<!--            :meetingKey="sessionKey"-->
+<!--            :esteUltimul="index === 0"-->
+<!--            :meetingName="meetingNameFormatted"-->
+<!--        />-->
+<!--      </template>-->
+<!--      <template #fallback>-->
+<!--        <p class="text-sm text-gray-500">Loading</p>-->
+<!--      </template>-->
+<!--    </Suspense>-->
   </div>
 </template>
 

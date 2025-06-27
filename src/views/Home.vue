@@ -160,12 +160,10 @@ export default {
           const dateGetLast = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`)// presupune un helper `getLast.js` care face request la /get-last
           this.lastRaceData = dateGetLast
           const lastMeetingKey = dateGetLast.fomRaceId
-          const allSessions = dateGetLast.meetingContext.OpenF1sessions
-          const allsessionsReversed = allSessions.reverse()
-          const sessionKey = allsessionsReversed[0].session_key
-          const dataSessionComplet = await makeRequest(`${import.meta.env.VITE_API_LINK}/season-results/${lastMeetingKey}/${sessionKey}`)
-          const sessionData = allsessionsReversed[0]
-          const sessionDate = new Date(sessionData.date_start)
+          const seasonYear = dateGetLast.meetingContext.season
+          const meetingSlug = lastMeetingKey + "_" + dateGetLast.race.meetingName.toLowerCase().replaceAll(" ", '-')
+          const dataSessionComplet = await makeRequest(`${import.meta.env.VITE_API_LINK}/season-results/homepage/${seasonYear}/${meetingSlug}`)
+          const sessionDate = new Date(dateGetLast.meetingContext.timetables[4].startTime)
           const day = sessionDate.getUTCDate().toString().padStart(2, '0')
           const month = (sessionDate.getUTCMonth() + 1).toString().padStart(2, '0')
           const year = sessionDate.getUTCFullYear()
