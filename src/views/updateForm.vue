@@ -45,47 +45,17 @@
           <p v-if="errors.nick" class="text-red-600 text-sm mt-1">{{ errors.nick }}</p>
         </label>
 
-        <!-- Alegerea metodei pentru poza de profil -->
-        <label class="block mb-4 mt-6">
-          <span class="text-gray-700">Choose profile photo input method</span>
-          <div>
-            <label class="mr-4">
-              <input type="radio" value="url" v-model="photoInputMethod" /> Use URL
-            </label>
-            <label>
-              <input type="radio" value="file" v-model="photoInputMethod" /> Upload file
-            </label>
-          </div>
+
+        <label class="block my-4">
+          <span class="text-gray-700">Change your profile photo: (max 10MB)</span>
+          <input
+              type="file"
+              accept="image/*"
+              @change="handleFileUpload"
+              class="block w-full text-xl mt-4"
+          />
+          <p v-if="fileError" class="text-red-600 text-sm mt-1">{{ fileError }}</p>
         </label>
-
-        <!-- Input URL -->
-        <div v-if="photoInputMethod === 'url'">
-          <label class="block mb-1">
-            <span class="text-gray-700">Profile photo URL</span>
-            <input
-                v-model="photo"
-                name="profilePhoto"
-                type="text"
-                class="block w-full mt-1 h-8 text-xl border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                placeholder="Link to image"
-            />
-            <p v-if="errors.photo" class="text-red-600 text-sm mt-1">{{ errors.photo }}</p>
-          </label>
-        </div>
-
-        <!-- Input upload fișier -->
-        <div v-if="photoInputMethod === 'file'">
-          <label class="block mb-1">
-            <span class="text-gray-700">Upload profile photo (max 10MB)</span>
-            <input
-                type="file"
-                accept="image/*"
-                @change="handleFileUpload"
-                class="block w-full mt-1"
-            />
-            <p v-if="fileError" class="text-red-600 text-sm mt-1">{{ fileError }}</p>
-          </label>
-        </div>
 
         <!-- Select țară din dropdown populat din API -->
         <label class="block mb-1 mt-6">
@@ -142,7 +112,6 @@ const nick = ref("")
 const photo = ref("")
 const initialPhotoUrl = ref("") // ✅ nou
 const tara = ref("")
-const photoInputMethod = ref("url") // "url" sau "file"
 const selectedFile = ref(null)
 const fileError = ref("")
 const previewPhoto = ref("")
@@ -177,15 +146,12 @@ function validate() {
     errors.value.nick = "Nickname must be at least 3 characters."
   }
 
-  if (photoInputMethod.value === "url") {
-    if (!photo.value.trim()) {
-      errors.value.photo = "Profile photo URL is required."
-    } else if (!isValidUrl(photo.value.trim())) {
-      errors.value.photo = "Invalid URL format."
+  if (selectedFile.value) {
+    if (!selectedFile.value.type.startsWith("image/")) {
+      errors.value.photo = "Uploaded file must be an image."
     }
-  } else if (photoInputMethod.value === "file") {
-    if (!selectedFile.value) {
-      errors.value.photo = "Please upload a profile photo file."
+    if (selectedFile.value.size > 10 * 1024 * 1024) {
+      errors.value.photo = "File size must be less than 10 MB."
     }
   }
 
@@ -194,15 +160,6 @@ function validate() {
   }
 
   return Object.keys(errors.value).length === 0
-}
-
-function isValidUrl(string) {
-  try {
-    new URL(string)
-    return true
-  } catch {
-    return false
-  }
 }
 
 async function loadCountries() {
@@ -262,13 +219,7 @@ async function updateProfil() {
   let photoPublicId = null
 
   try {
-    if (photoInputMethod.value === "file") {
-      if (!selectedFile.value) {
-        alert("Please select a valid image file under 10MB.")
-        isSubmitting.value = false
-        return
-      }
-
+    if (selectedFile.value) {
       const formData = new FormData()
       formData.append("file", selectedFile.value)
 
@@ -287,29 +238,24 @@ async function updateProfil() {
       profilePhotoUrl = uploadData.url
       photoPublicId = uploadData.public_id
     } else {
-      // Dacă e link URL, nu avem public_id
       photoPublicId = null
     }
 
-    // Verificăm dacă poza a fost schimbată
     const changedPhoto = initialPhotoUrl.value !== profilePhotoUrl
 
-// Dacă poza s-a schimbat și avem `oldPhotoPublicId`, o ștergem:
     if (changedPhoto && oldPhotoPublicId.value) {
       try {
         await authRequest("POST", `${import.meta.env.VITE_API_LINK}/upload/delete`, {
           public_id: oldPhotoPublicId.value,
         })
       } catch (e) {
-        console.warn("Eroare la ștergerea imaginii vechi:", e)
+        console.warn("Error deleting old image:", e)
       }
       oldPhotoPublicId.value = null
     }
 
-// Setăm `photoPublicId` pentru salvare în baza de date:
     const finalPhotoPublicId = changedPhoto ? photoPublicId : oldPhotoPublicId.value
 
-// Trimitere actualizare profil
     await authRequest("POST", `${import.meta.env.VITE_API_LINK}/profile/change/${user.uid}`, {
       firstName: primul.value,
       lastName: doilea.value,
@@ -337,7 +283,7 @@ async function updateProfil() {
 
 
 async function loadProfile() {
-  if (user && user.displayName != null) {
+  if (user) {
     const response = await getDbData(user.uid)
     if (primul.value === "") primul.value = response.firstName
     if (doilea.value === "") doilea.value = response.lastName

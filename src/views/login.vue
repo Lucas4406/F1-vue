@@ -124,7 +124,7 @@ async function oauthLogin(provider) {
     } catch (err) {
       if (err.response && err.response.status === 404) {
         await createDbUser(user)
-        router.push("/update-profile")
+        await router.push("/update-profile")
       } else {
         // altă eroare
         console.error("Error getting profile:", err)
@@ -139,20 +139,33 @@ async function oauthLogin(provider) {
     errMsg.value = "Login failed: " + err.message
   }
 }
+function generateRandomNickname() {
+  const adjectives = ['Fast', 'Crazy', 'Swift', 'Red', 'Blue', 'Lucky', 'Bold', 'Silent', 'Wild', 'Happy']
+  const nouns = ['Tiger', 'Eagle', 'Falcon', 'Dragon', 'Shark', 'Wolf', 'Lion', 'Panther', 'Ghost', 'Racer']
+
+  const adjective = adjectives[Math.floor(Math.random() * adjectives.length)]
+  const noun = nouns[Math.floor(Math.random() * nouns.length)]
+  const number = Math.floor(Math.random() * 1000)  // 0-999
+
+  return `${adjective}${noun}${number}`
+}
 
 async function createDbUser(user) {
   if (!user) return
+
+  const randomNick = user.displayName || generateRandomNickname()
+
   try {
-    await authRequest("POST" ,
+    await authRequest("POST",
         `${import.meta.env.VITE_API_LINK}/profile`,
         {
-          displayName: user.displayName,
+          displayName: randomNick,
           profileId: user.uid,
           email: user.email,
+          profilePhoto: user.photoURL || "https://res.cloudinary.com/dpgmepduy/image/upload/w_500,h_500,c_fill/default_profile_avatar_oev0mj.webp"
         })
   } catch (error) {
-    // Nu bloca login-ul dacă e eroare aici, doar loghează
-    console.error("Eroare la crearea profilului în DB: ", error.message)
+    alert("Eroare la crearea profilului în baza de date: " + error.message)
   }
 }
 </script>
