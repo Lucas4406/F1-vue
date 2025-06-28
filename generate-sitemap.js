@@ -17,6 +17,7 @@ async function generateSitemap() {
     const baseUrl = 'https://gridfanhub.com'
     const staticRoutesWithPriority = {
         '/': 1.0,
+        '/vote': 0.9,
         '/schedule': 0.9,
         '/drivers': 0.9,
         '/teams': 0.9,

@@ -1,21 +1,21 @@
 <template>
   <router-link
       :to="link"
-      class="group block w-[95%] lg:w-full lg:max-w-2xl xl:max-w-4xl mx-auto xl:px-4 mt-4 py-6 md:py-8 rounded-xl bg-zinc-900 text-white shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+      class="block w-[95%] lg:w-full lg:max-w-2xl xl:max-w-4xl mx-auto xl:px-4 mt-4 py-6 md:py-8 rounded-xl bg-zinc-900 text-white shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
   >
 
-    <div class="flex flex-col md:flex-row items-center gap-4 w-full overflow-hidden">
+    <div class="flex flex-row items-center gap-4 w-full overflow-hidden">
       <!-- Left: Circuit Image -->
-      <div class="w-full md:w-1/3 aspect-[3/2] bg-zinc-800 rounded-lg overflow-hidden">
+      <div class="w-1/3 aspect-[3/2] bg-zinc-800 rounded-lg overflow-hidden">
         <img
             :src="heroData.circuitSmallImage.url"
             :alt="`Poza circuit ${heroData.race.meetingCountryName}`"
-            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 max-w-full"
+            class="w-full h-full object-cover max-w-full"
         />
       </div>
 
       <!-- Right: Info -->
-      <div class="w-full flex-1 space-y-3 text-center md:text-left flex flex-col justify-center overflow-hidden">
+      <div class="w-full flex-1 space-y-3 text-center lg:text-left flex flex-col justify-center overflow-hidden">
         <p class="text-red-500 text-lg lg:text-base font-semibold uppercase tracking-wide">
           {{ heroData.meetingContext.status }}
         </p>
@@ -30,7 +30,7 @@
       <!-- Right: Sesiunea următoare -->
       <div
           v-if="nextSession"
-          class="w-full flex-1 space-y-2 text-center md:text-left bg-zinc-800 rounded-lg p-4 flex flex-col justify-center overflow-hidden"
+          class="w-full flex-1 space-y-2 text-center lg:text-left bg-zinc-800 rounded-lg p-4 flex flex-col justify-center overflow-hidden"
       >
         <p class="text-yellow-400 font-semibold uppercase text-lg lg:text-base">
           {{ sessionStatusText }}
