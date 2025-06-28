@@ -5,7 +5,7 @@
     </h1>
     <p class="mt-2 text-xl lg:text-lg text-gray-500 ">Who impressed you the most this weekend?</p>
   </div>
-  <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="!alreadyVoted && dataLoaded">
+  <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="!alreadyVoted && dataLoaded && !waitMessage">
     <!-- Header -->
     <div class="flex flex-row justify-between items-center mb-6">
       <div class="mb-4 md:mb-0">
@@ -98,7 +98,7 @@
     </button>
     <p v-if="!canSubmit" class="text-xl lg:text-base text-red-600 mt-2">Each category must be selected.</p>
   </div>
-  <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="alreadyVoted && dataLoaded">
+  <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="alreadyVoted && dataLoaded && !waitMessage">
     <!-- Header -->
     <div class="flex flex-row justify-between items-center mb-6">
       <div class="mb-4 md:mb-0">
@@ -112,6 +112,14 @@
       You have already voted for this meeting.
     </div>
   </div>
+  <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="waitMessage">
+    <!-- Header -->
+    <div class="flex flex-row justify-between items-center mb-6">
+      <div class="mb-4 md:mb-0">
+        <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ waitMessage }}</h1>
+      </div>
+    </div>
+  </div>
 
   <div class="flex justify-center items-center mt-8" v-if="!dataLoaded">
     <ProgressSpinner />
@@ -119,10 +127,11 @@
 </template>
 
 <script setup>
-import {ref, computed, onMounted, watch, inject} from 'vue'
+import {ref, computed, onMounted, inject} from 'vue'
 import { DateTime } from 'luxon'
+import {useHead} from "@vueuse/head";
 
-import { useRoute } from 'vue-router'
+
 import {makeRequest} from "@/functions/makeRequest";
 import axios from "axios";
 
@@ -132,7 +141,6 @@ const topTen = ref([])
 const rest = ref([])
 const teams = ref([])
 const meetingTrackPhoto = ref(null)
-const visitorId = ref(null)
 const selectedScorer = ref(null)
 const selectedOvertaker = ref(null)
 const selectedTeam = ref(null)
@@ -140,46 +148,124 @@ const alreadyVoted = ref(false) // To track if the user has already voted
 const dataLoaded = ref(false)
 const meetingId = ref(null)
 const isSubmitting = ref(false)
+const waitMessage = ref(null)
 
-const route = useRoute()
-const an = route.params.an
 const store = inject("store")
 
 
 
 async function getRelevantData() {
-  const lastMeeting = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`)
-  const lastMeetingID = lastMeeting.fomRaceId
-  meetingId.value = lastMeetingID
-  const meetingData = await makeRequest(`${import.meta.env.VITE_API_LINK}/vote/get-meeting-data/${an}/${lastMeetingID}`)
-  meetingName.value = meetingData.raceResults.meeting.meetingName
-  const startTimeISO = meetingData.raceResults.raceResultsRace.startTime // ex: "2025-06-15T14:00:00"
-  const gmtOffset = meetingData.raceResults.raceResultsRace.gmtOffset || "+00:00" // ex: "-04:00"
-  const isoWithOffset = `${startTimeISO}${gmtOffset}`
-  const dt = DateTime.fromISO(isoWithOffset)
-  meetingDate.value = dt.setZone('local').toLocaleString(DateTime.DATETIME_MED)
-  const resultsArray = meetingData.raceResults.raceResultsRace.results
-  topTen.value = resultsArray.slice(0, 10)      // primii 10
-  rest.value = resultsArray.slice(10)
-  teams.value = meetingData.teamsData
-  meetingTrackPhoto.value = meetingData.meetingData.circuitMediumImage.url
+  try {
+    const lastMeeting = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`);
+    const lastMeetingID = lastMeeting.fomRaceId;
+    meetingId.value = lastMeetingID;
+
+    const meetingYear = lastMeeting.meetingContext.season;
+    const meetingData = await makeRequest(`${import.meta.env.VITE_API_LINK}/vote/get-meeting-data/${meetingYear}/${lastMeetingID}`);
+
+    meetingName.value = meetingData.raceResults.meeting.meetingName;
+
+    const startTimeISO = meetingData.raceResults.raceResultsRace.startTime; // ex: "2025-06-15T14:00:00"
+    const gmtOffset = meetingData.raceResults.raceResultsRace.gmtOffset || "+00:00"; // ex: "-04:00"
+    const isoWithOffset = `${startTimeISO}${gmtOffset}`;
+    const dt = DateTime.fromISO(isoWithOffset);
+    meetingDate.value = dt.setZone('local').toLocaleString(DateTime.DATETIME_MED);
+
+    const resultsArray = meetingData.raceResults.raceResultsRace.results;
+    topTen.value = resultsArray.slice(0, 10);      // primii 10
+    rest.value = resultsArray.slice(10);
+    teams.value = meetingData.teamsData;
+    meetingTrackPhoto.value = meetingData.meetingData.circuitMediumImage.url;
+
+  } catch (error) {
+    console.error("Error fetching meeting data:", error);
+    waitMessage.value = "Voting is currently unavailable. Please check back after the race has ended.";
+  }
 }
 
 onMounted(async () => {
   await getRelevantData()
-
-  const isLoggedIn = store?.user?.profileId
-  let localVisitorId = localStorage.getItem('visitorId')
-
-  if (!isLoggedIn) {
-    if (!localVisitorId) {
-      localVisitorId = crypto.randomUUID()
-      localStorage.setItem('visitorId', localVisitorId)
-    }
+  if (!meetingName.value) {
+    meetingName.value = "Last Race"
   }
+  useHead({
+    title: `GridFanHub | ${meetingName.value} | Vote for F1 Best of the Weekend`,
+    meta: [
+      {
+        name: "description",
+        content:
+            `${meetingName.value}: Vote for the Best Point Scorer, Best of the Rest, and Best Team from the latest Formula 1 Grand Prix weekend on GridFanHub. Share your opinion and see what other fans think!`,
+      },
+      {
+        name: "keywords",
+        content:
+            `${meetingName.value}, F1 vote, Formula 1 voting, F1 best driver, F1 best team, F1 best of the rest, vote F1 drivers, vote F1 teams, Formula 1 fan vote, F1 driver of the day, F1 top 10 vote, gridfanhub vote, gridfanhub, f1, formula1, best point scorer, best team, best of the rest, f1 2025 voting, f1 fans vote`,
+      },
+      {
+        name: "robots",
+        content: "index, follow",
+      },
+      {
+        property: "og:title",
+        content: `GridFanHub | ${meetingName.value} | Vote for F1 Best of the Weekend`,
+      },
+      {
+        property: "og:description",
+        content:
+            `Who impressed you the most in the ${meetingName.value}? Vote now for the Best Point Scorer, Best of the Rest, and Best Team of the weekend on GridFanHub.`,
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:url",
+        content: "https://gridfanhub.com/vote",
+      },
+      {
+        property: "og:image",
+        content: "https://gridfanhub.com/favicon.ico", // modifică cu imaginea OG reală
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: `GridFanHub | ${meetingName.value} | Vote for F1 Best of the Weekend`,
+      },
+      {
+        name: "twitter:description",
+        content:
+            `Who impressed you the most in the ${meetingName.value}? Vote now for the Best Point Scorer, Best of the Rest, and Best Team of the weekend on GridFanHub.`,
+      },
+      {
+        name: "twitter:image",
+        content: "https://gridfanhub.com/favicon.ico", // modifică cu imaginea reală
+      },
+    ],
+    link: [
+      {
+        rel: "canonical",
+        href: "https://gridfanhub.com/vote",
+      },
+    ],
+  })
+  if(!waitMessage.value){
+    const isLoggedIn = store?.user?.profileId
+    let localVisitorId = localStorage.getItem('visitorId')
 
-  alreadyVoted.value = await checkHasVoted(store?.user?.profileId, localVisitorId, meetingId.value)
+    if (!isLoggedIn) {
+      if (!localVisitorId) {
+        localVisitorId = crypto.randomUUID()
+        localStorage.setItem('visitorId', localVisitorId)
+      }
+    }
+
+    alreadyVoted.value = await checkHasVoted(store?.user?.profileId, localVisitorId, meetingId.value)
+  }
   dataLoaded.value = true
+
 })
 
 
@@ -201,13 +287,6 @@ function selectOvertaker(id, teamKey) {
 function selectTeam(id) {
   selectedTeam.value = id
 }
-watch(selectedScorer, (newVal) => {
-  console.log(newVal, visitorId.value)
-})
-watch(selectedOvertaker, (newVal) => {
-  console.log(newVal)
-})
-
 
 
 function saveVoteToLocal(meetingName, meetingId) {
