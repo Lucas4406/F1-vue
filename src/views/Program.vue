@@ -10,10 +10,10 @@
   />
   <!-- Card Grid -->
   <div
-    class="lg:grid lg:grid-cols-2 md:grid-cols-1 lg:px-14 lg:p-6 lg:gap-6 sm:justify-center sm:flex sm:flex-col sm:gap-6"
+    class="lg:grid lg:grid-cols-2 md:grid-cols-1 lg:p-6 lg:gap-6 sm:justify-center sm:flex sm:flex-col sm:gap-6"
   >
     <router-link
-      class="border-black border-2 border-solid sm:max-w-xl lg:max-w-4xl p-4 sm:ml-20 md:ml-24 lg:ml-0 rounded-md animatie text-black"
+      class="border-black border-2 border-solid w-11/12 p-6 mx-auto rounded-md animatie text-black"
       v-for="(cursa, index) in curse"
       :key="index"
       :id="cursa.Circuit.circuitId.replace(/_/g, '')"
@@ -139,6 +139,7 @@
           </p>
         </div>
       </div>
+      <p class="text-black text-lg pt-3 underline text-right">Click to see all results →</p>
     </router-link>
   </div>
   <Calendar v-if="show === true" :races="curse" />
@@ -263,7 +264,7 @@ export default {
   transition: transform 300ms ease-in-out;
 }
 .animatie:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 .cursaCurenta {
   border-color: red;
