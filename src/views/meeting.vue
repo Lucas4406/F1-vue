@@ -73,6 +73,17 @@ export default {
       const meetingYear = runda.meetingContext.season
       const meetingPath = this.sessionKey + "_" + runda.race.meetingName.toLowerCase().replaceAll(" ", "-")
       const base_practice_link = `${import.meta.env.VITE_API_LINK}/api-latest-session-f/view/${meetingYear}/${meetingPath}`
+
+      const linkBase = `https://api.jolpi.ca/ergast/f1/${this.an}/${this.nrCursa + 1}`
+      const terminare = ".json?limit=100"
+
+      const raceData = await this.fetchData(linkBase + "/results" + terminare)
+      const race = raceData.MRData.RaceTable.Races[0]
+
+      const qualiData = await this.fetchData(linkBase + "/qualifying" + terminare)
+      this.qualiData = qualiData.MRData.RaceTable.Races[0]
+
+
       let base_data = null;
       try {
         base_data = await makeRequest(base_practice_link)
@@ -101,16 +112,6 @@ export default {
           }
         }
       }
-
-
-      const linkBase = `https://api.jolpi.ca/ergast/f1/${this.an}/${this.nrCursa + 1}`
-      const terminare = ".json?limit=100"
-
-      const raceData = await this.fetchData(linkBase + "/results" + terminare)
-      const race = raceData.MRData.RaceTable.Races[0]
-
-      const qualiData = await this.fetchData(linkBase + "/qualifying" + terminare)
-      this.qualiData = qualiData.MRData.RaceTable.Races[0]
 
       if (race?.Results) {
         race.Results.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"))
