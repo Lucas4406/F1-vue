@@ -6,10 +6,13 @@ import tabelcali from "@/components/tabelcali.vue"
 import Tabelsprint from "@/components/tabelsprint.vue"
 import { useHead } from "@vueuse/head"
 import getNext from "@/functions/getNext"
+import {makeRequest} from "@/functions/makeRequest";
+import PracticeResultsTable from "@/components/PracticeResultsTable.vue";
 
 export default {
   name: "Meeting",
   components: {
+    PracticeResultsTable,
     Tabelsprint,
     tabelcali,
     tabelcursa,
@@ -29,6 +32,9 @@ export default {
       sessionKey: null,
       nrRundaActuala: null,
       sesiuniOrdinate: [],
+      fp1Results: null,
+      fp2Results: null,
+      fp3Results: null,
     }
   },
   computed: {
@@ -64,6 +70,38 @@ export default {
 
       const runda = await getNext
       this.nrRundaActuala = runda.meetingContext.nr_runda
+      const meetingYear = runda.meetingContext.season
+      const meetingPath = this.sessionKey + "_" + runda.race.meetingName.toLowerCase().replaceAll(" ", "-")
+      const base_practice_link = `${import.meta.env.VITE_API_LINK}/api-latest-session-f/view/${meetingYear}/${meetingPath}`
+      let base_data = null;
+      try {
+        base_data = await makeRequest(base_practice_link)
+      } catch (err) {
+        if (err.response && err.response.status === 404) {
+          console.log("Practice data not found. Skipping practice sessions.");
+        } else {
+          console.error("Error fetching practice data:", err);
+        }
+      }
+      if(base_data && base_data.sessions){
+        const lastSessions = Object.keys(base_data.sessions)
+        for(let i = 0 ; i < lastSessions.length; i++) {
+          const session = lastSessions[i];
+          const session_text = session
+          const session_key = "raceResults" + session_text.charAt(0).toUpperCase() + session_text.slice(1)
+          const sessionData = await this.getPracticeSessionData(base_practice_link, session_text)
+          if(session === "practice1"){
+            this.fp1Results = sessionData.data[session_key]
+          }
+          if(session === "practice2"){
+            this.fp2Results = sessionData.data[session_key]
+          }
+          if(session === "practice3"){
+            this.fp3Results = sessionData.data[session_key]
+          }
+        }
+      }
+
 
       const linkBase = `https://api.jolpi.ca/ergast/f1/${this.an}/${this.nrCursa + 1}`
       const terminare = ".json?limit=100"
@@ -86,6 +124,9 @@ export default {
         this.sprintData = sprint
       }
     },
+    async getPracticeSessionData(basePath, sessionName){
+      return await makeRequest(basePath + `/${sessionName}`)
+    }
     // async getToateSesiunile() {
     //   const sesiuni = await this.fetchData(
     //       `https://api.openf1.org/v1/sessions?year=${this.an}&meeting_key=${this.sessionKey}`
@@ -166,7 +207,7 @@ export default {
 
 
 <template>
-  <div class="container-curse pt-2">
+  <div class="container-curse pt-2 mb-10">
     <div class="text-center mb-12">
       <h1 class="text-6xl lg:text-5xl font-bold tracking-tight source text-black">
         {{ meetingNameFormatted + " results" }}
@@ -174,10 +215,9 @@ export default {
       <p class="mt-2 text-xl lg:text-lg text-gray-500 ">{{an}} Season</p>
     </div>
 
-    <p v-if="!cursaData && !qualiData && !sprintData" class="titlu-pagina-curse">
+    <p v-if="!cursaData && !qualiData && !sprintData && !fp1Results && !fp2Results && !fp3Results" class="titlu-pagina-curse">
       Results will appear after the session has ended
     </p>
-
     <template v-if="cursaData">
       <h2 class="titlu-pagina-curse">Race results</h2>
       <tabelcursa :cursa="cursaData" />
@@ -195,6 +235,9 @@ export default {
       <Tabelsprint :cursa="sprintData" />
       <br />
     </template>
+    <PracticeResultsTable :results="fp3Results.results" :session-name="fp3Results.description" v-if="fp3Results" />
+    <PracticeResultsTable :results="fp2Results.results" :session-name="fp2Results.description" v-if="fp2Results" />
+    <PracticeResultsTable :results="fp1Results.results" :session-name="fp1Results.description" v-if="fp1Results" />
 
 <!--    <h2 class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Race Control messages</h2>-->
 <!--    <Suspense>-->
