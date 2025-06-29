@@ -236,22 +236,22 @@ export default {
           </div>
           <ReusablePodium :top3="top3Drivers">
             <template #firstPodiumSlot>
-              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[0].driverName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[0].team }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[0].points }} pts</p>
-              <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[0].time }}</p>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[0].driverFirstName + " " + top3Drivers[0].driverLastName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[0].displayTeamName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[0].racePoints }} pts</p>
+              <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[0].raceTime }}</p>
             </template>
             <template #secondPodiumSlot>
-              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[1].driverName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[1].team }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[1].points }} pts</p>
-              <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[1].time }}</p>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[1].driverFirstName + " " + top3Drivers[1].driverLastName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[1].displayTeamName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[1].racePoints }} pts</p>
+              <p class="text-base lg:text-sm text-gray-600">+{{ top3Drivers[1].gapToLeader }}</p>
             </template>
             <template #thirdPodiumSlot>
-              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[2].driverName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[2].team }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[2].points }} pts</p>
-              <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[2].time }}</p>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[2].driverFirstName + " " + top3Drivers[2].driverLastName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[2].displayTeamName }}</p>
+              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[2].racePoints }} pts</p>
+              <p class="text-base lg:text-sm text-gray-600">+{{ top3Drivers[2].gapToLeader }}</p>
             </template>
           </ReusablePodium>
           <template v-if="showAllPodiums">

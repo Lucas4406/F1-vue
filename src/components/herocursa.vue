@@ -66,7 +66,7 @@ export default {
     sessionStatusText() {
       if (!this.nextSession) return "";
       if (this.nextSession.status === "isNext") return "Upcoming";
-      if (this.nextSession.status === "isCurrent") return "Now";
+      if (this.nextSession.status === "isCurrent") return "Live";
       return "";
     },
   },

@@ -51,10 +51,21 @@ const displayLimitRF = 2
 onMounted(async () => {
   try {
     const [f1, rf] = await Promise.all([
-      fetchWithCache("news", `${import.meta.env.VITE_API_LINK}/api-news-f/view?limit=6`),
+      fetchWithCache("news", `${import.meta.env.VITE_CLOUDFLARE_PROXY_LINK}/v1/editorial/articles?limit=6`),
       fetchWithCache("news_rf", `${import.meta.env.VITE_API_LINK}/mongo/stiri-rf/all`)
     ])
-    news.value = f1
+    const articles = f1.items
+    articles.forEach(articol => {
+      if(articol.thumbnail.image.renditions){
+        articol.thumbnail.image.new_path = articol.thumbnail.image.path
+      }else{
+        const img_path = articol.thumbnail.image.path
+        const transformation = "t_16by9Centre/c_fill,w_624/q_auto/v1740000000"
+        const base_url = "https://media.formula1.com/image/upload/"
+        articol.thumbnail.image.new_path = base_url + transformation + img_path
+      }
+    })
+    news.value = articles
     newsRF.value = rf
     lastUpdate.value = new Date()
   } catch (error) {
