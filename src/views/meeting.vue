@@ -71,7 +71,7 @@ export default {
       const runda = await getNext
       this.nrRundaActuala = runda.meetingContext.nr_runda
       const meetingYear = runda.meetingContext.season
-      const meetingPath = this.sessionKey + "_" + runda.race.meetingName.toLowerCase().replaceAll(" ", "-")
+      const meetingPath = this.sessionKey + "_" + this.meetingName
       const base_practice_link = `${import.meta.env.VITE_API_LINK}/api-latest-session-f/view/${meetingYear}/${meetingPath}`
 
       const linkBase = `https://api.jolpi.ca/ergast/f1/${this.an}/${this.nrCursa + 1}`
@@ -83,32 +83,33 @@ export default {
       const qualiData = await this.fetchData(linkBase + "/qualifying" + terminare)
       this.qualiData = qualiData.MRData.RaceTable.Races[0]
 
-
-      let base_data = null;
-      try {
-        base_data = await makeRequest(base_practice_link)
-      } catch (err) {
-        if (err.response && err.response.status === 404) {
-          console.log("Practice data not found. Skipping practice sessions.");
-        } else {
-          console.error("Error fetching practice data:", err);
+      if(this.nrCursa > 9){
+        let base_data = null;
+        try {
+          base_data = await makeRequest(base_practice_link)
+        } catch (err) {
+          if (err.response && err.response.status === 404) {
+            console.log("Practice data not found. Skipping practice sessions.");
+          } else {
+            console.error("Error fetching practice data:", err);
+          }
         }
-      }
-      if(base_data && base_data.sessions){
-        const lastSessions = Object.keys(base_data.sessions)
-        for(let i = 0 ; i < lastSessions.length; i++) {
-          const session = lastSessions[i];
-          const session_text = session
-          const session_key = "raceResults" + session_text.charAt(0).toUpperCase() + session_text.slice(1)
-          const sessionData = await this.getPracticeSessionData(base_practice_link, session_text)
-          if(session === "practice1"){
-            this.fp1Results = sessionData.data[session_key]
-          }
-          if(session === "practice2"){
-            this.fp2Results = sessionData.data[session_key]
-          }
-          if(session === "practice3"){
-            this.fp3Results = sessionData.data[session_key]
+        if(base_data && base_data.sessions){
+          const lastSessions = Object.keys(base_data.sessions)
+          for(let i = 0 ; i < lastSessions.length; i++) {
+            const session = lastSessions[i];
+            const session_text = session
+            const session_key = "raceResults" + session_text.charAt(0).toUpperCase() + session_text.slice(1)
+            const sessionData = await this.getPracticeSessionData(base_practice_link, session_text)
+            if(session === "practice1"){
+              this.fp1Results = sessionData.data[session_key]
+            }
+            if(session === "practice2"){
+              this.fp2Results = sessionData.data[session_key]
+            }
+            if(session === "practice3"){
+              this.fp3Results = sessionData.data[session_key]
+            }
           }
         }
       }
