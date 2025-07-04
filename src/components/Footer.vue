@@ -51,14 +51,19 @@
             class="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/20 hover:bg-white/10 hover:text-white transition text-black mt-4"
             @click="darkModeToggle"
         >
-          <svg v-if="isDark" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg v-if="isDark" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 lg:w-5 lg:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-12.66l-.71.71M4.05 19.95l-.7-.71m16.97 0l-.71.71M4.05 4.05l-.7.71M21 12h-1M4 12H3m9-9a9 9 0 100 18 9 9 0 000-18z" />
           </svg>
-          <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 lg:w-5 lg:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.293 14.707A8 8 0 019.293 6.707 8 8 0 0012 20a8 8 0 005.293-5.293z" />
           </svg>
-          <span class="text-base lg:text-sm hidden sm:inline">{{ isDark ? 'Dark Mode' : 'Light Mode' }}</span>
+          <span class="text-lg lg:text-base hidden sm:inline">{{ isDark ? 'Dark Mode' : 'Light Mode' }}</span>
         </button>
+        <a href="https://ko-fi.com/gridfanhub" target="_blank" rel="noopener"
+           class="flex items-center gap-2 text-[#fff] text-lg lg:text-base mt-4 rounded-lg p-3 bg-red-500">
+          <img src="/kofi_symbol.svg" alt="Ko-fi" class="w-6 h-6">
+          <span>Support me on Ko-fi</span>
+        </a>
         <p class="text-white text-sm lg:text-sm mt-6 max-w-3xl text-center lg:text-right">
           This website is unofficial and is not associated in any way with the Formula 1 companies.
           <br class="hidden sm:block" />
