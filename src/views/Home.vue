@@ -223,6 +223,15 @@ export default {
     </div>
     <div class="stiri-grid">
       <div v-if="lastRaceData">
+        <div class="w-full flex flex-col items-center justify-center mb-6">
+          <p class="text-3xl lg:text-2xl font-semibold mb-4 source">Share your opinion on the last race!</p>
+          <router-link to="/vote">
+            <ReusableButton fontSize="text-xl">
+              🗳️ Vote for your Driver of the Day
+            </ReusableButton>
+          </router-link>
+        </div>
+
           <div class="text-center mb-10">
             <h2 class="text-4xl md:text-5xl font-extrabold source">
               🏆 Last race results
