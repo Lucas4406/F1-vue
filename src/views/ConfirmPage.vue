@@ -10,7 +10,31 @@
 </template>
 
 <script setup>
-document.title = "GridFanHub | Confirm Email"
+import {useHead} from "@vueuse/head";
+
+useHead({
+  title: `GridFanHub | Email confirmation page`,
+  meta: [
+    {
+      name: "description",
+      content: `Login page for GridFanHub. Access your account`,
+    },
+    {
+      name: "keywords",
+      content: `gridfanhub, profile, account, login, sign in, f1, formula 1, motorsport`,
+    },
+    {
+      name: "robots",
+      content: "index, follow",
+    }
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `https://gridfanhub.com/confirm`,
+    },
+  ],
+})
 </script>
 
 <style scoped>

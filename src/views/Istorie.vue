@@ -100,13 +100,32 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "Istorie",
-  mounted() {
-    document.title = " GridFanHub | Formula 1 History"
-  },
-}
+<script setup>
+import {useHead} from "@vueuse/head";
+
+useHead({
+  title: `GridFanHub | History of Formula 1`,
+  meta: [
+    {
+      name: "description",
+      content: `History of Formula 1 from its inception in 1950 to the present day. Discover the key moments, legendary drivers, and iconic teams that have shaped the sport.`,
+    },
+    {
+      name: "keywords",
+      content: `gridfanhub, history, formula 1, f1, motorsport, grand prix, racing, legendary drivers, iconic teams`,
+    },
+    {
+      name: "robots",
+      content: "index, follow",
+    }
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `https://gridfanhub.com/f1-history`,
+    },
+  ],
+})
 </script>
 <style scoped>
 @import "../assets/istorie.css";

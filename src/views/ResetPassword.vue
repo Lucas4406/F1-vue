@@ -61,6 +61,7 @@ import {
 } from 'firebase/auth'
 import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import {useHead} from "@vueuse/head";
 
 const route = useRoute()
 const router = useRouter()
@@ -129,6 +130,30 @@ async function resetPassword() {
     errMsg.value = 'Failed to reset password. Please try again.'
   }
 }
+
+useHead({
+  title: `GridFanHub | Auth action`,
+  meta: [
+    {
+      name: "description",
+      content: `Confirm your GridFanHub account`,
+    },
+    {
+      name: "keywords",
+      content: `gridfanhub, password reset, profile, account, login, sign in, f1, formula 1, motorsport`,
+    },
+    {
+      name: "robots",
+      content: "index, follow",
+    }
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `https://gridfanhub.com/auth-action`,
+    },
+  ],
+})
 </script>
 
 <style scoped>

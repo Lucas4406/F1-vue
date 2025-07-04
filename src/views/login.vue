@@ -68,13 +68,12 @@ import { loginWithGoogle, loginWithGitHub } from "@/firebase/authProviders"
 import { ref } from "vue"
 import { useRouter } from "vue-router"
 import {authRequest} from "@/functions/authRequest";
+import {useHead} from "@vueuse/head";
 
 const email = ref("")
 const pass = ref("")
 const errMsg = ref("")
 const router = useRouter()
-
-document.title = "GridFanHub | Login"
 
 function login() {
   const auth = getAuth()
@@ -168,6 +167,29 @@ async function createDbUser(user) {
     alert("Eroare la crearea profilului în baza de date: " + error.message)
   }
 }
+useHead({
+  title: `GridFanHub | Login`,
+  meta: [
+    {
+      name: "description",
+      content: `Login page for GridFanHub. Access your account`,
+    },
+    {
+      name: "keywords",
+      content: `gridfanhub, profile, account, login, sign in, f1, formula 1, motorsport`,
+    },
+    {
+      name: "robots",
+      content: "index, follow",
+    }
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `https://gridfanhub.com/login`,
+    },
+  ],
+})
 </script>
 
 <style scoped>
