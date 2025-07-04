@@ -7,25 +7,25 @@
   </div>
 
   <div v-if="dataLoaded" class="flex flex-col lg:flex-row gap-8 w-4/5 lg:max-w-6xl mx-auto my-8">
-    <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="alreadyVoted && !waitMessage">
+    <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="alreadyVoted && !waitMessage">
       <!-- Header -->
       <div class="flex flex-row justify-between items-center mb-6">
         <div class="mb-4 md:mb-0">
-          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ meetingName }}</h1>
-          <h2 class="text-lg lg:text-base text-gray-600 ">{{ meetingDate }}</h2>
+          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 source">{{ meetingName }}</h1>
+          <h2 class="text-lg lg:text-base text-gray-600 source">{{ meetingDate }}</h2>
         </div>
         <img :src="meetingTrackPhoto" alt="Circuit" class="w-40 rounded-lg shadow-md" />
       </div>
 
-      <div class="text-2xl lg:text-xl font-semibold text-gray-900 mb-4">
+      <div class="text-2xl lg:text-xl font-semibold text-gray-900 mb-4 source">
         You have already voted for this meeting.
       </div>
     </div>
-    <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="waitMessage">
+    <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="waitMessage">
       <!-- Header -->
       <div class="flex flex-row justify-between items-center mb-6">
         <div class="mb-4 md:mb-0">
-          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ waitMessage }}</h1>
+          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 source">{{ waitMessage }}</h1>
         </div>
       </div>
     </div>
@@ -145,9 +145,9 @@
       <!-- View all results button only under results -->
       <div class="text-center mt-8">
         <router-link to="/vote/results">
-          <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg text-lg">
+          <ReusableButton >
             View All Results
-          </button>
+          </ReusableButton>
         </router-link>
       </div>
     </div>
@@ -167,6 +167,7 @@ import { DateTime } from 'luxon'
 import {useHead} from "@vueuse/head";
 import DriverChart from "@/components/DriverChart.vue";
 import TeamChart from "@/components/TeamChart.vue";
+import ReusableButton from "@/components/ReusableButton.vue";
 
 
 import {makeRequest} from "@/functions/makeRequest";

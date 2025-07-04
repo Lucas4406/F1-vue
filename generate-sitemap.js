@@ -18,6 +18,7 @@ async function generateSitemap() {
     const staticRoutesWithPriority = {
         '/': 1.0,
         '/vote': 0.9,
+        '/vote/results': 0.9,
         '/schedule': 0.9,
         '/drivers': 0.9,
         '/teams': 0.9,
