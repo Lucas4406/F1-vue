@@ -50,6 +50,11 @@ const router = createRouter({
       component: () => import("../views/VotingPage/MeetingVote.vue"),
     },
     {
+      path: "/vote/results",
+      name: "MeetingVoteResults",
+      component: () => import("../views/VotingPage/VoteResults.vue"),
+    },
+    {
       path: "/qualifying-results/:an?",
       name: "Calificari",
       component: Calificari,

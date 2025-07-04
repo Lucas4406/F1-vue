@@ -4,7 +4,7 @@
 
 <script setup>
 import { Bar } from "vue-chartjs";
-import { computed } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import {
   Chart as ChartJS,
   Title,
@@ -36,6 +36,10 @@ const chartData = computed(() => ({
   ],
 }));
 
+const textColor = computed(() =>
+    document.documentElement.classList.contains("darkmode") ? "#fff" : "#000"
+);
+
 const chartOptions = {
   indexAxis: "y",
   responsive: true,
@@ -55,7 +59,12 @@ const chartOptions = {
     x: {
       beginAtZero: true,
       ticks: {
-        precision: 0 // Force integer display
+        precision: 0, // Force integer display
+        font: {
+          size: 18, // sau orice mărime dorești
+          weight: 'bold', // opțional, dacă vrei bold
+        },
+        color: textColor.value, // Setează culoarea textului în funcție de tema curentă
       }
     },
     y: {
@@ -64,6 +73,7 @@ const chartOptions = {
           size: 16,
           weight: 'bold',
         },
+        color: textColor.value, // Setează culoarea textului în funcție de tema curentă
       },
     },
   },

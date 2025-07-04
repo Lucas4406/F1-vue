@@ -1,39 +1,39 @@
 html.darkmode {
   .source{
-    color: white;
+    color: var(--light-text);
   }
   .piloti-dark{
     background-color: var(--bg-body-dark-mode);
-    color: white;
+    color: var(--light-text);
   }
   .program-hero{
     background-color: var(--bg-component-dark-mode);
   }
   .pilot-card{
-    color: white;
+    color: var(--light-text);
     background-color: var(--bg-component-dark-mode);
   }
   .racefansgrid{
-    color: white;
+    color: var(--light-text);
     background-color: var(--bg-component-dark-mode);
   }
   .calendar-schedule{
-    color: white;
+    color: var(--light-text);
     background-color: var(--bg-component-dark-mode);
   }
   .racefansgrid h3,
   .racefansgrid p,
    .racefansgrid {
-    color: white !important;
+    color: var(--light-text) !important;
   }
   /* Clasament-piloti */
   .piloti-text {
-    color: white;
+    color: var(--light-text);
   }
   .pilot-container {
-    color: white;
-    border-top: 2px solid white;
-    border-right: 2px solid white;
+    color: var(--light-text);
+    border-top: 2px solid var(--light-text);
+    border-right: 2px solid var(--light-text);
   }
   .puncte-text-pilot {
     background-color: #fff;
@@ -45,10 +45,10 @@ html.darkmode {
     background-size: 8px;
   }
   .surse-text{
-    color: white;
+    color: var(--light-text);
   }
   .surse-link{
-    color: white;
+    color: var(--light-text);
   }
 
   /* Dark-mode-btn */
@@ -57,56 +57,56 @@ html.darkmode {
   }
   /* Curse */
   .titlu-pagina-curse {
-    color: white;
+    color: var(--light-text);
   }
   .tabel-cursa {
     background-color: var(--bg-component-dark-mode);
-    color: white;
-    border-color: white;
+    color: var(--light-text);
+    border-color: var(--light-text);
   }
   .parte-jos-pilot {
-    border-color: white;
+    border-color: var(--light-text);
   }
   .spatiu-intre {
-    background-color: white;
-    color: white;
+    background-color: var(--light-text);
+    color: var(--light-text);
   }
 
   /* Calificari */
   .text-wrap > .text-titlu {
-    color: white;
+    color: var(--light-text);
   }
   .tabel-container {
-    border-color: white;
+    border-color: var(--light-text);
     background-color: var(--bg-component-dark-mode);
-    color: white;
+    color: var(--light-text);
   }
   .tabel-container > .tabel > .piloti-container > .pilot > .parte-stanga {
-    border-color: white;
+    border-color: var(--light-text);
   }
   .tabel-container > .tabel > .piloti-container > .pilot > .parte-dreapta {
-    border-color: white;
+    border-color: var(--light-text);
   }
   /* Clasament - ergast */
   .card-const {
     background-color: var(--bg-component-dark-mode);
-    border-color: white;
-    color: white;
+    border-color: var(--light-text);
+    color: var(--light-text);
   }
   .pozitie {
-    border-color: white;
+    border-color: var(--light-text);
   }
   .curse-castigate-cont {
-    border-color: white;
+    border-color: var(--light-text);
   }
   .nrpuncte-cont {
-    border-color: white;
+    border-color: var(--light-text);
   }
   /* Echipe - mongo */
   .box {
-    border-color: white;
+    border-color: var(--light-text);
     background-color: var(--bg-component-dark-mode);
-    color: white;
+    color: var(--light-text);
   }
   .box > .linie3 {
     background-image: url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-white-x1.png);
@@ -116,73 +116,73 @@ html.darkmode {
   }
   /* Form-select */
   .form-select {
-    color: white;
+    color: var(--light-text);
   }
   .text-label{
-    color: white;
+    color: var(--light-text);
   }
   /* Home */
   .content-grid {
-    color: white;
+    color: var(--light-text);
   }
   .content-text {
     border-color: white;
-    color: white;
+    color: var(--light-text);
     background-color: rgb(41, 40, 40);
   }
   .ltag {
-    color: white;
+    color: var(--light-text);
   }
   .stiri {
-    color: white;
+    color: var(--light-text);
   }
 
   /* Isotrie */
   .subtitlu {
-    color: white;
+    color: var(--light-text);
   }
   .multscris {
-    border-color: white;
-    color: white;
+    border-color: var(--light-text);
+    color: var(--light-text);
   }
   .imagini {
-    color: white;
+    color: var(--light-text);
   }
   /* Joc */
   .reaction-wrapper > .reaction-titlu {
-    color: white;
+    color: var(--light-text);
   }
   .reaction-wrapper > .timpi-tabel {
-    color: white;
-    border: 2px solid white;
+    color: var(--light-text);
+    border: 2px solid var(--light-text);
   }
   .reaction-wrapper > .timpi-tabel > p {
-    border-top: 1px solid white;
+    border-top: 1px solid var(--light-text);
   }
   .reaction-wrapper > .best-tabel {
-    color: white;
-    border: 2px solid white;
+    color: var(--light-text);
+    border: 2px solid var(--light-text);
   }
   .reaction-wrapper > .result-box {
-    color: white;
+    color: var(--light-text);
   }
   .reaction-wrapper > .instructiuni {
-    color: white;
+    color: var(--light-text);
   }
   /* Searchbar */
   .search-bar {
-    color: white;
+    color: var(--light-text);
     background-color: var(--bg-component-dark-mode);
-    border: 2px solid white;
+    border: 2px solid var(--light-text);
   }
   .search-bar:focus {
-    color: white;
+    color: var(--light-text);
   }
 
   /* Program */
   .animatie {
     p {
-      color: white;
+      color: var(--light-text);
     }
     background-color: var(--bg-component-dark-mode);
   }
