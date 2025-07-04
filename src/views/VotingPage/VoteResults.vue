@@ -15,7 +15,7 @@
 
   <!-- Wait message -->
   <div v-if="waitMessage" class="text-center bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid">
-    <p class="text-xl text-gray-700">{{ waitMessage }}</p>
+    <p class="text-4xl lg:text-3xl font-extrabold text-gray-800 source">{{ waitMessage }}</p>
   </div>
 
   <!-- Results -->
