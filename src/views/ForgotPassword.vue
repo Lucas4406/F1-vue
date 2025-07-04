@@ -25,12 +25,12 @@
 <script setup>
 import { ref } from "vue"
 import { getAuth, sendPasswordResetEmail } from "firebase/auth"
+import {useHead} from "@vueuse/head";
 
 const email = ref("")
 const error = ref("")
 const message = ref("")
 const isSending = ref(false)
-document.title = "GridFanHub | Reset password"
 async function sendReset() {
   if (isSending.value) return
   isSending.value = true
@@ -47,6 +47,30 @@ async function sendReset() {
     isSending.value = false
   }
 }
+
+useHead({
+  title: `GridFanHub | Reset password`,
+  meta: [
+    {
+      name: "description",
+      content: `Reset your password for GridFanHub`,
+    },
+    {
+      name: "keywords",
+      content: `gridfanhub, password reset, profile, account, login, sign in, f1, formula 1, motorsport`,
+    },
+    {
+      name: "robots",
+      content: "index, follow",
+    }
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: `https://gridfanhub.com/forgot-password`,
+    },
+  ],
+})
 </script>
 
 <style scoped>
