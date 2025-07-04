@@ -5,131 +5,168 @@
     </h1>
     <p class="mt-2 text-xl lg:text-lg text-gray-500 ">Who impressed you the most this weekend?</p>
   </div>
-  <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="!alreadyVoted && dataLoaded && !waitMessage">
-    <!-- Header -->
-    <div class="flex flex-row justify-between items-center mb-6">
-      <div class="mb-4 md:mb-0">
-        <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ meetingName }}</h1>
-        <h2 class="text-lg lg:text-base text-gray-600 ">{{ meetingDate }}</h2>
-      </div>
-      <img :src="meetingTrackPhoto" alt="Circuit" class="w-40 rounded-lg shadow-md" />
-    </div>
 
-    <!-- Top Point Scorer -->
-    <div class="mb-8">
-      <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">🏆 Best Point Scorer</h3>
-      <div class="space-y-3">
-        <div
-            v-for="driver in topTen"
-            :key="driver.driverId"
-            @click="selectScorer(driver.driverId, driver.teamKey)"
-            :class="[
-  'flex items-center justify-between rounded-lg p-3 cursor-pointer border',
-  selectedScorer && selectedScorer.id === driver.driverId
-    ? 'border-blue-500 ring-2 ring-blue-500 bg-blue-900 text-blue-100'
-    : 'bg-gray-700 text-gray-100',
-]"
-        >
-          <div class="flex items-center gap-3 text-xl lg:text-lg">
-            <span class="w-6 text-[#fff] font-bold">{{ driver.displayPosition }}</span>
-            <img :src="driver.driverImage" alt="Driver" class="w-10 h-10 rounded-full object-cover" />
-            <span class="font-medium text-[#fff]">{{ driver.driverFirstName + " " + driver.driverLastName }}</span>
-          </div>
-          <span class="font-semibold text-xl lg:text-lg text-[#fff]">+{{ driver.racePoints }} pts</span>
+  <div v-if="dataLoaded" class="flex flex-col lg:flex-row gap-8 w-4/5 lg:max-w-6xl mx-auto my-8">
+    <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="alreadyVoted && !waitMessage">
+      <!-- Header -->
+      <div class="flex flex-row justify-between items-center mb-6">
+        <div class="mb-4 md:mb-0">
+          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ meetingName }}</h1>
+          <h2 class="text-lg lg:text-base text-gray-600 ">{{ meetingDate }}</h2>
+        </div>
+        <img :src="meetingTrackPhoto" alt="Circuit" class="w-40 rounded-lg shadow-md" />
+      </div>
+
+      <div class="text-2xl lg:text-xl font-semibold text-gray-900 mb-4">
+        You have already voted for this meeting.
+      </div>
+    </div>
+    <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="waitMessage">
+      <!-- Header -->
+      <div class="flex flex-row justify-between items-center mb-6">
+        <div class="mb-4 md:mb-0">
+          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ waitMessage }}</h1>
         </div>
       </div>
     </div>
+    <!-- Voting card -->
+    <div v-if="!alreadyVoted && !waitMessage" class="bg-gray-100 p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg">
+      <!-- Header -->
+      <div class="flex flex-row justify-between items-center mb-6">
+        <div class="mb-4 md:mb-0">
+          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ meetingName }}</h1>
+          <h2 class="text-lg lg:text-base text-gray-600 ">{{ meetingDate }}</h2>
+        </div>
+        <img :src="meetingTrackPhoto" alt="Circuit" class="w-40 rounded-lg shadow-md" />
+      </div>
 
-    <!-- Best Overtaker -->
-    <div class="mb-8">
-      <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">⚔️ Best Of The Rest</h3>
-      <div class="space-y-3">
-        <div
-            v-for="driver in rest"
-            :key="driver.driverId"
-            @click="selectOvertaker(driver.driverId, driver.teamKey)"
-            :class="[
-  'flex items-center justify-between rounded-lg p-3 cursor-pointer border',
-  selectedOvertaker && selectedOvertaker.id === driver.driverId
-    ? 'border-green-500 ring-2 ring-green-500 bg-blue-100 text-green-900'
-    : 'bg-white text-gray-900 hover:border-gray-400',
-]"
-        >
-          <div class="flex items-center gap-3 text-xl lg:text-lg">
-            <span class="w-6 text-gray-500 font-bold">{{ driver.displayPosition }}</span>
-            <img :src="driver.driverImage" alt="Driver" class="w-10 h-10 rounded-full object-cover" />
-            <span class="font-medium text-gray-900 ">{{ driver.driverFirstName + " " + driver.driverLastName }}</span>
+      <!-- Top Point Scorer -->
+      <div class="mb-8">
+        <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">🏆 Best Point Scorer</h3>
+        <div class="space-y-3">
+          <div
+              v-for="driver in topTen"
+              :key="driver.driverId"
+              @click="selectScorer(driver.driverId, driver.teamKey)"
+              :class="[
+              'flex items-center justify-between rounded-lg p-3 cursor-pointer border',
+              selectedScorer && selectedScorer.id === driver.driverId
+                ? 'border-blue-500 ring-2 ring-blue-500 bg-blue-900 text-blue-100'
+                : 'bg-gray-700 text-gray-100',
+            ]"
+          >
+            <div class="flex items-center gap-3 text-xl lg:text-lg">
+              <span class="w-6 text-[#fff] font-bold">{{ driver.displayPosition }}</span>
+              <img :src="driver.driverImage" alt="Driver" class="w-10 h-10 rounded-full object-cover" />
+              <span class="font-medium text-[#fff]">{{ driver.driverFirstName + " " + driver.driverLastName }}</span>
+            </div>
+            <span class="font-semibold text-xl lg:text-lg text-[#fff]">+{{ driver.racePoints }} pts</span>
           </div>
         </div>
       </div>
-    </div>
-<!--    Best Team-->
-    <div class="mb-8">
-      <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">🏆 Best Team</h3>
-      <div class="space-y-3">
-        <div
-            v-for="team in teams"
-            :key="team.teamKey"
-            @click="selectTeam(team.teamKey)"
-            :class="[
-  'flex items-center justify-between rounded-lg p-3 cursor-pointer border',
-  selectedTeam === team.teamKey
-    ? 'border-blue-500 ring-2 ring-blue-500 bg-blue-900 text-blue-100'
-    : 'bg-gray-700 text-gray-100',
-]"
-        >
-          <div class="flex items-center gap-3 text-xl lg:text-lg">
-            <span class="w-6 text-[#fff] font-bold">{{ team.teamPosition }}</span>
-            <img :src="team.teamLogo" alt="Driver" class="w-10 h-10 rounded-full object-cover" />
-            <span class="font-medium text-[#fff]">{{ team.teamName }}</span>
+
+      <!-- Best Overtaker -->
+      <div class="mb-8">
+        <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">⚔️ Best Of The Rest</h3>
+        <div class="space-y-3">
+          <div
+              v-for="driver in rest"
+              :key="driver.driverId"
+              @click="selectOvertaker(driver.driverId, driver.teamKey)"
+              :class="[
+              'flex items-center justify-between rounded-lg p-3 cursor-pointer border',
+              selectedOvertaker && selectedOvertaker.id === driver.driverId
+                ? 'border-green-500 ring-2 ring-green-500 bg-blue-100 text-green-900'
+                : 'bg-white text-gray-900 hover:border-gray-400',
+            ]"
+          >
+            <div class="flex items-center gap-3 text-xl lg:text-lg">
+              <span class="w-6 text-gray-500 font-bold">{{ driver.displayPosition }}</span>
+              <img :src="driver.driverImage" alt="Driver" class="w-10 h-10 rounded-full object-cover" />
+              <span class="font-medium text-gray-900 ">{{ driver.driverFirstName + " " + driver.driverLastName }}</span>
+            </div>
           </div>
-          <span class="font-semibold text-xl lg:text-lg text-[#fff]">{{ team.teamPoints }} pts</span>
         </div>
       </div>
-    </div>
 
-    <!-- Submit button -->
-    <button
-        @click="submitVote"
-        :disabled="!canSubmit || isSubmitting"
-        class="text-2xl lg:text-lg w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-    >
-      Submit Vote
-    </button>
-    <p v-if="!canSubmit" class="text-xl lg:text-base text-red-600 mt-2">Each category must be selected.</p>
-  </div>
-  <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="alreadyVoted && dataLoaded && !waitMessage">
-    <!-- Header -->
-    <div class="flex flex-row justify-between items-center mb-6">
-      <div class="mb-4 md:mb-0">
-        <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ meetingName }}</h1>
-        <h2 class="text-lg lg:text-base text-gray-600 ">{{ meetingDate }}</h2>
+      <!-- Best Team -->
+      <div class="mb-8">
+        <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">🏆 Best Team</h3>
+        <div class="space-y-3">
+          <div
+              v-for="team in teams"
+              :key="team.teamKey"
+              @click="selectTeam(team.teamKey)"
+              :class="[
+              'flex items-center justify-between rounded-lg p-3 cursor-pointer border',
+              selectedTeam === team.teamKey
+                ? 'border-blue-500 ring-2 ring-blue-500 bg-blue-900 text-blue-100'
+                : 'bg-gray-700 text-gray-100',
+            ]"
+          >
+            <div class="flex items-center gap-3 text-xl lg:text-lg">
+              <span class="w-6 text-[#fff] font-bold">{{ team.teamPosition }}</span>
+              <img :src="team.teamLogo" alt="Team" class="w-10 h-10 rounded-full object-cover" />
+              <span class="font-medium text-[#fff]">{{ team.teamName }}</span>
+            </div>
+            <span class="font-semibold text-xl lg:text-lg text-[#fff]">{{ team.teamPoints }} pts</span>
+          </div>
+        </div>
       </div>
-      <img :src="meetingTrackPhoto" alt="Circuit" class="w-40 rounded-lg shadow-md" />
+
+      <!-- Submit button -->
+      <button
+          @click="submitVote"
+          :disabled="!canSubmit || isSubmitting"
+          class="text-2xl lg:text-lg w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Submit Vote
+      </button>
+      <p v-if="!canSubmit" class="text-xl lg:text-base text-red-600 mt-2">Each category must be selected.</p>
     </div>
 
-    <div class="text-2xl lg:text-xl font-semibold text-gray-900 mb-4">
-      You have already voted for this meeting.
-    </div>
-  </div>
-  <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="waitMessage">
-    <!-- Header -->
-    <div class="flex flex-row justify-between items-center mb-6">
-      <div class="mb-4 md:mb-0">
-        <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ waitMessage }}</h1>
+    <!-- Results card -->
+    <div class="bg-gray-100 p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="!waitMessage">
+      <div class="my-4 space-y-8">
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900">🏁 Top 3 Best Point Scorers</h3>
+          <DriverChart :drivers="topTenChart" />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900">⚔️ Top 3 Best Of The Rest</h3>
+          <DriverChart :drivers="restChart" />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900">🏆 Top 3 Teams</h3>
+          <TeamChart :teams="teamChart" />
+        </div>
+      </div>
+
+      <!-- View all results button only under results -->
+      <div class="text-center mt-8">
+        <router-link to="/vote/results">
+          <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg text-lg">
+            View All Results
+          </button>
+        </router-link>
       </div>
     </div>
   </div>
 
+  <!-- Loading spinner -->
   <div class="flex justify-center items-center mt-8" v-if="!dataLoaded">
     <ProgressSpinner />
   </div>
 </template>
 
+
+
 <script setup>
 import {ref, computed, onMounted, inject} from 'vue'
 import { DateTime } from 'luxon'
 import {useHead} from "@vueuse/head";
+import DriverChart from "@/components/DriverChart.vue";
+import TeamChart from "@/components/TeamChart.vue";
 
 
 import {makeRequest} from "@/functions/makeRequest";
@@ -187,6 +224,9 @@ onMounted(async () => {
   await getRelevantData()
   if (!meetingName.value) {
     meetingName.value = "Last Race"
+  }
+  if(meetingId.value) {
+    await getVoteResults(meetingId.value)
   }
   useHead({
     title: `GridFanHub | ${meetingName.value} | Vote for F1 Best of the Weekend`,
@@ -267,6 +307,22 @@ onMounted(async () => {
   dataLoaded.value = true
 
 })
+
+
+const topTenChart = ref([]);
+const restChart = ref([]);
+const teamChart = ref([]);
+
+async function getVoteResults(meeting_key) {
+  try {
+    const results = await makeRequest(`${import.meta.env.VITE_API_LINK}/vote/results/${meeting_key}`)
+    topTenChart.value = results.topTenDrivers.slice(0,3)
+    restChart.value = results.topBestOfTheRestDrivers.slice(0,3)
+    teamChart.value = results.topBestTeam.slice(0,3)
+  } catch (error) {
+    console.error("Error fetching vote results:", error);
+  }
+}
 
 
 
@@ -376,6 +432,8 @@ async function submitVote() {
       saveVoteToLocal(meetingName.value, meetingId.value);
       alreadyVoted.value = true;
       alert(`Vote submitted successfully for ${meetingName.value}!`);
+
+      await getVoteResults(meetingId.value)
     } else {
       alert("Something went wrong. Please try again.");
     }
