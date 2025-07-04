@@ -199,9 +199,9 @@ export default {
         </div>
       </transition>
     </div>
-    <br />
     <div
         v-if="store.user != null"
+        class="pt-2"
     >
       <div
           class="flex flex-row h-[20rem] items-center justify-center my-6 gap-4"
