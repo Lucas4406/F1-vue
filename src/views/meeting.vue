@@ -210,12 +210,14 @@ useHead({
       <Tabelsprint :cursa="sprintData" />
       <br />
     </template>
-    <div v-if="fpResults" v-for="fpResult in fpResults" :key="fpResult.key">
-      <PracticeResultsTable
-          :results="getPracticeResults(fpResult.data)"
-          :session-name="getPracticeDescription(fpResult.data)"
-          v-if="getPracticeResults(fpResult.data)"
-      />
+    <div v-if="fpResults" class="flex flex-col align-center justify-center gap-8 w-full">
+      <div v-for="fpResult in fpResults" :key="fpResult.key" class="w-auto lg:mx-auto">
+        <PracticeResultsTable
+            :results="getPracticeResults(fpResult.data)"
+            :session-name="getPracticeDescription(fpResult.data)"
+            v-if="getPracticeResults(fpResult.data)"
+        />
+      </div>
     </div>
 <!--    <h2 class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Race Control messages</h2>-->
 <!--    <Suspense>-->

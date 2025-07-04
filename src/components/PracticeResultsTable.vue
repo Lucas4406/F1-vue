@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-900 p-6 lg:p-8 rounded-lg font-sans w-11/12 lg:w-auto">
+  <div class="bg-gray-900 p-6 lg:p-8 rounded-lg font-sans w-auto">
     <div class="max-w-7xl mx-auto">
       <h2 class="text-3xl font-extrabold text-white mb-6">{{sessionName}}</h2>
 
