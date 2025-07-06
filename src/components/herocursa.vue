@@ -41,7 +41,7 @@
         </p>
         <p
             v-if="nextSession.status === 'isNext'"
-            class="text-red-500 font-bold text-lg mt-2"
+            class="text-red-500 font-bold text-xl lg:text-lg mt-2"
         >
           {{ countdown }}
         </p>
