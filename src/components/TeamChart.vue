@@ -1,10 +1,10 @@
 <template>
-  <Bar :data="chartData" :options="chartOptions" />
+  <Bar :data="chartData" :options="chartOptions" ref="chartRef" />
 </template>
 
 <script setup>
 import { Bar } from "vue-chartjs";
-import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import {
   Chart as ChartJS,
   Title,
@@ -24,6 +24,8 @@ const props = defineProps({
   },
 });
 
+const chartRef = ref(null); // Ref to access the Bar component instance
+
 const chartData = computed(() => ({
   labels: props.teams.map((t) => t.teamData.displayTeamName),
   datasets: [
@@ -36,11 +38,23 @@ const chartData = computed(() => ({
   ],
 }));
 
-const textColor = computed(() =>
-    document.documentElement.classList.contains("darkmode") ? "#fff" : "#000"
-);
+const isDarkMode = ref(false);
 
-const chartOptions = {
+const updateDarkModeStatus = () => {
+  isDarkMode.value = document.documentElement.classList.contains("darkmode");
+};
+
+onMounted(() => {
+  updateDarkModeStatus();
+  const observer = new MutationObserver(updateDarkModeStatus);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+  onBeforeUnmount(() => {
+    observer.disconnect();
+  });
+});
+
+const chartOptions = computed(() => ({
   indexAxis: "y",
   responsive: true,
   plugins: {
@@ -59,12 +73,12 @@ const chartOptions = {
     x: {
       beginAtZero: true,
       ticks: {
-        precision: 0, // Force integer display
+        precision: 0,
         font: {
-          size: 18, // sau orice mărime dorești
-          weight: 'bold', // opțional, dacă vrei bold
+          size: 18,
+          weight: 'bold',
         },
-        color: textColor.value, // Setează culoarea textului în funcție de tema curentă
+        color: isDarkMode.value ? "#fff" : "#000",
       }
     },
     y: {
@@ -73,9 +87,20 @@ const chartOptions = {
           size: 16,
           weight: 'bold',
         },
-        color: textColor.value, // Setează culoarea textului în funcție de tema curentă
+        color: isDarkMode.value ? "#fff" : "#000",
       },
     },
   },
-};
+}));
+
+// --- New part to force update ---
+watch(isDarkMode, (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    if (chartRef.value && chartRef.value.chart) {
+      // Access the underlying Chart.js instance and call update()
+      chartRef.value.chart.update();
+    }
+  }
+});
+// --- End of new part ---
 </script>

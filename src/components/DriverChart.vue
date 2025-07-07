@@ -1,10 +1,10 @@
 <template>
-  <Bar :data="chartData" :options="chartOptions" />
+  <Bar :data="chartData" :options="chartOptions" ref="chartRef" />
 </template>
 
 <script setup>
 import { Bar } from "vue-chartjs";
-import { computed, watch } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import {
   Chart as ChartJS,
   Title,
@@ -24,6 +24,9 @@ const props = defineProps({
   },
 });
 
+// Ref to access the Bar component instance
+const chartRef = ref(null);
+
 // Creează datele graficului din props
 const chartData = computed(() => ({
   labels: props.drivers.map(
@@ -41,11 +44,28 @@ const chartData = computed(() => ({
   ],
 }));
 
-const textColor = computed(() =>
-    document.documentElement.classList.contains("darkmode") ? "#fff" : "#000"
-);
+// Use a ref to track the dark mode status
+const isDarkMode = ref(false);
 
-const chartOptions = {
+// Function to update dark mode status
+const updateDarkModeStatus = () => {
+  isDarkMode.value = document.documentElement.classList.contains("darkmode");
+};
+
+// Update status on mount and listen for changes
+onMounted(() => {
+  updateDarkModeStatus();
+  // You might need an observer if the class is toggled without a full page reload
+  const observer = new MutationObserver(updateDarkModeStatus);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+  onBeforeUnmount(() => {
+    observer.disconnect();
+  });
+});
+
+// chartOptions as a computed property to react to isDarkMode changes
+const chartOptions = computed(() => ({
   indexAxis: "y",
   responsive: true,
   plugins: {
@@ -66,10 +86,10 @@ const chartOptions = {
       ticks: {
         precision: 0, // Force integer display
         font: {
-          size: 18, // sau orice mărime dorești
-          weight: 'bold', // opțional, dacă vrei bold
+          size: 18,
+          weight: 'bold',
         },
-        color: textColor.value, // Setează culoarea textului în funcție de tema curentă
+        color: isDarkMode.value ? "#fff" : "#000", // Dynamically set color based on isDarkMode
       }
     },
     y: {
@@ -78,9 +98,19 @@ const chartOptions = {
           size: 16,
           weight: 'bold',
         },
-        color: textColor.value, // Setează culoarea textului în funcție de tema curentă
+        color: isDarkMode.value ? "#fff" : "#000", // Dynamically set color based on isDarkMode
       },
     },
   },
-};
+}));
+
+// Watch for changes in isDarkMode and force chart update
+watch(isDarkMode, (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    if (chartRef.value && chartRef.value.chart) {
+      // Access the underlying Chart.js instance and call update()
+      chartRef.value.chart.update();
+    }
+  }
+});
 </script>

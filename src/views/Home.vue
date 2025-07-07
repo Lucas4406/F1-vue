@@ -227,7 +227,7 @@ export default {
           <p class="text-3xl lg:text-2xl font-semibold mb-4 source">Share your opinion on the last race!</p>
           <router-link to="/vote">
             <ReusableButton fontSize="text-xl">
-              🗳️ Vote for your Driver of the Day
+              🗳️ Fan Vote: Weekend's Best
             </ReusableButton>
           </router-link>
         </div>
@@ -267,19 +267,18 @@ export default {
             <br />
             <ReusablePodium :top3="top3Teams" v-once>
               <template #firstPodiumSlot>
-                <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[0].team }}</p>
-                <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[0].points }} pts</p>
+                <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[0].team }}</p>
+                <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[0].points }} pts</p>
               </template>
               <template #secondPodiumSlot>
-                <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[1].team }}</p>
-                <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[1].points }} pts</p>
+                <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[1].team }}</p>
+                <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[1].points }} pts</p>
               </template>
               <template #thirdPodiumSlot>
-                <p class="font-bold text-center text-base md:text-2xl">{{ top3Teams[2].team }}</p>
-                <p class="text-lg font-semibold text-gray-800">+{{ top3Teams[2].points }} pts</p>
+                <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[2].team }}</p>
+                <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[2].points }} pts</p>
               </template>
             </ReusablePodium>
-            <br/>
             <ReusablePodium :top3="top5Overtakers" title="Top 3 Overtakers" v-once>
               <template #firstPodiumSlot>
                 <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].full_name }}</p>
