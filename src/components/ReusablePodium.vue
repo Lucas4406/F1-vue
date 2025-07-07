@@ -10,11 +10,11 @@ defineProps({
 
 <template>
   <div class="text-center mb-10" v-if="title">
-    <h2 class="text-3xl md:text-4xl font-semibold source">
+    <h2 class="text-4xl lg:text-3xl font-semibold source">
       {{title}}
     </h2>
   </div>
-  <div class="flex flex-row justify-center items-end gap-10 lg:h-[24rem]">
+  <div class="flex flex-row justify-center items-end gap-4 lg:h-[24rem] mb-4">
     <!-- Locul 2 -->
     <div v-if="top3[1]" class="flex flex-col items-center w-72 md:w-56 transition-transform duration-200 hover:scale-105">
       <div class="bg-gray-500 text-white text-3xl lg:text-2xl px-5 py-2 rounded-t-xl shadow font-bold">2</div>

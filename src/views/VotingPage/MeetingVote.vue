@@ -7,8 +7,7 @@
   </div>
 
   <div v-if="dataLoaded" class="flex flex-col lg:flex-row gap-8 w-4/5 lg:max-w-6xl mx-auto my-8">
-    <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="alreadyVoted && !waitMessage">
-      <!-- Header -->
+    <div class="bg-gray-100  p-4 rounded-xl w-full lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="alreadyVoted && !waitMessage">
       <div class="flex flex-row justify-between items-center mb-6">
         <div class="mb-4 md:mb-0">
           <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 source">{{ meetingName }}</h1>
@@ -21,26 +20,24 @@
         You have already voted for this meeting.
       </div>
     </div>
-    <div class="bg-gray-100  p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="waitMessage">
-      <!-- Header -->
+    <div class="bg-gray-100  p-4 rounded-xl w-full lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="waitMessage">
       <div class="flex flex-row justify-between items-center mb-6">
         <div class="mb-4 md:mb-0">
           <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 source">{{ waitMessage }}</h1>
         </div>
       </div>
     </div>
-    <!-- Voting card -->
-    <div v-if="!alreadyVoted && !waitMessage" class="bg-gray-100 p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg">
-      <!-- Header -->
+    <div v-if="!alreadyVoted && !waitMessage" class="bg-gray-100 p-4 rounded-xl w-full lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid">
       <div class="flex flex-row justify-between items-center mb-6">
         <div class="mb-4 md:mb-0">
-          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 ">{{ meetingName }}</h1>
-          <h2 class="text-lg lg:text-base text-gray-600 ">{{ meetingDate }}</h2>
+          <h1 class="text-4xl lg:text-3xl font-extrabold text-gray-800 source">{{ meetingName }}</h1>
+          <h2 class="text-lg lg:text-base text-gray-600 source">{{ meetingDate }}</h2>
         </div>
         <img :src="meetingTrackPhoto" alt="Circuit" class="w-40 rounded-lg shadow-md" />
       </div>
 
-      <!-- Top Point Scorer -->
+      <p class="text-xl lg:text-lg text-gray-700 mb-6 italic">Please select one option from each category below to submit your vote.</p>
+
       <div class="mb-8">
         <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">🏆 Best Point Scorer</h3>
         <div class="space-y-3">
@@ -65,9 +62,11 @@
         </div>
       </div>
 
-      <!-- Best Overtaker -->
       <div class="mb-8">
-        <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">⚔️ Best Of The Rest</h3>
+        <h3 class="text-2xl lg:text-xl font-semibold mb-2 text-gray-900 ">⚔️ Best Of The Rest</h3>
+        <p class="text-md lg:text-sm text-gray-600 mb-4">
+          (Drivers in this category did not score championship points in the last race.)
+        </p>
         <div class="space-y-3">
           <div
               v-for="driver in rest"
@@ -89,7 +88,6 @@
         </div>
       </div>
 
-      <!-- Best Team -->
       <div class="mb-8">
         <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">🏆 Best Team</h3>
         <div class="space-y-3">
@@ -114,7 +112,6 @@
         </div>
       </div>
 
-      <!-- Submit button -->
       <button
           @click="submitVote"
           :disabled="!canSubmit || isSubmitting"
@@ -125,8 +122,7 @@
       <p v-if="!canSubmit" class="text-xl lg:text-base text-red-600 mt-2">Each category must be selected.</p>
     </div>
 
-    <!-- Results card -->
-    <div class="bg-gray-100 p-4 rounded-xl w-4/5 lg:max-w-4xl mx-auto my-8 shadow-lg" v-if="!waitMessage">
+    <div class="bg-gray-100 p-4 rounded-xl w-full lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="!waitMessage">
       <div class="my-4 space-y-8">
         <div>
           <h3 class="text-xl font-semibold text-gray-900">🏁 Top 3 Best Point Scorers</h3>
@@ -142,7 +138,6 @@
         </div>
       </div>
 
-      <!-- View all results button only under results -->
       <div class="text-center mt-8">
         <router-link to="/vote/results">
           <ReusableButton >
@@ -153,7 +148,6 @@
     </div>
   </div>
 
-  <!-- Loading spinner -->
   <div class="flex justify-center items-center mt-8" v-if="!dataLoaded">
     <ProgressSpinner />
   </div>
@@ -388,22 +382,20 @@ async function submitVote() {
   }
 }
 
-if (!meetingName.value) {
-  meetingName.value = "Last Race"
-}
+const pageMeetingName = computed(() => {
+  return meetingName.value || "Latest Race"; // Default to "Latest Race" if still null
+});
 
 useHead({
-  title: `GridFanHub | ${meetingName.value} | Vote for F1 Best of the Weekend`,
+  title: computed(() => `GridFanHub | ${pageMeetingName.value} | Vote for F1 Best of the Weekend`),
   meta: [
     {
       name: "description",
-      content:
-          `${meetingName.value}: Vote for the Best Point Scorer, Best of the Rest, and Best Team from the latest Formula 1 Grand Prix weekend on GridFanHub. Share your opinion and see what other fans think!`,
+      content: computed(() => `${pageMeetingName.value}: Vote for the Best Point Scorer, Best of the Rest, and Best Team from the latest Formula 1 Grand Prix weekend on GridFanHub. Share your opinion and see what other fans think!`),
     },
     {
       name: "keywords",
-      content:
-          `${meetingName.value}, F1 vote, Formula 1 voting, F1 best driver, F1 best team, F1 best of the rest, vote F1 drivers, vote F1 teams, Formula 1 fan vote, F1 driver of the day, F1 top 10 vote, gridfanhub vote, gridfanhub, f1, formula1, best point scorer, best team, best of the rest, f1 2025 voting, f1 fans vote`,
+      content: computed(() => `${pageMeetingName.value}, F1 vote, Formula 1 voting, F1 best driver, F1 best team, F1 best of the rest, vote F1 drivers, vote F1 teams, Formula 1 fan vote, F1 driver of the day, F1 top 10 vote, gridfanhub vote, gridfanhub, f1, formula1, best point scorer, best team, best of the rest, f1 2025 voting, f1 fans vote`),
     },
     {
       name: "robots",
@@ -411,12 +403,11 @@ useHead({
     },
     {
       property: "og:title",
-      content: `GridFanHub | ${meetingName.value} | Vote for F1 Best of the Weekend`,
+      content: computed(() => `GridFanHub | ${pageMeetingName.value} | Vote for F1 Best of the Weekend`),
     },
     {
       property: "og:description",
-      content:
-          `Who impressed you the most in the ${meetingName.value}? Vote now for the Best Point Scorer, Best of the Rest, and Best Team of the weekend on GridFanHub.`,
+      content: computed(() => `Who impressed you the most in the ${pageMeetingName.value}? Vote now for the Best Point Scorer, Best of the Rest, and Best Team of the weekend on GridFanHub.`),
     },
     {
       property: "og:type",
@@ -436,12 +427,11 @@ useHead({
     },
     {
       name: "twitter:title",
-      content: `GridFanHub | ${meetingName.value} | Vote for F1 Best of the Weekend`,
+      content: computed(() => `GridFanHub | ${pageMeetingName.value} | Vote for F1 Best of the Weekend`),
     },
     {
       name: "twitter:description",
-      content:
-          `Who impressed you the most in the ${meetingName.value}? Vote now for the Best Point Scorer, Best of the Rest, and Best Team of the weekend on GridFanHub.`,
+      content: computed(() => `Who impressed you the most in the ${pageMeetingName.value}? Vote now for the Best Point Scorer, Best of the Rest, and Best Team of the weekend on GridFanHub.`),
     },
     {
       name: "twitter:image",
