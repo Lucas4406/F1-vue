@@ -72,44 +72,51 @@ const getPracticeSessionInfo = (data) => {
 }
 
 const getData = async () => {
-  const meetingNameSpace = meetingName.replaceAll("-", " ")
-  const res = await fetchData(`https://api.jolpi.ca/ergast/f1/${an}.json?limit=100`)
-  curse.value = res.MRData.RaceTable.Races
+  // --- Initial setup (no changes here) ---
+  const meetingNameSpace = meetingName.replaceAll("-", " ");
+  const res = await fetchData(`https://api.jolpi.ca/ergast/f1/${an}.json?limit=100`);
+  curse.value = res.MRData.RaceTable.Races;
 
   for (let i = 0; i < curse.value.length; i++) {
     if (meetingNameSpace === curse.value[i].raceName.toLowerCase()) {
-      nrCursa.value = i
-      break
+      nrCursa.value = i;
+      break;
     }
   }
 
-  const raceRes = await fetchData(`${import.meta.env.VITE_API_LINK}/mongo/race-data/all`)
-  sessionKey.value = raceRes[nrCursa.value].fomRaceId
+  const raceRes = await fetchData(`${import.meta.env.VITE_API_LINK}/mongo/race-data/all`);
+  sessionKey.value = raceRes[nrCursa.value].fomRaceId;
 
-  const runda = await getNext
-  nrRundaActuala.value = runda.meetingContext.nr_runda
-  const meetingYear = runda.meetingContext.season
-  const meetingPath = sessionKey.value + "_" + meetingName
-  const base_practice_link = `${import.meta.env.VITE_API_LINK}/api-latest-session-f/view/${meetingYear}/${meetingPath}`
+  const runda = await getNext;
+  nrRundaActuala.value = runda.meetingContext.nr_runda;
+  const meetingYear = runda.meetingContext.season;
+  const meetingPath = sessionKey.value + "_" + meetingName;
+  const base_practice_link = `${import.meta.env.VITE_API_LINK}/api-latest-session-f/view/${meetingYear}/${meetingPath}`;
 
-  const linkBase = `https://api.jolpi.ca/ergast/f1/${an}/${nrCursa.value + 1}`
-  const terminare = ".json?limit=100"
+  const linkBase = `https://api.jolpi.ca/ergast/f1/${an}/${nrCursa.value + 1}`;
+  const terminare = ".json?limit=100";
 
-  const raceData = await fetchData(linkBase + "/results" + terminare)
-  const race = raceData.MRData.RaceTable.Races[0]
+  const raceData = await fetchData(linkBase + "/results" + terminare);
+  const race = raceData.MRData.RaceTable.Races[0];
 
-  const qualiDataRes = await fetchData(linkBase + "/qualifying" + terminare)
-  qualiData.value = qualiDataRes.MRData.RaceTable.Races[0]
+  if (race?.Results) {
+    race.Results.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"));
+    cursaData.value = race;
+  }
 
+  // --- START OF LOGIC CHANGES ---
+
+  // 1. FETCH THE MODERN DATA FIRST
+  // This block is moved up to run before the old qualifying call.
   if(nrCursa.value > 9){
-    let base_data = null
+    let base_data = null;
     try {
-      base_data = await makeRequest(base_practice_link)
+      base_data = await makeRequest(base_practice_link);
     } catch (err) {
       if (err.response && err.response.status === 404) {
-        console.log("Practice/Quali data not found. Will use Ergast fallback.")
+        console.log("Modern session data not found for this event.");
       } else {
-        console.error("Error fetching modern session data:", err)
+        console.error("Error fetching modern session data:", err);
       }
     }
     if(base_data && base_data.sessions){
@@ -118,21 +125,28 @@ const getData = async () => {
           key,
           ...base_data.sessions[key]
         }
-      })
-      fpResults.value = dataArray.reverse()
+      });
+      // This updates fpResults, which in turn updates the hasModernQualiData computed property
+      fpResults.value = dataArray.reverse();
     }
   }
-
-  if (race?.Results) {
-    race.Results.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"))
-    cursaData.value = race
+  if (!hasModernQualiData.value) {
+    console.log("Modern quali data not found, fetching fallback from Ergast API...");
+    try {
+      const qualiDataRes = await fetchData(linkBase + "/qualifying" + terminare);
+      qualiData.value = qualiDataRes.MRData.RaceTable.Races[0];
+    } catch (e) {
+      console.log("Could not fetch fallback qualifying data either.");
+    }
+  } else {
+    console.log("Modern quali data found, skipping Ergast API call for qualifying.");
   }
 
   if (curse.value[nrCursa.value]?.Sprint) {
-    const sprintDataRes = await fetchData(linkBase + "/sprint" + terminare)
-    const sprint = sprintDataRes.MRData.RaceTable.Races[0]
-    sprint.SprintResults.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"))
-    sprintData.value = sprint
+    const sprintDataRes = await fetchData(linkBase + "/sprint" + terminare);
+    const sprint = sprintDataRes.MRData.RaceTable.Races[0];
+    sprint.SprintResults.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"));
+    sprintData.value = sprint;
   }
 }
 
