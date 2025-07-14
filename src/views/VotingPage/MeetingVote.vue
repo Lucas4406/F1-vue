@@ -53,7 +53,7 @@
             ]"
           >
             <div class="flex items-center gap-3 text-xl lg:text-lg">
-              <span class="w-6 text-[#fff] font-bold">{{ driver.displayPosition }}</span>
+              <span class="w-6 text-[#fff] font-bold">{{ driver.displayPosition === 'NC' ? driver.displayTime : driver.displayPosition }}</span>
               <img :src="driver.driverImage" alt="Driver" class="w-10 h-10 rounded-full object-cover" />
               <span class="font-medium text-[#fff]">{{ driver.driverFirstName + " " + driver.driverLastName }}</span>
             </div>
@@ -80,7 +80,7 @@
             ]"
           >
             <div class="flex items-center gap-3 text-xl lg:text-lg">
-              <span class="w-6 text-gray-500 font-bold">{{ driver.displayPosition }}</span>
+              <span class="w-6 text-gray-500 font-bold">{{ driver.displayPosition === 'NC' ? driver.displayTime : driver.displayPosition }}</span>
               <img :src="driver.driverImage" alt="Driver" class="w-10 h-10 rounded-full object-cover" />
               <span class="font-medium text-gray-900 ">{{ driver.driverFirstName + " " + driver.driverLastName }}</span>
             </div>

@@ -7,6 +7,7 @@ import tabelcursa from "@/components/tabelcursa.vue"
 import tabelcali from "@/components/tabelcali.vue"
 import Tabelsprint from "@/components/tabelsprint.vue"
 import PracticeResultsTable from "@/components/PracticeResultsTable.vue"
+import QualifyingResultsTable from "@/components/QualifyingResultsTable.vue"
 import AccordionMesaje from "@/components/AccordionMesaje.vue"
 import getNext from "@/functions/getNext"
 import { makeRequest } from "@/functions/makeRequest"
@@ -20,7 +21,7 @@ const curse = ref(null)
 const nrCursa = ref(null)
 const cursaData = ref(null)
 const sprintData = ref(null)
-const qualiData = ref(null)
+const qualiData = ref(null) // This remains for the Ergast fallback
 const sessionKey = ref(null)
 const nrRundaActuala = ref(null)
 const fpResults = ref([])
@@ -31,12 +32,24 @@ const formatMeetingName = (slug) =>
 
 const meetingNameFormatted = computed(() => formatMeetingName(meetingName))
 
+// --- NEW: Computed property to check for modern qualifying/shootout data ---
+const hasModernQualiData = computed(() => {
+  if (!fpResults.value || fpResults.value.length === 0) {
+    return false;
+  }
+  // Check if any session object contains results for Qualifying or Sprint Shootout
+  return fpResults.value.some(session =>
+      session.data.raceResultsQualifying || session.data.raceResultsSprintShootout
+  );
+});
+
 // api calls
 const fetchData = async (link) => {
   const res = await axios.get(link)
   return res.data
 }
 
+// These helpers are still useful for the Practice Table
 const getPracticeResults = (data) => {
   if(data.raceResultsPractice1) return data.raceResultsPractice1.results
   if(data.raceResultsPractice2) return data.raceResultsPractice2.results
@@ -49,6 +62,13 @@ const getPracticeDescription = (data) => {
   if(data.raceResultsPractice2) return data.raceResultsPractice2.description
   if(data.raceResultsPractice3) return data.raceResultsPractice3.description
   return ""
+}
+
+const getPracticeSessionInfo = (data) => {
+  if(data.raceResultsPractice1) return data.raceResultsPractice1;
+  if(data.raceResultsPractice2) return data.raceResultsPractice2;
+  if(data.raceResultsPractice3) return data.raceResultsPractice3;
+  return {}; // Return an empty object as a fallback
 }
 
 const getData = async () => {
@@ -87,9 +107,9 @@ const getData = async () => {
       base_data = await makeRequest(base_practice_link)
     } catch (err) {
       if (err.response && err.response.status === 404) {
-        console.log("Practice data not found. Skipping practice sessions.")
+        console.log("Practice/Quali data not found. Will use Ergast fallback.")
       } else {
-        console.error("Error fetching practice data:", err)
+        console.error("Error fetching modern session data:", err)
       }
     }
     if(base_data && base_data.sessions){
@@ -190,7 +210,7 @@ useHead({
       <p class="mt-2 text-xl lg:text-lg text-gray-500 ">{{an}} Season</p>
     </div>
 
-    <p v-if="!cursaData && !qualiData && !sprintData && !fpResults" class="titlu-pagina-curse">
+    <p v-if="!cursaData && !qualiData && !sprintData && !fpResults.length" class="titlu-pagina-curse">
       Results will appear after the session has ended
     </p>
     <template v-if="cursaData">
@@ -199,7 +219,7 @@ useHead({
       <br />
     </template>
 
-    <template v-if="qualiData">
+    <template v-if="qualiData && !hasModernQualiData">
       <h2 class="titlu-pagina-curse">Qualifying results</h2>
       <tabelcali :qualiData="qualiData" />
       <br />
@@ -210,32 +230,34 @@ useHead({
       <Tabelsprint :cursa="sprintData" />
       <br />
     </template>
-    <div v-if="fpResults" class="flex flex-col align-center justify-center gap-8 w-full">
-      <div v-for="fpResult in fpResults" :key="fpResult.key" class="w-auto lg:mx-auto">
+
+    <div v-if="fpResults.length" class="flex flex-col align-center justify-center gap-8 w-full">
+      <div v-for="fpResult in fpResults" :key="fpResult.key" class="w-auto lg:min-w-[60%] lg:mx-auto">
+
         <PracticeResultsTable
+            v-if="getPracticeResults(fpResult.data)"
             :results="getPracticeResults(fpResult.data)"
             :session-name="getPracticeDescription(fpResult.data)"
-            v-if="getPracticeResults(fpResult.data)"
+            :session-info="getPracticeSessionInfo(fpResult.data)"
         />
+
+        <QualifyingResultsTable
+            v-else-if="fpResult.data.raceResultsQualifying"
+            :results="fpResult.data.raceResultsQualifying.results"
+            :session-name="fpResult.data.raceResultsQualifying.description"
+            :session-info="fpResult.data.raceResultsQualifying"
+        />
+
+        <QualifyingResultsTable
+            v-else-if="fpResult.data.raceResultsSprintShootout"
+            :results="fpResult.data.raceResultsSprintShootout.results"
+            :session-name="fpResult.data.raceResultsSprintShootout.description"
+            :session-info="fpResult.data.raceResultsSprintShootout"
+        />
+
       </div>
     </div>
-<!--    <h2 class="titlu-pagina-curse" v-if="sesiuniOrdinate.length">Race Control messages</h2>-->
-<!--    <Suspense>-->
-<!--      <template #default>-->
-<!--        <AccordionMesaje-->
-<!--            v-for="(sesiune, index) in sesiuniOrdinate"-->
-<!--            :key="sesiune.session_key"-->
-<!--            :title="'Session messages: ' + sesiune.session_name"-->
-<!--            :sessionKey="sesiune.session_key"-->
-<!--            :meetingKey="sessionKey"-->
-<!--            :esteUltimul="index === 0"-->
-<!--            :meetingName="meetingNameFormatted"-->
-<!--        />-->
-<!--      </template>-->
-<!--      <template #fallback>-->
-<!--        <p class="text-sm text-gray-500">Loading</p>-->
-<!--      </template>-->
-<!--    </Suspense>-->
+
   </div>
 </template>
 
