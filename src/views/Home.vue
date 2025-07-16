@@ -222,8 +222,8 @@ export default {
       </div>
     </div>
     <div class="stiri-grid">
-      <div v-if="lastRaceData">
-        <div class="w-full flex flex-col items-center justify-center mb-6">
+      <div v-if="lastRaceData" class="flex flex-col items-center justify-center lg:flex-row">
+        <div class="w-full lg:w-1/3 flex flex-col items-center justify-center mb-6">
           <p class="text-3xl lg:text-2xl font-semibold mb-4 source">Share your opinion on the last race!</p>
           <router-link to="/vote">
             <ReusableButton fontSize="text-xl">
@@ -231,7 +231,7 @@ export default {
             </ReusableButton>
           </router-link>
         </div>
-
+        <div class="w-full lg:w-2/3">
           <div class="text-center mb-10">
             <h2 class="text-4xl md:text-5xl font-extrabold source">
               🏆 Last race results
@@ -303,6 +303,7 @@ export default {
             </ReusableButton>
           </div>
         </div>
+      </div>
       <Stiricomp />
     </div>
     <AccountCard v-if="store.user == null" />

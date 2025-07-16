@@ -250,10 +250,12 @@ export default {
     },
     getItem(ele) {
       const idul = document.querySelector(`${ele}`)
-      idul.scrollIntoView({ behavior: "smooth" })
-      window.scrollTo({
-        top: document.querySelector(`${ele}`).offsetTop - 180,
-      })
+      if(idul){
+        window.scrollTo({
+          top: document.querySelector(`${ele}`).offsetTop - 180,
+          behavior: "smooth"
+        })
+      }
     },
   },
 }
