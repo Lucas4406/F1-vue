@@ -2,6 +2,10 @@ html.darkmode {
   .source{
     color: var(--light-text);
   }
+  .voting-alert{
+    color: var(--light-text);
+    background-color: var(--bg-component-dark-mode);
+  }
   .piloti-dark{
     background-color: var(--bg-body-dark-mode);
     color: var(--light-text);
