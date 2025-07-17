@@ -36,8 +36,16 @@
         <img :src="meetingTrackPhoto" alt="Circuit" class="w-40 rounded-lg shadow-md" />
       </div>
 
-      <p class="text-xl lg:text-lg text-gray-700 mb-6 italic">Please select one option from each category below to submit your vote.</p>
+      <p class="text-xl lg:text-lg text-gray-700 mb-6 italic px-4">Please select one option from each category below to submit your vote.</p>
 
+      <div v-if="!isUserLoggedIn" class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-md my-6 voting-alert" role="alert">
+        <p class="font-bold">Voting Anonymously</p>
+        <p class="text-md lg:text-sm mt-1">
+          Your vote will be saved on this device only. To keep track of your votes across multiple devices, please
+          <router-link to="/login" class="font-semibold underline hover:text-blue-900">log in</router-link> or
+          <router-link to="/signup" class="font-semibold underline hover:text-blue-900">create an account</router-link>.
+        </p>
+      </div>
       <div class="mb-8">
         <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">🏆 Best Point Scorer</h3>
         <div class="space-y-3">
@@ -125,7 +133,7 @@
     <div class="bg-gray-100 p-4 rounded-xl w-full lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="!waitMessage">
       <div class="my-4 space-y-8">
         <div>
-          <h3 class="text-xl font-semibold text-gray-900">🏁 Top 3 Best Point Scorers</h3>
+          <h3 class="text-xl font-semibold text-gray-900">🏆 Top 3 Best Point Scorers</h3>
           <DriverChart :drivers="topTenChart" />
         </div>
         <div>
@@ -183,6 +191,7 @@ const isSubmitting = ref(false)
 const waitMessage = ref(null)
 
 const store = inject("store")
+const isUserLoggedIn = computed(() => !!store?.user?.profileId)
 
 
 

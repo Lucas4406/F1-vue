@@ -44,6 +44,8 @@ export default {
       lastRaceDateText: null,
       linkCursaVeche: null,
       showAllPodiums: false,
+      voteResultsPreview: null,
+      showVotePreview: false,
     }
   },
   async mounted() {
@@ -135,6 +137,26 @@ export default {
         console.log(error)
       }
     },
+    async getVoteResultsPreview() {
+      try {
+        // We only need the latest meeting ID, which we already get in checkIfShouldLoadLastRace
+        const lastMeetingId = this.lastRaceData.fomRaceId;
+        if (!lastMeetingId) return;
+
+        const results = await makeRequest(`${import.meta.env.VITE_API_LINK}/vote/results/${lastMeetingId}`);
+
+        // We only need the number 1 for each category for a preview
+        this.voteResultsPreview = {
+          topScorer: results.topTenDrivers[0],
+          topRest: results.topBestOfTheRestDrivers[0],
+          topTeam: results.topBestTeam[0],
+        };
+        this.showVotePreview = true;
+      } catch (error) {
+        console.error("Could not fetch vote results preview:", error);
+        this.showVotePreview = false;
+      }
+    },
     async favoriteTeam() {
       const fav = this.store.user.favTeam
       const date = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)
@@ -177,6 +199,7 @@ export default {
           this.top3Drivers.linkCursaVeche = linkCursaVeche
           this.top3Teams = dataSessionComplet.topTeamResults
           this.top5Overtakers = dataSessionComplet.nrOfOvertakes.top_5_drivers.slice(0,3)
+          await this.getVoteResultsPreview()
         }
       } catch (err) {
         console.log("Eroare la checkIfShouldLoadLastRace:", err)
@@ -222,89 +245,131 @@ export default {
       </div>
     </div>
     <div class="stiri-grid">
-      <div v-if="lastRaceData" class="flex flex-col items-center justify-center lg:flex-row">
-        <div class="w-full lg:w-1/3 flex flex-col items-center justify-center mb-6">
-          <p class="text-3xl lg:text-2xl font-semibold mb-4 source">Share your opinion on the last race!</p>
+      <div v-if="lastRaceData" class="w-full max-w-7xl mx-auto px-4">
+        <div class="text-center mb-10">
+          <h2 class="lg:text-4xl text-5xl font-extrabold source text-black">
+            🗳️ Fan's Choice Awards
+          </h2>
+          <p class="text-xl text-gray-600 mt-2 source">
+            Current leaders from the fan vote for the {{ top3Drivers.raceName }}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 text-center" v-if="showVotePreview">
+          <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-200 racefansgrid">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 source">🏆 Best Point Scorer</h4>
+            <img
+                :src="voteResultsPreview.topScorer.driverData.driverImage"
+                alt="Fan's choice for best scorer"
+                class="w-24 h-24 rounded-full mx-auto object-cover border-4 border-yellow-400"
+            >
+            <p class="mt-3 text-xl font-bold">{{ voteResultsPreview.topScorer.driverData.driverFirstName }} {{ voteResultsPreview.topScorer.driverData.driverLastName }}</p>
+            <p class="text-gray-600">{{ voteResultsPreview.topScorer.driverData.displayTeamName }}</p>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-200 racefansgrid">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 source">⚔️ Best Of The Rest</h4>
+            <img
+                :src="voteResultsPreview.topRest.driverData.driverImage"
+                alt="Fan's choice for best of the rest"
+                class="w-24 h-24 rounded-full mx-auto object-cover border-4 border-green-500"
+            >
+            <p class="mt-3 text-xl font-bold">{{ voteResultsPreview.topRest.driverData.driverFirstName }} {{ voteResultsPreview.topRest.driverData.driverLastName }}</p>
+            <p class="text-gray-600 text-lg lg:text-md">{{ voteResultsPreview.topRest.driverData.displayTeamName }}</p>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-200 racefansgrid">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 source">🏆 Best Team</h4>
+            <img
+                :src="voteResultsPreview.topTeam.teamData.teamLogoImage"
+                alt="Fan's choice for best team"
+                class="w-24 h-24 rounded-full mx-auto object-contain p-2"
+            >
+            <p class="mt-3 text-xl font-bold">{{ voteResultsPreview.topTeam.teamData.displayTeamName }}</p>
+          </div>
+        </div>
+
+        <div class="text-center mt-8">
           <router-link to="/vote">
             <ReusableButton fontSize="text-xl">
-              🗳️ Fan Vote: Weekend's Best
+              See Full Results & Vote Now!
             </ReusableButton>
           </router-link>
         </div>
-        <div class="w-full lg:w-2/3">
-          <div class="text-center mb-10">
-            <h2 class="text-4xl md:text-5xl font-extrabold source">
-              🏆 Last race results
-            </h2>
-            <p v-if="lastRaceDateText" class="text-3xl text-gray-600 mt-2 font-bold source">
-              {{ top3Drivers.raceName }}
-            </p>
-            <p v-if="lastRaceDateText" class="text-xl text-gray-600 mt-2 source">
-              {{ lastRaceDateText }}
-            </p>
-          </div>
-          <ReusablePodium :top3="top3Drivers">
-            <template #firstPodiumSlot>
-              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[0].driverFirstName + " " + top3Drivers[0].driverLastName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[0].displayTeamName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[0].racePoints }} pts</p>
-              <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[0].raceTime }}</p>
-            </template>
-            <template #secondPodiumSlot>
-              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[1].driverFirstName + " " + top3Drivers[1].driverLastName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[1].displayTeamName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[1].racePoints }} pts</p>
-              <p class="text-base lg:text-sm text-gray-600">+{{ top3Drivers[1].gapToLeader }}</p>
-            </template>
-            <template #thirdPodiumSlot>
-              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[2].driverFirstName + " " + top3Drivers[2].driverLastName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[2].displayTeamName }}</p>
-              <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[2].racePoints }} pts</p>
-              <p class="text-base lg:text-sm text-gray-600">+{{ top3Drivers[2].gapToLeader }}</p>
-            </template>
-          </ReusablePodium>
-          <template v-if="showAllPodiums">
-            <br />
-            <ReusablePodium :top3="top3Teams" v-once>
-              <template #firstPodiumSlot>
-                <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[0].team }}</p>
-                <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[0].points }} pts</p>
-              </template>
-              <template #secondPodiumSlot>
-                <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[1].team }}</p>
-                <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[1].points }} pts</p>
-              </template>
-              <template #thirdPodiumSlot>
-                <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[2].team }}</p>
-                <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[2].points }} pts</p>
-              </template>
-            </ReusablePodium>
-            <ReusablePodium :top3="top5Overtakers" title="Top 3 Overtakers" v-once>
-              <template #firstPodiumSlot>
-                <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].full_name }}</p>
-                <p class="text-center text-base md:text-lg">{{ top5Overtakers[0].team_name }}</p>
-                <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[0].overtakes }}</p>
-              </template>
-              <template #secondPodiumSlot>
-                <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[1].full_name }}</p>
-                <p class="text-center text-base md:text-lg">{{ top5Overtakers[1].team_name }}</p>
-                <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[1].overtakes }}</p>
-              </template>
-              <template #thirdPodiumSlot>
-                <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[2].full_name }}</p>
-                <p class="text-center text-base md:text-lg">{{ top5Overtakers[2].team_name }}</p>
-                <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[2].overtakes }}</p>
-              </template>
-            </ReusablePodium>
-          </template>
-          <div class="w-full flex justify-center align-center mt-8">
-            <ReusableButton @click="viewAllPodium">
-              {{ showAllPodiums ? 'View less results' : 'View more results' }}
-            </ReusableButton>
-          </div>
-        </div>
       </div>
       <Stiricomp />
+      <div class="w-full" v-if="lastRaceData">
+        <div class="text-center mb-10">
+          <h2 class="text-4xl md:text-5xl font-extrabold source">
+            🏆 Last race results
+          </h2>
+          <p v-if="lastRaceDateText" class="text-3xl text-gray-600 mt-2 font-bold source">
+            {{ top3Drivers.raceName }}
+          </p>
+          <p v-if="lastRaceDateText" class="text-xl text-gray-600 mt-2 source">
+            {{ lastRaceDateText }}
+          </p>
+        </div>
+        <ReusablePodium :top3="top3Drivers">
+          <template #firstPodiumSlot>
+            <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[0].driverFirstName + " " + top3Drivers[0].driverLastName }}</p>
+            <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[0].displayTeamName }}</p>
+            <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[0].racePoints }} pts</p>
+            <p class="text-base lg:text-sm text-gray-600">{{ top3Drivers[0].raceTime }}</p>
+          </template>
+          <template #secondPodiumSlot>
+            <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[1].driverFirstName + " " + top3Drivers[1].driverLastName }}</p>
+            <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[1].displayTeamName }}</p>
+            <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[1].racePoints }} pts</p>
+            <p class="text-base lg:text-sm text-gray-600">+{{ top3Drivers[1].gapToLeader }}</p>
+          </template>
+          <template #thirdPodiumSlot>
+            <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Drivers[2].driverFirstName + " " + top3Drivers[2].driverLastName }}</p>
+            <p class="text-lg lg:text-base text-center text-gray-800">{{ top3Drivers[2].displayTeamName }}</p>
+            <p class="text-lg lg:text-base text-center text-gray-800">+{{ top3Drivers[2].racePoints }} pts</p>
+            <p class="text-base lg:text-sm text-gray-600">+{{ top3Drivers[2].gapToLeader }}</p>
+          </template>
+        </ReusablePodium>
+        <template v-if="showAllPodiums">
+          <br />
+          <ReusablePodium :top3="top3Teams" v-once>
+            <template #firstPodiumSlot>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[0].team }}</p>
+              <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[0].points }} pts</p>
+            </template>
+            <template #secondPodiumSlot>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[1].team }}</p>
+              <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[1].points }} pts</p>
+            </template>
+            <template #thirdPodiumSlot>
+              <p class="font-bold text-center text-3xl lg:text-2xl">{{ top3Teams[2].team }}</p>
+              <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[2].points }} pts</p>
+            </template>
+          </ReusablePodium>
+          <ReusablePodium :top3="top5Overtakers" title="Top 3 Overtakers" v-once>
+            <template #firstPodiumSlot>
+              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].full_name }}</p>
+              <p class="text-center text-base md:text-lg">{{ top5Overtakers[0].team_name }}</p>
+              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[0].overtakes }}</p>
+            </template>
+            <template #secondPodiumSlot>
+              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[1].full_name }}</p>
+              <p class="text-center text-base md:text-lg">{{ top5Overtakers[1].team_name }}</p>
+              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[1].overtakes }}</p>
+            </template>
+            <template #thirdPodiumSlot>
+              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[2].full_name }}</p>
+              <p class="text-center text-base md:text-lg">{{ top5Overtakers[2].team_name }}</p>
+              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[2].overtakes }}</p>
+            </template>
+          </ReusablePodium>
+        </template>
+        <div class="w-full flex justify-center align-center mt-8">
+          <ReusableButton @click="viewAllPodium">
+            {{ showAllPodiums ? 'View less results' : 'View more results' }}
+          </ReusableButton>
+        </div>
+      </div>
     </div>
     <AccountCard v-if="store.user == null" />
   </div>
