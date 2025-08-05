@@ -198,7 +198,7 @@ export default {
           this.top3Drivers.raceName = rundaActuala.raceName
           this.top3Drivers.linkCursaVeche = linkCursaVeche
           this.top3Teams = dataSessionComplet.topTeamResults
-          this.top5Overtakers = dataSessionComplet.nrOfOvertakes.top_5_drivers.slice(0,3)
+          this.top5Overtakers = dataSessionComplet.posGained.slice(0,3)
           await this.getVoteResultsPreview()
         }
       } catch (err) {
@@ -346,21 +346,21 @@ export default {
               <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[2].points }} pts</p>
             </template>
           </ReusablePodium>
-          <ReusablePodium :top3="top5Overtakers" title="Top 3 Overtakers" v-once>
+          <ReusablePodium :top3="top5Overtakers" title="Top 3 – Most Positions Gained" v-once>
             <template #firstPodiumSlot>
-              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].full_name }}</p>
-              <p class="text-center text-base md:text-lg">{{ top5Overtakers[0].team_name }}</p>
-              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[0].overtakes }}</p>
+              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].driver_first_name + " " + top5Overtakers[0].driver_last_name }}</p>
+              <p class="text-center text-base md:text-lg">{{ top5Overtakers[0].team }}</p>
+              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[0].gained }}</p>
             </template>
             <template #secondPodiumSlot>
-              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[1].full_name }}</p>
-              <p class="text-center text-base md:text-lg">{{ top5Overtakers[1].team_name }}</p>
-              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[1].overtakes }}</p>
+              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[1].driver_first_name + " " + top5Overtakers[1].driver_last_name }}</p>
+              <p class="text-center text-base md:text-lg">{{ top5Overtakers[1].team }}</p>
+              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[1].gained }}</p>
             </template>
             <template #thirdPodiumSlot>
-              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[2].full_name }}</p>
-              <p class="text-center text-base md:text-lg">{{ top5Overtakers[2].team_name }}</p>
-              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[2].overtakes }}</p>
+              <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[2].driver_first_name + " " + top5Overtakers[2].driver_last_name }}</p>
+              <p class="text-center text-base md:text-lg">{{ top5Overtakers[2].team }}</p>
+              <p class="text-lg font-semibold text-gray-800">{{ top5Overtakers[2].gained }}</p>
             </template>
           </ReusablePodium>
         </template>
