@@ -346,7 +346,7 @@ export default {
               <p class="text-lg font-semibold text-gray-800 mt-2">+{{ top3Teams[2].points }} pts</p>
             </template>
           </ReusablePodium>
-          <ReusablePodium :top3="top5Overtakers" title="Top 3 – Most Positions Gained" v-once>
+          <ReusablePodium :top3="top5Overtakers" title="Most Positions Gained" v-once>
             <template #firstPodiumSlot>
               <p class="font-bold text-center text-base md:text-2xl">{{ top5Overtakers[0].driver_first_name + " " + top5Overtakers[0].driver_last_name }}</p>
               <p class="text-center text-base md:text-lg">{{ top5Overtakers[0].team }}</p>
