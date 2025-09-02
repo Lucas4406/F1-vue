@@ -46,6 +46,7 @@ export default {
       showAllPodiums: false,
       voteResultsPreview: null,
       showVotePreview: false,
+      lastRaceName: null,
     }
   },
   async mounted() {
@@ -126,10 +127,7 @@ export default {
         date["inceput"] = dataInceput
         date["sfarsit"] = dataSfarsit
         date["lunaCursaText"] = monthName
-        const roundNum = date.meetingContext.nr_runda
-        const dataApi = await makeRequest(`https://api.jolpi.ca/ergast/f1/${date.meetingContext.season}.json?limit=100`)
-        const rundaActuala = dataApi.MRData.RaceTable.Races[roundNum]
-        const rundaLink = rundaActuala.raceName.replace(/\s+/g, '-').toLowerCase();
+        const rundaLink = date.race.meetingName.replace(/\s+/g, '-').toLowerCase();
         this.linkCursa = `/schedule/${date.meetingContext.season}/${rundaLink}`
         this.heroData = date
         this.Hero = true
@@ -172,37 +170,43 @@ export default {
     },
     async checkIfShouldLoadLastRace() {
       try {
-        const date = await getNext
-        const now = new Date()
-        const start = new Date(date.race.meetingStartDate)
-        const diffMs = start - now
-        const diffDays = diffMs / (1000 * 60 * 60 * 24)
+        const dateGetLast = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`);
 
-        if (diffDays > 1) {
-          const dateGetLast = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`)// presupune un helper `getLast.js` care face request la /get-last
-          this.lastRaceData = dateGetLast
-          const lastMeetingKey = dateGetLast.fomRaceId
-          const seasonYear = dateGetLast.meetingContext.season
-          const meetingSlug = lastMeetingKey + "_" + dateGetLast.race.meetingName.toLowerCase().replaceAll(" ", '-')
-          const dataSessionComplet = await makeRequest(`${import.meta.env.VITE_API_LINK}/season-results/homepage/${seasonYear}/${meetingSlug}`)
-          const sessionDate = new Date(dateGetLast.meetingContext.timetables[4].startTime)
-          const day = sessionDate.getUTCDate().toString().padStart(2, '0')
-          const month = (sessionDate.getUTCMonth() + 1).toString().padStart(2, '0')
-          const year = sessionDate.getUTCFullYear()
-          this.lastRaceDateText = `${day}-${month}-${year}`
-          const dataApi = await makeRequest(`https://api.jolpi.ca/ergast/f1/${dateGetLast.meetingContext.season}.json?limit=100`)
-          const rundaActuala = dataApi.MRData.RaceTable.Races[dateGetLast.meetingContext.nr_runda]
-          const rundaLink = rundaActuala.raceName.replace(/\s+/g, '-').toLowerCase();
-          const linkCursaVeche = `/schedule/${date.meetingContext.season}/${rundaLink}`
-          this.top3Drivers = dataSessionComplet.topDriverResults
-          this.top3Drivers.raceName = rundaActuala.raceName
-          this.top3Drivers.linkCursaVeche = linkCursaVeche
-          this.top3Teams = dataSessionComplet.topTeamResults
-          this.top5Overtakers = dataSessionComplet.posGained.slice(0,3)
-          await this.getVoteResultsPreview()
+        // dacă backend-ul zice că e prea aproape următoarea cursă => nu facem nimic
+        if (dateGetLast?.message === "Upcoming race too soon. Skipping last results.") {
+          console.log("Backend: urmează o cursă în <24h, nu încărcăm ultima cursă.");
+          return;
         }
+
+        // aici știi sigur că ai ultima cursă validă
+        this.lastRaceName = dateGetLast.race.meetingName;
+        this.lastRaceData = dateGetLast;
+
+        const lastMeetingKey = dateGetLast.fomRaceId;
+        const seasonYear = dateGetLast.meetingContext.season;
+        const meetingSlug = `${lastMeetingKey}_${dateGetLast.race.meetingName.toLowerCase().replaceAll(" ", "-")}`;
+
+        const dataSessionComplet = await makeRequest(
+            `${import.meta.env.VITE_API_LINK}/season-results/homepage/${seasonYear}/${meetingSlug}`
+        );
+
+        const sessionDate = new Date(dateGetLast.meetingContext.timetables[4].startTime);
+        const day = sessionDate.getUTCDate().toString().padStart(2, "0");
+        const month = (sessionDate.getUTCMonth() + 1).toString().padStart(2, "0");
+        const year = sessionDate.getUTCFullYear();
+        this.lastRaceDateText = `${day}-${month}-${year}`;
+
+        const rundaLink = dateGetLast.race.meetingName.replace(/\s+/g, "-").toLowerCase();
+        const linkCursaVeche = `/schedule/${dateGetLast.meetingContext.season}/${rundaLink}`;
+
+        this.top3Drivers = dataSessionComplet.topDriverResults;
+        this.top3Drivers.linkCursaVeche = linkCursaVeche;
+        this.top3Teams = dataSessionComplet.topTeamResults;
+        this.top5Overtakers = dataSessionComplet.posGained.slice(0, 3);
+
+        await this.getVoteResultsPreview();
       } catch (err) {
-        console.log("Eroare la checkIfShouldLoadLastRace:", err)
+        console.log("Eroare la checkIfShouldLoadLastRace:", err);
       }
     },
     viewAllPodium() {
@@ -251,7 +255,7 @@ export default {
             🗳️ Fan's Choice Awards
           </h2>
           <p class="text-xl text-gray-600 mt-2 source">
-            Current leaders from the fan vote for the {{ top3Drivers.raceName }}
+            Current leaders from the fan vote for the {{ lastRaceName }}
           </p>
         </div>
 
@@ -304,7 +308,7 @@ export default {
             🏆 Last race results
           </h2>
           <p v-if="lastRaceDateText" class="text-3xl text-gray-600 mt-2 font-bold source">
-            {{ top3Drivers.raceName }}
+            {{ lastRaceName }}
           </p>
           <p v-if="lastRaceDateText" class="text-xl text-gray-600 mt-2 source">
             {{ lastRaceDateText }}
@@ -371,7 +375,7 @@ export default {
         </div>
       </div>
     </div>
-    <AccountCard v-if="store.user == null" />
+<!--    <AccountCard v-if="store.user == null" />-->
   </div>
 </template>
 
