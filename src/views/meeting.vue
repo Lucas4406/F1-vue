@@ -43,11 +43,6 @@ const hasModernQualiData = computed(() => {
   );
 });
 
-// api calls
-const fetchData = async (link) => {
-  const res = await axios.get(link)
-  return res.data
-}
 
 // These helpers are still useful for the Practice Table
 const getPracticeResults = (data) => {
@@ -74,7 +69,7 @@ const getPracticeSessionInfo = (data) => {
 const getData = async () => {
   // --- Initial setup (no changes here) ---
   const meetingNameSpace = meetingName.replaceAll("-", " ");
-  const res = await fetchData(`https://api.jolpi.ca/ergast/f1/${an}.json?limit=100`);
+  const res = await makeRequest(`https://api.jolpi.ca/ergast/f1/${an}.json?limit=100`);
   curse.value = res.MRData.RaceTable.Races;
 
   for (let i = 0; i < curse.value.length; i++) {
@@ -84,7 +79,7 @@ const getData = async () => {
     }
   }
 
-  const raceRes = await fetchData(`${import.meta.env.VITE_API_LINK}/mongo/race-data/all`);
+  const raceRes = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/race-data/all`);
   sessionKey.value = raceRes[nrCursa.value].fomRaceId;
 
   const runda = await getNext;
@@ -96,7 +91,7 @@ const getData = async () => {
   const linkBase = `https://api.jolpi.ca/ergast/f1/${an}/${nrCursa.value + 1}`;
   const terminare = ".json?limit=100";
 
-  const raceData = await fetchData(linkBase + "/results" + terminare);
+  const raceData = await makeRequest(linkBase + "/results" + terminare);
   const race = raceData.MRData.RaceTable.Races[0];
 
   if (race?.Results) {
@@ -133,7 +128,7 @@ const getData = async () => {
   if (!hasModernQualiData.value) {
     console.log("Modern quali data not found, fetching fallback from Ergast API...");
     try {
-      const qualiDataRes = await fetchData(linkBase + "/qualifying" + terminare);
+      const qualiDataRes = await makeRequest(linkBase + "/qualifying" + terminare);
       qualiData.value = qualiDataRes.MRData.RaceTable.Races[0];
     } catch (e) {
       console.log("Could not fetch fallback qualifying data either.");
@@ -143,7 +138,7 @@ const getData = async () => {
   }
 
   if (curse.value[nrCursa.value]?.Sprint) {
-    const sprintDataRes = await fetchData(linkBase + "/sprint" + terminare);
+    const sprintDataRes = await makeRequest(linkBase + "/sprint" + terminare);
     const sprint = sprintDataRes.MRData.RaceTable.Races[0];
     sprint.SprintResults.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"));
     sprintData.value = sprint;
