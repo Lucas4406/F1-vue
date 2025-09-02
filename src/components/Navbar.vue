@@ -126,7 +126,7 @@ async function checkIfShouldLoadLastRace() {
     const diffDays = diffMs / (1000 * 60 * 60 * 24)
 
     if (diffDays > 1) {
-      const dateGetLast = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`)// presupune un helper `getLast.js` care face request la /get-last
+      const dateGetLast = await makeRequest(`${import.meta.env.VITE_API_LINK}/get-last`)
       isNext.value = false
       meetingButtonTitle.value = "Last meeting"
       meetingButtonPath.value = `/schedule/${dateGetLast.meetingContext.season}/${dateGetLast.race.meetingName.toLowerCase().replaceAll(" ", "-")}`
