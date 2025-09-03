@@ -47,6 +47,7 @@ export default {
       voteResultsPreview: null,
       showVotePreview: false,
       lastRaceName: null,
+      isLastRace: false,
     }
   },
   async mounted() {
@@ -135,10 +136,10 @@ export default {
         console.log(error)
       }
     },
-    async getVoteResultsPreview() {
+    async getVoteResultsPreview(meetingKey) {
       try {
         // We only need the latest meeting ID, which we already get in checkIfShouldLoadLastRace
-        const lastMeetingId = this.lastRaceData.fomRaceId;
+        const lastMeetingId = meetingKey;
         if (!lastMeetingId) return;
 
         const results = await makeRequest(`${import.meta.env.VITE_API_LINK}/vote/results/${lastMeetingId}`);
@@ -180,9 +181,10 @@ export default {
 
         // aici știi sigur că ai ultima cursă validă
         this.lastRaceName = dateGetLast.race.meetingName;
-        this.lastRaceData = dateGetLast;
+        this.isLastRace = true;
 
         const lastMeetingKey = dateGetLast.fomRaceId;
+        await this.getVoteResultsPreview(lastMeetingKey)
         const seasonYear = dateGetLast.meetingContext.season;
         const meetingSlug = `${lastMeetingKey}_${dateGetLast.race.meetingName.toLowerCase().replaceAll(" ", "-")}`;
 
@@ -204,7 +206,6 @@ export default {
         this.top3Teams = dataSessionComplet.topTeamResults;
         this.top5Overtakers = dataSessionComplet.posGained.slice(0, 3);
 
-        await this.getVoteResultsPreview();
       } catch (err) {
         console.log("Eroare la checkIfShouldLoadLastRace:", err);
       }
@@ -249,7 +250,7 @@ export default {
       </div>
     </div>
     <div class="stiri-grid">
-      <div v-if="lastRaceData" class="w-full max-w-7xl mx-auto px-4">
+      <div v-if="isLastRace" class="w-full max-w-7xl mx-auto px-4">
         <div class="text-center mb-10">
           <h2 class="lg:text-4xl text-5xl font-extrabold source text-black">
             🗳️ Fan's Choice Awards
@@ -302,7 +303,7 @@ export default {
         </div>
       </div>
       <Stiricomp />
-      <div class="w-full" v-if="lastRaceData">
+      <div class="w-full" v-if="isLastRace">
         <div class="text-center mb-10">
           <h2 class="text-4xl md:text-5xl font-extrabold source">
             🏆 Last race results
