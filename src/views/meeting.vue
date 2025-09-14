@@ -8,6 +8,7 @@ import tabelcali from "@/components/tabelcali.vue"
 import Tabelsprint from "@/components/tabelsprint.vue"
 import PracticeResultsTable from "@/components/PracticeResultsTable.vue"
 import QualifyingResultsTable from "@/components/QualifyingResultsTable.vue"
+import RaceResultsTable from "@/components/RaceResultsTable.vue"
 import AccordionMesaje from "@/components/AccordionMesaje.vue"
 import getNext from "@/functions/getNext"
 import { makeRequest } from "@/functions/makeRequest"
@@ -43,6 +44,21 @@ const hasModernQualiData = computed(() => {
   );
 });
 
+const hasModernRaceData = computed(() => {
+  if (!fpResults.value || fpResults.value.length === 0) {
+    return false;
+  }
+  // Check if any session object contains results for Qualifying or Sprint Shootout
+  return fpResults.value.some(session =>
+      session.data.raceResultsRace || session.data.raceResultsSprint
+  );
+});
+
+const hasModernSprintData = computed(() => {
+  if (!fpResults.value || fpResults.value.length === 0) return false;
+  return fpResults.value.some(session => session.data.raceResultsSprint);
+});
+
 
 // These helpers are still useful for the Practice Table
 const getPracticeResults = (data) => {
@@ -67,7 +83,7 @@ const getPracticeSessionInfo = (data) => {
 }
 
 const getData = async () => {
-  // --- Initial setup (no changes here) ---
+  // --- Initial setup is the same ---
   const meetingNameSpace = meetingName.replaceAll("-", " ");
   const res = await makeRequest(`https://api.jolpi.ca/ergast/f1/${an}.json?limit=100`);
   curse.value = res.MRData.RaceTable.Races;
@@ -91,42 +107,49 @@ const getData = async () => {
   const linkBase = `https://api.jolpi.ca/ergast/f1/${an}/${nrCursa.value + 1}`;
   const terminare = ".json?limit=100";
 
-  const raceData = await makeRequest(linkBase + "/results" + terminare);
-  const race = raceData.MRData.RaceTable.Races[0];
+  // --- REFACTORED LOGIC ---
 
-  if (race?.Results) {
-    race.Results.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"));
-    cursaData.value = race;
-  }
-
-  // --- START OF LOGIC CHANGES ---
-
-  // 1. FETCH THE MODERN DATA FIRST
-  // This block is moved up to run before the old qualifying call.
-  if(nrCursa.value > 9){
+  // 1. ALWAYS ATTEMPT TO FETCH MODERN DATA FIRST
+  // This data contains results for ALL sessions (Practice, Quali, Sprint, Race)
+  // We only proceed to fallbacks if this call fails or the data is incomplete.
+  if (nrCursa.value > 9) { // Assuming this condition is correct for your use case
     let base_data = null;
     try {
       base_data = await makeRequest(base_practice_link);
-    } catch (err) {
-      if (err.response && err.response.status === 404) {
-        console.log("Modern session data not found for this event.");
-      } else {
-        console.error("Error fetching modern session data:", err);
-      }
-    }
-    if(base_data && base_data.sessions){
-      const dataArray = Object.keys(base_data.sessions).map(key => {
-        return {
+      if (base_data && base_data.sessions) {
+        const dataArray = Object.keys(base_data.sessions).map(key => ({
           key,
           ...base_data.sessions[key]
-        }
-      });
-      // This updates fpResults, which in turn updates the hasModernQualiData computed property
-      fpResults.value = dataArray.reverse();
+        }));
+        fpResults.value = dataArray.reverse(); // This updates all `hasModern...` computed properties
+      }
+    } catch (err) {
+      console.error("Could not fetch modern session data. Will try Ergast fallbacks.", err);
     }
   }
+
+  // 2. CHECK FOR EACH SESSION TYPE AND FETCH FALLBACKS *ONLY IF NEEDED*
+
+  // Fallback for Race results
+  if (!hasModernRaceData.value) {
+    console.log("Modern race data not found, fetching fallback from Ergast...");
+    try {
+      const raceDataRes = await makeRequest(linkBase + "/results" + terminare);
+      const race = raceDataRes.MRData.RaceTable.Races[0];
+      if (race?.Results) {
+        race.Results.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"));
+        cursaData.value = race;
+      }
+    } catch (e) {
+      console.log("Could not fetch fallback race data either.");
+    }
+  } else {
+    console.log("Modern race data found, skipping Ergast API call for race.");
+  }
+
+  // Fallback for Qualifying results
   if (!hasModernQualiData.value) {
-    console.log("Modern quali data not found, fetching fallback from Ergast API...");
+    console.log("Modern quali data not found, fetching fallback from Ergast...");
     try {
       const qualiDataRes = await makeRequest(linkBase + "/qualifying" + terminare);
       qualiData.value = qualiDataRes.MRData.RaceTable.Races[0];
@@ -137,11 +160,19 @@ const getData = async () => {
     console.log("Modern quali data found, skipping Ergast API call for qualifying.");
   }
 
-  if (curse.value[nrCursa.value]?.Sprint) {
-    const sprintDataRes = await makeRequest(linkBase + "/sprint" + terminare);
-    const sprint = sprintDataRes.MRData.RaceTable.Races[0];
-    sprint.SprintResults.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"));
-    sprintData.value = sprint;
+  // Fallback for Sprint results (only if the event has a sprint)
+  if (curse.value[nrCursa.value]?.Sprint && !hasModernSprintData.value) {
+    console.log("Modern sprint data not found, fetching fallback from Ergast...");
+    try {
+      const sprintDataRes = await makeRequest(linkBase + "/sprint" + terminare);
+      const sprint = sprintDataRes.MRData.RaceTable.Races[0];
+      sprint.SprintResults.forEach(r => (r.FastestLap = r.FastestLap?.Time?.time || "-"));
+      sprintData.value = sprint;
+    } catch(e) {
+      console.log("Could not fetch fallback sprint data either.");
+    }
+  } else if (hasModernSprintData.value) {
+    console.log("Modern sprint data found, skipping Ergast API call for sprint.");
   }
 }
 
@@ -222,13 +253,14 @@ useHead({
     <p v-if="!cursaData && !qualiData && !sprintData && !fpResults.length" class="titlu-pagina-curse">
       Results will appear after the session has ended
     </p>
+
     <template v-if="cursaData">
       <h2 class="titlu-pagina-curse">Race results</h2>
       <tabelcursa :cursa="cursaData" />
       <br />
     </template>
 
-    <template v-if="qualiData && !hasModernQualiData">
+    <template v-if="qualiData">
       <h2 class="titlu-pagina-curse">Qualifying results</h2>
       <tabelcali :qualiData="qualiData" />
       <br />
@@ -243,11 +275,18 @@ useHead({
     <div v-if="fpResults.length" class="flex flex-col align-center justify-center gap-8 w-full">
       <div v-for="fpResult in fpResults" :key="fpResult.key" class="w-auto lg:min-w-[60%] lg:mx-auto">
 
-        <PracticeResultsTable
-            v-if="getPracticeResults(fpResult.data)"
-            :results="getPracticeResults(fpResult.data)"
-            :session-name="getPracticeDescription(fpResult.data)"
-            :session-info="getPracticeSessionInfo(fpResult.data)"
+        <RaceResultsTable
+            v-if="fpResult.data.raceResultsRace"
+            :results="fpResult.data.raceResultsRace.results"
+            :session-name="fpResult.data.raceResultsRace.description"
+            :session-info="fpResult.data.raceResultsRace"
+        />
+
+        <RaceResultsTable
+            v-else-if="fpResult.data.raceResultsSprint"
+            :results="fpResult.data.raceResultsSprint.results"
+            :session-name="fpResult.data.raceResultsSprint.description"
+            :session-info="fpResult.data.raceResultsSprint"
         />
 
         <QualifyingResultsTable
@@ -262,6 +301,13 @@ useHead({
             :results="fpResult.data.raceResultsSprintShootout.results"
             :session-name="fpResult.data.raceResultsSprintShootout.description"
             :session-info="fpResult.data.raceResultsSprintShootout"
+        />
+
+        <PracticeResultsTable
+            v-else-if="getPracticeResults(fpResult.data)"
+            :results="getPracticeResults(fpResult.data)"
+            :session-name="getPracticeDescription(fpResult.data)"
+            :session-info="getPracticeSessionInfo(fpResult.data)"
         />
 
       </div>
