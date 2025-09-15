@@ -132,6 +132,64 @@
           class="sm:w-[25rem]"
       />
     </div>
+
+
+<!--    Votes section-->
+    <div v-if="profileVotes" class="w-full max-w-7xl mx-auto px-4 mb-4 flex flex-col items-center justify-center">
+      <h2 class="lg:text-4xl text-5xl font-extrabold source text-black">
+        Your last votes
+      </h2>
+      <div v-for="vote in (showAllVotes ? profileVotes : profileVotes.slice(0,1))" :key="vote.meetingKey" class="w-full">
+        <div class="text-center mb-4 flex flex-row justify-between items-center">
+          <h2 class="lg:text-4xl text-5xl font-extrabold source text-black">
+            {{vote.meetingData.race.meetingName}}
+          </h2>
+  <!--        <p class="text-xl text-gray-600 mt-2 source">-->
+  <!--          Current leaders from the fan vote for the-->
+  <!--        </p>-->
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 text-center">
+          <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-200 racefansgrid">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 source">🏆 Best Point Scorer</h4>
+            <img
+                :src="vote.bestTopTenDriver.driverImage"
+                alt="Fan's choice for best scorer"
+                class="w-24 h-24 rounded-full mx-auto object-cover border-4 border-yellow-400"
+            >
+            <p class="mt-3 text-xl font-bold">{{ vote.bestTopTenDriver.driverFirstName }} {{ vote.bestTopTenDriver.driverLastName }}</p>
+            <p class="text-gray-600">{{ vote.bestTopTenDriver.displayTeamName }}</p>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-200 racefansgrid">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 source">⚔️ Best Of The Rest</h4>
+            <img
+                :src="vote.bestOfTheRestDriver.driverImage"
+                alt="Fan's choice for best of the rest"
+                class="w-24 h-24 rounded-full mx-auto object-cover border-4 border-green-500"
+            >
+            <p class="mt-3 text-xl font-bold">{{ vote.bestOfTheRestDriver.driverFirstName }} {{ vote.bestOfTheRestDriver.driverLastName }}</p>
+            <p class="text-gray-600 text-lg lg:text-md">{{ vote.bestOfTheRestDriver.displayTeamName }}</p>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-200 racefansgrid">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 source">🏆 Best Team</h4>
+            <img
+                :src="vote.bestTeam.teamLogoImage"
+                alt="Fan's choice for best team"
+                class="w-24 h-24 rounded-full mx-auto object-contain p-2"
+            >
+            <p class="mt-3 text-xl font-bold">{{ vote.bestTeam.displayTeamName }}</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="text-center mt-8">
+        <ReusableButton fontSize="text-xl" @click="showAllVotes = !showAllVotes">
+          {{ showAllVotes ? "Show Less Votes" : "Show All Votes" }}
+        </ReusableButton>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -145,11 +203,13 @@ import ConstructorCard from "@/components/ConstructorCard.vue"
 import PilotCard from "@/components/PilotCard.vue"
 import { makeRequest } from "@/functions/makeRequest"
 import { authRequest } from "@/functions/authRequest"
+import ReusableButton from "@/components/ReusableButton.vue";
 
 const router = useRouter()
 const auth = getAuth()
 const user = auth.currentUser
 const store = inject("store")
+const showAllVotes = ref(false)
 
 const echipaPref = ref(store.user.favTeam)
 const soferPref = ref(store.user.favDriver)
@@ -167,6 +227,8 @@ const showSelect = ref(false)
 
 const darkMode = ref(false)
 
+const profileVotes = ref([])
+
 const logout = () => {
   signOut(auth).then(() => window.location.replace("/"))
 }
@@ -175,6 +237,18 @@ const getAllTeams = async () => {
   const data = await makeRequest(`${import.meta.env.VITE_API_LINK}/mongo/teams/all`)
   echipeArray.value = data.map(t => t.name)
   return data
+}
+
+async function fetchProfileVotes() {
+  try {
+    const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/vote/all-for-id/${store.user.profileId}`);
+    if (response) {
+      console.log(response.votes)
+      profileVotes.value = response.votes
+    }
+  } catch (error) {
+    console.error("Error fetching profile votes:", error);
+  }
 }
 
 const loadFirestoreDrivers = async () => {
@@ -282,6 +356,7 @@ onMounted(async () => {
   await Promise.all([
     loadFirestoreDrivers(),
     loadFirestoreTeams(),// 🔁
+    fetchProfileVotes(),
   ]);
 
 
