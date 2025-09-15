@@ -18,7 +18,7 @@
           />
         </router-link>
         <div class="flex flex-col">
-          <div class="text-xl lg:text-lg font-semibold">{{ Name }}</div>
+          <div class="text-2xl lg:text-xl font-semibold">{{ Name }}</div>
           <div class="text-lg lg:text-md text-gray-500">{{ Email }}</div>
         </div>
         <div class="flex gap-2 ml-4">

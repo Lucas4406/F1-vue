@@ -2,14 +2,13 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHead } from '@vueuse/head'
-import axios from 'axios'
 import tabelcursa from "@/components/tabelcursa.vue"
 import tabelcali from "@/components/tabelcali.vue"
 import Tabelsprint from "@/components/tabelsprint.vue"
 import PracticeResultsTable from "@/components/PracticeResultsTable.vue"
 import QualifyingResultsTable from "@/components/QualifyingResultsTable.vue"
 import RaceResultsTable from "@/components/RaceResultsTable.vue"
-import AccordionMesaje from "@/components/AccordionMesaje.vue"
+// import AccordionMesaje from "@/components/AccordionMesaje.vue"
 import getNext from "@/functions/getNext"
 import { makeRequest } from "@/functions/makeRequest"
 
@@ -27,13 +26,11 @@ const sessionKey = ref(null)
 const nrRundaActuala = ref(null)
 const fpResults = ref([])
 
-// utils
 const formatMeetingName = (slug) =>
     slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 
 const meetingNameFormatted = computed(() => formatMeetingName(meetingName))
 
-// --- NEW: Computed property to check for modern qualifying/shootout data ---
 const hasModernQualiData = computed(() => {
   if (!fpResults.value || fpResults.value.length === 0) {
     return false;
@@ -48,7 +45,7 @@ const hasModernRaceData = computed(() => {
   if (!fpResults.value || fpResults.value.length === 0) {
     return false;
   }
-  // Check if any session object contains results for Qualifying or Sprint Shootout
+  // Check if any session object contains results for Race or Sprint
   return fpResults.value.some(session =>
       session.data.raceResultsRace || session.data.raceResultsSprint
   );
@@ -60,7 +57,6 @@ const hasModernSprintData = computed(() => {
 });
 
 
-// These helpers are still useful for the Practice Table
 const getPracticeResults = (data) => {
   if(data.raceResultsPractice1) return data.raceResultsPractice1.results
   if(data.raceResultsPractice2) return data.raceResultsPractice2.results
@@ -83,7 +79,6 @@ const getPracticeSessionInfo = (data) => {
 }
 
 const getData = async () => {
-  // --- Initial setup is the same ---
   const meetingNameSpace = meetingName.replaceAll("-", " ");
   const res = await makeRequest(`https://api.jolpi.ca/ergast/f1/${an}.json?limit=100`);
   curse.value = res.MRData.RaceTable.Races;
@@ -107,12 +102,7 @@ const getData = async () => {
   const linkBase = `https://api.jolpi.ca/ergast/f1/${an}/${nrCursa.value + 1}`;
   const terminare = ".json?limit=100";
 
-  // --- REFACTORED LOGIC ---
-
-  // 1. ALWAYS ATTEMPT TO FETCH MODERN DATA FIRST
-  // This data contains results for ALL sessions (Practice, Quali, Sprint, Race)
-  // We only proceed to fallbacks if this call fails or the data is incomplete.
-  if (nrCursa.value > 9) { // Assuming this condition is correct for your use case
+  if (nrCursa.value > 9) {
     let base_data = null;
     try {
       base_data = await makeRequest(base_practice_link);
@@ -121,14 +111,12 @@ const getData = async () => {
           key,
           ...base_data.sessions[key]
         }));
-        fpResults.value = dataArray.reverse(); // This updates all `hasModern...` computed properties
+        fpResults.value = dataArray.reverse();
       }
     } catch (err) {
       console.error("Could not fetch modern session data. Will try Ergast fallbacks.", err);
     }
   }
-
-  // 2. CHECK FOR EACH SESSION TYPE AND FETCH FALLBACKS *ONLY IF NEEDED*
 
   // Fallback for Race results
   if (!hasModernRaceData.value) {
