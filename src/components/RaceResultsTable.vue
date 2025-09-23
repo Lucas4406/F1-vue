@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-900 p-6 lg:p-8 rounded-lg font-sans w-auto">
     <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-extrabold text-white mb-6">{{ sessionName }}</h2>
+      <h2 class="text-5xl lg:text-4xl font-extrabold text-white mb-6">{{ sessionName }}</h2>
 
       <p v-if="localStartTime" class="text-lg text-gray-400 mb-6 font-mono">
         {{ localStartTime }}
@@ -9,15 +9,15 @@
 
       <div class="shadow-lg rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="w-full text-lg lg:text-md text-left text-gray-300">
-            <thead class="text-xs text-gray-400 uppercase bg-gray-800">
+          <table class="w-full text-xl lg:text-lg text-left text-gray-300">
+            <thead class="text-md lg:text-xs text-gray-400 uppercase bg-gray-800">
             <tr>
               <th scope="col" class="px-4 py-3 sm:px-6">Pos.</th>
               <th scope="col" class="px-4 py-3 sm:px-6">Driver</th>
               <th scope="col" class="px-4 py-3 sm:px-6 hidden md:table-cell">Team</th>
-              <th scope="col" class="px-4 py-3 sm:px-6">Laps</th>
-              <th scope="col" class="px-4 py-3 sm:px-6">Time/RETIRED</th>
               <th scope="col" class="px-4 py-3 sm:px-6">Pts.</th>
+              <th scope="col" class="px-4 py-3 sm:px-6">Time/RETIRED</th>
+              <th scope="col" class="px-4 py-3 sm:px-6">Laps</th>
             </tr>
             </thead>
             <tbody>
@@ -30,7 +30,7 @@
                   class="px-4 sm:px-6 py-4 font-bold text-base text-white text-center"
                   :style="{ 'border-left': `4px solid #${result.teamColourCode}` }"
               >
-                {{ result.positionNumber }}
+                {{ result.positionNumber === "666" ? "NC" : result.positionNumber }}
               </td>
 
               <td class="px-4 sm:px-6 py-4">
@@ -51,8 +51,8 @@
                 {{ result.displayTeamName }}
               </td>
 
-              <td class="px-4 sm:px-6 py-4 font-mono text-gray-300 text-center">
-                {{ result.lapsCompleted }}
+              <td class="px-4 sm:px-6 py-4 font-medium text-gray-300 text-center">
+                {{ result.racePoints ?? result.sprintQualifyingPoints }}
               </td>
 
               <td class="px-4 sm:px-6 py-4 font-mono text-gray-300 text-center">
@@ -67,9 +67,11 @@
                 }}
               </td>
 
-              <td class="px-4 sm:px-6 py-4 font-medium text-gray-300 text-center">
-                {{ result.racePoints ?? result.sprintQualifyingPoints }}
+              <td class="px-4 sm:px-6 py-4 font-mono text-gray-300 text-center">
+                {{ result.lapsCompleted }}
               </td>
+
+
             </tr>
             </tbody>
           </table>

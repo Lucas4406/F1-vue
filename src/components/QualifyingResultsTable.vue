@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-900 p-6 lg:p-8 rounded-lg font-sans w-auto">
     <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-extrabold text-white mb-6">{{ sessionName }}</h2>
+      <h2 class="text-5xl lg:text-4xl font-extrabold text-white mb-6">{{ sessionName }}</h2>
 
       <p v-if="localStartTime" class="text-lg text-gray-400 mb-6 font-mono">
         {{ localStartTime }}
@@ -9,8 +9,8 @@
 
       <div class="shadow-lg rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="w-full text-lg lg:text-md text-left text-gray-300">
-            <thead class="text-xs text-gray-400 uppercase bg-gray-800">
+          <table class="w-full text-xl lg:text-lg text-left text-gray-300">
+            <thead class="text-md lg:text-xs text-gray-400 uppercase bg-gray-800">
             <tr>
               <th scope="col" class="px-4 py-3 sm:px-6">Pos</th>
               <th scope="col" class="px-4 py-3 sm:px-6">Driver</th>
