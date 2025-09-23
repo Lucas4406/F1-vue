@@ -243,7 +243,6 @@ async function fetchProfileVotes() {
   try {
     const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/vote/all-for-id/${store.user.profileId}`);
     if (response) {
-      console.log(response.votes)
       profileVotes.value = response.votes
     }
   } catch (error) {
