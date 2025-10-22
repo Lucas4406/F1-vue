@@ -36,8 +36,6 @@
         <img :src="meetingTrackPhoto" alt="Circuit" class="w-40 rounded-lg shadow-md" />
       </div>
 
-      <p class="text-xl lg:text-lg text-gray-700 mb-6 italic px-4">Please select one option from each category below to submit your vote.</p>
-
       <div v-if="!isUserLoggedIn" class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-md my-6 voting-alert" role="alert">
         <p class="font-bold">Voting Anonymously</p>
         <p class="text-md lg:text-sm mt-1">
@@ -46,6 +44,9 @@
           <router-link to="/signup" class="font-semibold underline hover:text-blue-900">create an account</router-link>.
         </p>
       </div>
+
+      <p class="text-xl lg:text-lg text-gray-700 mb-6 italic px-4">Please select one option from each category below to submit your vote.</p>
+
       <div class="mb-8">
         <h3 class="text-2xl lg:text-xl font-semibold mb-4 text-gray-900 ">🏆 Best Point Scorer</h3>
         <div class="space-y-3">
@@ -130,7 +131,7 @@
       <p v-if="!canSubmit" class="text-xl lg:text-base text-red-600 mt-2">Each category must be selected.</p>
     </div>
 
-    <div class="bg-gray-100 p-4 rounded-xl w-full lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="!waitMessage">
+    <div class="bg-gray-100 p-4 rounded-xl w-full lg:max-w-4xl mx-auto my-8 shadow-lg racefansgrid" v-if="!waitMessage && alreadyVoted">
       <div class="my-4 space-y-8">
         <div>
           <h3 class="text-xl font-semibold text-gray-900">🏆 Top 3 Best Point Scorers</h3>
