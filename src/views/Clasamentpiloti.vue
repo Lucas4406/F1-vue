@@ -111,7 +111,7 @@ export default {
         for (var i = 1; i < data.length; i++) {
           var delta = first - data[i].puncte
           if (delta < 300) {
-            data[i].gapDelta = `Gap to ${firstThree}: ` + JSON.stringify(-delta)
+            data[i].gapDelta = `Gap to ${firstThree}: ` + JSON.stringify(-delta) + "p"
           } else {
             data[i].gapDelta = ""
           }
