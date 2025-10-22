@@ -52,7 +52,7 @@ onMounted(async () => {
   try {
     const [f1, rf] = await Promise.all([
       fetchWithCache("news", `${import.meta.env.VITE_CLOUDFLARE_PROXY_LINK}/v1/editorial/articles?limit=6`),
-      fetchWithCache("news_rf", `${import.meta.env.VITE_API_LINK}/racefans-news`)
+      fetchWithCache("news_rf", `${import.meta.env.VITE_API_LINK}/mongo/stiri-rf/all`)
     ])
     const articles = f1.items
     articles.forEach(articol => {

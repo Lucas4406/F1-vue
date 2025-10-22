@@ -19,54 +19,59 @@
   <CookieBanner />
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, onUnmounted, inject } from 'vue'
 import CookieBanner from "./components/CookieBanner.vue"
 import Navbar from "./components/Navbar.vue"
 import Footertag from "./components/Footer.vue"
-import GreetingPageVue from "./components/GreetingPage.vue"
 import darkModeBtn from "./components/darkModeBtn.vue"
 import { authRequest } from "@/functions/authRequest"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { useCurrentEventStore } from '@/stores/CurrentEventStore'
 
-export default {
-  name: "App",
-  inject: ["store"],
-  components: {
-    Navbar,
-    Footertag,
-    GreetingPageVue,
-    darkModeBtn,
-    CookieBanner
-},
-  data() {
-    return {
-      loaded: false,
-      select: false,
+const store = inject('store')
+const piniaStore = useCurrentEventStore()
+
+// --- state locale ---
+const loaded = ref(false)
+const select = ref(false)
+
+// --- fetch user data ---
+const getUserData = async (uid) => {
+  try {
+    const response = await authRequest('GET', `${import.meta.env.VITE_API_LINK}/profile/${uid}`)
+    if (response) {
+      store.user = response.data
     }
-  },
-  mounted() {
-    const auth = getAuth()
-
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        try {
-          await this.getUserData(user.uid)
-        } catch (err) {
-          console.error("Failed to fetch user data:", err)
-        }
-      }
-      this.loaded = true
-    })
-  },
-  methods: {
-    async getUserData(uid) {
-      const response = await authRequest("GET", `${import.meta.env.VITE_API_LINK}/profile/${uid}`)
-      if (response) {
-        this.store.user = response.data
-      }
-    },
-  },
+  } catch (err) {
+    console.error('Failed to fetch user data:', err)
+  }
 }
+
+let intervalId
+
+onMounted(() => {
+  const auth = getAuth()
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      await getUserData(user.uid)
+    }
+    loaded.value = true
+  })
+
+  piniaStore.fetchData()
+  intervalId = setInterval(() => {
+    piniaStore.fetchData()
+  }, 300_000)
+
+  console.log(piniaStore.items)
+})
+
+
+onUnmounted(() => {
+  clearInterval(intervalId)
+})
 </script>
 
 
