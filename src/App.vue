@@ -65,7 +65,6 @@ onMounted(() => {
     piniaStore.fetchData()
   }, 300_000)
 
-  console.log(piniaStore.items)
 })
 
 

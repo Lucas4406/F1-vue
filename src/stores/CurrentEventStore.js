@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import {fetchF1WithCache} from "@/functions/fetchF1WithCache";
 
 export const useCurrentEventStore = defineStore('data', {
     state: () => ({
@@ -12,7 +12,7 @@ export const useCurrentEventStore = defineStore('data', {
             this.loading = true
             this.error = null
             try {
-                const { data } = await axios.get(`${import.meta.env.VITE_CLOUDFLARE_PROXY_LINK}/v1/event-tracker`)
+                const { data } = await fetchF1WithCache("/v1/event-tracker", 4*60)
                 this.items = data
             } catch (err) {
                 this.error = err.message
