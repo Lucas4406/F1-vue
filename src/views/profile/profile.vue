@@ -139,10 +139,10 @@
       <h2 class="lg:text-4xl text-5xl font-extrabold source text-black">
         Your last votes
       </h2>
-      <div v-for="vote in (showAllVotes ? profileVotes : profileVotes.slice(0,1))" :key="vote.meetingKey" class="w-full">
+      <div v-for="vote in profileVotes" :key="vote.meetingKey" class="w-full">
         <div class="text-center mb-4 flex flex-row justify-between items-center">
           <h2 class="lg:text-4xl text-5xl font-extrabold source text-black">
-            {{vote.meetingData.race.meetingName}}
+            {{vote.meetingData.meetingName}}
           </h2>
   <!--        <p class="text-xl text-gray-600 mt-2 source">-->
   <!--          Current leaders from the fan vote for the-->
@@ -185,7 +185,7 @@
 
       </div>
       <div class="text-center mt-8">
-        <ReusableButton fontSize="text-xl" @click="showAllVotes = !showAllVotes">
+        <ReusableButton fontSize="text-xl" @click="toggleVotes">
           {{ showAllVotes ? "Show Less Votes" : "Show All Votes" }}
         </ReusableButton>
       </div>
@@ -210,6 +210,9 @@ const auth = getAuth()
 const user = auth.currentUser
 const store = inject("store")
 const showAllVotes = ref(false)
+const profileVotes = ref([])   // Lista afișată
+const totalVotes = ref(0)      // Total voturi (pentru a arăta dacă există mai multe)
+const cachedAllVotes = ref([]) // Cache pentru toate voturile
 
 const echipaPref = ref(store.user.favTeam)
 const soferPref = ref(store.user.favDriver)
@@ -227,7 +230,6 @@ const showSelect = ref(false)
 
 const darkMode = ref(false)
 
-const profileVotes = ref([])
 
 const logout = () => {
   signOut(auth).then(() => window.location.replace("/"))
@@ -239,14 +241,41 @@ const getAllTeams = async () => {
   return data
 }
 
-async function fetchProfileVotes() {
+async function fetchProfileVotes(full = false) {
   try {
-    const response = await makeRequest(`${import.meta.env.VITE_API_LINK}/vote/all-for-id/${store.user.profileId}`);
-    if (response) {
+    const url = `${import.meta.env.VITE_API_LINK}/vote/all-for-id/${store.user.profileId}` + (full ? "?full=true" : "")
+    const response = await makeRequest(url)
+
+    if (full) {
+      cachedAllVotes.value = response.votes
       profileVotes.value = response.votes
+    } else {
+      profileVotes.value = response.lastVote ? [response.lastVote] : []
+      totalVotes.value = response.totalVotes || 0
     }
   } catch (error) {
-    console.error("Error fetching profile votes:", error);
+    console.error("Error fetching profile votes:", error)
+  }
+}
+
+async function toggleVotes() {
+  showAllVotes.value = !showAllVotes.value
+
+  if (showAllVotes.value) {
+    // Dacă nu avem deja toate voturile în cache
+    if (!cachedAllVotes.value.length) {
+      await fetchProfileVotes(true)  // full = true
+    } else {
+      // Folosim cache-ul deja existent
+      profileVotes.value = cachedAllVotes.value
+    }
+  } else {
+    // Revine la ultimul vot
+    if (cachedAllVotes.value.length) {
+      profileVotes.value = [cachedAllVotes.value[0]]
+    } else {
+      await fetchProfileVotes(false)
+    }
   }
 }
 
@@ -355,7 +384,7 @@ onMounted(async () => {
   await Promise.all([
     loadFirestoreDrivers(),
     loadFirestoreTeams(),// 🔁
-    fetchProfileVotes(),
+    fetchProfileVotes(false),
   ]);
 
 
