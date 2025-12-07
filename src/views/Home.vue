@@ -9,10 +9,12 @@ import {useHead} from "@vueuse/head";
 import AccountCard from "@/components/AccountCard.vue";
 import ReusablePodium from "@/components/ReusablePodium.vue";
 import ReusableButton from "@/components/ReusableButton.vue";
+import SiteAnnouncement from "@/components/SiteAnnouncement.vue";
 
 export default {
   name: "Home",
   components: {
+    SiteAnnouncement,
     ReusableButton,
     ReusablePodium,
     AccountCard,
@@ -221,6 +223,7 @@ export default {
 <template>
   <div class="site-wrapper mb-2" :class="{ loggedin: store.user != null }">
     <div class="top-hero">
+      <SiteAnnouncement />
       <transition name="scale-fade" appear>
         <div v-if="Hero && heroData">
           <herocursa :heroData="heroData" :link="linkCursa" />
