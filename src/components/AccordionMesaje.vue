@@ -37,7 +37,7 @@
 
 <script>
 import axios from 'axios'
-import getNext from "@/functions/getNext";
+import currentOrNextRoundNr from "@/functions/currentOrNextRoundNr";
 
 export default {
   name: 'AccordionMesaje',
@@ -81,7 +81,7 @@ export default {
       return date.data
     },
     async checkCurrent () {
-      const response = await this.fetchData(`https://api.jolpi.ca/ergast/f1/2025.json?limit=100`)
+      const response = await this.fetchData(`https://api.jolpi.ca/ergast/f1/2026.json?limit=100`)
       const resData = response.MRData.RaceTable.Races
       this.curse = resData
       for(let i = 0 ; i<resData.length; i++) {
@@ -89,8 +89,7 @@ export default {
           this.nrCursa = i
         }
       }
-      const nrRunda = await getNext
-      this.nrRundaActuala = nrRunda.meetingContext.nr_runda
+      this.nrRundaActuala = await currentOrNextRoundNr
     },
     formatDate(dateStr) {
       const options = {

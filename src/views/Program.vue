@@ -151,6 +151,7 @@ import Calendar from "@/components/Calendar.vue"
 import {useHead} from "@vueuse/head";
 import ProgramHero from "@/components/ProgramHero.vue"
 import {makeRequest} from "@/functions/makeRequest";
+import currentOrNextRoundNr from "@/functions/currentOrNextRoundNr";
 
 export default {
   name: "Program",
@@ -194,10 +195,9 @@ export default {
   },
   methods: {
     async getCurse() {
-      const res = await getNext
-      const cursaActuala = res.meetingContext.nr_runda
+      const cursaActuala = await currentOrNextRoundNr
 
-      let link = "https://api.jolpi.ca/ergast/f1/2025/races.json?limit=100"
+      let link = "https://api.jolpi.ca/ergast/f1/2026/races.json?limit=100"
       const response = await makeRequest(link)
       const resData = response.MRData.RaceTable.Races
       this.curse = resData
